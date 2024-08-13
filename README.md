@@ -1,2 +1,4 @@
 # docs
-documentation w/ ox-hugo
+docs.mor-gan.com
+docs.mor-gan.com
+docs.mor-gan.com
