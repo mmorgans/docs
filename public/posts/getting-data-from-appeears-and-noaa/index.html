@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Getting data from AppEEARS and NOAA | morgan docs</title>
+<meta name="keywords" content="rgee">
+<meta name="description" content="Data types (link to method of gathering) MAT (Mean Annual Temperature) Average yearly temperature. MAP (Mean Annual Precipitation) Average yearly precipitation. GPP (Gross Primary Productivity) Total amount of energy captured by plants. Does not account for respiration losses. NPP (Net Primary Productivity) Amount of energy that remains after plants have used some of the captured energy for their own respiration. Actual amount of new biomass that is available for consumption by other critters.">
+<meta name="author" content="Morgan Salisbury">
+<link rel="canonical" href="http://localhost:1313/posts/getting-data-from-appeears-and-noaa/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/getting-data-from-appeears-and-noaa/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Getting data from AppEEARS and NOAA
+    </h1>
+    <div class="post-meta"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;Morgan Salisbury
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="data-types--link-to-method-of-gathering">Data types (link to method of gathering)<a hidden class="anchor" aria-hidden="true" href="#data-types--link-to-method-of-gathering">#</a></h2>
+<ul>
+<li><a href="#mat">MAT (Mean Annual Temperature)</a>
+<ul>
+<li>Average yearly temperature.</li>
+</ul>
+</li>
+<li><a href="#map">MAP (Mean Annual Precipitation)</a>
+<ul>
+<li>Average yearly precipitation.</li>
+</ul>
+</li>
+<li><a href="#gpp">GPP (Gross Primary Productivity)</a>
+<ul>
+<li>Total amount of energy captured by plants. Does not account for respiration losses.</li>
+</ul>
+</li>
+<li><a href="#npp">NPP (Net Primary Productivity)</a>
+<ul>
+<li>Amount of energy that remains after plants have used some of the captured energy for their own respiration. Actual amount of new biomass that is available for consumption by other critters. NPP = GPP - Respiration</li>
+</ul>
+</li>
+<li><a href="#pet">PET (Potential Evapotranspiration)</a>
+<ul>
+<li>Amount of water that would be evaporated and transpired by vegetation if there was sufficient water available. Atmospheric demand for water.</li>
+</ul>
+</li>
+<li><a href="#aet-et">AET, ET (Actual Evapotranspiration)</a>  - Actual amount of water that is evaporated from soil and transpired by vegetation. Less than or equal to PET. Depends on availability of water.</li>
+<li><a href="#di">DI (Dryness Index)</a>
+<ul>
+<li>PET / MAP</li>
+</ul>
+</li>
+<li><a href="#ep">EP (Evaporation Potential)</a>
+<ul>
+<li>1 - (PET /MAP)</li>
+</ul>
+</li>
+</ul>
+<h2 id="sites">Sites<a hidden class="anchor" aria-hidden="true" href="#sites">#</a></h2>
+<p>This data was gathered from many sites across the globe. Sites were sorted with a RegionName, SiteName, and Pit.</p>
+<table>
+<thead>
+<tr>
+<th>RegionName</th>
+<th>SiteName</th>
+<th>Pit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Calhoun</td>
+<td>R7</td>
+<td>R7P2</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R2</td>
+<td>R2P1</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R7</td>
+<td>R7P1</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R8</td>
+<td>R8P1</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R8</td>
+<td>R8P2.5</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R8</td>
+<td>R8P2</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R1</td>
+<td>R1C2</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R1</td>
+<td>R1C3</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R2</td>
+<td>R2H1</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R7</td>
+<td>R7H1</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R7</td>
+<td>R7H2</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R8</td>
+<td>R8H1</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R8</td>
+<td>R8H2.5</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R8</td>
+<td>R8H2</td>
+</tr>
+<tr>
+<td>Luquillo</td>
+<td>ElVerde</td>
+<td>ElVerdeM</td>
+</tr>
+<tr>
+<td>Luquillo</td>
+<td>ElVerde</td>
+<td>ElVerdeR</td>
+</tr>
+<tr>
+<td>Luquillo</td>
+<td>ElVerde</td>
+<td>ElVerdeT</td>
+</tr>
+<tr>
+<td>Luquillo</td>
+<td>Icacos</td>
+<td>IcacosM</td>
+</tr>
+<tr>
+<td>Luquillo</td>
+<td>Icacos</td>
+<td>IcacosR</td>
+</tr>
+<tr>
+<td>Luquillo</td>
+<td>Icacos</td>
+<td>IcacosT</td>
+</tr>
+<tr>
+<td>Catalina</td>
+<td>MixedCon</td>
+<td>MC_M</td>
+</tr>
+<tr>
+<td>Catalina</td>
+<td>MixedCon</td>
+<td>MC_R</td>
+</tr>
+<tr>
+<td>Catalina</td>
+<td>MixedCon</td>
+<td>MC_T</td>
+</tr>
+<tr>
+<td>Catalina</td>
+<td>BigelowDesert</td>
+<td>B2D_M</td>
+</tr>
+<tr>
+<td>Catalina</td>
+<td>BigelowDesert</td>
+<td>B2D_R</td>
+</tr>
+<tr>
+<td>Catalina</td>
+<td>BigelowDesert</td>
+<td>B2D_T</td>
+</tr>
+<tr>
+<td>ReynoldsCr</td>
+<td>NorthBasalt</td>
+<td>NB_R</td>
+</tr>
+<tr>
+<td>ReynoldsCr</td>
+<td>NorthBasalt</td>
+<td>NB_T</td>
+</tr>
+<tr>
+<td>ReynoldsCr</td>
+<td>NorthLoess</td>
+<td>NL_T</td>
+</tr>
+<tr>
+<td>ReynoldsCr</td>
+<td>SWBasalt</td>
+<td>SWB_M</td>
+</tr>
+<tr>
+<td>ReynoldsCr</td>
+<td>SWBasalt</td>
+<td>SWB_T</td>
+</tr>
+<tr>
+<td>ReynoldsCr</td>
+<td>SWLoess</td>
+<td>SWL_T</td>
+</tr>
+<tr>
+<td>SouthernSierra</td>
+<td>SJER</td>
+<td>SJER_M</td>
+</tr>
+<tr>
+<td>SouthernSierra</td>
+<td>SJER</td>
+<td>SJER_R</td>
+</tr>
+<tr>
+<td>SouthernSierra</td>
+<td>SJER</td>
+<td>SJER_T</td>
+</tr>
+<tr>
+<td>DukeFarm</td>
+<td>DukeFarm</td>
+<td>DFPasture</td>
+</tr>
+<tr>
+<td>EKS</td>
+<td>Ottawa</td>
+<td>EKSAgri</td>
+</tr>
+<tr>
+<td>EKS</td>
+<td>Welda</td>
+<td>EKSNative</td>
+</tr>
+<tr>
+<td>EKS</td>
+<td>Welda</td>
+<td>EKSPostAg</td>
+</tr>
+<tr>
+<td>KNZ</td>
+<td>KNZ</td>
+<td>KNZNative</td>
+</tr>
+<tr>
+<td>KNZ</td>
+<td>KNZ</td>
+<td>KNZAgri</td>
+</tr>
+<tr>
+<td>KNZ</td>
+<td>KNZ</td>
+<td>KNZPostAg</td>
+</tr>
+<tr>
+<td>HAY</td>
+<td>HAY</td>
+<td>HAYNative</td>
+</tr>
+<tr>
+<td>HAY</td>
+<td>HAY</td>
+<td>HAYAgri</td>
+</tr>
+<tr>
+<td>HAY</td>
+<td>HAY</td>
+<td>HAYPostAg</td>
+</tr>
+<tr>
+<td>TRB</td>
+<td>TRB</td>
+<td>TRBNative</td>
+</tr>
+<tr>
+<td>TRB</td>
+<td>TRB</td>
+<td>TRBAgri</td>
+</tr>
+<tr>
+<td>TRB</td>
+<td>TRB</td>
+<td>TRBAgriIrrig</td>
+</tr>
+<tr>
+<td>TRB</td>
+<td>TRB</td>
+<td>TRBPostAg</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC1</td>
+<td>CC1_2020</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC2</td>
+<td>CC2_2020</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC2</td>
+<td>CC2_2022</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC3</td>
+<td>CC3_2021</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC3</td>
+<td>CC3_2022</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC4</td>
+<td>CC4_2021</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC5</td>
+<td>CC5_2021</td>
+</tr>
+<tr>
+<td>Konza</td>
+<td>GrassyToe</td>
+<td>GrToeN01B</td>
+</tr>
+<tr>
+<td>Konza</td>
+<td>WoodyToe</td>
+<td>WdToeN04D</td>
+</tr>
+<tr>
+<td>Konza</td>
+<td>GrassyBackslope</td>
+<td>GrBackslN01B</td>
+</tr>
+<tr>
+<td>Konza</td>
+<td>WoodyBackslope</td>
+<td>WdBackslN04D</td>
+</tr>
+<tr>
+<td>Konza</td>
+<td>GrassySummit</td>
+<td>GrSummN01B</td>
+</tr>
+<tr>
+<td>Konza</td>
+<td>WoodySummit</td>
+<td>WdSummN04D</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS01</td>
+<td>NF_Y_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS01</td>
+<td>SF_Y_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS02</td>
+<td>NF_O_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS02</td>
+<td>SF_O_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS03</td>
+<td>NF_O_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS03</td>
+<td>NF_Y_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS03</td>
+<td>SF_O_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS03</td>
+<td>SF_Y_A</td>
+</tr>
+<tr>
+<td>Alps</td>
+<td>Glacier</td>
+<td>Alps1</td>
+</tr>
+<tr>
+<td>Alps</td>
+<td>GlacierRidge</td>
+<td>Alps2</td>
+</tr>
+<tr>
+<td>Alps</td>
+<td>Limestone</td>
+<td>Alps3</td>
+</tr>
+<tr>
+<td>Alps</td>
+<td>Gneiss</td>
+<td>Alps5</td>
+</tr>
+<tr>
+<td>Alps</td>
+<td>Alluvial</td>
+<td>Alps6</td>
+</tr>
+<tr>
+<td>NH</td>
+<td>ThompsonPasture</td>
+<td>NH_TP</td>
+</tr>
+<tr>
+<td>NH</td>
+<td>ThompsonForest</td>
+<td>NH_TF</td>
+</tr>
+<tr>
+<td>NH</td>
+<td>OrganicPasture</td>
+<td>NH_OP</td>
+</tr>
+<tr>
+<td>NH</td>
+<td>OrganicForest</td>
+<td>NH_OF</td>
+</tr>
+</tbody>
+</table>
+<h2 id="process">Process<a hidden class="anchor" aria-hidden="true" href="#process">#</a></h2>
+<h3 id="mat">MAT<a hidden class="anchor" aria-hidden="true" href="#mat">#</a></h3>
+<p>Gathered mainly from <a href="https://www.ncei.noaa.gov/maps/annual/">NCEI at NOAA</a>.</p>
+<ul>
+<li>Turn on the &ldquo;Annual Normals (2006-2020)&rdquo; map layer, and disable the &ldquo;Global Summary of the Year&rdquo; layer.</li>
+<li>Put coords into floating search box, and find a station near enough to the site to be relevant.</li>
+<li>Click the wrench on &ldquo;Annual Normals (2006-2020)&rdquo;, and use the rectangle tool to make a box around the station, just enough to select it.</li>
+<li>Select the station in the menu that appears on the left side of the page, and add to cart.</li>
+<li>In the new tab, click &ldquo;Show List&rdquo; under the &ldquo;Data Types&rdquo; text field.</li>
+<li>Type, filter, and select both &ldquo;Annual average temperature mean&rdquo; and &ldquo;Annual precipitation totals&rdquo;</li>
+<li>In the downloaded .csv, precip is labeled as ANN-PRCP-NORMAL, and temperature is labeled as ANN-TAVG-NORMAL.</li>
+</ul>
+<h3 id="map">MAP<a hidden class="anchor" aria-hidden="true" href="#map">#</a></h3>
+<p>Gathered mainly from <a href="https://www.ncei.noaa.gov/maps/annual/">NCEI at NOAA</a>.</p>
+<ul>
+<li>Turn on the &ldquo;Annual Normals (2006-2020)&rdquo; map layer, and disable the &ldquo;Global Summary of the Year&rdquo; layer.</li>
+<li>Put coords into floating search box, and find a station near enough to the site to be relevant.</li>
+<li>Click the wrench on &ldquo;Annual Normals (2006-2020)&rdquo;, and use the rectangle tool to make a box around the station, just enough to select it.</li>
+<li>Select the station in the menu that appears on the left side of the page, and add to cart.</li>
+<li>In the new tab, click &ldquo;Show List&rdquo; under the &ldquo;Data Types&rdquo; text field.</li>
+<li>Type, filter, and select both &ldquo;Annual average temperature mean&rdquo; and &ldquo;Annual precipitation totals&rdquo;</li>
+<li>In the downloaded .csv, precip is labeled as ANN-PRCP-NORMAL, and temperature is labeled as ANN-TAVG-NORMAL.</li>
+</ul>
+<h3 id="npp">NPP<a hidden class="anchor" aria-hidden="true" href="#npp">#</a></h3>
+<p>NPP data is gathered from <a href="https://appeears.earthdatacloud.nasa.gov/">AppEEARS</a>.</p>
+<ul>
+<li>Navigate to Extract &gt; Point, and make an account if you haven&rsquo;t.</li>
+<li>Start a new request.</li>
+<li>Name the request, and put your coordinates in the text box on the right. Comma seperated, the text should look like <em>ID, Category, Lat, Long</em>.
+<ul>
+<li>You can alternatively upload a .csv with the same formatting, useful for large pulls.</li>
+</ul>
+</li>
+<li>Set the dates. For this process, I was pulling from Jan 1, 2006 - Dec 31, 2021.</li>
+<li>Scroll down to select layers to include in the sample.</li>
+<li>NPP is the first result. Make sure the data is yearly, not 8-day.</li>
+<li>Add other products if you wish, and submit the request.</li>
+<li>Depending on the size of the data requested, it can take up to a couple hours to process.</li>
+</ul>
+<h3 id="pet">PET<a hidden class="anchor" aria-hidden="true" href="#pet">#</a></h3>
+<p>PET data is gathered from <a href="https://appeears.earthdatacloud.nasa.gov/">AppEEARS</a>.</p>
+<ul>
+<li>Navigate to Extract &gt; Point, and make an account if you haven&rsquo;t.</li>
+<li>Start a new request.</li>
+<li>Name the request, and put your coordinates in the text box on the right. Comma seperated, the text should look like <em>ID, Category, Lat, Long</em>.
+<ul>
+<li>You can alternatively upload a .csv with the same formatting, useful for large pulls.</li>
+</ul>
+</li>
+<li>Set the dates. For this process, I was pulling from Jan 1, 2006 - Dec 31, 2021.</li>
+<li>Scroll down to select layers to include in the sample.</li>
+<li>Search for &ldquo;Evapo yearly&rdquo; select the first option.</li>
+<li>PET is labeled &ldquo;PET&rdquo;, and AET is labeled &ldquo;ET&rdquo;.</li>
+<li>Depending on the size of the data requested, it can take up to a couple hours to process.</li>
+</ul>
+<h3 id="aet-et">AET, ET<a hidden class="anchor" aria-hidden="true" href="#aet-et">#</a></h3>
+<p>AET data is gathered from <a href="https://appeears.earthdatacloud.nasa.gov/">AppEEARS</a>.</p>
+<ul>
+<li>Navigate to Extract &gt; Point, and make an account if you haven&rsquo;t.</li>
+<li>Start a new request.</li>
+<li>Name the request, and put your coordinates in the text box on the right. Comma seperated, the text should look like <em>ID, Category, Lat, Long</em>.
+<ul>
+<li>You can alternatively upload a .csv with the same formatting, useful for large pulls.</li>
+</ul>
+</li>
+<li>Set the dates. For this process, I was pulling from Jan 1, 2006 - Dec 31, 2021.</li>
+<li>Scroll down to select layers to include in the sample.</li>
+<li>Search for &ldquo;Evapo yearly&rdquo; select the first option.</li>
+<li>PET is labeled &ldquo;PET&rdquo;, and AET is labeled &ldquo;ET&rdquo;.</li>
+<li>Depending on the size of the data requested, it can take up to a couple hours to process.</li>
+</ul>
+<h3 id="di">DI<a hidden class="anchor" aria-hidden="true" href="#di">#</a></h3>
+<ul>
+<li>DI and EP are calculated with PET and MAP products.</li>
+<li>PET / MAP</li>
+</ul>
+<h3 id="ep">EP<a hidden class="anchor" aria-hidden="true" href="#ep">#</a></h3>
+<ul>
+<li>EP and Di are calculated with PET and MAP products.</li>
+<li>1 - (PET / MAP)</li>
+</ul>
+<h3 id="gpp">GPP<a hidden class="anchor" aria-hidden="true" href="#gpp">#</a></h3>
+<p>GPP data is gathered from <a href="https://appeears.earthdatacloud.nasa.gov/">AppEEARS</a>.</p>
+<ul>
+<li>
+<p>Navigate to Extract &gt; Point, and make an account if you haven&rsquo;t.</p>
+</li>
+<li>
+<p>Start a new request.</p>
+</li>
+<li>
+<p>Name the request, and put your coordinates in the text box on the right. Comma seperated, the text should look like <em>ID, Category, Lat, Long</em>.</p>
+<ul>
+<li>You can alternatively upload a .csv with the same formatting, useful for large pulls.</li>
+</ul>
+</li>
+<li>
+<p>Set the dates. For this project, I was pulling from Jan 1, 2006 - Dec 31, 2021.</p>
+</li>
+<li>
+<p>Scroll down to select layers to include in the sample.</p>
+</li>
+<li>
+<p>GPP is only available in 8-day, which creates an extremely obnoxious problem - I solved this problem with an R script</p>
+</li>
+<li>
+<p>If you need to calculate yearly GPP for many different sites, the first script is intended for that purpose.</p>
+</li>
+<li>
+<p>If you only need to calculate yearly GPP for one single site, then scroll down for instructions.</p>
+</li>
+</ul>
+<h2 id="initial-dot-csv-setup">Initial .csv setup<a hidden class="anchor" aria-hidden="true" href="#initial-dot-csv-setup">#</a></h2>
+<ul>
+<li>Before you begin, we will need to edit the excel file that AppEEARS gives us.
+<ul>
+<li>Keep only the needed columns: ID, Category, Latitude, Longitude, Date and GPP - Note that the actual GPP column is labeled something like &ldquo;MOD17A2HGF_061_Gpp_500m&rdquo;
+<ul>
+<li>There are many extra columns that you will need to delete.</li>
+<li>Rename the GPP column to &ldquo;GPP&rdquo;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Create a new column called &ldquo;Year&rdquo;. The goal is to have this column have the year in YYYY format for every sample.
+<ul>
+<li>In the first cell (Should be E2 or F2), enter &ldquo;=YEAR(D2)&rdquo;, where D2 refers to your date column. Change the cell type to &ldquo;General&rdquo; - you should see a year in YYYY format.</li>
+<li>Extend this formula down to fill in the whole Year column.</li>
+<li>Copy the whole column, and then Edit &gt; Paste Special&hellip;, and select Values. This replaces the context dependent cells with ones that just have the year.</li>
+</ul>
+</li>
+<li>The list of columns should be ID, Category, Latitude, Longitude, Date, Year, GPP.</li>
+<li>&ldquo;appears.csv&rdquo; refers to the downloaded .csv - either rename your file or change this to call in the file that contains the downloaded data.</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Multiple sites</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(dplyr)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># sets initial df as the sanitzed, edited .csv</span>
+</span></span><span style="display:flex;"><span>  df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;appeears.csv&#34;</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># sets output to not be in scientific notation</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">options</span>(scipen <span style="color:#f92672">=</span> <span style="color:#ae81ff">999</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># checking the df to make sure all good.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># I had to mess around in excel a bit to get rid of empty rows at the bottom.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">head</span>(df)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tail</span>(df)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># set object to sum all the 8day GPP values</span>
+</span></span><span style="display:flex;"><span>  summarized_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(GPP <span style="color:#f92672">~</span> Category <span style="color:#f92672">+</span> Year, data<span style="color:#f92672">=</span>df, sum, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># The goal was to take the sum values and keep the Site and Pit labels</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   in the sheet.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">names</span>(summarized_data)<span style="color:#a6e22e">[names</span>(summarized_data) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;GPP&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;total_GPP&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Gets rid of duplicates for Category and Year rows.</span>
+</span></span><span style="display:flex;"><span>  unique_rows <span style="color:#f92672">&lt;-</span> df[<span style="color:#f92672">!</span><span style="color:#a6e22e">duplicated</span>(df[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Category&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>)]), ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># set object to merge the sum&#39;d GPPs and the category and year</span>
+</span></span><span style="display:flex;"><span>  summarized_all_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge</span>(unique_rows, summarized_data, by<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Category&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># export a .csv with the above</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">write.csv</span>(summarized_all_data, <span style="color:#e6db74">&#34;annual_gpp.csv&#34;</span>, row.names<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># New goal: to average each sites GPP values across all the defined years 2006-2021</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># removed stray 2005 8day values from output .csv in excel</span>
+</span></span><span style="display:flex;"><span>  df2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;annual_gpp.csv&#34;</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#checking df2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">head</span>(df2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># ALERT!! I open the annual_gpp.csv here and rename columns to be &#34;Pit&#34; and &#34;Site&#34;, accordingly.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># adds mean of total_GPP, and sets that to be average_GPP</span>
+</span></span><span style="display:flex;"><span>  average_GPP <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(total_GPP <span style="color:#f92672">~</span> Pit, data <span style="color:#f92672">=</span> df2, FUN <span style="color:#f92672">=</span> mean)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># takes average_GPP value and merges it with all the label columns</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># sorts by Pit</span>
+</span></span><span style="display:flex;"><span>  merged_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge</span>(average_GPP, df2<span style="color:#a6e22e">[c</span>(<span style="color:#e6db74">&#34;Site&#34;</span>, <span style="color:#e6db74">&#34;Pit&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>, <span style="color:#e6db74">&#34;Latitude&#34;</span>, <span style="color:#e6db74">&#34;Longitude&#34;</span>)]
+</span></span><span style="display:flex;"><span>                       , by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Pit&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># removes duplicates</span>
+</span></span><span style="display:flex;"><span>  merged_data <span style="color:#f92672">&lt;-</span> merged_data[<span style="color:#f92672">!</span><span style="color:#a6e22e">duplicated</span>(merged_data<span style="color:#f92672">$</span>Pit), ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#  exports a csv with all of that stuff. Hip Hip hooray</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">write.csv</span>(merged_data, file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;time_averaged_GPP.csv&#34;</span>, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span></code></pre></div></li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Single site</p>
+<p>If you only are processing GPP data from one site, then some slight modifications are needed for the script to function.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(dplyr)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># sets initial df as the sanitized, edited data</span>
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;appeears.csv&#34;</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># sets output to not be in scientific notation</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(scipen <span style="color:#f92672">=</span> <span style="color:#ae81ff">999</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># checking the df to make sure all good</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(df)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">tail</span>(df)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># set object to sum all the 8day GPP values</span>
+</span></span><span style="display:flex;"><span>summarized_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(GPP <span style="color:#f92672">~</span> Year, data<span style="color:#f92672">=</span>df, sum, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># The goal was to take the sum values and keep the Site and Pit labels in the sheet</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(summarized_data)<span style="color:#a6e22e">[names</span>(summarized_data) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;GPP&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;total_GPP&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Gets rid of duplicates for Year rows</span>
+</span></span><span style="display:flex;"><span>unique_rows <span style="color:#f92672">&lt;-</span> df[<span style="color:#f92672">!</span><span style="color:#a6e22e">duplicated</span>(df<span style="color:#f92672">$</span>Year), ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># set object to merge the summed GPPs and the year</span>
+</span></span><span style="display:flex;"><span>summarized_all_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge</span>(unique_rows, summarized_data, by<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Year&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># export a .csv with the above</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">write.csv</span>(summarized_all_data, <span style="color:#e6db74">&#34;annual_gpp.csv&#34;</span>, row.names<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Read the exported .csv</span>
+</span></span><span style="display:flex;"><span>df2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;annual_gpp.csv&#34;</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Checking df2</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(df2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Calculate the average of total_GPP for each combination of Latitude and Longitude</span>
+</span></span><span style="display:flex;"><span>average_GPP <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(total_GPP <span style="color:#f92672">~</span> Latitude <span style="color:#f92672">+</span> Longitude, data <span style="color:#f92672">=</span> df2, FUN <span style="color:#f92672">=</span> mean)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Rename the average GPP column</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(average_GPP)<span style="color:#a6e22e">[names</span>(average_GPP) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;total_GPP&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;average_GPP&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Merge the average GPP values with the original data to keep all necessary columns</span>
+</span></span><span style="display:flex;"><span>merged_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge</span>(average_GPP, df2[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;ID&#34;</span>, <span style="color:#e6db74">&#34;Latitude&#34;</span>, <span style="color:#e6db74">&#34;Longitude&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>)], by <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Latitude&#34;</span>, <span style="color:#e6db74">&#34;Longitude&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Remove duplicates to ensure each Latitude-Longitude combination appears only once</span>
+</span></span><span style="display:flex;"><span>merged_data <span style="color:#f92672">&lt;-</span> merged_data[<span style="color:#f92672">!</span><span style="color:#a6e22e">duplicated</span>(merged_data[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Latitude&#34;</span>, <span style="color:#e6db74">&#34;Longitude&#34;</span>)]), ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Export a csv with the averaged GPP values</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">write.csv</span>(merged_data, file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;final_averaged_GPP.csv&#34;</span>, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span></code></pre></div></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/rgee/">Rgee</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="http://localhost:1313/">morgan docs</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
