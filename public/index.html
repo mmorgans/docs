@@ -20,6 +20,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="http://localhost:1313/index.xml">
+<link rel="alternate" type="application/json" href="http://localhost:1313/index.json">
 <link rel="alternate" hreflang="en" href="http://localhost:1313/">
 <noscript>
     <style>
@@ -100,6 +101,11 @@
             </div>
         </div>
         <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/search/" title="search (Alt &#43; /)" accesskey=/>
+                    <span>search</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -186,13 +192,12 @@ This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS 
     </h2>
   </header>
   <div class="entry-content">
-    <p>n}
-Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.
+    <p>Introduction Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.
 Calling variables Load and initialize rgee first!
 Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.
 aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I’ll use the MODIS land cover datasets....</p>
   </div>
-  <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Morgan Salisbury</footer>
+  <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;1 min</footer>
   <a class="entry-link" aria-label="post link to Using variables in rgee" href="http://localhost:1313/posts/using-variables-in-rgee/"></a>
 </article>
 
@@ -208,9 +213,9 @@ aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, 
     </h2>
   </header>
   <div class="entry-content">
-    <p>�����������</p>
+    <p>hello test</p>
   </div>
-  <footer class="entry-footer">1 min&nbsp;·&nbsp;Morgan Salisbury</footer>
+  <footer class="entry-footer">1 min</footer>
   <a class="entry-link" aria-label="post link to Mapping DI and EP with rgee" href="http://localhost:1313/posts/mapping-di-and-ep-with-rgee/"></a>
 </article>
     </main>

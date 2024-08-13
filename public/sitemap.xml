@@ -37,5 +37,7 @@
     <loc>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</loc>
   </url><url>
     <loc>http://localhost:1313/tags/maps/</loc>
+  </url><url>
+    <loc>http://localhost:1313/search/</loc>
   </url>
 </urlset>

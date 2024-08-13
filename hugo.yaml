@@ -2,6 +2,12 @@ baseURL: https://docs.mor-gan.com/
 languageCode: en-us
 title: morgan docs
 theme: papermod
+menu:
+  main:
+    - identifier: search
+      name: search
+      url: /search/
+      weight: 10
 markup:
   goldmark:
     renderer:
@@ -17,3 +23,21 @@ params:
   socialIcons: # optional
     - name: "email"
       url: "mailto:morgan@mor-gan.com"
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    # limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
+    keys: ["title", "permalink", "summary", "content"]
+  editPost:
+    URL: "https://github.com/mmorgans/docs"
+    Text: "suggest changes" # edit text
+    appendFilePath: true # to append file path to Edit link
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # necessary for search

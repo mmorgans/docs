@@ -760,4 +760,14 @@ write.csv(merged_data, file = "final_averaged_GPP.csv", row.names = FALSE)
 :EXPORT_FILE_NAME: Mapping-DI-and-EP-with-rgee
 :END:
 
-Hello Bro
+
+
+
+hello test
+
+
+
+* COMMENT Local Variables                          :ARCHIVE:
+# Local Variables:
+# eval: (org-hugo-auto-export-mode -1)
+# End:
