@@ -9,7 +9,7 @@ markup:
 params:
   homeInfoParams:
     Title: docs
-    Content:
+    Content: r, gee, emacs, etc.
   ShowReadingTime: true
   ShowToc: true
   ShowBreadCrumbs: true
