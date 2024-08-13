@@ -754,11 +754,6 @@ merged_data <- merged_data[!duplicated(merged_data[, c("Latitude", "Longitude")]
 # Export a csv with the averaged GPP values
 write.csv(merged_data, file = "final_averaged_GPP.csv", row.names = FALSE)
 #+end_src
-* DONE Using variables in rgee                                             :rgee:
-CLOSED: [2024-08-13 Tue 11:37]
-:PROPERTIES:
-:EXPORT_FILE_NAME: using-variables-in-rgee
-:END:
 
 * TODO Mapping DI and EP with rgee :rgee:maps:
 :PROPERTIES:
