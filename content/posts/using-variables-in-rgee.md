@@ -1,6 +1,5 @@
 +++
 title = "Using variables in rgee"
-author = ["Morgan Salisbury"]
 date = 2024-08-13T11:37:00-05:00
 tags = ["rgee"]
 draft = false

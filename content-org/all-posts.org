@@ -1,5 +1,5 @@
 #+hugo_base_dir: ../
-
+#+options: author:nil
 * DONE Setting up rgee                                             :rgee:R:
 CLOSED: [2024-08-13 Tue 11:37]
 :PROPERTIES:

@@ -47,7 +47,8 @@ This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS 
       <link>http://localhost:1313/posts/using-variables-in-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/using-variables-in-rgee/</guid>
-      <description>Introduction Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.
+      <description>n}
+Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.
 Calling variables Load and initialize rgee first!
 Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.
 aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I&amp;rsquo;ll use the MODIS land cover datasets.</description>
@@ -57,7 +58,7 @@ aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this examp
       <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
-      <description>Hello Bro</description>
+      <description>�����������</description>
     </item>
   </channel>
 </rss>
