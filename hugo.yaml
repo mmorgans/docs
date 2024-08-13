@@ -1,10 +1,19 @@
 baseURL: https://docs.mor-gan.com/
 languageCode: en-us
 title: morgan docs
-module:
-  imports:
-    - path: github.com/adityatelange/hugo-PaperMod
+theme: papermod
 markup:
   goldmark:
     renderer:
       unsafe: true
+params:
+  homeInfoParams:
+    Title: docs
+    Content:
+  ShowReadingTime: true
+  ShowToc: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  socialIcons: # optional
+    - name: "email"
+      url: "mailto:morgan@mor-gan.com"
