@@ -1,0 +1,8 @@
+#+hugo_base_dir: ../
+
+* TODO Setting up rgee                                             :tag1:@category1:
+CLOSED: [2024-08-13 Tue 11:20]
+:PROPERTIES:
+:EXPORT_FILE_NAME: my-first-post
+:END:
+This is my post body
