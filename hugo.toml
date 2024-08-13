@@ -8,3 +8,4 @@ title = 'morgan docs'
 
 [markup.goldmark.renderer]
     unsafe = true
+

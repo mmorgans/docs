@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Setting up rgee | morgan docs</title>
+<meta name="keywords" content="rgee, R">
+<meta name="description" content="Introduction From the rgee github page: &ldquo;rgee is an R binding package for calling Google Earth Engine API from within R. Various functions are implemented to simplify the connection with the R spatial ecosystem.&rdquo;
+This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven&rsquo;t tested it.">
+<meta name="author" content="Morgan Salisbury">
+<link rel="canonical" href="http://localhost:1313/posts/setting-up-rgee/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/setting-up-rgee/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Setting up rgee
+    </h1>
+    <div class="post-meta"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;Morgan Salisbury
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>From the <a href="https://github.com/r-spatial/rgee">rgee github page</a>: &ldquo;rgee is an R binding package for calling Google Earth Engine API from within R. Various functions are implemented to simplify the connection with the R spatial ecosystem.&rdquo;</p>
+<p>This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven&rsquo;t tested it.</p>
+<h2 id="prerequisites">Prerequisites<a hidden class="anchor" aria-hidden="true" href="#prerequisites">#</a></h2>
+<ul>
+<li>R and RStudio (or other IDE)</li>
+<li>Google Earth Engine account.
+<ul>
+<li>Create a GEE project to work in.</li>
+</ul>
+</li>
+<li>A healthy mindset 😊</li>
+</ul>
+<h2 id="installation">Installation<a hidden class="anchor" aria-hidden="true" href="#installation">#</a></h2>
+<p>Install rgee, geojsonio and miniconda.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;rgee&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;reticulate&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;geojsonio&#39;</span>)
+</span></span><span style="display:flex;"><span>reticulate<span style="color:#f92672">::</span><span style="color:#a6e22e">install_miniconda</span>()
+</span></span></code></pre></div><h2 id="setup">Setup<a hidden class="anchor" aria-hidden="true" href="#setup">#</a></h2>
+<p>Load the packages.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(rgee)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(geojsonio)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(reticulate)
+</span></span></code></pre></div><p>Install dependencies and double check to make sure everything is up to date.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>rgee<span style="color:#f92672">::</span><span style="color:#a6e22e">ee_install</span>()
+</span></span><span style="display:flex;"><span>rgee<span style="color:#f92672">::</span><span style="color:#a6e22e">ee_install_upgrade</span>()
+</span></span></code></pre></div><p>By this point, you should be ready to initialize rgee. To double check everything is ready, run a</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">ee_check</span>()
+</span></span></code></pre></div><p>to make sure. <em>Note: If the previous command complains about an argument being of length zero, it should be fine to ignore it and carry on.</em></p>
+<h2 id="initializing">Initializing<a hidden class="anchor" aria-hidden="true" href="#initializing">#</a></h2>
+<p>If you haven&rsquo;t already, you will need to create a new project to work in. This process is semi annoying if you haven&rsquo;t already done it before, full disclaimer.</p>
+<p>Navigate over to <a href="https://code.earthengine.google.com">the GEE code editor</a> and click on your profile picture in the top right. Click &ldquo;Register a new Cloud Project&rdquo;. Assuming this is correct, click &ldquo;Register a Noncommercial or Commercial project&rdquo; and then select &ldquo;Unpaid usage&rdquo;. Select the relevent project type in the dropdown menu.</p>
+<p>On the next screen, choose &ldquo;Create a new Google Cloud Project&rdquo;. You can leave the Organization field blank, but you will need to at the least choose a project ID. I usually name my projects with the <strong>ee-username-rgee-#</strong>, where username is my username and # is a number. Note that creating the project can take a while. Don&rsquo;t refresh the page, as you will be forced to go through the above process again.</p>
+<p>Once you&rsquo;ve confirmed your project&rsquo;s information, you will be redirected to the GEE online code editor, where you can close the tab.</p>
+<p>Moving back into the IDE, we can now initialize rgee.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">ee_Initialize</span>()
+</span></span></code></pre></div><p>This should launch a page in your web browser where you can log in and select the project you created to link to rgee. Make sure to choose &ldquo;Select an existing project&rdquo; and select it.</p>
+<p>If that didn&rsquo;t work, or threw you an error, don&rsquo;t panic. I had enormous amounts of trouble getting rgee to initialize properly. If this is the case for you, you can instead run the below two commands, which does the same thing.</p>
+<p><em>Note that you will need to replace the project name with your own.</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Authenticate</span>(auth_mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;localhost&#39;</span>)
+</span></span><span style="display:flex;"><span>ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Initialize</span>(project<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;YOUR-PROJECT-NAME&#39;</span>)
+</span></span></code></pre></div><p>Optionally, check your connectivity to GEE to see if everything is setup correctly.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>ee<span style="color:#f92672">$</span><span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#39;Hello from the Earth Engine servers!&#39;</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">getInfo</span>()
+</span></span></code></pre></div><p>If one of those methods worked, pop the champagne.</p>
+<p><strong>At the start of every new R session where you want to use rgee, you will need to load and then initialize the package in order to use it.</strong></p>
+<p>This should look something like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(rgee)
+</span></span><span style="display:flex;"><span>ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Authenticate</span>(auth_mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;localhost&#39;</span>)
+</span></span><span style="display:flex;"><span>ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Initialize</span>(project<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;YOUR-PROJECT-NAME&#39;</span>)
+</span></span></code></pre></div><p>Remember to change the project name to the one you created earlier.</p>
+<h2 id="examples">Examples<a hidden class="anchor" aria-hidden="true" href="#examples">#</a></h2>
+<h3 id="surface-water-occurrence">Surface water occurrence<a hidden class="anchor" aria-hidden="true" href="#surface-water-occurrence">#</a></h3>
+<p>In this example, rgee is used to visualize global surface water occurrence using the JRC Global Surface Water dataset.</p>
+<p><em>Load and initialize rgee first!</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#75715e"># Loads the dataset from JRC</span>
+</span></span><span style="display:flex;"><span>gsw <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Image</span>(<span style="color:#e6db74">&#34;JRC/GSW1_1/GlobalSurfaceWater&#34;</span>)
+</span></span><span style="display:flex;"><span>occurrence <span style="color:#f92672">&lt;-</span> gsw<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;occurrence&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Defines params to show surface water</span>
+</span></span><span style="display:flex;"><span>VIS_OCCURRENCE <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  min <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  max <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>,
+</span></span><span style="display:flex;"><span>  palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Makes a mask with said params</span>
+</span></span><span style="display:flex;"><span>VIS_WATER_MASK <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;white&#34;</span>, <span style="color:#e6db74">&#34;black&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Creates another mask that only shows areas w/ 90% water occurance</span>
+</span></span><span style="display:flex;"><span>water_mask <span style="color:#f92672">&lt;-</span> occurrence<span style="color:#f92672">$</span><span style="color:#a6e22e">gt</span>(<span style="color:#ae81ff">90</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">selfMask</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Sets the center of the map to Douglas County</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">setCenter</span>(<span style="color:#ae81ff">-95.3</span>, <span style="color:#ae81ff">38.91</span>, <span style="color:#ae81ff">11</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Adds both masks to the map</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(occurrence<span style="color:#f92672">$</span><span style="color:#a6e22e">updateMask</span>(occurrence<span style="color:#f92672">$</span><span style="color:#a6e22e">divide</span>(<span style="color:#ae81ff">100</span>)), VIS_OCCURRENCE, <span style="color:#e6db74">&#34;Water Occurrence (1984-2018)&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(water_mask, VIS_WATER_MASK, <span style="color:#e6db74">&#34;90% occurrence&#34;</span>, <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>{<span style="color:#f92672">% endhighlight %</span>}
+</span></span></code></pre></div><h3 id="may-28th-2019-tornado">May 28th 2019 Tornado<a hidden class="anchor" aria-hidden="true" href="#may-28th-2019-tornado">#</a></h3>
+<p>In this example, rgee is used to view the damage path from the 2019 EF4 tornado that touched down in central Douglas County.</p>
+<p><em>Load and initialize rgee first!</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Defines an area around Douglas County.</span>
+</span></span><span style="display:flex;"><span>aoi <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span>Geometry<span style="color:#f92672">$</span><span style="color:#a6e22e">Rectangle</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-95.3</span>, <span style="color:#ae81ff">38.85</span>, <span style="color:#ae81ff">-95.22</span>, <span style="color:#ae81ff">38.91</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Defines the dates we are interested in.</span>
+</span></span><span style="display:flex;"><span>start_date <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#39;2019-05-28&#39;</span>
+</span></span><span style="display:flex;"><span>end_date <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#39;2019-06-01&#39;</span>
+</span></span><span style="display:flex;"><span>pre_event_date <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#39;2019-05-20&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load Sentinel-2 data for said dates.</span>
+</span></span><span style="display:flex;"><span>s2_collection <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">ImageCollection</span>(<span style="color:#e6db74">&#39;COPERNICUS/S2&#39;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterDate</span>(start_date, end_date)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterBounds</span>(aoi)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get the least cloudy image from the post-event period.</span>
+</span></span><span style="display:flex;"><span>post_event_image <span style="color:#f92672">&lt;-</span> s2_collection<span style="color:#f92672">$</span><span style="color:#a6e22e">sort</span>(<span style="color:#e6db74">&#39;CLOUDY_PIXEL_PERCENTAGE&#39;</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">first</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define params for said image.</span>
+</span></span><span style="display:flex;"><span>viz_params <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  bands <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;B4&#39;</span>, <span style="color:#e6db74">&#39;B3&#39;</span>, <span style="color:#e6db74">&#39;B2&#39;</span>),
+</span></span><span style="display:flex;"><span>  min <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  max <span style="color:#f92672">=</span> <span style="color:#ae81ff">3000</span>,
+</span></span><span style="display:flex;"><span>  gamma <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.4</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add the post-event image to the map.</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">centerObject</span>(aoi, <span style="color:#ae81ff">12</span>)  <span style="color:#75715e"># Zoom in to level 12 for better detail</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(post_event_image, viz_params, <span style="color:#e6db74">&#39;Post-Event Sentinel-2 Image&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load pre-event data for comparison.</span>
+</span></span><span style="display:flex;"><span>pre_event_image <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">ImageCollection</span>(<span style="color:#e6db74">&#39;COPERNICUS/S2&#39;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterDate</span>(pre_event_date, start_date)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterBounds</span>(aoi)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sort</span>(<span style="color:#e6db74">&#39;CLOUDY_PIXEL_PERCENTAGE&#39;</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">first</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Calculate NDVI for pre and post tornado.</span>
+</span></span><span style="display:flex;"><span>pre_ndvi <span style="color:#f92672">&lt;-</span> pre_event_image<span style="color:#f92672">$</span><span style="color:#a6e22e">normalizedDifference</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;B8&#39;</span>, <span style="color:#e6db74">&#39;B4&#39;</span>))
+</span></span><span style="display:flex;"><span>post_ndvi <span style="color:#f92672">&lt;-</span> post_event_image<span style="color:#f92672">$</span><span style="color:#a6e22e">normalizedDifference</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;B8&#39;</span>, <span style="color:#e6db74">&#39;B4&#39;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Find difference.</span>
+</span></span><span style="display:flex;"><span>ndvi_diff <span style="color:#f92672">&lt;-</span> post_ndvi<span style="color:#f92672">$</span><span style="color:#a6e22e">subtract</span>(pre_ndvi)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define params for NDVI difference.</span>
+</span></span><span style="display:flex;"><span>ndvi_viz_params <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(min <span style="color:#f92672">=</span> <span style="color:#ae81ff">-0.5</span>, max <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>, palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;red&#39;</span>, <span style="color:#e6db74">&#39;yellow&#39;</span>, <span style="color:#e6db74">&#39;green&#39;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add NDVI diff. layer to map!</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(ndvi_diff, ndvi_viz_params, <span style="color:#e6db74">&#39;NDVI Difference&#39;</span>)
+</span></span><span style="display:flex;"><span>{<span style="color:#f92672">% endhighlight %</span>}
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/rgee/">Rgee</a></li>
+      <li><a href="http://localhost:1313/tags/r/">R</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="http://localhost:1313/">morgan docs</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
