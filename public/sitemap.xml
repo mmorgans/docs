@@ -32,7 +32,12 @@
     <loc>http://localhost:1313/posts/using-variables-in-rgee/</loc>
     <lastmod>2024-08-13T11:37:00-05:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/posts/all-posts/</loc>
+    <lastmod>2024-08-12T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/categories/</loc>
+  </url><url>
+    <loc>http://localhost:1313/posts/creating-this-website/</loc>
   </url><url>
     <loc>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</loc>
   </url><url>

@@ -53,6 +53,22 @@ Define an area that you want to visualize. The easiest way of doing this is to d
 aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I&amp;rsquo;ll use the MODIS land cover datasets.</description>
     </item>
     <item>
+      <title></title>
+      <link>http://localhost:1313/posts/all-posts/</link>
+      <pubDate>Mon, 12 Aug 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/all-posts/</guid>
+      <description>Table of Contents DONE Setting up rgee:rgee:R: Introduction Prerequisites Installation Setup Initializing Examples Surface water occurrence May 28th 2019 Tornado DONE Using variables in rgee:rgee: Introduction Calling variables DONE Making maps of variables with rgee:rgee: Introduction Dividing EVI by Precipitation Breakdown DONE Exporting data to a CSV with rgee:rgee: Introduction Example DONE Getting data from AppEEARS and NOAA:rgee: Data types (link to method of gathering) Sites Process MAT MAP NPP PET AET, ET DI EP GPP Initial .</description>
+    </item>
+    <item>
+      <title>Creating this website</title>
+      <link>http://localhost:1313/posts/creating-this-website/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/creating-this-website/</guid>
+      <description>Introduction This document details the steps I followed to create my website using Hugo, Cloudflare Pages, and associated tools. It includes setting up a static site generator, configuring themes, deploying to Cloudflare Pages, and troubleshooting common issues.
+Prerequisites Before starting, ensure you have the following installed on your system:
+Hugo Git A GitHub account for version control A Cloudflare account for deployment Setting Up Hugo Install Hugo: Hugo is a fast, modern static site generator.</description>
+    </item>
+    <item>
       <title>Mapping DI and EP with rgee</title>
       <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
