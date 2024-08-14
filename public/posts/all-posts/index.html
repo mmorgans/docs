@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>morgan docs</title>
+<meta name="keywords" content="">
+<meta name="description" content="Table of Contents DONE Setting up rgee:rgee:R: Introduction Prerequisites Installation Setup Initializing Examples Surface water occurrence May 28th 2019 Tornado DONE Using variables in rgee:rgee: Introduction Calling variables DONE Making maps of variables with rgee:rgee: Introduction Dividing EVI by Precipitation Breakdown DONE Exporting data to a CSV with rgee:rgee: Introduction Example DONE Getting data from AppEEARS and NOAA:rgee: Data types (link to method of gathering) Sites Process MAT MAP NPP PET AET, ET DI EP GPP Initial .">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/all-posts/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/all-posts/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/search/" title="search (Alt &#43; /)" accesskey=/>
+                    <span>search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      
+    </h1>
+    <div class="post-meta"><span title='2024-08-12 00:00:00 +0000 UTC'>August 12, 2024</span>&nbsp;·&nbsp;20 min&nbsp;|&nbsp;<a href="https://github.com/mmorgans/docs/posts/all-posts.md" rel="noopener noreferrer" target="_blank">suggest changes</a>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#setting-up-rgee" aria-label="DONE Setting up rgee rgeeR">DONE Setting up rgee rgeeR</a><ul>
+                        
+                <li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                <li>
+                    <a href="#prerequisites" aria-label="Prerequisites">Prerequisites</a></li>
+                <li>
+                    <a href="#installation" aria-label="Installation">Installation</a></li>
+                <li>
+                    <a href="#setup" aria-label="Setup">Setup</a></li>
+                <li>
+                    <a href="#initializing" aria-label="Initializing">Initializing</a></li>
+                <li>
+                    <a href="#examples" aria-label="Examples">Examples</a><ul>
+                        
+                <li>
+                    <a href="#surface-water-occurrence" aria-label="Surface water occurrence">Surface water occurrence</a></li>
+                <li>
+                    <a href="#may-28th-2019-tornado" aria-label="May 28th 2019 Tornado">May 28th 2019 Tornado</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#using-variables-in-rgee" aria-label="DONE Using variables in rgee rgee">DONE Using variables in rgee rgee</a><ul>
+                        
+                <li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                <li>
+                    <a href="#calling-variables" aria-label="Calling variables">Calling variables</a></li></ul>
+                </li>
+                <li>
+                    <a href="#Making-maps-of-variables-with-rgee" aria-label="DONE Making maps of variables with rgee rgee">DONE Making maps of variables with rgee rgee</a><ul>
+                        
+                <li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a><ul>
+                        
+                <li>
+                    <a href="#dividing-evi-by-precipitation" aria-label="Dividing EVI by Precipitation">Dividing EVI by Precipitation</a></li>
+                <li>
+                    <a href="#breakdown" aria-label="Breakdown">Breakdown</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#Exporting-data-to-a-csv-with-rgee" aria-label="DONE Exporting data to a CSV with rgee rgee">DONE Exporting data to a CSV with rgee rgee</a><ul>
+                        
+                <li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                <li>
+                    <a href="#example" aria-label="Example">Example</a></li></ul>
+                </li>
+                <li>
+                    <a href="#Getting-data-from-AppEEARS-and-NOAA" aria-label="DONE Getting data from AppEEARS and NOAA rgee">DONE Getting data from AppEEARS and NOAA rgee</a><ul>
+                        
+                <li>
+                    <a href="#data-types--link-to-method-of-gathering" aria-label="Data types (link to method of gathering)">Data types (link to method of gathering)</a></li>
+                <li>
+                    <a href="#sites" aria-label="Sites">Sites</a></li>
+                <li>
+                    <a href="#process" aria-label="Process">Process</a><ul>
+                        
+                <li>
+                    <a href="#mat" aria-label="MAT">MAT</a></li>
+                <li>
+                    <a href="#map" aria-label="MAP">MAP</a></li>
+                <li>
+                    <a href="#npp" aria-label="NPP">NPP</a></li>
+                <li>
+                    <a href="#pet" aria-label="PET">PET</a></li>
+                <li>
+                    <a href="#aet-et" aria-label="AET, ET">AET, ET</a></li>
+                <li>
+                    <a href="#di" aria-label="DI">DI</a></li>
+                <li>
+                    <a href="#ep" aria-label="EP">EP</a></li>
+                <li>
+                    <a href="#gpp" aria-label="GPP">GPP</a></li></ul>
+                </li>
+                <li>
+                    <a href="#initial-dot-csv-setup" aria-label="Initial .csv setup">Initial .csv setup</a></li></ul>
+                </li>
+                <li>
+                    <a href="#Mapping-DI-and-EP-with-rgee" aria-label="TODO Mapping DI and EP with rgee rgeemaps">TODO Mapping DI and EP with rgee rgeemaps</a></li>
+                <li>
+                    <a href="#creating-my-website-with-hugo-and-cloudflare-pages" aria-label="Creating My Website with Hugo and Cloudflare Pages">Creating My Website with Hugo and Cloudflare Pages</a><ul>
+                        
+                <li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                <li>
+                    <a href="#prerequisites" aria-label="Prerequisites">Prerequisites</a></li>
+                <li>
+                    <a href="#setting-up-hugo" aria-label="Setting Up Hugo">Setting Up Hugo</a></li>
+                <li>
+                    <a href="#building-and-previewing-the-site" aria-label="Building and Previewing the Site">Building and Previewing the Site</a></li>
+                <li>
+                    <a href="#deploying-to-cloudflare-pages" aria-label="Deploying to Cloudflare Pages">Deploying to Cloudflare Pages</a></li>
+                <li>
+                    <a href="#adding-functionality" aria-label="Adding Functionality">Adding Functionality</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><div class="ox-hugo-toc toc">
+<div class="heading">Table of Contents</div>
+<ul>
+<li><a href="#setting-up-rgee"><span class="org-todo done DONE">DONE</span> Setting up rgee</a>:rgee:R:
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#initializing">Initializing</a></li>
+<li><a href="#examples">Examples</a>
+<ul>
+<li><a href="#surface-water-occurrence">Surface water occurrence</a></li>
+<li><a href="#may-28th-2019-tornado">May 28th 2019 Tornado</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#using-variables-in-rgee"><span class="org-todo done DONE">DONE</span> Using variables in rgee</a>:rgee:
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#calling-variables">Calling variables</a></li>
+</ul>
+</li>
+<li><a href="#Making-maps-of-variables-with-rgee"><span class="org-todo done DONE">DONE</span> Making maps of variables with rgee</a>:rgee:
+<ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#dividing-evi-by-precipitation">Dividing EVI by Precipitation</a></li>
+<li><a href="#breakdown">Breakdown</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Exporting-data-to-a-csv-with-rgee"><span class="org-todo done DONE">DONE</span> Exporting data to a CSV with rgee</a>:rgee:
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#example">Example</a></li>
+</ul>
+</li>
+<li><a href="#Getting-data-from-AppEEARS-and-NOAA"><span class="org-todo done DONE">DONE</span> Getting data from AppEEARS and NOAA</a>:rgee:
+<ul>
+<li><a href="#data-types--link-to-method-of-gathering">Data types (link to method of gathering)</a></li>
+<li><a href="#sites">Sites</a></li>
+<li><a href="#process">Process</a>
+<ul>
+<li><a href="#mat">MAT</a></li>
+<li><a href="#map">MAP</a></li>
+<li><a href="#npp">NPP</a></li>
+<li><a href="#pet">PET</a></li>
+<li><a href="#aet-et">AET, ET</a></li>
+<li><a href="#di">DI</a></li>
+<li><a href="#ep">EP</a></li>
+<li><a href="#gpp">GPP</a></li>
+</ul>
+</li>
+<li><a href="#initial-dot-csv-setup">Initial .csv setup</a></li>
+</ul>
+</li>
+<li><a href="#Mapping-DI-and-EP-with-rgee"><span class="org-todo todo TODO">TODO</span> Mapping DI and EP with rgee</a>:rgee:maps:</li>
+<li><a href="#creating-my-website-with-hugo-and-cloudflare-pages">Creating My Website with Hugo and Cloudflare Pages</a>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#setting-up-hugo">Setting Up Hugo</a></li>
+<li><a href="#building-and-previewing-the-site">Building and Previewing the Site</a></li>
+<li><a href="#deploying-to-cloudflare-pages">Deploying to Cloudflare Pages</a></li>
+<li><a href="#adding-functionality">Adding Functionality</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<!--endtoc-->
+<h2 id="setting-up-rgee"><span class="org-todo done DONE">DONE</span> Setting up rgee <span class="tag"><span class="rgee">rgee</span><span class="R">R</span></span><a hidden class="anchor" aria-hidden="true" href="#setting-up-rgee">#</a></h2>
+<h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<p>From the <a href="https://github.com/r-spatial/rgee">rgee github page</a>: &ldquo;rgee is an R binding package for calling Google Earth Engine API from within R. Various functions are implemented to simplify the connection with the R spatial ecosystem.&rdquo;</p>
+<p>This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven&rsquo;t tested it.</p>
+<h3 id="prerequisites">Prerequisites<a hidden class="anchor" aria-hidden="true" href="#prerequisites">#</a></h3>
+<ul>
+<li>R and RStudio (or other IDE)</li>
+<li>Google Earth Engine account.
+<ul>
+<li>Create a GEE project to work in.</li>
+</ul>
+</li>
+<li>A healthy mindset 😊</li>
+</ul>
+<h3 id="installation">Installation<a hidden class="anchor" aria-hidden="true" href="#installation">#</a></h3>
+<p>Install rgee, geojsonio and miniconda.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;rgee&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;reticulate&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#39;geojsonio&#39;</span>)
+</span></span><span style="display:flex;"><span>reticulate<span style="color:#f92672">::</span><span style="color:#a6e22e">install_miniconda</span>()
+</span></span></code></pre></div><h3 id="setup">Setup<a hidden class="anchor" aria-hidden="true" href="#setup">#</a></h3>
+<p>Load the packages.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(rgee)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(geojsonio)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(reticulate)
+</span></span></code></pre></div><p>Install dependencies and double check to make sure everything is up to date.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>rgee<span style="color:#f92672">::</span><span style="color:#a6e22e">ee_install</span>()
+</span></span><span style="display:flex;"><span>rgee<span style="color:#f92672">::</span><span style="color:#a6e22e">ee_install_upgrade</span>()
+</span></span></code></pre></div><p>By this point, you should be ready to initialize rgee. To double check everything is ready, run a</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">ee_check</span>()
+</span></span></code></pre></div><p>to make sure. <em>Note: If the previous command complains about an argument being of length zero, it should be fine to ignore it and carry on.</em></p>
+<h3 id="initializing">Initializing<a hidden class="anchor" aria-hidden="true" href="#initializing">#</a></h3>
+<p>If you haven&rsquo;t already, you will need to create a new project to work in. This process is semi annoying if you haven&rsquo;t already done it before, full disclaimer.</p>
+<p>Navigate over to <a href="https://code.earthengine.google.com">the GEE code editor</a> and click on your profile picture in the top right. Click &ldquo;Register a new Cloud Project&rdquo;. Assuming this is correct, click &ldquo;Register a Noncommercial or Commercial project&rdquo; and then select &ldquo;Unpaid usage&rdquo;. Select the relevent project type in the dropdown menu.</p>
+<p>On the next screen, choose &ldquo;Create a new Google Cloud Project&rdquo;. You can leave the Organization field blank, but you will need to at the least choose a project ID. I usually name my projects with the <strong>ee-username-rgee-#</strong>, where username is my username and # is a number. Note that creating the project can take a while. Don&rsquo;t refresh the page, as you will be forced to go through the above process again.</p>
+<p>Once you&rsquo;ve confirmed your project&rsquo;s information, you will be redirected to the GEE online code editor, where you can close the tab.</p>
+<p>Moving back into the IDE, we can now initialize rgee.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">ee_Initialize</span>()
+</span></span></code></pre></div><p>This should launch a page in your web browser where you can log in and select the project you created to link to rgee. Make sure to choose &ldquo;Select an existing project&rdquo; and select it.</p>
+<p>If that didn&rsquo;t work, or threw you an error, don&rsquo;t panic. I had enormous amounts of trouble getting rgee to initialize properly. If this is the case for you, you can instead run the below two commands, which does the same thing.</p>
+<p><em>Note that you will need to replace the project name with your own.</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Authenticate</span>(auth_mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;localhost&#39;</span>)
+</span></span><span style="display:flex;"><span>ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Initialize</span>(project<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;YOUR-PROJECT-NAME&#39;</span>)
+</span></span></code></pre></div><p>Optionally, check your connectivity to GEE to see if everything is setup correctly.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>ee<span style="color:#f92672">$</span><span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#39;Hello from the Earth Engine servers!&#39;</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">getInfo</span>()
+</span></span></code></pre></div><p>If one of those methods worked, pop the champagne.</p>
+<p><strong>At the start of every new R session where you want to use rgee, you will need to load and then initialize the package in order to use it.</strong></p>
+<p>This should look something like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(rgee)
+</span></span><span style="display:flex;"><span>ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Authenticate</span>(auth_mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;localhost&#39;</span>)
+</span></span><span style="display:flex;"><span>ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Initialize</span>(project<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;YOUR-PROJECT-NAME&#39;</span>)
+</span></span></code></pre></div><p>Remember to change the project name to the one you created earlier.</p>
+<h3 id="examples">Examples<a hidden class="anchor" aria-hidden="true" href="#examples">#</a></h3>
+<h4 id="surface-water-occurrence">Surface water occurrence<a hidden class="anchor" aria-hidden="true" href="#surface-water-occurrence">#</a></h4>
+<p>In this example, rgee is used to visualize global surface water occurrence using the JRC Global Surface Water dataset.</p>
+<p><em>Load and initialize rgee first!</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#75715e"># Loads the dataset from JRC</span>
+</span></span><span style="display:flex;"><span>gsw <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Image</span>(<span style="color:#e6db74">&#34;JRC/GSW1_1/GlobalSurfaceWater&#34;</span>)
+</span></span><span style="display:flex;"><span>occurrence <span style="color:#f92672">&lt;-</span> gsw<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;occurrence&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Defines params to show surface water</span>
+</span></span><span style="display:flex;"><span>VIS_OCCURRENCE <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  min <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  max <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>,
+</span></span><span style="display:flex;"><span>  palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Makes a mask with said params</span>
+</span></span><span style="display:flex;"><span>VIS_WATER_MASK <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;white&#34;</span>, <span style="color:#e6db74">&#34;black&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Creates another mask that only shows areas w/ 90% water occurance</span>
+</span></span><span style="display:flex;"><span>water_mask <span style="color:#f92672">&lt;-</span> occurrence<span style="color:#f92672">$</span><span style="color:#a6e22e">gt</span>(<span style="color:#ae81ff">90</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">selfMask</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Sets the center of the map to Douglas County</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">setCenter</span>(<span style="color:#ae81ff">-95.3</span>, <span style="color:#ae81ff">38.91</span>, <span style="color:#ae81ff">11</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Adds both masks to the map</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(occurrence<span style="color:#f92672">$</span><span style="color:#a6e22e">updateMask</span>(occurrence<span style="color:#f92672">$</span><span style="color:#a6e22e">divide</span>(<span style="color:#ae81ff">100</span>)), VIS_OCCURRENCE, <span style="color:#e6db74">&#34;Water Occurrence (1984-2018)&#34;</span>) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(water_mask, VIS_WATER_MASK, <span style="color:#e6db74">&#34;90% occurrence&#34;</span>, <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>{<span style="color:#f92672">% endhighlight %</span>}
+</span></span></code></pre></div><h4 id="may-28th-2019-tornado">May 28th 2019 Tornado<a hidden class="anchor" aria-hidden="true" href="#may-28th-2019-tornado">#</a></h4>
+<p>In this example, rgee is used to view the damage path from the 2019 EF4 tornado that touched down in central Douglas County.</p>
+<p><em>Load and initialize rgee first!</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Defines an area around Douglas County.</span>
+</span></span><span style="display:flex;"><span>aoi <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span>Geometry<span style="color:#f92672">$</span><span style="color:#a6e22e">Rectangle</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-95.3</span>, <span style="color:#ae81ff">38.85</span>, <span style="color:#ae81ff">-95.22</span>, <span style="color:#ae81ff">38.91</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Defines the dates we are interested in.</span>
+</span></span><span style="display:flex;"><span>start_date <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#39;2019-05-28&#39;</span>
+</span></span><span style="display:flex;"><span>end_date <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#39;2019-06-01&#39;</span>
+</span></span><span style="display:flex;"><span>pre_event_date <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#39;2019-05-20&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load Sentinel-2 data for said dates.</span>
+</span></span><span style="display:flex;"><span>s2_collection <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">ImageCollection</span>(<span style="color:#e6db74">&#39;COPERNICUS/S2&#39;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterDate</span>(start_date, end_date)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterBounds</span>(aoi)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get the least cloudy image from the post-event period.</span>
+</span></span><span style="display:flex;"><span>post_event_image <span style="color:#f92672">&lt;-</span> s2_collection<span style="color:#f92672">$</span><span style="color:#a6e22e">sort</span>(<span style="color:#e6db74">&#39;CLOUDY_PIXEL_PERCENTAGE&#39;</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">first</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define params for said image.</span>
+</span></span><span style="display:flex;"><span>viz_params <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  bands <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;B4&#39;</span>, <span style="color:#e6db74">&#39;B3&#39;</span>, <span style="color:#e6db74">&#39;B2&#39;</span>),
+</span></span><span style="display:flex;"><span>  min <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  max <span style="color:#f92672">=</span> <span style="color:#ae81ff">3000</span>,
+</span></span><span style="display:flex;"><span>  gamma <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.4</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add the post-event image to the map.</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">centerObject</span>(aoi, <span style="color:#ae81ff">12</span>)  <span style="color:#75715e"># Zoom in to level 12 for better detail</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(post_event_image, viz_params, <span style="color:#e6db74">&#39;Post-Event Sentinel-2 Image&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load pre-event data for comparison.</span>
+</span></span><span style="display:flex;"><span>pre_event_image <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">ImageCollection</span>(<span style="color:#e6db74">&#39;COPERNICUS/S2&#39;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterDate</span>(pre_event_date, start_date)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterBounds</span>(aoi)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sort</span>(<span style="color:#e6db74">&#39;CLOUDY_PIXEL_PERCENTAGE&#39;</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">first</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Calculate NDVI for pre and post tornado.</span>
+</span></span><span style="display:flex;"><span>pre_ndvi <span style="color:#f92672">&lt;-</span> pre_event_image<span style="color:#f92672">$</span><span style="color:#a6e22e">normalizedDifference</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;B8&#39;</span>, <span style="color:#e6db74">&#39;B4&#39;</span>))
+</span></span><span style="display:flex;"><span>post_ndvi <span style="color:#f92672">&lt;-</span> post_event_image<span style="color:#f92672">$</span><span style="color:#a6e22e">normalizedDifference</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;B8&#39;</span>, <span style="color:#e6db74">&#39;B4&#39;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Find difference.</span>
+</span></span><span style="display:flex;"><span>ndvi_diff <span style="color:#f92672">&lt;-</span> post_ndvi<span style="color:#f92672">$</span><span style="color:#a6e22e">subtract</span>(pre_ndvi)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define params for NDVI difference.</span>
+</span></span><span style="display:flex;"><span>ndvi_viz_params <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(min <span style="color:#f92672">=</span> <span style="color:#ae81ff">-0.5</span>, max <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>, palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;red&#39;</span>, <span style="color:#e6db74">&#39;yellow&#39;</span>, <span style="color:#e6db74">&#39;green&#39;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add NDVI diff. layer to map!</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(ndvi_diff, ndvi_viz_params, <span style="color:#e6db74">&#39;NDVI Difference&#39;</span>)
+</span></span><span style="display:flex;"><span>{<span style="color:#f92672">% endhighlight %</span>}
+</span></span></code></pre></div><h2 id="using-variables-in-rgee"><span class="org-todo done DONE">DONE</span> Using variables in rgee <span class="tag"><span class="rgee">rgee</span></span><a hidden class="anchor" aria-hidden="true" href="#using-variables-in-rgee">#</a></h2>
+<h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<p>Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.</p>
+<h3 id="calling-variables">Calling variables<a hidden class="anchor" aria-hidden="true" href="#calling-variables">#</a></h3>
+<p><em>Load and initialize rgee first!</em></p>
+<p>Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>aoi <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span>Geometry<span style="color:#f92672">$</span><span style="color:#a6e22e">Rectangle</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-120.4</span>, <span style="color:#ae81ff">34.5</span>, <span style="color:#ae81ff">-119.4</span>, <span style="color:#ae81ff">35.5</span>))
+</span></span></code></pre></div><p>In this example, I&rsquo;ll use the MODIS land cover datasets.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>landcover <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">ImageCollection</span>(<span style="color:#e6db74">&#34;MODIS/061/MCD12Q1&#34;</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">first</span>()<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;LC_Type1&#34;</span>)
+</span></span></code></pre></div><p>Set some visualization parameters to control how the data is displayed.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>landcover_viz <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  min <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  max <span style="color:#f92672">=</span> <span style="color:#ae81ff">17</span>,
+</span></span><span style="display:flex;"><span>  palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;05450a&#34;</span>, <span style="color:#e6db74">&#34;086a10&#34;</span>, <span style="color:#e6db74">&#34;54a708&#34;</span>, <span style="color:#e6db74">&#34;78d203&#34;</span>, <span style="color:#e6db74">&#34;009900&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34;c6b044&#34;</span>, <span style="color:#e6db74">&#34;dcd159&#34;</span>, <span style="color:#e6db74">&#34;dade48&#34;</span>, <span style="color:#e6db74">&#34;fbff13&#34;</span>, <span style="color:#e6db74">&#34;b6ff05&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34;27ff87&#34;</span>, <span style="color:#e6db74">&#34;c24f44&#34;</span>, <span style="color:#e6db74">&#34;a5a5a5&#34;</span>, <span style="color:#e6db74">&#34;ff6d4c&#34;</span>, <span style="color:#e6db74">&#34;69fff8&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34;f9ffa4&#34;</span>, <span style="color:#e6db74">&#34;1c0dff&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Center the map on the area we are interested in, and add in the land cover layer using the parameters we defined above.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">centerObject</span>(aoi,<span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(landcover, landcover_viz, <span style="color:#e6db74">&#34;Land Cover :)&#34;</span>)
+</span></span></code></pre></div><h2 id="Making-maps-of-variables-with-rgee"><span class="org-todo done DONE">DONE</span> Making maps of variables with rgee <span class="tag"><span class="rgee">rgee</span></span><a hidden class="anchor" aria-hidden="true" href="#Making-maps-of-variables-with-rgee">#</a></h2>
+<h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<p>Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.</p>
+<h4 id="dividing-evi-by-precipitation">Dividing EVI by Precipitation<a hidden class="anchor" aria-hidden="true" href="#dividing-evi-by-precipitation">#</a></h4>
+<p>In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.</p>
+<p><em>Load and initialize rgee first!</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(rgee)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ee_Initialize</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define an area of interest (AOI) over Kansas</span>
+</span></span><span style="display:flex;"><span>aoi <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span>Geometry<span style="color:#f92672">$</span><span style="color:#a6e22e">Rectangle</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-102.05</span>, <span style="color:#ae81ff">36.99</span>, <span style="color:#ae81ff">-94.6</span>, <span style="color:#ae81ff">40.0</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load the Sentinel-2 image collection and calculate EVI</span>
+</span></span><span style="display:flex;"><span>s2_collection <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">ImageCollection</span>(<span style="color:#e6db74">&#34;COPERNICUS/S2&#34;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterDate</span>(<span style="color:#e6db74">&#39;2020-06-01&#39;</span>, <span style="color:#e6db74">&#39;2020-08-31&#39;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterBounds</span>(aoi)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">function</span>(image) {
+</span></span><span style="display:flex;"><span>    evi <span style="color:#f92672">&lt;-</span> image<span style="color:#f92672">$</span><span style="color:#a6e22e">expression</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#39;2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#39;NIR&#39;</span> <span style="color:#f92672">=</span> image<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;B8&#34;</span>), <span style="color:#e6db74">&#39;RED&#39;</span> <span style="color:#f92672">=</span> image<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;B4&#34;</span>), <span style="color:#e6db74">&#39;BLUE&#39;</span> <span style="color:#f92672">=</span> image<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;B2&#34;</span>))
+</span></span><span style="display:flex;"><span>    )<span style="color:#f92672">$</span><span style="color:#a6e22e">rename</span>(<span style="color:#e6db74">&#34;EVI&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(image<span style="color:#f92672">$</span><span style="color:#a6e22e">addBands</span>(evi))
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>evi_image <span style="color:#f92672">&lt;-</span> s2_collection<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;EVI&#34;</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">mean</span>()<span style="color:#f92672">$</span><span style="color:#a6e22e">clip</span>(aoi)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Visualize EVI to ensure it&#39;s calculated correctly</span>
+</span></span><span style="display:flex;"><span>evi_viz <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  min <span style="color:#f92672">=</span> <span style="color:#ae81ff">-1</span>,
+</span></span><span style="display:flex;"><span>  max <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;brown&#34;</span>, <span style="color:#e6db74">&#34;yellow&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">setCenter</span>(<span style="color:#ae81ff">-98.35</span>, <span style="color:#ae81ff">38.5</span>, <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(evi_image, evi_viz, <span style="color:#e6db74">&#34;EVI&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load the TerraClimate PPT (precipitation) dataset</span>
+</span></span><span style="display:flex;"><span>ppt_dataset <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">ImageCollection</span>(<span style="color:#e6db74">&#34;IDAHO_EPSCOR/TERRACLIMATE&#34;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterDate</span>(<span style="color:#e6db74">&#39;2020-01-01&#39;</span>, <span style="color:#e6db74">&#39;2020-12-31&#39;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;pr&#34;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mean</span>()<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">clip</span>(aoi)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Visualize PPT to ensure it&#39;s loaded correctly</span>
+</span></span><span style="display:flex;"><span>ppt_viz <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  min <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  max <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>,
+</span></span><span style="display:flex;"><span>  palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;white&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(ppt_dataset, ppt_viz, <span style="color:#e6db74">&#34;Precipitation&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ensure the datasets align perfectly for each pixel</span>
+</span></span><span style="display:flex;"><span>evi_resampled <span style="color:#f92672">&lt;-</span> evi_image<span style="color:#f92672">$</span><span style="color:#a6e22e">reproject</span>(crs <span style="color:#f92672">=</span> ppt_dataset<span style="color:#f92672">$</span><span style="color:#a6e22e">projection</span>(), scale <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>ppt_resampled <span style="color:#f92672">&lt;-</span> ppt_dataset<span style="color:#f92672">$</span><span style="color:#a6e22e">reproject</span>(crs <span style="color:#f92672">=</span> evi_image<span style="color:#f92672">$</span><span style="color:#a6e22e">projection</span>(), scale <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Divide EVI by PPT</span>
+</span></span><span style="display:flex;"><span>evi_ppt_ratio <span style="color:#f92672">&lt;-</span> evi_resampled<span style="color:#f92672">$</span><span style="color:#a6e22e">divide</span>(ppt_resampled)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define visualization parameters for the ratio</span>
+</span></span><span style="display:flex;"><span>evi_ppt_viz <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  min <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  max <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>,
+</span></span><span style="display:flex;"><span>  palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;white&#34;</span>, <span style="color:#e6db74">&#34;red&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add the EVI/PPT ratio layer</span>
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(evi_ppt_ratio, evi_ppt_viz, <span style="color:#e6db74">&#34;EVI/PPT Ratio&#34;</span>)
+</span></span></code></pre></div><h4 id="breakdown">Breakdown<a hidden class="anchor" aria-hidden="true" href="#breakdown">#</a></h4>
+<!--list-separator-->
+<ul>
+<li>
+<p>Define the AOI, the state of Kansas.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>aoi <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span>Geometry<span style="color:#f92672">$</span><span style="color:#a6e22e">Rectangle</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-102.05</span>, <span style="color:#ae81ff">36.99</span>, <span style="color:#ae81ff">-94.6</span>, <span style="color:#ae81ff">40.0</span>))
+</span></span></code></pre></div></li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Load and Filter Sentinel-2 Data</p>
+<p>Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>s2_collection <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">ImageCollection</span>(<span style="color:#e6db74">&#34;COPERNICUS/S2&#34;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterDate</span>(<span style="color:#e6db74">&#39;2020-06-01&#39;</span>, <span style="color:#e6db74">&#39;2020-08-31&#39;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterBounds</span>(aoi)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">function</span>(image) {
+</span></span><span style="display:flex;"><span>    evi <span style="color:#f92672">&lt;-</span> image<span style="color:#f92672">$</span><span style="color:#a6e22e">expression</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#39;2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">list</span>(<span style="color:#e6db74">&#39;NIR&#39;</span> <span style="color:#f92672">=</span> image<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;B8&#34;</span>), <span style="color:#e6db74">&#39;RED&#39;</span> <span style="color:#f92672">=</span> image<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;B4&#34;</span>), <span style="color:#e6db74">&#39;BLUE&#39;</span> <span style="color:#f92672">=</span> image<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;B2&#34;</span>))
+</span></span><span style="display:flex;"><span>    )<span style="color:#f92672">$</span><span style="color:#a6e22e">rename</span>(<span style="color:#e6db74">&#34;EVI&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(image<span style="color:#f92672">$</span><span style="color:#a6e22e">addBands</span>(evi))
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>evi_image <span style="color:#f92672">&lt;-</span> s2_collection<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;EVI&#34;</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">mean</span>()<span style="color:#f92672">$</span><span style="color:#a6e22e">clip</span>(aoi)
+</span></span></code></pre></div></li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>First mapping of EVI</p>
+<p>This is to make sure the current values are correct and being visualized correctly. I had a lot of trouble with this example in particular, so I am redundantly checking work as we go.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>evi_viz <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  min <span style="color:#f92672">=</span> <span style="color:#ae81ff">-1</span>,
+</span></span><span style="display:flex;"><span>  max <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;brown&#34;</span>, <span style="color:#e6db74">&#34;yellow&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">setCenter</span>(<span style="color:#ae81ff">-98.35</span>, <span style="color:#ae81ff">38.5</span>, <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(evi_image, evi_viz, <span style="color:#e6db74">&#34;EVI&#34;</span>)
+</span></span></code></pre></div></li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Loading precip data</p>
+<p>We load precip data from TerraClimate, filter it for the year 2020, average values, and clip them.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>ppt_dataset <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">ImageCollection</span>(<span style="color:#e6db74">&#34;IDAHO_EPSCOR/TERRACLIMATE&#34;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterDate</span>(<span style="color:#e6db74">&#39;2020-01-01&#39;</span>, <span style="color:#e6db74">&#39;2020-12-31&#39;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;pr&#34;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mean</span>()<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">clip</span>(aoi)
+</span></span></code></pre></div></li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Visualize PPT to make sure it&rsquo;s correct</p>
+<p>Again, I am visualizing the precipitation data to make sure it looks correct.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>ppt_viz <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  min <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  max <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>,
+</span></span><span style="display:flex;"><span>  palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;white&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(ppt_dataset, ppt_viz, <span style="color:#e6db74">&#34;Precipitation&#34;</span>)
+</span></span></code></pre></div></li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Make sure data is aligned</p>
+<p>Before actually performing any operations on the data, making sure that both datasets are aligned correctly is important. Here I&rsquo;m reprojecting both sets to the same scale and resolution.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>evi_resampled <span style="color:#f92672">&lt;-</span> evi_image<span style="color:#f92672">$</span><span style="color:#a6e22e">reproject</span>(crs <span style="color:#f92672">=</span> ppt_dataset<span style="color:#f92672">$</span><span style="color:#a6e22e">projection</span>(), scale <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>ppt_resampled <span style="color:#f92672">&lt;-</span> ppt_dataset<span style="color:#f92672">$</span><span style="color:#a6e22e">reproject</span>(crs <span style="color:#f92672">=</span> evi_image<span style="color:#f92672">$</span><span style="color:#a6e22e">projection</span>(), scale <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>)
+</span></span></code></pre></div></li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Transform the data</p>
+<p>Dividing the EVI by the precip to calculate the ratio.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>evi_ppt_ratio <span style="color:#f92672">&lt;-</span> evi_resampled<span style="color:#f92672">$</span><span style="color:#a6e22e">divide</span>(ppt_resampled)
+</span></span></code></pre></div></li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Define viz params for mapping the new ratio</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>evi_ppt_viz <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
+</span></span><span style="display:flex;"><span>  min <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  max <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>,
+</span></span><span style="display:flex;"><span>  palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;white&#34;</span>, <span style="color:#e6db74">&#34;red&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(evi_ppt_ratio, evi_ppt_viz, <span style="color:#e6db74">&#34;EVI/PPT Ratio&#34;</span>)
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="Exporting-data-to-a-csv-with-rgee"><span class="org-todo done DONE">DONE</span> Exporting data to a CSV with rgee <span class="tag"><span class="rgee">rgee</span></span><a hidden class="anchor" aria-hidden="true" href="#Exporting-data-to-a-csv-with-rgee">#</a></h2>
+<h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<p>In general, exporting data to a .csv with rgee is pretty easy. The general gist of the process is:</p>
+<ul>
+<li>Define the area or points you are interested in</li>
+<li>Filter data</li>
+<li>Convert the results to a list, and</li>
+<li>Export to a csv.</li>
+</ul>
+<h3 id="example">Example<a hidden class="anchor" aria-hidden="true" href="#example">#</a></h3>
+<p><em>Make sure to load and initialize rgee first!</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#75715e"># Define an AOI over Kansas</span>
+</span></span><span style="display:flex;"><span>aoi <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span>Geometry<span style="color:#f92672">$</span><span style="color:#a6e22e">Rectangle</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-102.05</span>, <span style="color:#ae81ff">36.99</span>, <span style="color:#ae81ff">-94.6</span>, <span style="color:#ae81ff">40.0</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define sample points in the area</span>
+</span></span><span style="display:flex;"><span>points <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">FeatureCollection</span>(<span style="color:#a6e22e">c</span>(
+</span></span><span style="display:flex;"><span>  ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Feature</span>(ee<span style="color:#f92672">$</span>Geometry<span style="color:#f92672">$</span><span style="color:#a6e22e">Point</span>(<span style="color:#ae81ff">-98.5795</span>, <span style="color:#ae81ff">39.8283</span>), <span style="color:#a6e22e">list</span>(label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1&#34;</span>)),
+</span></span><span style="display:flex;"><span>  ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Feature</span>(ee<span style="color:#f92672">$</span>Geometry<span style="color:#f92672">$</span><span style="color:#a6e22e">Point</span>(<span style="color:#ae81ff">-97.5795</span>, <span style="color:#ae81ff">38.8283</span>), <span style="color:#a6e22e">list</span>(label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;2&#34;</span>)),
+</span></span><span style="display:flex;"><span>  ee<span style="color:#f92672">$</span><span style="color:#a6e22e">Feature</span>(ee<span style="color:#f92672">$</span>Geometry<span style="color:#f92672">$</span><span style="color:#a6e22e">Point</span>(<span style="color:#ae81ff">-96.5795</span>, <span style="color:#ae81ff">37.8283</span>), <span style="color:#a6e22e">list</span>(label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;3&#34;</span>))
+</span></span><span style="display:flex;"><span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Grab an image from Sentinal 2 and calculate NDVI</span>
+</span></span><span style="display:flex;"><span>s2_collection <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">ImageCollection</span>(<span style="color:#e6db74">&#34;COPERNICUS/S2&#34;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterDate</span>(<span style="color:#e6db74">&#39;2020-06-01&#39;</span>, <span style="color:#e6db74">&#39;2020-06-30&#39;</span>)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">filterBounds</span>(aoi)<span style="color:#f92672">$</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">function</span>(image) {
+</span></span><span style="display:flex;"><span>    ndvi <span style="color:#f92672">&lt;-</span> image<span style="color:#f92672">$</span><span style="color:#a6e22e">normalizedDifference</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;B8&#34;</span>, <span style="color:#e6db74">&#34;B4&#34;</span>))<span style="color:#f92672">$</span><span style="color:#a6e22e">rename</span>(<span style="color:#e6db74">&#34;NDVI&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(image<span style="color:#f92672">$</span><span style="color:#a6e22e">addBands</span>(ndvi))
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>ndvi_image <span style="color:#f92672">&lt;-</span> s2_collection<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;NDVI&#34;</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">mean</span>()<span style="color:#f92672">$</span><span style="color:#a6e22e">clip</span>(aoi)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Grab NDVI values at the sample points</span>
+</span></span><span style="display:flex;"><span>ndvi_values <span style="color:#f92672">&lt;-</span> ndvi_image<span style="color:#f92672">$</span><span style="color:#a6e22e">reduceRegions</span>(
+</span></span><span style="display:flex;"><span>  collection <span style="color:#f92672">=</span> points,
+</span></span><span style="display:flex;"><span>  reducer <span style="color:#f92672">=</span> ee<span style="color:#f92672">$</span>Reducer<span style="color:#f92672">$</span><span style="color:#a6e22e">mean</span>(),
+</span></span><span style="display:flex;"><span>  scale <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Convert the result to a list and then to a data frame</span>
+</span></span><span style="display:flex;"><span>ndvi_list <span style="color:#f92672">&lt;-</span> ndvi_values<span style="color:#f92672">$</span><span style="color:#a6e22e">getInfo</span>()<span style="color:#f92672">$</span>features
+</span></span><span style="display:flex;"><span>ndvi_df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">do.call</span>(rbind, <span style="color:#a6e22e">lapply</span>(ndvi_list, <span style="color:#66d9ef">function</span>(x) <span style="color:#a6e22e">data.frame</span>(
+</span></span><span style="display:flex;"><span>  label <span style="color:#f92672">=</span> x<span style="color:#f92672">$</span>properties<span style="color:#f92672">$</span>label,
+</span></span><span style="display:flex;"><span>  NDVI <span style="color:#f92672">=</span> x<span style="color:#f92672">$</span>properties<span style="color:#f92672">$</span>mean,
+</span></span><span style="display:flex;"><span>  lon <span style="color:#f92672">=</span> x<span style="color:#f92672">$</span>geometry<span style="color:#f92672">$</span>coordinates[1],
+</span></span><span style="display:flex;"><span>  lat <span style="color:#f92672">=</span> x<span style="color:#f92672">$</span>geometry<span style="color:#f92672">$</span>coordinates[2]
+</span></span><span style="display:flex;"><span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Save the data frame as a CSV</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">write.csv</span>(ndvi_df, <span style="color:#e6db74">&#34;ndvi_values_hello.csv&#34;</span>, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span></code></pre></div><h2 id="Getting-data-from-AppEEARS-and-NOAA"><span class="org-todo done DONE">DONE</span> Getting data from AppEEARS and NOAA <span class="tag"><span class="rgee">rgee</span></span><a hidden class="anchor" aria-hidden="true" href="#Getting-data-from-AppEEARS-and-NOAA">#</a></h2>
+<h3 id="data-types--link-to-method-of-gathering">Data types (link to method of gathering)<a hidden class="anchor" aria-hidden="true" href="#data-types--link-to-method-of-gathering">#</a></h3>
+<ul>
+<li><a href="#mat">MAT (Mean Annual Temperature)</a>
+<ul>
+<li>Average yearly temperature.</li>
+</ul>
+</li>
+<li><a href="#map">MAP (Mean Annual Precipitation)</a>
+<ul>
+<li>Average yearly precipitation.</li>
+</ul>
+</li>
+<li><a href="#gpp">GPP (Gross Primary Productivity)</a>
+<ul>
+<li>Total amount of energy captured by plants. Does not account for respiration losses.</li>
+</ul>
+</li>
+<li><a href="#npp">NPP (Net Primary Productivity)</a>
+<ul>
+<li>Amount of energy that remains after plants have used some of the captured energy for their own respiration. Actual amount of new biomass that is available for consumption by other critters. NPP = GPP - Respiration</li>
+</ul>
+</li>
+<li><a href="#pet">PET (Potential Evapotranspiration)</a>
+<ul>
+<li>Amount of water that would be evaporated and transpired by vegetation if there was sufficient water available. Atmospheric demand for water.</li>
+</ul>
+</li>
+<li><a href="#aet-et">AET, ET (Actual Evapotranspiration)</a>  - Actual amount of water that is evaporated from soil and transpired by vegetation. Less than or equal to PET. Depends on availability of water.</li>
+<li><a href="#di">DI (Dryness Index)</a>
+<ul>
+<li>PET / MAP</li>
+</ul>
+</li>
+<li><a href="#ep">EP (Evaporation Potential)</a>
+<ul>
+<li>1 - (PET /MAP)</li>
+</ul>
+</li>
+</ul>
+<h3 id="sites">Sites<a hidden class="anchor" aria-hidden="true" href="#sites">#</a></h3>
+<p>This data was gathered from many sites across the globe. Sites were sorted with a RegionName, SiteName, and Pit.</p>
+<table>
+<thead>
+<tr>
+<th>RegionName</th>
+<th>SiteName</th>
+<th>Pit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Calhoun</td>
+<td>R7</td>
+<td>R7P2</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R2</td>
+<td>R2P1</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R7</td>
+<td>R7P1</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R8</td>
+<td>R8P1</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R8</td>
+<td>R8P2.5</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R8</td>
+<td>R8P2</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R1</td>
+<td>R1C2</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R1</td>
+<td>R1C3</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R2</td>
+<td>R2H1</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R7</td>
+<td>R7H1</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R7</td>
+<td>R7H2</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R8</td>
+<td>R8H1</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R8</td>
+<td>R8H2.5</td>
+</tr>
+<tr>
+<td>Calhoun</td>
+<td>R8</td>
+<td>R8H2</td>
+</tr>
+<tr>
+<td>Luquillo</td>
+<td>ElVerde</td>
+<td>ElVerdeM</td>
+</tr>
+<tr>
+<td>Luquillo</td>
+<td>ElVerde</td>
+<td>ElVerdeR</td>
+</tr>
+<tr>
+<td>Luquillo</td>
+<td>ElVerde</td>
+<td>ElVerdeT</td>
+</tr>
+<tr>
+<td>Luquillo</td>
+<td>Icacos</td>
+<td>IcacosM</td>
+</tr>
+<tr>
+<td>Luquillo</td>
+<td>Icacos</td>
+<td>IcacosR</td>
+</tr>
+<tr>
+<td>Luquillo</td>
+<td>Icacos</td>
+<td>IcacosT</td>
+</tr>
+<tr>
+<td>Catalina</td>
+<td>MixedCon</td>
+<td>MC_M</td>
+</tr>
+<tr>
+<td>Catalina</td>
+<td>MixedCon</td>
+<td>MC_R</td>
+</tr>
+<tr>
+<td>Catalina</td>
+<td>MixedCon</td>
+<td>MC_T</td>
+</tr>
+<tr>
+<td>Catalina</td>
+<td>BigelowDesert</td>
+<td>B2D_M</td>
+</tr>
+<tr>
+<td>Catalina</td>
+<td>BigelowDesert</td>
+<td>B2D_R</td>
+</tr>
+<tr>
+<td>Catalina</td>
+<td>BigelowDesert</td>
+<td>B2D_T</td>
+</tr>
+<tr>
+<td>ReynoldsCr</td>
+<td>NorthBasalt</td>
+<td>NB_R</td>
+</tr>
+<tr>
+<td>ReynoldsCr</td>
+<td>NorthBasalt</td>
+<td>NB_T</td>
+</tr>
+<tr>
+<td>ReynoldsCr</td>
+<td>NorthLoess</td>
+<td>NL_T</td>
+</tr>
+<tr>
+<td>ReynoldsCr</td>
+<td>SWBasalt</td>
+<td>SWB_M</td>
+</tr>
+<tr>
+<td>ReynoldsCr</td>
+<td>SWBasalt</td>
+<td>SWB_T</td>
+</tr>
+<tr>
+<td>ReynoldsCr</td>
+<td>SWLoess</td>
+<td>SWL_T</td>
+</tr>
+<tr>
+<td>SouthernSierra</td>
+<td>SJER</td>
+<td>SJER_M</td>
+</tr>
+<tr>
+<td>SouthernSierra</td>
+<td>SJER</td>
+<td>SJER_R</td>
+</tr>
+<tr>
+<td>SouthernSierra</td>
+<td>SJER</td>
+<td>SJER_T</td>
+</tr>
+<tr>
+<td>DukeFarm</td>
+<td>DukeFarm</td>
+<td>DFPasture</td>
+</tr>
+<tr>
+<td>EKS</td>
+<td>Ottawa</td>
+<td>EKSAgri</td>
+</tr>
+<tr>
+<td>EKS</td>
+<td>Welda</td>
+<td>EKSNative</td>
+</tr>
+<tr>
+<td>EKS</td>
+<td>Welda</td>
+<td>EKSPostAg</td>
+</tr>
+<tr>
+<td>KNZ</td>
+<td>KNZ</td>
+<td>KNZNative</td>
+</tr>
+<tr>
+<td>KNZ</td>
+<td>KNZ</td>
+<td>KNZAgri</td>
+</tr>
+<tr>
+<td>KNZ</td>
+<td>KNZ</td>
+<td>KNZPostAg</td>
+</tr>
+<tr>
+<td>HAY</td>
+<td>HAY</td>
+<td>HAYNative</td>
+</tr>
+<tr>
+<td>HAY</td>
+<td>HAY</td>
+<td>HAYAgri</td>
+</tr>
+<tr>
+<td>HAY</td>
+<td>HAY</td>
+<td>HAYPostAg</td>
+</tr>
+<tr>
+<td>TRB</td>
+<td>TRB</td>
+<td>TRBNative</td>
+</tr>
+<tr>
+<td>TRB</td>
+<td>TRB</td>
+<td>TRBAgri</td>
+</tr>
+<tr>
+<td>TRB</td>
+<td>TRB</td>
+<td>TRBAgriIrrig</td>
+</tr>
+<tr>
+<td>TRB</td>
+<td>TRB</td>
+<td>TRBPostAg</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC1</td>
+<td>CC1_2020</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC2</td>
+<td>CC2_2020</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC2</td>
+<td>CC2_2022</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC3</td>
+<td>CC3_2021</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC3</td>
+<td>CC3_2022</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC4</td>
+<td>CC4_2021</td>
+</tr>
+<tr>
+<td>FRESCC</td>
+<td>CC5</td>
+<td>CC5_2021</td>
+</tr>
+<tr>
+<td>Konza</td>
+<td>GrassyToe</td>
+<td>GrToeN01B</td>
+</tr>
+<tr>
+<td>Konza</td>
+<td>WoodyToe</td>
+<td>WdToeN04D</td>
+</tr>
+<tr>
+<td>Konza</td>
+<td>GrassyBackslope</td>
+<td>GrBackslN01B</td>
+</tr>
+<tr>
+<td>Konza</td>
+<td>WoodyBackslope</td>
+<td>WdBackslN04D</td>
+</tr>
+<tr>
+<td>Konza</td>
+<td>GrassySummit</td>
+<td>GrSummN01B</td>
+</tr>
+<tr>
+<td>Konza</td>
+<td>WoodySummit</td>
+<td>WdSummN04D</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS01</td>
+<td>NF_Y_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS01</td>
+<td>SF_Y_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS02</td>
+<td>NF_O_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS02</td>
+<td>SF_O_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS03</td>
+<td>NF_O_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS03</td>
+<td>NF_Y_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS03</td>
+<td>SF_O_A</td>
+</tr>
+<tr>
+<td>HJAndrews</td>
+<td>WS03</td>
+<td>SF_Y_A</td>
+</tr>
+<tr>
+<td>Alps</td>
+<td>Glacier</td>
+<td>Alps1</td>
+</tr>
+<tr>
+<td>Alps</td>
+<td>GlacierRidge</td>
+<td>Alps2</td>
+</tr>
+<tr>
+<td>Alps</td>
+<td>Limestone</td>
+<td>Alps3</td>
+</tr>
+<tr>
+<td>Alps</td>
+<td>Gneiss</td>
+<td>Alps5</td>
+</tr>
+<tr>
+<td>Alps</td>
+<td>Alluvial</td>
+<td>Alps6</td>
+</tr>
+<tr>
+<td>NH</td>
+<td>ThompsonPasture</td>
+<td>NH_TP</td>
+</tr>
+<tr>
+<td>NH</td>
+<td>ThompsonForest</td>
+<td>NH_TF</td>
+</tr>
+<tr>
+<td>NH</td>
+<td>OrganicPasture</td>
+<td>NH_OP</td>
+</tr>
+<tr>
+<td>NH</td>
+<td>OrganicForest</td>
+<td>NH_OF</td>
+</tr>
+</tbody>
+</table>
+<h3 id="process">Process<a hidden class="anchor" aria-hidden="true" href="#process">#</a></h3>
+<h4 id="mat">MAT<a hidden class="anchor" aria-hidden="true" href="#mat">#</a></h4>
+<p>Gathered mainly from <a href="https://www.ncei.noaa.gov/maps/annual/">NCEI at NOAA</a>.</p>
+<ul>
+<li>Turn on the &ldquo;Annual Normals (2006-2020)&rdquo; map layer, and disable the &ldquo;Global Summary of the Year&rdquo; layer.</li>
+<li>Put coords into floating search box, and find a station near enough to the site to be relevant.</li>
+<li>Click the wrench on &ldquo;Annual Normals (2006-2020)&rdquo;, and use the rectangle tool to make a box around the station, just enough to select it.</li>
+<li>Select the station in the menu that appears on the left side of the page, and add to cart.</li>
+<li>In the new tab, click &ldquo;Show List&rdquo; under the &ldquo;Data Types&rdquo; text field.</li>
+<li>Type, filter, and select both &ldquo;Annual average temperature mean&rdquo; and &ldquo;Annual precipitation totals&rdquo;</li>
+<li>In the downloaded .csv, precip is labeled as ANN-PRCP-NORMAL, and temperature is labeled as ANN-TAVG-NORMAL.</li>
+</ul>
+<h4 id="map">MAP<a hidden class="anchor" aria-hidden="true" href="#map">#</a></h4>
+<p>Gathered mainly from <a href="https://www.ncei.noaa.gov/maps/annual/">NCEI at NOAA</a>.</p>
+<ul>
+<li>Turn on the &ldquo;Annual Normals (2006-2020)&rdquo; map layer, and disable the &ldquo;Global Summary of the Year&rdquo; layer.</li>
+<li>Put coords into floating search box, and find a station near enough to the site to be relevant.</li>
+<li>Click the wrench on &ldquo;Annual Normals (2006-2020)&rdquo;, and use the rectangle tool to make a box around the station, just enough to select it.</li>
+<li>Select the station in the menu that appears on the left side of the page, and add to cart.</li>
+<li>In the new tab, click &ldquo;Show List&rdquo; under the &ldquo;Data Types&rdquo; text field.</li>
+<li>Type, filter, and select both &ldquo;Annual average temperature mean&rdquo; and &ldquo;Annual precipitation totals&rdquo;</li>
+<li>In the downloaded .csv, precip is labeled as ANN-PRCP-NORMAL, and temperature is labeled as ANN-TAVG-NORMAL.</li>
+</ul>
+<h4 id="npp">NPP<a hidden class="anchor" aria-hidden="true" href="#npp">#</a></h4>
+<p>NPP data is gathered from <a href="https://appeears.earthdatacloud.nasa.gov/">AppEEARS</a>.</p>
+<ul>
+<li>Navigate to Extract &gt; Point, and make an account if you haven&rsquo;t.</li>
+<li>Start a new request.</li>
+<li>Name the request, and put your coordinates in the text box on the right. Comma seperated, the text should look like <em>ID, Category, Lat, Long</em>.
+<ul>
+<li>You can alternatively upload a .csv with the same formatting, useful for large pulls.</li>
+</ul>
+</li>
+<li>Set the dates. For this process, I was pulling from Jan 1, 2006 - Dec 31, 2021.</li>
+<li>Scroll down to select layers to include in the sample.</li>
+<li>NPP is the first result. Make sure the data is yearly, not 8-day.</li>
+<li>Add other products if you wish, and submit the request.</li>
+<li>Depending on the size of the data requested, it can take up to a couple hours to process.</li>
+</ul>
+<h4 id="pet">PET<a hidden class="anchor" aria-hidden="true" href="#pet">#</a></h4>
+<p>PET data is gathered from <a href="https://appeears.earthdatacloud.nasa.gov/">AppEEARS</a>.</p>
+<ul>
+<li>Navigate to Extract &gt; Point, and make an account if you haven&rsquo;t.</li>
+<li>Start a new request.</li>
+<li>Name the request, and put your coordinates in the text box on the right. Comma seperated, the text should look like <em>ID, Category, Lat, Long</em>.
+<ul>
+<li>You can alternatively upload a .csv with the same formatting, useful for large pulls.</li>
+</ul>
+</li>
+<li>Set the dates. For this process, I was pulling from Jan 1, 2006 - Dec 31, 2021.</li>
+<li>Scroll down to select layers to include in the sample.</li>
+<li>Search for &ldquo;Evapo yearly&rdquo; select the first option.</li>
+<li>PET is labeled &ldquo;PET&rdquo;, and AET is labeled &ldquo;ET&rdquo;.</li>
+<li>Depending on the size of the data requested, it can take up to a couple hours to process.</li>
+</ul>
+<h4 id="aet-et">AET, ET<a hidden class="anchor" aria-hidden="true" href="#aet-et">#</a></h4>
+<p>AET data is gathered from <a href="https://appeears.earthdatacloud.nasa.gov/">AppEEARS</a>.</p>
+<ul>
+<li>Navigate to Extract &gt; Point, and make an account if you haven&rsquo;t.</li>
+<li>Start a new request.</li>
+<li>Name the request, and put your coordinates in the text box on the right. Comma seperated, the text should look like <em>ID, Category, Lat, Long</em>.
+<ul>
+<li>You can alternatively upload a .csv with the same formatting, useful for large pulls.</li>
+</ul>
+</li>
+<li>Set the dates. For this process, I was pulling from Jan 1, 2006 - Dec 31, 2021.</li>
+<li>Scroll down to select layers to include in the sample.</li>
+<li>Search for &ldquo;Evapo yearly&rdquo; select the first option.</li>
+<li>PET is labeled &ldquo;PET&rdquo;, and AET is labeled &ldquo;ET&rdquo;.</li>
+<li>Depending on the size of the data requested, it can take up to a couple hours to process.</li>
+</ul>
+<h4 id="di">DI<a hidden class="anchor" aria-hidden="true" href="#di">#</a></h4>
+<ul>
+<li>DI and EP are calculated with PET and MAP products.</li>
+<li>PET / MAP</li>
+</ul>
+<h4 id="ep">EP<a hidden class="anchor" aria-hidden="true" href="#ep">#</a></h4>
+<ul>
+<li>EP and Di are calculated with PET and MAP products.</li>
+<li>1 - (PET / MAP)</li>
+</ul>
+<h4 id="gpp">GPP<a hidden class="anchor" aria-hidden="true" href="#gpp">#</a></h4>
+<p>GPP data is gathered from <a href="https://appeears.earthdatacloud.nasa.gov/">AppEEARS</a>.</p>
+<ul>
+<li>
+<p>Navigate to Extract &gt; Point, and make an account if you haven&rsquo;t.</p>
+</li>
+<li>
+<p>Start a new request.</p>
+</li>
+<li>
+<p>Name the request, and put your coordinates in the text box on the right. Comma seperated, the text should look like <em>ID, Category, Lat, Long</em>.</p>
+<ul>
+<li>You can alternatively upload a .csv with the same formatting, useful for large pulls.</li>
+</ul>
+</li>
+<li>
+<p>Set the dates. For this project, I was pulling from Jan 1, 2006 - Dec 31, 2021.</p>
+</li>
+<li>
+<p>Scroll down to select layers to include in the sample.</p>
+</li>
+<li>
+<p>GPP is only available in 8-day, which creates an extremely obnoxious problem - I solved this problem with an R script</p>
+</li>
+<li>
+<p>If you need to calculate yearly GPP for many different sites, the first script is intended for that purpose.</p>
+</li>
+<li>
+<p>If you only need to calculate yearly GPP for one single site, then scroll down for instructions.</p>
+</li>
+</ul>
+<h3 id="initial-dot-csv-setup">Initial .csv setup<a hidden class="anchor" aria-hidden="true" href="#initial-dot-csv-setup">#</a></h3>
+<ul>
+<li>Before you begin, we will need to edit the excel file that AppEEARS gives us.
+<ul>
+<li>Keep only the needed columns: ID, Category, Latitude, Longitude, Date and GPP - Note that the actual GPP column is labeled something like &ldquo;MOD17A2HGF_061_Gpp_500m&rdquo;
+<ul>
+<li>There are many extra columns that you will need to delete.</li>
+<li>Rename the GPP column to &ldquo;GPP&rdquo;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Create a new column called &ldquo;Year&rdquo;. The goal is to have this column have the year in YYYY format for every sample.
+<ul>
+<li>In the first cell (Should be E2 or F2), enter &ldquo;=YEAR(D2)&rdquo;, where D2 refers to your date column. Change the cell type to &ldquo;General&rdquo; - you should see a year in YYYY format.</li>
+<li>Extend this formula down to fill in the whole Year column.</li>
+<li>Copy the whole column, and then Edit &gt; Paste Special&hellip;, and select Values. This replaces the context dependent cells with ones that just have the year.</li>
+</ul>
+</li>
+<li>The list of columns should be ID, Category, Latitude, Longitude, Date, Year, GPP.</li>
+<li>&ldquo;appears.csv&rdquo; refers to the downloaded .csv - either rename your file or change this to call in the file that contains the downloaded data.</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Multiple sites</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(dplyr)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># sets initial df as the sanitzed, edited .csv</span>
+</span></span><span style="display:flex;"><span>  df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;appeears.csv&#34;</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># sets output to not be in scientific notation</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">options</span>(scipen <span style="color:#f92672">=</span> <span style="color:#ae81ff">999</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># checking the df to make sure all good.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># I had to mess around in excel a bit to get rid of empty rows at the bottom.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">head</span>(df)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tail</span>(df)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># set object to sum all the 8day GPP values</span>
+</span></span><span style="display:flex;"><span>  summarized_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(GPP <span style="color:#f92672">~</span> Category <span style="color:#f92672">+</span> Year, data<span style="color:#f92672">=</span>df, sum, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># The goal was to take the sum values and keep the Site and Pit labels</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   in the sheet.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">names</span>(summarized_data)<span style="color:#a6e22e">[names</span>(summarized_data) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;GPP&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;total_GPP&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Gets rid of duplicates for Category and Year rows.</span>
+</span></span><span style="display:flex;"><span>  unique_rows <span style="color:#f92672">&lt;-</span> df[<span style="color:#f92672">!</span><span style="color:#a6e22e">duplicated</span>(df[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Category&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>)]), ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># set object to merge the sum&#39;d GPPs and the category and year</span>
+</span></span><span style="display:flex;"><span>  summarized_all_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge</span>(unique_rows, summarized_data, by<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Category&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># export a .csv with the above</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">write.csv</span>(summarized_all_data, <span style="color:#e6db74">&#34;annual_gpp.csv&#34;</span>, row.names<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># New goal: to average each sites GPP values across all the defined years 2006-2021</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># removed stray 2005 8day values from output .csv in excel</span>
+</span></span><span style="display:flex;"><span>  df2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;annual_gpp.csv&#34;</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#checking df2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">head</span>(df2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># ALERT!! I open the annual_gpp.csv here and rename columns to be &#34;Pit&#34; and &#34;Site&#34;, accordingly.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># adds mean of total_GPP, and sets that to be average_GPP</span>
+</span></span><span style="display:flex;"><span>  average_GPP <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(total_GPP <span style="color:#f92672">~</span> Pit, data <span style="color:#f92672">=</span> df2, FUN <span style="color:#f92672">=</span> mean)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># takes average_GPP value and merges it with all the label columns</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># sorts by Pit</span>
+</span></span><span style="display:flex;"><span>  merged_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge</span>(average_GPP, df2<span style="color:#a6e22e">[c</span>(<span style="color:#e6db74">&#34;Site&#34;</span>, <span style="color:#e6db74">&#34;Pit&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>, <span style="color:#e6db74">&#34;Latitude&#34;</span>, <span style="color:#e6db74">&#34;Longitude&#34;</span>)]
+</span></span><span style="display:flex;"><span>                       , by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Pit&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># removes duplicates</span>
+</span></span><span style="display:flex;"><span>  merged_data <span style="color:#f92672">&lt;-</span> merged_data[<span style="color:#f92672">!</span><span style="color:#a6e22e">duplicated</span>(merged_data<span style="color:#f92672">$</span>Pit), ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#  exports a csv with all of that stuff. Hip Hip hooray</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">write.csv</span>(merged_data, file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;time_averaged_GPP.csv&#34;</span>, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span></code></pre></div></li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Single site</p>
+<p>If you only are processing GPP data from one site, then some slight modifications are needed for the script to function.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(dplyr)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># sets initial df as the sanitized, edited data</span>
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;appeears.csv&#34;</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># sets output to not be in scientific notation</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(scipen <span style="color:#f92672">=</span> <span style="color:#ae81ff">999</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># checking the df to make sure all good</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(df)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">tail</span>(df)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># set object to sum all the 8day GPP values</span>
+</span></span><span style="display:flex;"><span>summarized_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(GPP <span style="color:#f92672">~</span> Year, data<span style="color:#f92672">=</span>df, sum, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># The goal was to take the sum values and keep the Site and Pit labels in the sheet</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(summarized_data)<span style="color:#a6e22e">[names</span>(summarized_data) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;GPP&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;total_GPP&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Gets rid of duplicates for Year rows</span>
+</span></span><span style="display:flex;"><span>unique_rows <span style="color:#f92672">&lt;-</span> df[<span style="color:#f92672">!</span><span style="color:#a6e22e">duplicated</span>(df<span style="color:#f92672">$</span>Year), ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># set object to merge the summed GPPs and the year</span>
+</span></span><span style="display:flex;"><span>summarized_all_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge</span>(unique_rows, summarized_data, by<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Year&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># export a .csv with the above</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">write.csv</span>(summarized_all_data, <span style="color:#e6db74">&#34;annual_gpp.csv&#34;</span>, row.names<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Read the exported .csv</span>
+</span></span><span style="display:flex;"><span>df2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;annual_gpp.csv&#34;</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Checking df2</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(df2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Calculate the average of total_GPP for each combination of Latitude and Longitude</span>
+</span></span><span style="display:flex;"><span>average_GPP <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(total_GPP <span style="color:#f92672">~</span> Latitude <span style="color:#f92672">+</span> Longitude, data <span style="color:#f92672">=</span> df2, FUN <span style="color:#f92672">=</span> mean)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Rename the average GPP column</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(average_GPP)<span style="color:#a6e22e">[names</span>(average_GPP) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;total_GPP&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;average_GPP&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Merge the average GPP values with the original data to keep all necessary columns</span>
+</span></span><span style="display:flex;"><span>merged_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge</span>(average_GPP, df2[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;ID&#34;</span>, <span style="color:#e6db74">&#34;Latitude&#34;</span>, <span style="color:#e6db74">&#34;Longitude&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>)], by <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Latitude&#34;</span>, <span style="color:#e6db74">&#34;Longitude&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Remove duplicates to ensure each Latitude-Longitude combination appears only once</span>
+</span></span><span style="display:flex;"><span>merged_data <span style="color:#f92672">&lt;-</span> merged_data[<span style="color:#f92672">!</span><span style="color:#a6e22e">duplicated</span>(merged_data[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Latitude&#34;</span>, <span style="color:#e6db74">&#34;Longitude&#34;</span>)]), ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Export a csv with the averaged GPP values</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">write.csv</span>(merged_data, file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;final_averaged_GPP.csv&#34;</span>, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="Mapping-DI-and-EP-with-rgee"><span class="org-todo todo TODO">TODO</span> Mapping DI and EP with rgee <span class="tag"><span class="rgee">rgee</span><span class="maps">maps</span></span><a hidden class="anchor" aria-hidden="true" href="#Mapping-DI-and-EP-with-rgee">#</a></h2>
+<p>hello test</p>
+<h2 id="creating-my-website-with-hugo-and-cloudflare-pages">Creating My Website with Hugo and Cloudflare Pages<a hidden class="anchor" aria-hidden="true" href="#creating-my-website-with-hugo-and-cloudflare-pages">#</a></h2>
+<h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<p>This document details the steps I followed to create my website using Hugo, Cloudflare Pages, and associated tools. It includes setting up a static site generator, configuring themes, deploying to Cloudflare Pages, and troubleshooting common issues.</p>
+<h3 id="prerequisites">Prerequisites<a hidden class="anchor" aria-hidden="true" href="#prerequisites">#</a></h3>
+<p>Before starting, ensure you have the following installed on your system:</p>
+<ul>
+<li><code>Hugo</code></li>
+<li><code>Git</code></li>
+<li>A GitHub account for version control</li>
+<li>A Cloudflare account for deployment</li>
+</ul>
+<h3 id="setting-up-hugo">Setting Up Hugo<a hidden class="anchor" aria-hidden="true" href="#setting-up-hugo">#</a></h3>
+<p><strong>*</strong> Install Hugo:
+Hugo is a fast, modern static site generator. I installed it using Homebrew:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>       brew install hugo
+</span></span></code></pre></div><p><strong>*</strong> Create a New Hugo Site:
+I initialized a new Hugo site by running the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>       hugo new site mysite
+</span></span></code></pre></div><p><strong>*</strong> Choose and Install a Theme:
+I opted for the <code>PaperMod</code> theme, which offers a clean and modern look:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>       git submodule add https://github.com/adityatelange/hugo-PaperMod.git themes/papermod
+</span></span></code></pre></div><p>After adding the theme, I configured the site by editing the <code>hugo.toml</code> file to use the <code>PaperMod</code> theme.</p>
+<h3 id="building-and-previewing-the-site">Building and Previewing the Site<a hidden class="anchor" aria-hidden="true" href="#building-and-previewing-the-site">#</a></h3>
+<p><strong>*</strong> Build the Site Locally:
+To build and preview the site locally, I used the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>       hugo server -D
+</span></span></code></pre></div><p>This command starts a local server where I could view my site at <code>http://localhost:1313</code>.</p>
+<p><strong>*</strong> Customizing the Site:
+I customized various aspects of the site, including the footer, search functionality, and more, by editing the relevant files in the <code>themes/papermod</code> directory.</p>
+<h3 id="deploying-to-cloudflare-pages">Deploying to Cloudflare Pages<a hidden class="anchor" aria-hidden="true" href="#deploying-to-cloudflare-pages">#</a></h3>
+<p><strong>*</strong> Set Up Cloudflare Pages:
+I configured Cloudflare Pages to deploy the site directly from my GitHub repository. I connected my repository to Cloudflare Pages and set the build command to:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>       hugo
+</span></span></code></pre></div><p>The output directory was set to <code>public</code>.</p>
+<p><strong>*</strong> Troubleshooting Deployment Issues:
+One issue I encountered was related to submodules not deploying correctly. I resolved this by ensuring the <code>.gitmodules</code> file was properly configured:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span>       <span style="color:#66d9ef">[submodule &#34;themes/papermod&#34;]</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">themes/papermod
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">           url = https://github.com/adityatelange/hugo-PaperMod.git</span>
+</span></span></code></pre></div><h3 id="adding-functionality">Adding Functionality<a hidden class="anchor" aria-hidden="true" href="#adding-functionality">#</a></h3>
+<p><strong>*</strong> Adding Search:
+I added a search page to the site by creating a <code>search.md</code> file in the content directory. I made sure the front matter was correctly formatted:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>       ---
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;Search&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">layout</span>: <span style="color:#e6db74">&#34;search&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">url</span>: <span style="color:#e6db74">&#34;/search&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">summary</span>: <span style="color:#e6db74">&#34;search&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">placeholder</span>: <span style="color:#e6db74">&#34;placeholder text in search input box&#34;</span>
+</span></span><span style="display:flex;"><span>       ---
+</span></span></code></pre></div><p><strong>*</strong> Enhancing the Footer:
+Customizing the footer required editing the theme&rsquo;s configuration and files in the <code>themes/papermod</code> directory.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 </span> · 
+
+    <span>
+        Love from Kansas
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

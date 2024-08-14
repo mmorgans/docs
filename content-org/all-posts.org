@@ -1,6 +1,6 @@
 #+hugo_base_dir: ../
 #+options: author:nil
-* DONE Setting up rgee                                             :rgee:R:
+* DONE Setting up rgee :rgee:R:
 CLOSED: [2024-08-13 Tue 11:37]
 :PROPERTIES:
 :EXPORT_FILE_NAME: setting-up-rgee
@@ -188,7 +188,7 @@ Map$addLayer(ndvi_diff, ndvi_viz_params, 'NDVI Difference')
 {% endhighlight %}
 #+end_src
 
-* DONE Using variables in rgee                                             :rgee:
+* DONE Using variables in rgee :rgee:
 CLOSED: [2024-08-13 Tue 11:37]
 :PROPERTIES:
 :EXPORT_FILE_NAME: using-variables-in-rgee
@@ -231,7 +231,7 @@ Center the map on the area we are interested in, and add in the land cover layer
 Map$centerObject(aoi,8)
 Map$addLayer(landcover, landcover_viz, "Land Cover :)")
 #+end_src
-* DONE Making maps of variables with rgee                                             :rgee:
+* DONE Making maps of variables with rgee :rgee:
 CLOSED: [2024-08-13 Tue 11:37]
 :PROPERTIES:
 :EXPORT_FILE_NAME: Making-maps-of-variables-with-rgee
@@ -399,7 +399,7 @@ evi_ppt_viz <- list(
 )
 Map$addLayer(evi_ppt_ratio, evi_ppt_viz, "EVI/PPT Ratio")
 #+END_SRC
-* DONE Exporting data to a CSV with rgee                                             :rgee:
+* DONE Exporting data to a CSV with rgee :rgee:
 CLOSED: [2024-08-13 Tue 11:37]
 :PROPERTIES:
 :EXPORT_FILE_NAME: Exporting-data-to-a-csv-with-rgee
@@ -455,7 +455,7 @@ ndvi_df <- do.call(rbind, lapply(ndvi_list, function(x) data.frame(
 write.csv(ndvi_df, "ndvi_values_hello.csv", row.names = FALSE)
 #+END_SRC
 
-* DONE Getting data from AppEEARS and NOAA                                             :rgee:
+* DONE Getting data from AppEEARS and NOAA :rgee:
 CLOSED: [2024-08-13 Tue 11:37]
 :PROPERTIES:
 :EXPORT_FILE_NAME: Getting-data-from-AppEEARS-and-NOAA
@@ -767,7 +767,12 @@ hello test
 
 
 
-* COMMENT Local Variables                          :ARCHIVE:
-# Local Variables:
-# eval: (org-hugo-auto-export-mode -1)
-# End:
+
+
+* TODO Creating this website
+:PROPERTIES:
+:EXPORT_FILE_NAME: Creating-this-website
+:END:
+
+** Introduction
+I set out with the goal to create documentation so that my process was both transparent and reproducible. While a word document probably would have sufficed, it simply would not have been as fun. Additionally, it seemed like anything I could publish to the web could be easily archived with something like the [[https://waybackmachine.org][wayback machine]] and then could be easily referenced too without worrying about it's longevity.
