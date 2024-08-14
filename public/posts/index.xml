@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on morgan docs</title>
     <link>http://localhost:1313/posts/</link>
     <description>Recent content in Posts on morgan docs</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- 0.132.0</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 13 Aug 2024 11:37:00 -0500</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,9 @@
       <link>http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/</guid>
-      <description>Introduction In general, exporting data to a .csv with rgee is pretty easy. The general gist of the process is:&#xA;Define the area or points you are interested in Filter data Convert the results to a list, and Export to a csv. Example Make sure to load and initialize rgee first!&#xA;# Define an AOI over Kansas aoi &amp;lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Define sample points in the area points &amp;lt;- ee$FeatureCollection(c( ee$Feature(ee$Geometry$Point(-98.</description>
+      <description>Introduction In general, exporting data to a .csv with rgee is pretty easy. The general gist of the process is:
+Define the area or points you are interested in Filter data Convert the results to a list, and Export to a csv. Example Make sure to load and initialize rgee first!
+# Define an AOI over Kansas aoi &amp;lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Define sample points in the area points &amp;lt;- ee$FeatureCollection(c( ee$Feature(ee$Geometry$Point(-98.</description>
     </item>
     <item>
       <title>Getting data from AppEEARS and NOAA</title>
@@ -27,35 +29,35 @@
       <link>http://localhost:1313/posts/making-maps-of-variables-with-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/making-maps-of-variables-with-rgee/</guid>
-      <description>Introduction Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.&#xA;Dividing EVI by Precipitation In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.&#xA;Load and initialize rgee first!&#xA;library(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi &amp;lt;- ee$Geometry$Rectangle(c(-102.</description>
+      <description>Introduction Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.
+Dividing EVI by Precipitation In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.
+Load and initialize rgee first!
+library(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi &amp;lt;- ee$Geometry$Rectangle(c(-102.</description>
     </item>
     <item>
       <title>Setting up rgee</title>
       <link>http://localhost:1313/posts/setting-up-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/setting-up-rgee/</guid>
-      <description>Introduction From the rgee github page: &amp;ldquo;rgee is an R binding package for calling Google Earth Engine API from within R. Various functions are implemented to simplify the connection with the R spatial ecosystem.&amp;rdquo;&#xA;This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven&amp;rsquo;t tested it.</description>
+      <description>Introduction From the rgee github page: &amp;ldquo;rgee is an R binding package for calling Google Earth Engine API from within R. Various functions are implemented to simplify the connection with the R spatial ecosystem.&amp;rdquo;
+This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven&amp;rsquo;t tested it.</description>
     </item>
     <item>
       <title>Using variables in rgee</title>
       <link>http://localhost:1313/posts/using-variables-in-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/using-variables-in-rgee/</guid>
-      <description>Introduction Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.&#xA;Calling variables Load and initialize rgee first!&#xA;Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.&#xA;aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I&amp;rsquo;ll use the MODIS land cover datasets.</description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/posts/all-posts/</link>
-      <pubDate>Mon, 12 Aug 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/all-posts/</guid>
-      <description>Table of Contents DONE Setting up rgee:rgee:R: Introduction Prerequisites Installation Setup Initializing Examples Surface water occurrence May 28th 2019 Tornado DONE Using variables in rgee:rgee: Introduction Calling variables DONE Making maps of variables with rgee:rgee: Introduction Dividing EVI by Precipitation Breakdown DONE Exporting data to a CSV with rgee:rgee: Introduction Example DONE Getting data from AppEEARS and NOAA:rgee: Data types (link to method of gathering) Sites Process MAT MAP NPP PET AET, ET DI EP GPP Initial .</description>
+      <description>Introduction Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.
+Calling variables Load and initialize rgee first!
+Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.
+aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I&amp;rsquo;ll use the MODIS land cover datasets.</description>
     </item>
     <item>
       <title>Creating this website</title>
       <link>http://localhost:1313/posts/creating-this-website/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/creating-this-website/</guid>
-      <description>Introduction This document details the steps I followed to create my website using Hugo, Cloudflare Pages, and associated tools. It includes setting up a static site generator, configuring themes, deploying to Cloudflare Pages, and troubleshooting common issues.&#xA;Prerequisites Before starting, ensure you have the following installed on your system:&#xA;Hugo Git A GitHub account for version control A Cloudflare account for deployment Setting Up Hugo Install Hugo: Hugo is a fast, modern static site generator.</description>
+      <description>Introduction I set out with the goal to create documentation so that my process was both transparent and reproducible. While a word document probably would have sufficed, it simply would not have been as fun. Additionally, it seemed like anything I could publish to the web could be easily archived with something like the wayback machine and then could be easily referenced too without worrying about it&amp;rsquo;s longevity.</description>
     </item>
     <item>
       <title>Mapping DI and EP with rgee</title>
