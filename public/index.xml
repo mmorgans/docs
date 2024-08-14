@@ -44,18 +44,11 @@
       <description>Introduction Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.&#xA;Calling variables Load and initialize rgee first!&#xA;Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.&#xA;aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I&amp;rsquo;ll use the MODIS land cover datasets.</description>
     </item>
     <item>
-      <title></title>
-      <link>http://localhost:1313/posts/all-posts/</link>
-      <pubDate>Mon, 12 Aug 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/all-posts/</guid>
-      <description>Table of Contents DONE Setting up rgee:rgee:R: Introduction Prerequisites Installation Setup Initializing Examples Surface water occurrence May 28th 2019 Tornado DONE Using variables in rgee:rgee: Introduction Calling variables DONE Making maps of variables with rgee:rgee: Introduction Dividing EVI by Precipitation Breakdown DONE Exporting data to a CSV with rgee:rgee: Introduction Example DONE Getting data from AppEEARS and NOAA:rgee: Data types (link to method of gathering) Sites Process MAT MAP NPP PET AET, ET DI EP GPP Initial .</description>
-    </item>
-    <item>
       <title>Creating this website</title>
       <link>http://localhost:1313/posts/creating-this-website/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/creating-this-website/</guid>
-      <description>Introduction This document details the steps I followed to create my website using Hugo, Cloudflare Pages, and associated tools. It includes setting up a static site generator, configuring themes, deploying to Cloudflare Pages, and troubleshooting common issues.&#xA;Prerequisites Before starting, ensure you have the following installed on your system:&#xA;Hugo Git A GitHub account for version control A Cloudflare account for deployment Setting Up Hugo Install Hugo: Hugo is a fast, modern static site generator.</description>
+      <description>Introduction I set out with the goal to create documentation so that my process was both transparent and reproducible. While a word document probably would have sufficed, it simply would not have been as fun. Additionally, it seemed like anything I could publish to the web could be easily archived with something like the wayback machine and then could be easily referenced too without worrying about it&amp;rsquo;s longevity.</description>
     </item>
     <item>
       <title>Mapping DI and EP with rgee</title>
