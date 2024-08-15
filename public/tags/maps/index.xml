@@ -6,13 +6,16 @@
     <description>Recent content in Maps on morgan docs</description>
     <generator>Hugo -- 0.132.0</generator>
     <language>en-us</language>
+    <lastBuildDate>Thu, 15 Aug 2024 12:39:00 -0500</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/maps/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mapping DI and EP with rgee</title>
       <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
-      <description>hello test</description>
+      <description>Rgee version Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
+Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.
+This was pretty tricky to get working.</description>
     </item>
   </channel>
 </rss>

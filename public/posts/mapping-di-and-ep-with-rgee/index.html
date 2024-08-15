@@ -7,8 +7,8 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Mapping DI and EP with rgee | morgan docs</title>
 <meta name="keywords" content="rgee, maps">
-<meta name="description" content="Rgee version Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
-Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.
+<meta name="description" content="Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
+Rgee version Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.
 This was pretty tricky to get working.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/mapping-di-and-ep-with-rgee/">
@@ -115,14 +115,8 @@ This was pretty tricky to get working.">
     <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Mapping DI and EP with rgee
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
     </h1>
-    <div class="post-meta">4 min&nbsp;|&nbsp;<a href="https://github.com/mmorgans/docs/posts/Mapping-DI-and-EP-with-rgee.md" rel="noopener noreferrer" target="_blank">suggest changes</a>
+    <div class="post-meta"><span title='2024-08-15 12:39:00 -0500 CDT'>August 15, 2024</span>&nbsp;·&nbsp;4 min&nbsp;|&nbsp;<a href="https://github.com/mmorgans/docs/posts/Mapping-DI-and-EP-with-rgee.md" rel="noopener noreferrer" target="_blank">suggest changes</a>
 
 </div>
   </header> <div class="toc">
@@ -155,8 +149,10 @@ This was pretty tricky to get working.">
     </details>
 </div>
 
-  <div class="post-content"><h2 id="rgee-version">Rgee version<a hidden class="anchor" aria-hidden="true" href="#rgee-version">#</a></h2>
-<p>Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.</p>
+  <div class="post-content"><p><img loading="lazy" src="/images/rgee_global.png" alt=""  />
+
+Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.</p>
+<h2 id="rgee-version">Rgee version<a hidden class="anchor" aria-hidden="true" href="#rgee-version">#</a></h2>
 <h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
 <p>Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.</p>
 <p>This was pretty tricky to get working. The primary challenge was visualizing the data in a way that was meaningful, and preventing extreme values from obfuscating the scale.</p>

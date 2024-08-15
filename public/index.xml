@@ -6,8 +6,27 @@
     <description>Recent content on morgan docs</description>
     <generator>Hugo -- 0.132.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Aug 2024 11:37:00 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 15 Aug 2024 12:39:00 -0500</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creating a .kml file from a Google Earth project</title>
+      <link>http://localhost:1313/posts/creating-a-kml-from-a-project/</link>
+      <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
+      <guid>http://localhost:1313/posts/creating-a-kml-from-a-project/</guid>
+      <description>Introduction &amp;ldquo;Keyhole Markup Language&amp;rdquo;
+.kml files are useful for a number of reasons, namely storing pins, locations, polygons, images, and other GIS info. One of the easiest ways to make them is with Google Earth.
+You can approach this in a couple of ways. Both the Earth website and the Google Earth Pro desktop app are usable.
+Google Earth Web Open Google Earth in a browser. Open the left hand side bar.</description>
+    </item>
+    <item>
+      <title>Mapping DI and EP with rgee</title>
+      <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
+      <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
+      <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
+      <description>Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
+Rgee version Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.
+This was pretty tricky to get working.</description>
+    </item>
     <item>
       <title>Exporting data to a CSV with rgee</title>
       <link>http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/</link>
@@ -58,13 +77,6 @@ aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this examp
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/creating-this-website/</guid>
       <description>Introduction I set out with the goal to create documentation so that my process was both transparent and reproducible. While a word document probably would have sufficed, it simply would not have been as fun. Additionally, it seemed like anything I could publish to the web could be easily archived with something like the wayback machine and then could be easily referenced too without worrying about it&amp;rsquo;s longevity.</description>
-    </item>
-    <item>
-      <title>Mapping DI and EP with rgee</title>
-      <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
-      <description>hello test</description>
     </item>
   </channel>
 </rss>

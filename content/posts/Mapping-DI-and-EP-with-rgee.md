@@ -1,12 +1,15 @@
 +++
 title = "Mapping DI and EP with rgee"
+date = 2024-08-15T12:39:00-05:00
 tags = ["rgee", "maps"]
-draft = true
+draft = false
 +++
 
-## Rgee version {#rgee-version}
-
+![](/images/rgee_global.png)
 Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
+
+
+## Rgee version {#rgee-version}
 
 
 ### Introduction {#introduction}

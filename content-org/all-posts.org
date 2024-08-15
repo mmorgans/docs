@@ -755,13 +755,14 @@ merged_data <- merged_data[!duplicated(merged_data[, c("Latitude", "Longitude")]
 write.csv(merged_data, file = "final_averaged_GPP.csv", row.names = FALSE)
 #+end_src
 
-* TODO Mapping DI and EP with rgee :rgee:maps:
+* DONE Mapping DI and EP with rgee :rgee:maps:
+CLOSED: [2024-08-15 Thu 12:39]
 :PROPERTIES:
 :EXPORT_FILE_NAME: Mapping-DI-and-EP-with-rgee
 :END:
-
-** Rgee version
+[[/images/rgee_global.png]]
 Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
+** Rgee version
 *** Introduction
 Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.
 
@@ -868,6 +869,40 @@ visualize_layer(indices_2019$dryness_index, "DI 2019", dryness_index_min, drynes
 visualize_layer(indices_2019$evap_index, "EI 2019", evap_index_min, evap_index_max)
 #+end_src
 
+* DONE Creating a .kml file from a Google Earth project
+CLOSED: [2024-08-15 Thu 12:39]
+:PROPERTIES:
+:EXPORT_FILE_NAME: Creating-a-kml-from-a-project
+:END:
+** Introduction
+"Keyhole Markup Language"
+
+.kml files are useful for a number of reasons, namely storing pins, locations, polygons, images, and other GIS info. One of the easiest ways to make them is with Google Earth.
+
+You can approach this in a couple of ways. Both the [[https://earth.google.com][Earth website]] and the [[https://www.google.com/earth/about/versions/][Google Earth Pro desktop app]] are usable.
+
+** Google Earth Web
+1. Open [[https://earth.google.com][Google Earth]] in a browser.
+2. Open the left hand side bar. It's a little arrow in the middle of the left edge.
+3. Click the "+ New" button, select "Local KML file", and click "Create".
+4. You should see a new section, "Local KML files", and your new project, "Untitled".
+   - You can rename the project by clicking on the kebab menu while hovering on it, and clicking "Rename".
+5. Click on the project to select it.
+6. To add a location to the project, navigate to it, and then click the "Save to project" button that appears in the card.
+   - Alternatively, you can use the pin / placemark tool (first on the left in the toolbar) and it will be automatically added to the selected project.
+   - You can rename the pin / placemark by either doing so when you initially place it, or by using the kebab menu in the project menu.
+7. Once you are done adding to your project, you can export by clicking the kebab menu on it, and then selecting "Export as KML file".
+
+** Google Earth Pro
+1. Open [[https://www.google.com/earth/about/versions/][Google Earth Pro]].
+2. Create a folder under Add > Folder. This is your project, so name it accordingly.
+3. Create placemarks with the placemark tool.
+   - They should be automatically placed into the new folder.
+   - You can drag other objects inside of the folder to add them to the project.
+4. Once you are done with the project, export it by right clicking on the folder and selecting "Save place as.."
+   - There are two options to save: a .kml and .kmz.
+   - If you don't know what to use, select .kml.
+   - .kmz files are used to compress larger projects, typically ones that include images, but have some compatability issues.
 * TODO Creating this website
 :PROPERTIES:
 :EXPORT_FILE_NAME: Creating-this-website
@@ -875,3 +910,4 @@ visualize_layer(indices_2019$evap_index, "EI 2019", evap_index_min, evap_index_m
 
 ** Introduction
 I set out with the goal to create documentation so that my process was both transparent and reproducible. While a word document probably would have sufficed, it simply would not have been as fun. Additionally, it seemed like anything I could publish to the web could be easily archived with something like the [[https://waybackmachine.org][wayback machine]] and then could be easily referenced too without worrying about it's longevity.
+

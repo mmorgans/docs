@@ -6,8 +6,17 @@
     <description>Recent content in Rgee on morgan docs</description>
     <generator>Hugo -- 0.132.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Aug 2024 11:37:00 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 15 Aug 2024 12:39:00 -0500</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/rgee/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mapping DI and EP with rgee</title>
+      <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
+      <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
+      <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
+      <description>Rgee version Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
+Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.
+This was pretty tricky to get working.</description>
+    </item>
     <item>
       <title>Exporting data to a CSV with rgee</title>
       <link>http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/</link>
@@ -51,13 +60,6 @@ This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS 
 Calling variables Load and initialize rgee first!
 Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.
 aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I&amp;rsquo;ll use the MODIS land cover datasets.</description>
-    </item>
-    <item>
-      <title>Mapping DI and EP with rgee</title>
-      <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
-      <description>hello test</description>
     </item>
   </channel>
 </rss>
