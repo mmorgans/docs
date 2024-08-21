@@ -904,6 +904,7 @@ You can approach this in a couple of ways. Both the [[https://earth.google.com][
    - If you don't know what to use, select .kml.
    - .kmz files are used to compress larger projects, typically ones that include images, but have some compatability issues.
 * DONE Git basics
+CLOSED: [2024-08-21 Wed 11:00]
 :PROPERTIES:
 :EXPORT_FILE_NAME: Git-basics
 :END:

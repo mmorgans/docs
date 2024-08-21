@@ -1,5 +1,6 @@
 +++
 title = "Git basics"
+date = 2024-08-21T11:00:00-05:00
 draft = false
 +++
 
