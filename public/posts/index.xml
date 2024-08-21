@@ -23,8 +23,8 @@ Google Earth Web Open Google Earth in a browser. Open the left hand side bar.</d
       <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
       <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
-      <description>Rgee version Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
-Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.
+      <description>Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
+Rgee version Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.
 This was pretty tricky to get working.</description>
     </item>
     <item>
@@ -72,11 +72,20 @@ Define an area that you want to visualize. The easiest way of doing this is to d
 aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I&amp;rsquo;ll use the MODIS land cover datasets.</description>
     </item>
     <item>
-      <title>Creating this website</title>
+      <title>About</title>
       <link>http://localhost:1313/posts/creating-this-website/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/creating-this-website/</guid>
-      <description>Introduction I set out with the goal to create documentation so that my process was both transparent and reproducible. While a word document probably would have sufficed, it simply would not have been as fun. Additionally, it seemed like anything I could publish to the web could be easily archived with something like the wayback machine and then could be easily referenced too without worrying about it&amp;rsquo;s longevity.</description>
+      <description>Introduction I set out with the goal to create documentation so that my process was both transparent and reproducible. While a word document probably would have sufficed, it simply would not have been as fun. Additionally, it seemed like anything I could publish to the web could be easily archived with something like the wayback machine and then could be easily linked to without worrying about it&amp;rsquo;s longevity.
+Writing and formatting All posts are written in Emacs 29.</description>
+    </item>
+    <item>
+      <title>Git basics</title>
+      <link>http://localhost:1313/posts/git-basics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/git-basics/</guid>
+      <description>Introduction to Git and GitHub It&amp;rsquo;s easiest to think of Git (and other forms of source control) like a time machine.
+When you make changes to your project, it&amp;rsquo;s easy to see what has changed. You have a perfect history of everything that&amp;rsquo;s ever happened in your project, and can always revert to any point in that history. Git allows you to work with other people on the same project, while guaranteeing that you won&amp;rsquo;t mess up each other&amp;rsquo;s work.</description>
     </item>
   </channel>
 </rss>

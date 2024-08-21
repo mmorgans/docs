@@ -5,14 +5,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Using variables in rgee | morgan docs</title>
-<meta name="keywords" content="rgee">
-<meta name="description" content="Introduction Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.
-Calling variables Load and initialize rgee first!
-Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.
-aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I&rsquo;ll use the MODIS land cover datasets.">
+<title>Git basics | morgan docs</title>
+<meta name="keywords" content="">
+<meta name="description" content="Introduction to Git and GitHub It&rsquo;s easiest to think of Git (and other forms of source control) like a time machine.
+When you make changes to your project, it&rsquo;s easy to see what has changed. You have a perfect history of everything that&rsquo;s ever happened in your project, and can always revert to any point in that history. Git allows you to work with other people on the same project, while guaranteeing that you won&rsquo;t mess up each other&rsquo;s work.">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/using-variables-in-rgee/">
+<link rel="canonical" href="http://localhost:1313/posts/git-basics/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -21,7 +19,7 @@ aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, 
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/using-variables-in-rgee/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/git-basics/">
 <noscript>
     <style>
         #theme-toggle,
@@ -115,9 +113,9 @@ aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, 
   <header class="post-header">
     <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
-      Using variables in rgee
+      Git basics
     </h1>
-    <div class="post-meta"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;1 min&nbsp;|&nbsp;<a href="https://github.com/mmorgans/docs/tree/6a5a016593c69d22d3d7f55392292f9fdd962d62/content/posts/using-variables-in-rgee.md" rel="noopener noreferrer" target="_blank">suggest changes</a>
+    <div class="post-meta">4 min&nbsp;|&nbsp;<a href="https://github.com/mmorgans/docs/tree/6a5a016593c69d22d3d7f55392292f9fdd962d62/content/posts/Git-basics.md" rel="noopener noreferrer" target="_blank">suggest changes</a>
 
 </div>
   </header> <div class="toc">
@@ -128,42 +126,66 @@ aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, 
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                    <a href="#introduction-to-git-and-github" aria-label="Introduction to Git and GitHub">Introduction to Git and GitHub</a></li>
                 <li>
-                    <a href="#calling-variables" aria-label="Calling variables">Calling variables</a>
+                    <a href="#concepts" aria-label="Concepts">Concepts</a></li>
+                <li>
+                    <a href="#how-github-works" aria-label="How GitHub Works">How GitHub Works</a></li>
+                <li>
+                    <a href="#branches-and-pull-requests" aria-label="Branches and Pull Requests">Branches and Pull Requests</a></li>
+                <li>
+                    <a href="#glossary" aria-label="Glossary">Glossary</a>
                 </li>
             </ul>
         </div>
     </details>
 </div>
 
-  <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
-<p>Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.</p>
-<h2 id="calling-variables">Calling variables<a hidden class="anchor" aria-hidden="true" href="#calling-variables">#</a></h2>
-<p><em>Load and initialize rgee first!</em></p>
-<p>Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>aoi <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span>Geometry<span style="color:#f92672">$</span><span style="color:#a6e22e">Rectangle</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-120.4</span>, <span style="color:#ae81ff">34.5</span>, <span style="color:#ae81ff">-119.4</span>, <span style="color:#ae81ff">35.5</span>))
-</span></span></code></pre></div><p>In this example, I&rsquo;ll use the MODIS land cover datasets.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>landcover <span style="color:#f92672">&lt;-</span> ee<span style="color:#f92672">$</span><span style="color:#a6e22e">ImageCollection</span>(<span style="color:#e6db74">&#34;MODIS/061/MCD12Q1&#34;</span>)<span style="color:#f92672">$</span><span style="color:#a6e22e">first</span>()<span style="color:#f92672">$</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;LC_Type1&#34;</span>)
-</span></span></code></pre></div><p>Set some visualization parameters to control how the data is displayed.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>landcover_viz <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(
-</span></span><span style="display:flex;"><span>  min <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
-</span></span><span style="display:flex;"><span>  max <span style="color:#f92672">=</span> <span style="color:#ae81ff">17</span>,
-</span></span><span style="display:flex;"><span>  palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;05450a&#34;</span>, <span style="color:#e6db74">&#34;086a10&#34;</span>, <span style="color:#e6db74">&#34;54a708&#34;</span>, <span style="color:#e6db74">&#34;78d203&#34;</span>, <span style="color:#e6db74">&#34;009900&#34;</span>,
-</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34;c6b044&#34;</span>, <span style="color:#e6db74">&#34;dcd159&#34;</span>, <span style="color:#e6db74">&#34;dade48&#34;</span>, <span style="color:#e6db74">&#34;fbff13&#34;</span>, <span style="color:#e6db74">&#34;b6ff05&#34;</span>,
-</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34;27ff87&#34;</span>, <span style="color:#e6db74">&#34;c24f44&#34;</span>, <span style="color:#e6db74">&#34;a5a5a5&#34;</span>, <span style="color:#e6db74">&#34;ff6d4c&#34;</span>, <span style="color:#e6db74">&#34;69fff8&#34;</span>,
-</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34;f9ffa4&#34;</span>, <span style="color:#e6db74">&#34;1c0dff&#34;</span>)
-</span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><p>Center the map on the area we are interested in, and add in the land cover layer using the parameters we defined above.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">centerObject</span>(aoi,<span style="color:#ae81ff">8</span>)
-</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">$</span><span style="color:#a6e22e">addLayer</span>(landcover, landcover_viz, <span style="color:#e6db74">&#34;Land Cover :)&#34;</span>)
-</span></span></code></pre></div>
+  <div class="post-content"><h2 id="introduction-to-git-and-github">Introduction to Git and GitHub<a hidden class="anchor" aria-hidden="true" href="#introduction-to-git-and-github">#</a></h2>
+<p>It&rsquo;s easiest to think of Git (and other forms of source control) like a time machine.</p>
+<ul>
+<li>When you make changes to your project, it&rsquo;s easy to see what has changed.</li>
+<li>You have a perfect history of everything that&rsquo;s ever happened in your project, and can always revert to any point in that history.</li>
+<li>Git allows you to work with other people on the same project, while guaranteeing that you won&rsquo;t mess up each other&rsquo;s work.</li>
+<li>Git allows you to send and receive files from your computer to a server, making it easy to put your projects online.</li>
+</ul>
+<h2 id="concepts">Concepts<a hidden class="anchor" aria-hidden="true" href="#concepts">#</a></h2>
+<p><strong>Commits:</strong> Think of a commit as taking a snapshot of your project. Every time you make a commit, you are saving a record of what your project looks like at that moment in time. This allows you to track changes over time and gives you a perfect history of your entire project.</p>
+<p><strong>Repositories:</strong> Where your project lives. It’s like a folder that stores all of your code and the entire history of your project. Repositories can live on your local machine or be hosted online via platforms like GitHub.</p>
+<p><strong>Staging Area:</strong> The staging area is like a holding ground where you prepare changes before making a commit. Think of it as packing a suitcase for a trip. When you lay everything out on your bed, thinking about what you want to bring with you, you can still move around, remove, and add items. The bed would be the staging area, and &ldquo;committing&rdquo; would be closing and locking your suitcase.</p>
+<h2 id="how-github-works">How GitHub Works<a hidden class="anchor" aria-hidden="true" href="#how-github-works">#</a></h2>
+<p>GitHub stores your Git repository online. While Git is entirely local (everything is stored on your computer), GitHub hosts your repository online so that you can share it and collaborate with other people.</p>
+<h2 id="branches-and-pull-requests">Branches and Pull Requests<a hidden class="anchor" aria-hidden="true" href="#branches-and-pull-requests">#</a></h2>
+<p>In Git, branches allow you to work on different versions of your project simultaneously. For example, if you are working on a major feature but you don’t want to disrupt the rest of the project, a branch would allow you to create an alternate timeline where you can make changes without affecting the main project.</p>
+<p><strong>Pull Requests</strong> are used when working with other people to propose changes. If someone has code that they want to contribute to the project, they create a pull request to merge their work. This allows other team members to review the code before it’s integrated.</p>
+<h2 id="glossary">Glossary<a hidden class="anchor" aria-hidden="true" href="#glossary">#</a></h2>
+<p>Core Git Terms:</p>
+<ul>
+<li>Repository (Repo): A project’s directory or storage space where your project’s files and their revision history are stored.</li>
+<li>Commit: A snapshot of your project at a specific point in time. Each commit has a message and stores changes made to the code.</li>
+<li>Branch: A separate line of development within the same repository. You can think of branches as different versions of your project that diverge from the main version (typically called main or master).</li>
+<li>Clone: The process of creating a local copy of a repository from a remote server (such as GitHub).</li>
+<li>Fork: A personal copy of someone else’s repository, typically used to suggest changes or to start independent development.</li>
+<li>Pull Request (PR): A GitHub-specific feature. It allows developers to request that their code changes be merged into the main repository. It often involves code review before merging.</li>
+<li>Merge: The process of combining changes from different branches into one. It typically happens after a pull request is approved.</li>
+<li>Rebase: Similar to merging but instead of combining the changes from different branches, it rewrites the commit history by applying your changes on top of another branch. Useful for keeping a cleaner commit history.</li>
+<li>Remote: A version of your project hosted on a remote server (such as GitHub, GitLab, or Bitbucket). The remote is usually referred to as origin.</li>
+<li>Fetch: Retrieves the latest changes from the remote repository without applying them to your local repository.</li>
+<li>Pull: Retrieves the latest changes from the remote repository and applies them to your current branch.</li>
+<li>Push: Sends your committed changes to a remote repository (e.g., GitHub) so others can access them.</li>
+<li>HEAD: The current snapshot or commit that your working directory is based on. It’s typically the latest commit on the active branch.</li>
+<li>Staging Area: A place where you prepare changes before committing them. Think of it as a holding area where you decide what will go into your next commit.</li>
+<li>Index: Another name for the staging area.</li>
+<li>Checkout: The process of moving between different branches or commits in a repository. You are switching your working directory to match a particular branch or commit.</li>
+<li>Conflict: Occurs when Git is unable to automatically resolve differences between two commits (such as during a merge) because the same line of code was changed differently in both branches.</li>
+<li>Cherry-pick: Selectively applying changes from one commit in another branch without merging the entire branch.</li>
+</ul>
+
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/rgee/">Rgee</a></li>
     </ul>
   </footer>
 </article>

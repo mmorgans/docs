@@ -179,7 +179,7 @@ viz_params <- list(
 
 # Add the post-event image to the map.
 Map$centerObject(aoi, 12)  # Zoom in to level 12 for better detail
-Map$addLayer(post_event_image, viz_params, 'Post-Event Sentinel-2 Image')
+Map$addLayer(post_even  t_image, viz_params, 'Post-Event Sentinel-2 Image')
 
 # Load pre-event data for comparison.
 pre_event_image <- ee$ImageCollection('COPERNICUS/S2')$
