@@ -6,8 +6,16 @@
     <description>Recent content in Posts on morgan docs</description>
     <generator>Hugo -- 0.132.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Aug 2024 12:39:00 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 21 Aug 2024 11:00:00 -0500</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git basics</title>
+      <link>http://localhost:1313/posts/git-basics/</link>
+      <pubDate>Wed, 21 Aug 2024 11:00:00 -0500</pubDate>
+      <guid>http://localhost:1313/posts/git-basics/</guid>
+      <description>Introduction to Git and GitHub It&amp;rsquo;s easiest to think of Git (and other forms of source control) like a time machine.
+When you make changes to your project, it&amp;rsquo;s easy to see what has changed. You have a perfect history of everything that&amp;rsquo;s ever happened in your project, and can always revert to any point in that history. Git allows you to work with other people on the same project, while guaranteeing that you won&amp;rsquo;t mess up each other&amp;rsquo;s work.</description>
+    </item>
     <item>
       <title>Creating a .kml file from a Google Earth project</title>
       <link>http://localhost:1313/posts/creating-a-kml-from-a-project/</link>
@@ -76,16 +84,7 @@ aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this examp
       <link>http://localhost:1313/posts/creating-this-website/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/creating-this-website/</guid>
-      <description>Introduction I set out with the goal to create documentation so that my process was both transparent and reproducible. While a word document probably would have sufficed, it simply would not have been as fun. Additionally, it seemed like anything I could publish to the web could be easily archived with something like the wayback machine and then could be easily linked to without worrying about it&amp;rsquo;s longevity.
-Writing and formatting All posts are written in Emacs 29.</description>
-    </item>
-    <item>
-      <title>Git basics</title>
-      <link>http://localhost:1313/posts/git-basics/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/git-basics/</guid>
-      <description>Introduction to Git and GitHub It&amp;rsquo;s easiest to think of Git (and other forms of source control) like a time machine.
-When you make changes to your project, it&amp;rsquo;s easy to see what has changed. You have a perfect history of everything that&amp;rsquo;s ever happened in your project, and can always revert to any point in that history. Git allows you to work with other people on the same project, while guaranteeing that you won&amp;rsquo;t mess up each other&amp;rsquo;s work.</description>
+      <description>Written in Emacs 29.4, using Doom 2.0.9, in Org mode 9.7. Published to markdown using ox-hugo, and pushed to GitHub using Magit. Hugo is used as the website framework with a modified version of the papermod theme. Cloudflare is used for domain management, and Cloudflare pages builds the site.</description>
     </item>
   </channel>
 </rss>
