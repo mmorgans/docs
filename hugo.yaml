@@ -15,7 +15,7 @@ markup:
 params:
   homeInfoParams:
     Title: docs
-    Content: r, gee, emacs, etc.
+    Content: documentation for a variety of projects
   ShowReadingTime: true
   ShowToc: true
   ShowBreadCrumbs: true
