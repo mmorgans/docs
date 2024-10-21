@@ -620,7 +620,7 @@ AET data is gathered from [[https://appeears.earthdatacloud.nasa.gov/][AppEEARS]
 - DI and EP are calculated with PET and MAP products.
 - PET / MAP
 *** EP
-- EP and Di are calculated with PET and MAP products.
+- EP and DI are calculated with PET and MAP products.
 - 1 - (PET / MAP)
 *** GPP
 GPP data is gathered from [[https://appeears.earthdatacloud.nasa.gov/][AppEEARS]].
@@ -640,12 +640,12 @@ GPP data is gathered from [[https://appeears.earthdatacloud.nasa.gov/][AppEEARS]
   - Keep only the needed columns: ID, Category, Latitude, Longitude, Date and GPP - Note that the actual GPP column is labeled something like "MOD17A2HGF_061_Gpp_500m"
     - There are many extra columns that you will need to delete.
     - Rename the GPP column to "GPP"
-- Create a new column called "Year". The goal is to have this column have the year in YYYY format for every sample.
+- Create a new column called "Year". The goal is to have this column show the year in YYYY format for every sample.
   - In the first cell (Should be E2 or F2), enter "=YEAR(D2)", where D2 refers to your date column. Change the cell type to "General" - you should see a year in YYYY format.
   - Extend this formula down to fill in the whole Year column.
-  - Copy the whole column, and then Edit > Paste Special..., and select Values. This replaces the context dependent cells with ones that just have the year.
-- The list of columns should be ID, Category, Latitude, Longitude, Date, Year, GPP.
-- "appears.csv" refers to the downloaded .csv - either rename your file or change this to call in the file that contains the downloaded data.
+  - Copy the whole column, and then Edit > Paste Special..., and select Values. This replaces the formula dependent cells with ones that show the year in plain text.
+- The list of columns should now be ID, Category, Latitude, Longitude, Date, Year, GPP.
+- In the script, "appears.csv" refers to the downloaded .csv - you will need to either rename your file or change this to change the call in the file to point to the correct location.
 
 ***** Multiple sites
 
