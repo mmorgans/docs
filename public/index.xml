@@ -86,5 +86,16 @@ aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this examp
       <guid>http://localhost:1313/posts/creating-this-website/</guid>
       <description>Written in Emacs 29.4, using Doom 2.0.9, in Org mode 9.7. Published to markdown using ox-hugo, and pushed to GitHub using Magit. Hugo is used as the website framework with a modified version of the papermod theme. Cloudflare is used for domain management, and Cloudflare pages builds the site.</description>
     </item>
+    <item>
+      <title>Analyzing soil with XRF</title>
+      <link>http://localhost:1313/posts/analyzing-soil-with-xrf/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/analyzing-soil-with-xrf/</guid>
+      <description>todo: conclusion, charge the battery, cable configuration for computer
+Warning: The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.
+Introduction This article assumes you already are in possession of pucks of finely ground soil.
+Procedure Prepare the XRF Analyzer
+First, take the battery from the charger and insert it into the back of the XRF.</description>
+    </item>
   </channel>
 </rss>
