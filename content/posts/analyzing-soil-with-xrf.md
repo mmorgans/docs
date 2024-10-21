@@ -1,6 +1,7 @@
 +++
 title = "Analyzing soil with a XRF"
-draft = true
+date = 2024-10-21T08:56:00-05:00
+draft = false
 +++
 
 todo: conclusion, charge the battery, cable configuration for computer

@@ -949,7 +949,8 @@ Core Git Terms:
 - Checkout: The process of moving between different branches or commits in a repository. You are switching your working directory to match a particular branch or commit.
 - Conflict: Occurs when Git is unable to automatically resolve differences between two commits (such as during a merge) because the same line of code was changed differently in both branches.
 - Cherry-pick: Selectively applying changes from one commit in another branch without merging the entire branch.
-* TODO Analyzing soil with a XRF
+* DONE Analyzing soil with a XRF
+CLOSED: [2024-10-21 Mon 08:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: analyzing-soil-with-xrf
 :END:
