@@ -955,8 +955,7 @@ CLOSED: [2024-10-21 Mon 08:56]
 :EXPORT_FILE_NAME: analyzing-soil-with-xrf
 :END:
 
-todo: conclusion, charge the battery, cable configuration for computer
-
+/Note: This article is a draft and will be modified./
 
 *Warning*: The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.
 ** Introduction

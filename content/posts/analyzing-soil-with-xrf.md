@@ -4,7 +4,7 @@ date = 2024-10-21T08:56:00-05:00
 draft = false
 +++
 
-todo: conclusion, charge the battery, cable configuration for computer
+_Note: This article is a draft and will be modified._
 
 **Warning**: The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.
 
