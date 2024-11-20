@@ -17,16 +17,19 @@ This article assumes you already are in possession of pucks of finely ground soi
 ## Procedure {#procedure}
 
 1.  **Prepare the XRF Analyzer**
-    -   First, take the battery from the charger and insert it into the back of the XRF.
+    -   Take the battery from the charger and insert it into the back of the XRF.
         -   Note that a good amount of force is required to latch the battery into place.
     -   Power on the XRF by holding the power button on the left of the front for about 3 seconds.
     -   Wait for the system to boot.
     -   Log into the device using the password.
-    -   From the main menu, select `System Check` to ensure everything is operating properly.
+    -   The four directional buttons are used to select items on the interface.
+    -   The button to the right of the pad is the enter or confirm button, not a back button.
+    -   The center of the pad is not a button, which is incredibly unintuitive and confused me for an unbelievably long period of time.
+    -   From the main menu, select `System Check` to calibrate the scanner.
 
 2.  **Connect the XRF to a Computer**
     -   Open the `NDTr` software from the start menu on the desktop. It should automatically connect to the XRF and mirror the device’s screen on the computer.
-    -   If prompted, you will need to select the COM port used to communicate with the XRF. The name in the listing should make it obvious.
+    -   If prompted, you will need to select the COM port used to communicate with the XRF. The XRF should be open on COM6, but listing should have names.
 
 3.  **Prepare and Name the Samples**
     -   Slide the latch on the XRF stand to the right and open the lid.
@@ -37,8 +40,9 @@ This article assumes you already are in possession of pucks of finely ground soi
         -   Note that you can use the computer's keyboard to type.
 
 4.  **Perform the Scan**
-    -   Ensure that the sample is centered on the XRF and that the lid is locked, then press and hold the trigger for 10 seconds to initiate the scan.
+    -   Ensure that the sample is centered on the sensor and that the lid is locked, then press and hold the trigger. The XRF will scan as long as you are holding the trigger, up to 10 seconds.
         -   Ensure you hold the trigger for the same amount of time for all samples in a batch.
+        -   The longer the scan, the more accurate the results are, although scanning for more than 5 seconds is essentially redundant.
     -   After the scan completes, open the lid and remove the sample, placing it on the lab bench film-side up.
         -   Note: placing the sample film side down can easily destroy the puck.
     -   Press the return key on the computer keyboard.

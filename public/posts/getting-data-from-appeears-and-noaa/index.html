@@ -681,7 +681,7 @@
 </ul>
 <h3 id="ep">EP<a hidden class="anchor" aria-hidden="true" href="#ep">#</a></h3>
 <ul>
-<li>EP and Di are calculated with PET and MAP products.</li>
+<li>EP and DI are calculated with PET and MAP products.</li>
 <li>1 - (PET / MAP)</li>
 </ul>
 <h3 id="gpp">GPP<a hidden class="anchor" aria-hidden="true" href="#gpp">#</a></h3>
@@ -727,15 +727,15 @@
 </li>
 </ul>
 </li>
-<li>Create a new column called &ldquo;Year&rdquo;. The goal is to have this column have the year in YYYY format for every sample.
+<li>Create a new column called &ldquo;Year&rdquo;. The goal is to have this column show the year in YYYY format for every sample.
 <ul>
 <li>In the first cell (Should be E2 or F2), enter &ldquo;=YEAR(D2)&rdquo;, where D2 refers to your date column. Change the cell type to &ldquo;General&rdquo; - you should see a year in YYYY format.</li>
 <li>Extend this formula down to fill in the whole Year column.</li>
-<li>Copy the whole column, and then Edit &gt; Paste Special&hellip;, and select Values. This replaces the context dependent cells with ones that just have the year.</li>
+<li>Copy the whole column, and then Edit &gt; Paste Special&hellip;, and select Values. This replaces the formula dependent cells with ones that show the year in plain text.</li>
 </ul>
 </li>
-<li>The list of columns should be ID, Category, Latitude, Longitude, Date, Year, GPP.</li>
-<li>&ldquo;appears.csv&rdquo; refers to the downloaded .csv - either rename your file or change this to call in the file that contains the downloaded data.</li>
+<li>The list of columns should now be ID, Category, Latitude, Longitude, Date, Year, GPP.</li>
+<li>In the script, &ldquo;appears.csv&rdquo; refers to the downloaded .csv - you will need to either rename your file or change this to change the call in the file to point to the correct location.</li>
 </ul>
 <!--list-separator-->
 <ul>
