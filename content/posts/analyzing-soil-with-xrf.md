@@ -29,7 +29,14 @@ This article assumes you already are in possession of pucks of finely ground soi
 
 2.  **Connect the XRF to a Computer**
     -   Open the `NDTr` software from the start menu on the desktop. It should automatically connect to the XRF and mirror the device’s screen on the computer.
-    -   If prompted, you will need to select the COM port used to communicate with the XRF. The XRF should be open on COM6, but listing should have names.
+        -   If it doesn't, try some of the following.
+        -   The software should be the _only_ XRF-related piece of software open. If something else is open trying to communicate with the scanner, it won't work.
+        -   The scanner should be communicating on COM6. To ensure this is the case or to change it:
+            -   Maximize the window with the window decoration controls (e.g. _ □ ☒)
+            -   Click the now visible settings button.
+            -   Change the COM port to 6.
+            -   If it still won't work, ensure that the XRF is actually communicating on COM6.
+                -   Open Device Manager (search in start menu), and under "Universal Serial Bus", look for the scanner. Note the COM port.
 
 3.  **Prepare and Name the Samples**
     -   Slide the latch on the XRF stand to the right and open the lid.
@@ -54,6 +61,3 @@ This article assumes you already are in possession of pucks of finely ground soi
     -   Click `Test` to verify the connection. If successful, click `Query Readings` to retrieve the data from the XRF.
     -   Scroll to the bottom of the readings list, select the samples you need, name the file, and click `Download` to save the data.
     -   .ndt files can be opened in Excel or your text editor of choice.
-
-6.  **Conclusion**
-    -

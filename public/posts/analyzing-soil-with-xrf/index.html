@@ -131,9 +131,7 @@ Take the battery from the charger and insert it into the back of the XRF.">
                 <li>
                     <a href="#introduction" aria-label="Introduction">Introduction</a></li>
                 <li>
-                    <a href="#procedure" aria-label="Procedure">Procedure</a></li>
-                <li>
-                    <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
+                    <a href="#procedure" aria-label="Procedure">Procedure</a>
                 </li>
             </ul>
         </div>
@@ -166,8 +164,24 @@ Take the battery from the charger and insert it into the back of the XRF.">
 <li>
 <p><strong>Connect the XRF to a Computer</strong></p>
 <ul>
-<li>Open the <code>NDTr</code> software from the start menu on the desktop. It should automatically connect to the XRF and mirror the device’s screen on the computer.</li>
-<li>If prompted, you will need to select the COM port used to communicate with the XRF. The XRF should be open on COM6, but listing should have names.</li>
+<li>Open the <code>NDTr</code> software from the start menu on the desktop. It should automatically connect to the XRF and mirror the device’s screen on the computer.
+<ul>
+<li>If it doesn&rsquo;t, try some of the following.</li>
+<li>The software should be the <em>only</em> XRF-related piece of software open. If something else is open trying to communicate with the scanner, it won&rsquo;t work.</li>
+<li>The scanner should be communicating on COM6. To ensure this is the case or to change it:
+<ul>
+<li>Maximize the window with the window decoration controls (e.g. _ □ ☒)</li>
+<li>Click the now visible settings button.</li>
+<li>Change the COM port to 6.</li>
+<li>If it still won&rsquo;t work, ensure that the XRF is actually communicating on COM6.
+<ul>
+<li>Open Device Manager (search in start menu), and under &ldquo;Universal Serial Bus&rdquo;, look for the scanner. Note the COM port.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
@@ -211,9 +225,6 @@ Take the battery from the charger and insert it into the back of the XRF.">
 <li>Scroll to the bottom of the readings list, select the samples you need, name the file, and click <code>Download</code> to save the data.</li>
 <li>.ndt files can be opened in Excel or your text editor of choice.</li>
 </ul>
-</li>
-<li>
-<h2 id="conclusion"><strong>Conclusion</strong><a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
 </li>
 </ol>
 

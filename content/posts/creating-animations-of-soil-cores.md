@@ -1,6 +1,7 @@
 +++
 title = "Creating animations of soil cores out of CT scans"
-draft = true
+date = 2024-11-20T13:53:00-06:00
+draft = false
 +++
 
 ## Introduction {#introduction}
