@@ -6,8 +6,17 @@
     <description>Recent content in Posts on morgan docs</description>
     <generator>Hugo -- 0.132.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 21 Oct 2024 08:56:00 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 20 Nov 2024 13:53:00 -0600</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creating animations of soil cores out of CT scans</title>
+      <link>http://localhost:1313/posts/creating-animations-of-soil-cores/</link>
+      <pubDate>Wed, 20 Nov 2024 13:53:00 -0600</pubDate>
+      <guid>http://localhost:1313/posts/creating-animations-of-soil-cores/</guid>
+      <description>Introduction Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.
+We&amp;rsquo;re getting our files from the Environmental Molecular Sciences Laboratory at the Pacific Northwest National Laboratory, who have scanned the soil cores with a Nikon XTH CT scanner.
+Requirements .vol files from a CT scanner At least 16gb of memory Ideally more. Both Fiji and Dragonfly attempt to load the entire file into memory; the downloaded .</description>
+    </item>
     <item>
       <title>Analyzing soil with a XRF</title>
       <link>http://localhost:1313/posts/analyzing-soil-with-xrf/</link>
@@ -98,15 +107,6 @@ aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this examp
       <description>Writing and formatting All posts are written in Emacs 29.4 in Org mode.
 Publishing Posts are published to markdown using ox-hugo, and pushed to GitHub using Magit. Hugo is used as a framework for the website, with a modified version of the papermod theme. I use Cloudflare for the majority of domain work. Cloudflare pages is used for building the site.
 Written in Emacs 29.4, using Doom 2.0.9, in Org mode 9.</description>
-    </item>
-    <item>
-      <title>Creating animations of soil cores out of CT scans</title>
-      <link>http://localhost:1313/posts/creating-animations-of-soil-cores/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/creating-animations-of-soil-cores/</guid>
-      <description>Introduction Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.
-We&amp;rsquo;re getting our files from the Environmental Molecular Sciences Laboratory at the Pacific Northwest National Laboratory, who have scanned the soil cores with a Nikon XTH CT scanner.
-Requirements .vol files from a CT scanner At least 16gb of memory Ideally more. Both Fiji and Dragonfly attempt to load the entire file into memory; the downloaded .</description>
     </item>
   </channel>
 </rss>
