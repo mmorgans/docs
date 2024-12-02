@@ -29,8 +29,8 @@ We're getting our files from the Environmental Molecular Sciences Laboratory at 
 -   Open the .tiff in Dragonfly, crop to slices 250-1800
     -   Make a cylindrical mask to crop the garbage off the core
     -   Use movie maker to make a rotating movie, export to .avi
--   Use Handbrake or similar to convert to mp4
--   Use Final Cut Pro or similar to crop to square
+-   Use ffmpeg or similar to convert to mp4
+-   Use kdenlive or similar to crop to square
 -   Use Gifski to convert to reasonably sized gif
 
 
