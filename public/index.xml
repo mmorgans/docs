@@ -22,11 +22,10 @@ Requirements .vol files from a CT scanner At least 16gb of memory Ideally more. 
       <link>http://localhost:1313/posts/analyzing-soil-with-xrf/</link>
       <pubDate>Mon, 21 Oct 2024 08:56:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/analyzing-soil-with-xrf/</guid>
-      <description>Note: This article is a draft and will be modified.
-Warning: The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.
+      <description>Warning: The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.
 Introduction This article assumes you already are in possession of pucks of finely ground soil.
 Procedure Prepare the XRF Analyzer
-Take the battery from the charger and insert it into the back of the XRF.</description>
+Take the battery from the charger and insert it into the back of the XRF. Note that a good amount of force is required to latch the battery into place.</description>
     </item>
     <item>
       <title>Git basics</title>
@@ -52,8 +51,8 @@ Google Earth Web Open Google Earth in a browser. Open the left hand side bar.</d
       <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
       <description>Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
-Rgee version Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.
-This was pretty tricky to get working.</description>
+Note 2: JS version had the same issues and created more problems. Nevermind!
+Rgee version Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.</description>
     </item>
     <item>
       <title>Exporting data to a CSV with rgee</title>

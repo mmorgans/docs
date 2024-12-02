@@ -8,6 +8,8 @@ draft = false
 ![](/images/rgee_global.png)
 Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
 
+Note 2: JS version had the same issues and created more problems. Nevermind!
+
 
 ## Rgee version {#rgee-version}
 

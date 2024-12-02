@@ -762,6 +762,8 @@ CLOSED: [2024-08-15 Thu 12:39]
 :END:
 [[/images/rgee_global.png]]
 Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
+
+Note 2: JS version had the same issues and created more problems. Nevermind!
 ** Rgee version
 *** Introduction
 Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.
@@ -954,9 +956,6 @@ CLOSED: [2024-10-21 Mon 08:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: analyzing-soil-with-xrf
 :END:
-
-/Note: This article is a draft and will be modified./
-
 *Warning*: The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.
 ** Introduction
 This article assumes you already are in possession of pucks of finely ground soil.
