@@ -105,7 +105,7 @@ Open Fiji, and use `File > Import > Raw...` to open the .vol.
 -   Number of images: 2000
 -   Gap: 0
 
-Check `Little-endian byte order` and =Use virtual stac=k. Virtual stacks load the images without fully committing them to memory, making it possible to view datasets that are larger in size than the amount of memory you have. **If you don't have at least 40GB of memory and don't use virtual stacks, Fiji will crash your system attempting to load the file.**
+Check `Little-endian byte order` and `Use virtual stack`. Virtual stacks load the images without fully committing them to memory, making it possible to view datasets that are larger in size than the amount of memory you have. **If you don't have at least 40GB of memory and don't use virtual stacks, Fiji will crash your system attempting to load the file.**
 
 Fiji will open the file, and you should be able to scroll through the slices of the core, or use the scroll bar at the bottom of the window containing the core.
 
