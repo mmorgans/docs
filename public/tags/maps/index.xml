@@ -4,7 +4,7 @@
     <title>Maps on morgan docs</title>
     <link>http://localhost:1313/tags/maps/</link>
     <description>Recent content in Maps on morgan docs</description>
-    <generator>Hugo -- 0.132.0</generator>
+    <generator>Hugo -- 0.140.2</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 15 Aug 2024 12:39:00 -0500</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/maps/index.xml" rel="self" type="application/rss+xml" />
@@ -13,9 +13,13 @@
       <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
       <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
-      <description>Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
-Rgee version Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.
-This was pretty tricky to get working.</description>
+      <description>&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/rgee_global.png&#34; alt=&#34;&#34;  /&gt;
+
+Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.&lt;/p&gt;
+&lt;p&gt;Note 2: JS version had the same issues and created more problems. Nevermind!&lt;/p&gt;
+&lt;h2 id=&#34;rgee-version&#34;&gt;Rgee version&lt;/h2&gt;
+&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

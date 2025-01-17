@@ -122,9 +122,10 @@
   <div class="entry-content">
     <p>Introduction Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.
 We’re getting our files from the Environmental Molecular Sciences Laboratory at the Pacific Northwest National Laboratory, who have scanned the soil cores with a Nikon XTH CT scanner.
-Requirements .vol files from a CT scanner At least 16gb of memory Ideally more. Both Fiji and Dragonfly attempt to load the entire file into memory; the downloaded ....</p>
+Requirements .vol files from a CT scanner At least 16gb of memory Ideally more. Both Fiji and Dragonfly attempt to load the entire file into memory; the downloaded .vol is almost 40gb. Dragonfly from Comet Software. You’ll need a license: 30 day free trials are easily accessible, and non commercial licenses are available. Fiji or ImageJ, but use Fiji. A windows or Linux machine to run Dragonfly on; everything but that can be done on Mac TL;DR Download .vol files from EMSL Data portal Import the files into Fiji as raw data, 2000x2000x2000 Convert to 8-bit, save as .tiff Open the .tiff in Dragonfly, crop to slices 250-1800 Make a cylindrical mask to crop the garbage off the core Use movie maker to make a rotating movie, export to .avi Use ffmpeg or similar to convert to mp4 Use kdenlive or similar to crop to square Use Gifski to convert to reasonably sized gif Getting .vol files from EMSL data portal Selecting cores To start, we need to get the CT scan files from EMSL, provided as .vol files.
+...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-11-20 13:53:00 -0600 CST'>November 20, 2024</span>&nbsp;·&nbsp;11 min</footer>
+  <footer class="entry-footer"><span title='2024-11-20 13:53:00 -0600 CST'>November 20, 2024</span>&nbsp;·&nbsp;13 min</footer>
   <a class="entry-link" aria-label="post link to Creating animations of soil cores out of CT scans" href="http://localhost:1313/posts/creating-animations-of-soil-cores/"></a>
 </article>
 
@@ -134,11 +135,11 @@ Requirements .vol files from a CT scanner At least 16gb of memory Ideally more. 
     </h2>
   </header>
   <div class="entry-content">
-    <p>Note: This article is a draft and will be modified.
-Warning: The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.
+    <p>Warning: The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.
 Introduction This article assumes you already are in possession of pucks of finely ground soil.
 Procedure Prepare the XRF Analyzer
-Take the battery from the charger and insert it into the back of the XRF....</p>
+Take the battery from the charger and insert it into the back of the XRF. Note that a good amount of force is required to latch the battery into place. Power on the XRF by holding the power button on the left of the front for about 3 seconds. Wait for the system to boot. Log into the device using the password. The four directional buttons are used to select items on the interface. The button to the right of the pad is the enter or confirm button, not a back button. The center of the pad is not a button, which is incredibly unintuitive and confused me for an unbelievably long period of time. From the main menu, select System Check to calibrate the scanner. Connect the XRF to a Computer
+...</p>
   </div>
   <footer class="entry-footer"><span title='2024-10-21 08:56:00 -0500 CDT'>October 21, 2024</span>&nbsp;·&nbsp;3 min</footer>
   <a class="entry-link" aria-label="post link to Analyzing soil with a XRF" href="http://localhost:1313/posts/analyzing-soil-with-xrf/"></a>
@@ -151,7 +152,8 @@ Take the battery from the charger and insert it into the back of the XRF....</p>
   </header>
   <div class="entry-content">
     <p>Introduction to Git and GitHub It’s easiest to think of Git (and other forms of source control) like a time machine.
-When you make changes to your project, it’s easy to see what has changed. You have a perfect history of everything that’s ever happened in your project, and can always revert to any point in that history. Git allows you to work with other people on the same project, while guaranteeing that you won’t mess up each other’s work....</p>
+When you make changes to your project, it’s easy to see what has changed. You have a perfect history of everything that’s ever happened in your project, and can always revert to any point in that history. Git allows you to work with other people on the same project, while guaranteeing that you won’t mess up each other’s work. Git allows you to send and receive files from your computer to a server, making it easy to put your projects online. Concepts Commits: Think of a commit as taking a snapshot of your project. Every time you make a commit, you are saving a record of what your project looks like at that moment in time. This allows you to track changes over time and gives you a perfect history of your entire project.
+...</p>
   </div>
   <footer class="entry-footer"><span title='2024-08-21 11:00:00 -0500 CDT'>August 21, 2024</span>&nbsp;·&nbsp;4 min</footer>
   <a class="entry-link" aria-label="post link to Git basics" href="http://localhost:1313/posts/git-basics/"></a>
@@ -166,7 +168,7 @@ When you make changes to your project, it’s easy to see what has changed. You 
     <p>Introduction “Keyhole Markup Language”
 .kml files are useful for a number of reasons, namely storing pins, locations, polygons, images, and other GIS info. One of the easiest ways to make them is with Google Earth.
 You can approach this in a couple of ways. Both the Earth website and the Google Earth Pro desktop app are usable.
-Google Earth Web Open Google Earth in a browser. Open the left hand side bar....</p>
+Google Earth Web Open Google Earth in a browser. Open the left hand side bar. It’s a little arrow in the middle of the left edge. Click the “&#43; New” button, select “Local KML file”, and click “Create”. You should see a new section, “Local KML files”, and your new project, “Untitled”. You can rename the project by clicking on the kebab menu while hovering on it, and clicking “Rename”. Click on the project to select it. To add a location to the project, navigate to it, and then click the “Save to project” button that appears in the card. Alternatively, you can use the pin / placemark tool (first on the left in the toolbar) and it will be automatically added to the selected project. You can rename the pin / placemark by either doing so when you initially place it, or by using the kebab menu in the project menu. Once you are done adding to your project, you can export by clicking the kebab menu on it, and then selecting “Export as KML file”. Google Earth Pro Open Google Earth Pro. Create a folder under Add &gt; Folder. This is your project, so name it accordingly. Create placemarks with the placemark tool. They should be automatically placed into the new folder. You can drag other objects inside of the folder to add them to the project. Once you are done with the project, export it by right clicking on the folder and selecting “Save place as..” There are two options to save: a .kml and .kmz. If you don’t know what to use, select .kml. .kmz files are used to compress larger projects, typically ones that include images, but have some compatability issues. </p>
   </div>
   <footer class="entry-footer"><span title='2024-08-15 12:39:00 -0500 CDT'>August 15, 2024</span>&nbsp;·&nbsp;2 min</footer>
   <a class="entry-link" aria-label="post link to Creating a .kml file from a Google Earth project" href="http://localhost:1313/posts/creating-a-kml-from-a-project/"></a>
@@ -178,9 +180,10 @@ Google Earth Web Open Google Earth in a browser. Open the left hand side bar....
     </h2>
   </header>
   <div class="entry-content">
-    <p>Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
+    <p> Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
+Note 2: JS version had the same issues and created more problems. Nevermind!
 Rgee version Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.
-This was pretty tricky to get working....</p>
+...</p>
   </div>
   <footer class="entry-footer"><span title='2024-08-15 12:39:00 -0500 CDT'>August 15, 2024</span>&nbsp;·&nbsp;4 min</footer>
   <a class="entry-link" aria-label="post link to Mapping DI and EP with rgee" href="http://localhost:1313/posts/mapping-di-and-ep-with-rgee/"></a>
@@ -194,7 +197,7 @@ This was pretty tricky to get working....</p>
   <div class="entry-content">
     <p>Introduction In general, exporting data to a .csv with rgee is pretty easy. The general gist of the process is:
 Define the area or points you are interested in Filter data Convert the results to a list, and Export to a csv. Example Make sure to load and initialize rgee first!
-# Define an AOI over Kansas aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Define sample points in the area points &lt;- ee$FeatureCollection(c( ee$Feature(ee$Geometry$Point(-98....</p>
+# Define an AOI over Kansas aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Define sample points in the area points &lt;- ee$FeatureCollection(c( ee$Feature(ee$Geometry$Point(-98.5795, 39.8283), list(label = &#34;1&#34;)), ee$Feature(ee$Geometry$Point(-97.5795, 38.8283), list(label = &#34;2&#34;)), ee$Feature(ee$Geometry$Point(-96.5795, 37.8283), list(label = &#34;3&#34;)) )) # Grab an image from Sentinal 2 and calculate NDVI s2_collection &lt;- ee$ImageCollection(&#34;COPERNICUS/S2&#34;)$ filterDate(&#39;2020-06-01&#39;, &#39;2020-06-30&#39;)$ filterBounds(aoi)$ map(function(image) { ndvi &lt;- image$normalizedDifference(c(&#34;B8&#34;, &#34;B4&#34;))$rename(&#34;NDVI&#34;) return(image$addBands(ndvi)) }) ndvi_image &lt;- s2_collection$select(&#34;NDVI&#34;)$mean()$clip(aoi) # Grab NDVI values at the sample points ndvi_values &lt;- ndvi_image$reduceRegions( collection = points, reducer = ee$Reducer$mean(), scale = 30 ) # Convert the result to a list and then to a data frame ndvi_list &lt;- ndvi_values$getInfo()$features ndvi_df &lt;- do.call(rbind, lapply(ndvi_list, function(x) data.frame( label = x$properties$label, NDVI = x$properties$mean, lon = x$geometry$coordinates[1], lat = x$geometry$coordinates[2] ))) # Save the data frame as a CSV write.csv(ndvi_df, &#34;ndvi_values_hello.csv&#34;, row.names = FALSE) </p>
   </div>
   <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;1 min</footer>
   <a class="entry-link" aria-label="post link to Exporting data to a CSV with rgee" href="http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/"></a>
@@ -206,9 +209,10 @@ Define the area or points you are interested in Filter data Convert the results 
     </h2>
   </header>
   <div class="entry-content">
-    <p>Data types (link to method of gathering) MAT (Mean Annual Temperature) Average yearly temperature. MAP (Mean Annual Precipitation) Average yearly precipitation. GPP (Gross Primary Productivity) Total amount of energy captured by plants. Does not account for respiration losses. NPP (Net Primary Productivity) Amount of energy that remains after plants have used some of the captured energy for their own respiration. Actual amount of new biomass that is available for consumption by other critters....</p>
+    <p>Data types (link to method of gathering) MAT (Mean Annual Temperature) Average yearly temperature. MAP (Mean Annual Precipitation) Average yearly precipitation. GPP (Gross Primary Productivity) Total amount of energy captured by plants. Does not account for respiration losses. NPP (Net Primary Productivity) Amount of energy that remains after plants have used some of the captured energy for their own respiration. Actual amount of new biomass that is available for consumption by other critters. NPP = GPP - Respiration PET (Potential Evapotranspiration) Amount of water that would be evaporated and transpired by vegetation if there was sufficient water available. Atmospheric demand for water. AET, ET (Actual Evapotranspiration) - Actual amount of water that is evaporated from soil and transpired by vegetation. Less than or equal to PET. Depends on availability of water. DI (Dryness Index) PET / MAP EP (Evaporation Potential) 1 - (PET /MAP) Sites Data was gathered from multiple sites, sorted with a RegionName, SiteName, and Pit. It’s important that the Pit is unique.
+...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;10 min</footer>
+  <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;8 min</footer>
   <a class="entry-link" aria-label="post link to Getting data from AppEEARS and NOAA" href="http://localhost:1313/posts/getting-data-from-appeears-and-noaa/"></a>
 </article>
 
@@ -221,7 +225,8 @@ Define the area or points you are interested in Filter data Convert the results 
     <p>Introduction Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.
 Dividing EVI by Precipitation In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.
 Load and initialize rgee first!
-library(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi &lt;- ee$Geometry$Rectangle(c(-102....</p>
+library(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Load the Sentinel-2 image collection and calculate EVI s2_collection &lt;- ee$ImageCollection(&#34;COPERNICUS/S2&#34;)$ filterDate(&#39;2020-06-01&#39;, &#39;2020-08-31&#39;)$ filterBounds(aoi)$ map(function(image) { evi &lt;- image$expression( &#39;2.5 * ((NIR - RED) / (NIR &#43; 6 * RED - 7.5 * BLUE &#43; 1))&#39;, list(&#39;NIR&#39; = image$select(&#34;B8&#34;), &#39;RED&#39; = image$select(&#34;B4&#34;), &#39;BLUE&#39; = image$select(&#34;B2&#34;)) )$rename(&#34;EVI&#34;) return(image$addBands(evi)) }) evi_image &lt;- s2_collection$select(&#34;EVI&#34;)$mean()$clip(aoi) # Visualize EVI to ensure it&#39;s calculated correctly evi_viz &lt;- list( min = -1, max = 1, palette = c(&#34;brown&#34;, &#34;yellow&#34;, &#34;green&#34;) ) Map$setCenter(-98.35, 38.5, 6) Map$addLayer(evi_image, evi_viz, &#34;EVI&#34;) # Load the TerraClimate PPT (precipitation) dataset ppt_dataset &lt;- ee$ImageCollection(&#34;IDAHO_EPSCOR/TERRACLIMATE&#34;)$ filterDate(&#39;2020-01-01&#39;, &#39;2020-12-31&#39;)$ select(&#34;pr&#34;)$ mean()$ clip(aoi) # Visualize PPT to ensure it&#39;s loaded correctly ppt_viz &lt;- list( min = 0, max = 2000, palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;green&#34;) ) Map$addLayer(ppt_dataset, ppt_viz, &#34;Precipitation&#34;) # Ensure the datasets align perfectly for each pixel evi_resampled &lt;- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000) ppt_resampled &lt;- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000) # Divide EVI by PPT evi_ppt_ratio &lt;- evi_resampled$divide(ppt_resampled) # Define visualization parameters for the ratio evi_ppt_viz &lt;- list( min = 0, max = 0.1, palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;red&#34;) ) # Add the EVI/PPT ratio layer Map$addLayer(evi_ppt_ratio, evi_ppt_viz, &#34;EVI/PPT Ratio&#34;) Breakdown Define the AOI, the state of Kansas. aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) Load and Filter Sentinel-2 Data Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.
+...</p>
   </div>
   <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;3 min</footer>
   <a class="entry-link" aria-label="post link to Making maps of variables with rgee" href="http://localhost:1313/posts/making-maps-of-variables-with-rgee/"></a>
@@ -234,7 +239,8 @@ library(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi
   </header>
   <div class="entry-content">
     <p>Introduction From the rgee github page: “rgee is an R binding package for calling Google Earth Engine API from within R. Various functions are implemented to simplify the connection with the R spatial ecosystem.”
-This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven’t tested it....</p>
+This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven’t tested it.
+...</p>
   </div>
   <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;5 min</footer>
   <a class="entry-link" aria-label="post link to Setting up rgee" href="http://localhost:1313/posts/setting-up-rgee/"></a>
@@ -249,7 +255,8 @@ This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS 
     <p>Introduction Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.
 Calling variables Load and initialize rgee first!
 Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.
-aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I’ll use the MODIS land cover datasets....</p>
+aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I’ll use the MODIS land cover datasets.
+...</p>
   </div>
   <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;1 min</footer>
   <a class="entry-link" aria-label="post link to Using variables in rgee" href="http://localhost:1313/posts/using-variables-in-rgee/"></a>
@@ -263,7 +270,7 @@ aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, 
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 </span> · 
+        <span>&copy; 2025 </span> · 
 
     <span>
         Love from Kansas · Created with Emacs

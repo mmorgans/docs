@@ -26,89 +26,100 @@ draft = false
 
 ## Sites {#sites}
 
-This data was gathered from many sites across the globe. Sites were sorted with a RegionName, SiteName, and Pit.
+Data was gathered from multiple sites, sorted with a RegionName, SiteName, and Pit. It's important that the Pit is unique.
 
-| RegionName     | SiteName        | Pit          |
-|----------------|-----------------|--------------|
-| Calhoun        | R7              | R7P2         |
-| Calhoun        | R2              | R2P1         |
-| Calhoun        | R7              | R7P1         |
-| Calhoun        | R8              | R8P1         |
-| Calhoun        | R8              | R8P2.5       |
-| Calhoun        | R8              | R8P2         |
-| Calhoun        | R1              | R1C2         |
-| Calhoun        | R1              | R1C3         |
-| Calhoun        | R2              | R2H1         |
-| Calhoun        | R7              | R7H1         |
-| Calhoun        | R7              | R7H2         |
-| Calhoun        | R8              | R8H1         |
-| Calhoun        | R8              | R8H2.5       |
-| Calhoun        | R8              | R8H2         |
-| Luquillo       | ElVerde         | ElVerdeM     |
-| Luquillo       | ElVerde         | ElVerdeR     |
-| Luquillo       | ElVerde         | ElVerdeT     |
-| Luquillo       | Icacos          | IcacosM      |
-| Luquillo       | Icacos          | IcacosR      |
-| Luquillo       | Icacos          | IcacosT      |
-| Catalina       | MixedCon        | MC_M         |
-| Catalina       | MixedCon        | MC_R         |
-| Catalina       | MixedCon        | MC_T         |
-| Catalina       | BigelowDesert   | B2D_M        |
-| Catalina       | BigelowDesert   | B2D_R        |
-| Catalina       | BigelowDesert   | B2D_T        |
-| ReynoldsCr     | NorthBasalt     | NB_R         |
-| ReynoldsCr     | NorthBasalt     | NB_T         |
-| ReynoldsCr     | NorthLoess      | NL_T         |
-| ReynoldsCr     | SWBasalt        | SWB_M        |
-| ReynoldsCr     | SWBasalt        | SWB_T        |
-| ReynoldsCr     | SWLoess         | SWL_T        |
-| SouthernSierra | SJER            | SJER_M       |
-| SouthernSierra | SJER            | SJER_R       |
-| SouthernSierra | SJER            | SJER_T       |
-| DukeFarm       | DukeFarm        | DFPasture    |
-| EKS            | Ottawa          | EKSAgri      |
-| EKS            | Welda           | EKSNative    |
-| EKS            | Welda           | EKSPostAg    |
-| KNZ            | KNZ             | KNZNative    |
-| KNZ            | KNZ             | KNZAgri      |
-| KNZ            | KNZ             | KNZPostAg    |
-| HAY            | HAY             | HAYNative    |
-| HAY            | HAY             | HAYAgri      |
-| HAY            | HAY             | HAYPostAg    |
-| TRB            | TRB             | TRBNative    |
-| TRB            | TRB             | TRBAgri      |
-| TRB            | TRB             | TRBAgriIrrig |
-| TRB            | TRB             | TRBPostAg    |
-| FRESCC         | CC1             | CC1_2020     |
-| FRESCC         | CC2             | CC2_2020     |
-| FRESCC         | CC2             | CC2_2022     |
-| FRESCC         | CC3             | CC3_2021     |
-| FRESCC         | CC3             | CC3_2022     |
-| FRESCC         | CC4             | CC4_2021     |
-| FRESCC         | CC5             | CC5_2021     |
-| Konza          | GrassyToe       | GrToeN01B    |
-| Konza          | WoodyToe        | WdToeN04D    |
-| Konza          | GrassyBackslope | GrBackslN01B |
-| Konza          | WoodyBackslope  | WdBackslN04D |
-| Konza          | GrassySummit    | GrSummN01B   |
-| Konza          | WoodySummit     | WdSummN04D   |
-| HJAndrews      | WS01            | NF_Y_A       |
-| HJAndrews      | WS01            | SF_Y_A       |
-| HJAndrews      | WS02            | NF_O_A       |
-| HJAndrews      | WS02            | SF_O_A       |
-| HJAndrews      | WS03            | NF_O_A       |
-| HJAndrews      | WS03            | NF_Y_A       |
-| HJAndrews      | WS03            | SF_O_A       |
-| HJAndrews      | WS03            | SF_Y_A       |
-| Alps           | Glacier         | Alps1        |
-| Alps           | GlacierRidge    | Alps2        |
-| Alps           | Limestone       | Alps3        |
-| Alps           | Gneiss          | Alps5        |
-| Alps           | Alluvial        | Alps6        |
-| NH             | ThompsonPasture | NH_TP        |
-| NH             | ThompsonForest  | NH_TF        |
-| NH             | OrganicPasture  | NH_OP        |
-| NH             | OrganicForest   | NH_OF        |
+**Note**: Although the majority of data sources were the same, there are sites where alternate sources were used. See footnotes.
+
+| RegionName            | SiteName        | Pit          |
+|-----------------------|-----------------|--------------|
+| Calhoun               | R7              | R7P2         |
+| Calhoun               | R2              | R2P1         |
+| Calhoun               | R7              | R7P1         |
+| Calhoun               | R8              | R8P1         |
+| Calhoun               | R8              | R8P2.5       |
+| Calhoun               | R8              | R8P2         |
+| Calhoun               | R1              | R1C2         |
+| Calhoun               | R1              | R1C3         |
+| Calhoun               | R2              | R2H1         |
+| Calhoun               | R7              | R7H1         |
+| Calhoun               | R7              | R7H2         |
+| Calhoun               | R8              | R8H1         |
+| Calhoun               | R8              | R8H2.5       |
+| Calhoun               | R8              | R8H2         |
+| Luquillo[^fn:1]       | ElVerde         | ElVerdeM     |
+| Luquillo[^fn:1]       | ElVerde         | ElVerdeR     |
+| Luquillo[^fn:1]       | ElVerde         | ElVerdeT     |
+| Luquillo[^fn:2]       | Icacos          | IcacosM      |
+| Luquillo[^fn:2]       | Icacos          | IcacosR      |
+| Luquillo[^fn:2]       | Icacos          | IcacosT      |
+| Catalina[^fn:3]       | MixedCon        | MC_M         |
+| Catalina[^fn:3]       | MixedCon        | MC_R         |
+| Catalina[^fn:3]       | MixedCon        | MC_T         |
+| Catalina[^fn:3]       | BigelowDesert   | B2D_M        |
+| Catalina[^fn:3]       | BigelowDesert   | B2D_R        |
+| Catalina[^fn:3]       | BigelowDesert   | B2D_T        |
+| ReynoldsCr[^fn:4]     | NorthBasalt     | NB_R         |
+| ReynoldsCr[^fn:4]     | NorthBasalt     | NB_T         |
+| ReynoldsCr[^fn:4]     | NorthLoess      | NL_T         |
+| ReynoldsCr[^fn:4]     | SWBasalt        | SWB_M        |
+| ReynoldsCr[^fn:4]     | SWBasalt        | SWB_T        |
+| ReynoldsCr[^fn:4]     | SWLoess         | SWL_T        |
+| SouthernSierra[^fn:5] | SJER            | SJER_M       |
+| SouthernSierra[^fn:5] | SJER            | SJER_R       |
+| SouthernSierra[^fn:5] | SJER            | SJER_T       |
+| DukeFarm              | DukeFarm        | DFPasture    |
+| EKS                   | Ottawa          | EKSAgri      |
+| EKS                   | Welda           | EKSNative    |
+| EKS                   | Welda           | EKSPostAg    |
+| KNZ                   | KNZ             | KNZNative    |
+| KNZ                   | KNZ             | KNZAgri      |
+| KNZ                   | KNZ             | KNZPostAg    |
+| HAY                   | HAY             | HAYNative    |
+| HAY                   | HAY             | HAYAgri      |
+| HAY                   | HAY             | HAYPostAg    |
+| TRB                   | TRB             | TRBNative    |
+| TRB                   | TRB             | TRBAgri      |
+| TRB                   | TRB             | TRBAgriIrrig |
+| TRB                   | TRB             | TRBPostAg    |
+| FRESCC                | CC1             | CC1_2020     |
+| FRESCC                | CC2             | CC2_2020     |
+| FRESCC                | CC2             | CC2_2022     |
+| FRESCC                | CC3             | CC3_2021     |
+| FRESCC                | CC3             | CC3_2022     |
+| FRESCC                | CC4             | CC4_2021     |
+| FRESCC                | CC5             | CC5_2021     |
+| Konza                 | GrassyToe       | GrToeN01B    |
+| Konza                 | WoodyToe        | WdToeN04D    |
+| Konza                 | GrassyBackslope | GrBackslN01B |
+| Konza                 | WoodyBackslope  | WdBackslN04D |
+| Konza                 | GrassySummit    | GrSummN01B   |
+| Konza                 | WoodySummit     | WdSummN04D   |
+| HJAndrews[^fn:6]      | WS01            | NF_Y_A       |
+| HJAndrews[^fn:6]      | WS01            | SF_Y_A       |
+| HJAndrews[^fn:6]      | WS02            | NF_O_A       |
+| HJAndrews[^fn:6]      | WS02            | SF_O_A       |
+| HJAndrews[^fn:6]      | WS03            | NF_O_A       |
+| HJAndrews[^fn:6]      | WS03            | NF_Y_A       |
+| HJAndrews[^fn:6]      | WS03            | SF_O_A       |
+| HJAndrews[^fn:6]      | WS03            | SF_Y_A       |
+| Alps                  | Glacier         | Alps1        |
+| Alps                  | GlacierRidge    | Alps2        |
+| Alps                  | Limestone       | Alps3        |
+| Alps                  | Gneiss          | Alps5        |
+| Alps                  | Alluvial        | Alps6        |
+| NH                    | ThompsonPasture | NH_TP        |
+| NH                    | ThompsonForest  | NH_TF        |
+| NH                    | OrganicPasture  | NH_OP        |
+| NH                    | OrganicForest   | NH_OF        |
+| SouthernSierra[^fn:7] | Providence      | PROV304_R    |
+| SouthernSierra[^fn:7] | Providence      | PROV304_M    |
+| SouthernSierra[^fn:7] | Providence      | PROV304_T    |
+| RCEW                  | RCEW_OC         | RCEW_OC      |
+| RCEW                  | RCEW_OJ         | RCEW_OJ      |
+| RCEW                  | RCEW_OS         | RCEW_OS      |
+| RCEW                  | RCEW_YC         | RCEW_YC      |
+| RCEW                  | RCEW_YJ         | RCEW_YJ      |
+| RCEW                  | RCEW_YS         | RCEW_YS      |
 
 
 ## Process {#process}
@@ -224,117 +235,33 @@ GPP data is gathered from [AppEEARS](https://appeears.earthdatacloud.nasa.gov/).
     -   Extend this formula down to fill in the whole Year column.
     -   Copy the whole column, and then Edit &gt; Paste Special..., and select Values. This replaces the formula dependent cells with ones that show the year in plain text.
 -   The list of columns should now be ID, Category, Latitude, Longitude, Date, Year, GPP.
--   In the script, "appears.csv" refers to the downloaded .csv - you will need to either rename your file or change this to change the call in the file to point to the correct location.
+-   In the script, "GPP all sites.csv" refers to the downloaded .csv - you will need to either rename your file or change this to change the call in the file to point to the correct location.
 
-<!--list-separator-->
+<!--listend-->
 
--  Multiple sites
+```R
+  library(dplyr)
 
-    ```R
-      library(dplyr)
 
-      # sets initial df as the sanitzed, edited .csv
-      df <- read.csv("appeears.csv", header = TRUE)
+gpp_data <- read.csv("GPP all sites.csv")
 
-      # sets output to not be in scientific notation
-      options(scipen = 999)
+gpp_data <- gpp_data %>% filter(Year != 2005)
 
-      # checking the df to make sure all good.
-      # I had to mess around in excel a bit to get rid of empty rows at the bottom.
-      head(df)
-      tail(df)
+yearly_gpp <- gpp_data %>%
+  group_by(ID, Category, Year) %>%
+  summarize(total_GPP = sum(GPP, na.rm = TRUE), .groups = "drop")
 
-      # set object to sum all the 8day GPP values
-      summarized_data <- aggregate(GPP ~ Category + Year, data=df, sum, na.rm = TRUE)
+average_gpp <- yearly_gpp %>%
+  group_by(ID, Category) %>%
+  summarize(average_GPP = mean(total_GPP, na.rm = TRUE), .groups = "drop")
 
-      # The goal was to take the sum values and keep the Site and Pit labels
-      #   in the sheet.
-      names(summarized_data)[names(summarized_data) == "GPP"] <- "total_GPP"
+write.csv(average_gpp, "average gpp.csv", row.names = FALSE)
+```
 
-      # Gets rid of duplicates for Category and Year rows.
-      unique_rows <- df[!duplicated(df[, c("Category", "Year")]), ]
-
-      # set object to merge the sum'd GPPs and the category and year
-      summarized_all_data <- merge(unique_rows, summarized_data, by=c("Category", "Year"))
-
-      # export a .csv with the above
-      write.csv(summarized_all_data, "annual_gpp.csv", row.names=FALSE)
-
-      # New goal: to average each sites GPP values across all the defined years 2006-2021
-      # removed stray 2005 8day values from output .csv in excel
-      df2 <- read.csv("annual_gpp.csv", header = TRUE)
-
-      #checking df2
-      head(df2)
-
-      # ALERT!! I open the annual_gpp.csv here and rename columns to be "Pit" and "Site", accordingly.
-      # adds mean of total_GPP, and sets that to be average_GPP
-      average_GPP <- aggregate(total_GPP ~ Pit, data = df2, FUN = mean)
-
-      # takes average_GPP value and merges it with all the label columns
-      # sorts by Pit
-      merged_data <- merge(average_GPP, df2[c("Site", "Pit", "Year", "Latitude", "Longitude")]
-                           , by = "Pit")
-
-      # removes duplicates
-      merged_data <- merged_data[!duplicated(merged_data$Pit), ]
-
-      #  exports a csv with all of that stuff. Hip Hip hooray
-      write.csv(merged_data, file = "time_averaged_GPP.csv", row.names = FALSE)
-    ```
-
-<!--list-separator-->
-
--  Single site
-
-    If you only are processing GPP data from one site, then some slight modifications are needed for the script to function.
-
-    ```R
-    library(dplyr)
-
-    # sets initial df as the sanitized, edited data
-    df <- read.csv("appeears.csv", header = TRUE)
-
-    # sets output to not be in scientific notation
-    options(scipen = 999)
-
-    # checking the df to make sure all good
-    head(df)
-    tail(df)
-
-    # set object to sum all the 8day GPP values
-    summarized_data <- aggregate(GPP ~ Year, data=df, sum, na.rm = TRUE)
-
-    # The goal was to take the sum values and keep the Site and Pit labels in the sheet
-    names(summarized_data)[names(summarized_data) == "GPP"] <- "total_GPP"
-
-    # Gets rid of duplicates for Year rows
-    unique_rows <- df[!duplicated(df$Year), ]
-
-    # set object to merge the summed GPPs and the year
-    summarized_all_data <- merge(unique_rows, summarized_data, by="Year")
-
-    # export a .csv with the above
-    write.csv(summarized_all_data, "annual_gpp.csv", row.names=FALSE)
-
-    # Read the exported .csv
-    df2 <- read.csv("annual_gpp.csv", header = TRUE)
-
-    # Checking df2
-    head(df2)
-
-    # Calculate the average of total_GPP for each combination of Latitude and Longitude
-    average_GPP <- aggregate(total_GPP ~ Latitude + Longitude, data = df2, FUN = mean)
-
-    # Rename the average GPP column
-    names(average_GPP)[names(average_GPP) == "total_GPP"] <- "average_GPP"
-
-    # Merge the average GPP values with the original data to keep all necessary columns
-    merged_data <- merge(average_GPP, df2[, c("ID", "Latitude", "Longitude", "Year")], by = c("Latitude", "Longitude"))
-
-    # Remove duplicates to ensure each Latitude-Longitude combination appears only once
-    merged_data <- merged_data[!duplicated(merged_data[, c("Latitude", "Longitude")]), ]
-
-    # Export a csv with the averaged GPP values
-    write.csv(merged_data, file = "final_averaged_GPP.csv", row.names = FALSE)
-    ```
+[^fn:1]: Precipitation and temperature data for El Verde pits were gathered from [Luquillo LTER](https://luquillo.lter.network/long-term-datasets/); "[Field Station Air temperature from automatic sensor](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-luq&identifier=184&revision=185265)" and "[Rainfall at El Verde Field Station](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-luq&identifier=14&revision=470060)", from 2010-2023. MAT data is viewable and automatically averaged with the "Explore data" button, but MAP data needs to be downloaded, manually added and averaged.
+[^fn:2]: Temperature data from the El Verde site was used. Precipitation data was pulled from [NCEI at NOAA](https://www.ncei.noaa.gov/maps/annual/).
+[^fn:3]: Precipitation and temperature data for MC and B2D pits were gathered from Oregon State University's PRISM climate data base.
+[^fn:4]: Precipitation and temperature data for NorthBasalt and NorthLoess pits were gathered from [Warming Alters Hydrologic Heterogeneity: Simulated Climate Sensitivity of Hydrology-Based Microrefugia in the Snow-to-Rain Transition Zone](https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2018WR023063), Table 1. NL_T is associated with Aspen, and all other pits were associated with Low sage.
+[^fn:5]: Precipitation and temperature data were gathered from [Hydroshare](https://www.hydroshare.org/resource/d915275953c94b298b00872d98559e64/), from 2010-2018. Data is taken hourly, so it was summed and averaged across years. Data from 2018 was excluded from the precipitation average because it was erroneous. For temperature, TACTUAL was used in the average.
+[^fn:6]: Precipitation and temperature data for HJAndrews pits were gathered from [Oregon State University](https://andrewsforest.oregonstate.edu/sites/default/files/lter/pubs/webdocs/reports/decomp/study_areas.htm#:~:text=elevation%20mixed%20conifer.-,The%20climate%20is%20characterized%20by%20cold%2C%20snowy%20winters%20and%20warm,1778%20mm%20(70%20inches).).
+[^fn:7]: Precipitation and temperature data from [Hydroshare](https://www.hydroshare.org/resource/10664457c48342fa8b1e046ea740cd9c/), from 2008-2018. Data is taken hourly, so it was summed and averaged across years. For temperature, TACTUAL was used in the average.

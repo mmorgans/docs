@@ -7,9 +7,42 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Creating animations of soil cores out of CT scans | morgan docs</title>
 <meta name="keywords" content="">
-<meta name="description" content="Introduction Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.
+<meta name="description" content="Introduction
+Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.
 We&rsquo;re getting our files from the Environmental Molecular Sciences Laboratory at the Pacific Northwest National Laboratory, who have scanned the soil cores with a Nikon XTH CT scanner.
-Requirements .vol files from a CT scanner At least 16gb of memory Ideally more. Both Fiji and Dragonfly attempt to load the entire file into memory; the downloaded .">
+Requirements
+
+.vol files from a CT scanner
+At least 16gb of memory
+
+Ideally more. Both Fiji and Dragonfly attempt to load the entire file into memory; the downloaded .vol is almost 40gb.
+
+
+Dragonfly from Comet Software. You&rsquo;ll need a license: 30 day free trials are easily accessible, and non commercial licenses are available.
+Fiji or ImageJ, but use Fiji.
+A windows or Linux machine to run Dragonfly on; everything but that can be done on Mac
+
+TL;DR
+
+Download .vol files from EMSL Data portal
+Import the files into Fiji as raw data, 2000x2000x2000
+
+Convert to 8-bit, save as .tiff
+
+
+Open the .tiff in Dragonfly, crop to slices 250-1800
+
+Make a cylindrical mask to crop the garbage off the core
+Use movie maker to make a rotating movie, export to .avi
+
+
+Use ffmpeg or similar to convert to mp4
+Use kdenlive or similar to crop to square
+Use Gifski to convert to reasonably sized gif
+
+Getting .vol files from EMSL data portal
+Selecting cores
+To start, we need to get the CT scan files from EMSL, provided as .vol files.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/creating-animations-of-soil-cores/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
@@ -215,65 +248,65 @@ Requirements .vol files from a CT scanner At least 16gb of memory Ideally more. 
 <p>Once you find the core you want, note the <code>Upload ID</code>. To search for an ID you already know, set Items per page to All, and use cmd + f.</p>
 <p>Some known core ID&rsquo;s:</p>
 <table>
-<thead>
-<tr>
-<th>Core #</th>
-<th>Bottom</th>
-<th>Top</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>3132984</td>
-<td></td>
-</tr>
-<tr>
-<td>2</td>
-<td>3134562</td>
-<td></td>
-</tr>
-<tr>
-<td>5</td>
-<td>3135086</td>
-<td></td>
-</tr>
-<tr>
-<td>6</td>
-<td>3135290</td>
-<td></td>
-</tr>
-<tr>
-<td>7</td>
-<td>3049610</td>
-<td></td>
-</tr>
-<tr>
-<td>10</td>
-<td>3133330</td>
-<td></td>
-</tr>
-<tr>
-<td>11</td>
-<td>3051409</td>
-<td>3051495</td>
-</tr>
-<tr>
-<td>15</td>
-<td>3010819</td>
-<td>3010713</td>
-</tr>
-<tr>
-<td>16</td>
-<td>3011663</td>
-<td>3013268</td>
-</tr>
-<tr>
-<td>20</td>
-<td>3010658</td>
-<td>3010660</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Core #</th>
+          <th>Bottom</th>
+          <th>Top</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>3132984</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>3134562</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>3135086</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>3135290</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>3049610</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>10</td>
+          <td>3133330</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>11</td>
+          <td>3051409</td>
+          <td>3051495</td>
+      </tr>
+      <tr>
+          <td>15</td>
+          <td>3010819</td>
+          <td>3010713</td>
+      </tr>
+      <tr>
+          <td>16</td>
+          <td>3011663</td>
+          <td>3013268</td>
+      </tr>
+      <tr>
+          <td>20</td>
+          <td>3010658</td>
+          <td>3010660</td>
+      </tr>
+  </tbody>
 </table>
 <p>Some notes:</p>
 <ul>
@@ -303,7 +336,7 @@ Requirements .vol files from a CT scanner At least 16gb of memory Ideally more. 
 <li>Number of images: 2000</li>
 <li>Gap: 0</li>
 </ul>
-<p>Check <code>Little-endian byte order</code> and =Use virtual stac=k. Virtual stacks load the images without fully committing them to memory, making it possible to view datasets that are larger in size than the amount of memory you have. <strong>If you don&rsquo;t have at least 40GB of memory and don&rsquo;t use virtual stacks, Fiji will crash your system attempting to load the file.</strong></p>
+<p>Check <code>Little-endian byte order</code> and <code>Use virtual stack</code>. Virtual stacks load the images without fully committing them to memory, making it possible to view datasets that are larger in size than the amount of memory you have. <strong>If you don&rsquo;t have at least 40GB of memory and don&rsquo;t use virtual stacks, Fiji will crash your system attempting to load the file.</strong></p>
 <p>Fiji will open the file, and you should be able to scroll through the slices of the core, or use the scroll bar at the bottom of the window containing the core.</p>
 <p>To convert the file to 8-bit, use <code>Image &gt; Type &gt; 8-bit</code>. This will take time: you should be able to see Fiji converting images by the hundreds on the main toolbar.</p>
 <p>You should now have an updated view of the core; notice the reduced file size displayed in the window title. To save as a .tiff, use <code>File &gt; Save as &gt; Tiff...</code></p>
@@ -368,7 +401,7 @@ Requirements .vol files from a CT scanner At least 16gb of memory Ideally more. 
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 </span> · 
+        <span>&copy; 2025 </span> · 
 
     <span>
         Love from Kansas · Created with Emacs

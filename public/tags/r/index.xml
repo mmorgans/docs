@@ -4,7 +4,7 @@
     <title>R on morgan docs</title>
     <link>http://localhost:1313/tags/r/</link>
     <description>Recent content in R on morgan docs</description>
-    <generator>Hugo -- 0.132.0</generator>
+    <generator>Hugo -- 0.140.2</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 13 Aug 2024 11:37:00 -0500</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/r/index.xml" rel="self" type="application/rss+xml" />
@@ -13,8 +13,9 @@
       <link>http://localhost:1313/posts/setting-up-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/setting-up-rgee/</guid>
-      <description>Introduction From the rgee github page: &amp;ldquo;rgee is an R binding package for calling Google Earth Engine API from within R. Various functions are implemented to simplify the connection with the R spatial ecosystem.&amp;rdquo;
-This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven&amp;rsquo;t tested it.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;From the &lt;a href=&#34;https://github.com/r-spatial/rgee&#34;&gt;rgee github page&lt;/a&gt;: &amp;ldquo;rgee is an R binding package for calling Google Earth Engine API from within R. Various functions are implemented to simplify the connection with the R spatial ecosystem.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven&amp;rsquo;t tested it.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

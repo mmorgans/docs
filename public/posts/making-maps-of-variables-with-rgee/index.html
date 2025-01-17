@@ -7,10 +7,75 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Making maps of variables with rgee | morgan docs</title>
 <meta name="keywords" content="rgee">
-<meta name="description" content="Introduction Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.
-Dividing EVI by Precipitation In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.
+<meta name="description" content="Introduction
+Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.
+Dividing EVI by Precipitation
+In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.
 Load and initialize rgee first!
-library(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi &lt;- ee$Geometry$Rectangle(c(-102.">
+library(rgee)
+ee_Initialize()
+
+# Define an area of interest (AOI) over Kansas
+aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0))
+
+# Load the Sentinel-2 image collection and calculate EVI
+s2_collection &lt;- ee$ImageCollection(&#34;COPERNICUS/S2&#34;)$
+  filterDate(&#39;2020-06-01&#39;, &#39;2020-08-31&#39;)$
+  filterBounds(aoi)$
+  map(function(image) {
+    evi &lt;- image$expression(
+      &#39;2.5 * ((NIR - RED) / (NIR &#43; 6 * RED - 7.5 * BLUE &#43; 1))&#39;,
+      list(&#39;NIR&#39; = image$select(&#34;B8&#34;), &#39;RED&#39; = image$select(&#34;B4&#34;), &#39;BLUE&#39; = image$select(&#34;B2&#34;))
+    )$rename(&#34;EVI&#34;)
+    return(image$addBands(evi))
+  })
+evi_image &lt;- s2_collection$select(&#34;EVI&#34;)$mean()$clip(aoi)
+
+# Visualize EVI to ensure it&#39;s calculated correctly
+evi_viz &lt;- list(
+  min = -1,
+  max = 1,
+  palette = c(&#34;brown&#34;, &#34;yellow&#34;, &#34;green&#34;)
+)
+Map$setCenter(-98.35, 38.5, 6)
+Map$addLayer(evi_image, evi_viz, &#34;EVI&#34;)
+
+# Load the TerraClimate PPT (precipitation) dataset
+ppt_dataset &lt;- ee$ImageCollection(&#34;IDAHO_EPSCOR/TERRACLIMATE&#34;)$
+  filterDate(&#39;2020-01-01&#39;, &#39;2020-12-31&#39;)$
+  select(&#34;pr&#34;)$
+  mean()$
+  clip(aoi)
+
+# Visualize PPT to ensure it&#39;s loaded correctly
+ppt_viz &lt;- list(
+  min = 0,
+  max = 2000,
+  palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;green&#34;)
+)
+Map$addLayer(ppt_dataset, ppt_viz, &#34;Precipitation&#34;)
+
+# Ensure the datasets align perfectly for each pixel
+evi_resampled &lt;- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000)
+ppt_resampled &lt;- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000)
+
+# Divide EVI by PPT
+evi_ppt_ratio &lt;- evi_resampled$divide(ppt_resampled)
+
+# Define visualization parameters for the ratio
+evi_ppt_viz &lt;- list(
+  min = 0,
+  max = 0.1,
+  palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;red&#34;)
+)
+
+# Add the EVI/PPT ratio layer
+Map$addLayer(evi_ppt_ratio, evi_ppt_viz, &#34;EVI/PPT Ratio&#34;)
+Breakdown
+Define the AOI, the state of Kansas.
+aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0))
+Load and Filter Sentinel-2 Data
+Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/making-maps-of-variables-with-rgee/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
@@ -292,7 +357,7 @@ library(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 </span> · 
+        <span>&copy; 2025 </span> · 
 
     <span>
         Love from Kansas · Created with Emacs

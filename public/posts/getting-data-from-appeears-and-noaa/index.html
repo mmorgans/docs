@@ -7,7 +7,47 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Getting data from AppEEARS and NOAA | morgan docs</title>
 <meta name="keywords" content="rgee">
-<meta name="description" content="Data types (link to method of gathering) MAT (Mean Annual Temperature) Average yearly temperature. MAP (Mean Annual Precipitation) Average yearly precipitation. GPP (Gross Primary Productivity) Total amount of energy captured by plants. Does not account for respiration losses. NPP (Net Primary Productivity) Amount of energy that remains after plants have used some of the captured energy for their own respiration. Actual amount of new biomass that is available for consumption by other critters.">
+<meta name="description" content="Data types (link to method of gathering)
+
+MAT (Mean Annual Temperature)
+
+Average yearly temperature.
+
+
+MAP (Mean Annual Precipitation)
+
+Average yearly precipitation.
+
+
+GPP (Gross Primary Productivity)
+
+Total amount of energy captured by plants. Does not account for respiration losses.
+
+
+NPP (Net Primary Productivity)
+
+Amount of energy that remains after plants have used some of the captured energy for their own respiration. Actual amount of new biomass that is available for consumption by other critters. NPP = GPP - Respiration
+
+
+PET (Potential Evapotranspiration)
+
+Amount of water that would be evaporated and transpired by vegetation if there was sufficient water available. Atmospheric demand for water.
+
+
+AET, ET (Actual Evapotranspiration)  - Actual amount of water that is evaporated from soil and transpired by vegetation. Less than or equal to PET. Depends on availability of water.
+DI (Dryness Index)
+
+PET / MAP
+
+
+EP (Evaporation Potential)
+
+1 - (PET /MAP)
+
+
+
+Sites
+Data was gathered from multiple sites, sorted with a RegionName, SiteName, and Pit. It&rsquo;s important that the Pit is unique.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/getting-data-from-appeears-and-noaa/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
@@ -114,7 +154,7 @@
     <h1 class="post-title entry-hint-parent">
       Getting data from AppEEARS and NOAA
     </h1>
-    <div class="post-meta"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;10 min&nbsp;|&nbsp;<a href="https://github.com/mmorgans/docs/tree/main/content/posts/Getting-data-from-AppEEARS-and-NOAA.md" rel="noopener noreferrer" target="_blank">suggest changes</a>
+    <div class="post-meta"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;9 min&nbsp;|&nbsp;<a href="https://github.com/mmorgans/docs/tree/main/content/posts/Getting-data-from-AppEEARS-and-NOAA.md" rel="noopener noreferrer" target="_blank">suggest changes</a>
 
 </div>
   </header> <div class="toc">
@@ -196,412 +236,458 @@
 </li>
 </ul>
 <h2 id="sites">Sites<a hidden class="anchor" aria-hidden="true" href="#sites">#</a></h2>
-<p>This data was gathered from many sites across the globe. Sites were sorted with a RegionName, SiteName, and Pit.</p>
+<p>Data was gathered from multiple sites, sorted with a RegionName, SiteName, and Pit. It&rsquo;s important that the Pit is unique.</p>
+<p><strong>Note</strong>: Although the majority of data sources were the same, there are sites where alternate sources were used. See footnotes.</p>
 <table>
-<thead>
-<tr>
-<th>RegionName</th>
-<th>SiteName</th>
-<th>Pit</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Calhoun</td>
-<td>R7</td>
-<td>R7P2</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R2</td>
-<td>R2P1</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R7</td>
-<td>R7P1</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R8</td>
-<td>R8P1</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R8</td>
-<td>R8P2.5</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R8</td>
-<td>R8P2</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R1</td>
-<td>R1C2</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R1</td>
-<td>R1C3</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R2</td>
-<td>R2H1</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R7</td>
-<td>R7H1</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R7</td>
-<td>R7H2</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R8</td>
-<td>R8H1</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R8</td>
-<td>R8H2.5</td>
-</tr>
-<tr>
-<td>Calhoun</td>
-<td>R8</td>
-<td>R8H2</td>
-</tr>
-<tr>
-<td>Luquillo</td>
-<td>ElVerde</td>
-<td>ElVerdeM</td>
-</tr>
-<tr>
-<td>Luquillo</td>
-<td>ElVerde</td>
-<td>ElVerdeR</td>
-</tr>
-<tr>
-<td>Luquillo</td>
-<td>ElVerde</td>
-<td>ElVerdeT</td>
-</tr>
-<tr>
-<td>Luquillo</td>
-<td>Icacos</td>
-<td>IcacosM</td>
-</tr>
-<tr>
-<td>Luquillo</td>
-<td>Icacos</td>
-<td>IcacosR</td>
-</tr>
-<tr>
-<td>Luquillo</td>
-<td>Icacos</td>
-<td>IcacosT</td>
-</tr>
-<tr>
-<td>Catalina</td>
-<td>MixedCon</td>
-<td>MC_M</td>
-</tr>
-<tr>
-<td>Catalina</td>
-<td>MixedCon</td>
-<td>MC_R</td>
-</tr>
-<tr>
-<td>Catalina</td>
-<td>MixedCon</td>
-<td>MC_T</td>
-</tr>
-<tr>
-<td>Catalina</td>
-<td>BigelowDesert</td>
-<td>B2D_M</td>
-</tr>
-<tr>
-<td>Catalina</td>
-<td>BigelowDesert</td>
-<td>B2D_R</td>
-</tr>
-<tr>
-<td>Catalina</td>
-<td>BigelowDesert</td>
-<td>B2D_T</td>
-</tr>
-<tr>
-<td>ReynoldsCr</td>
-<td>NorthBasalt</td>
-<td>NB_R</td>
-</tr>
-<tr>
-<td>ReynoldsCr</td>
-<td>NorthBasalt</td>
-<td>NB_T</td>
-</tr>
-<tr>
-<td>ReynoldsCr</td>
-<td>NorthLoess</td>
-<td>NL_T</td>
-</tr>
-<tr>
-<td>ReynoldsCr</td>
-<td>SWBasalt</td>
-<td>SWB_M</td>
-</tr>
-<tr>
-<td>ReynoldsCr</td>
-<td>SWBasalt</td>
-<td>SWB_T</td>
-</tr>
-<tr>
-<td>ReynoldsCr</td>
-<td>SWLoess</td>
-<td>SWL_T</td>
-</tr>
-<tr>
-<td>SouthernSierra</td>
-<td>SJER</td>
-<td>SJER_M</td>
-</tr>
-<tr>
-<td>SouthernSierra</td>
-<td>SJER</td>
-<td>SJER_R</td>
-</tr>
-<tr>
-<td>SouthernSierra</td>
-<td>SJER</td>
-<td>SJER_T</td>
-</tr>
-<tr>
-<td>DukeFarm</td>
-<td>DukeFarm</td>
-<td>DFPasture</td>
-</tr>
-<tr>
-<td>EKS</td>
-<td>Ottawa</td>
-<td>EKSAgri</td>
-</tr>
-<tr>
-<td>EKS</td>
-<td>Welda</td>
-<td>EKSNative</td>
-</tr>
-<tr>
-<td>EKS</td>
-<td>Welda</td>
-<td>EKSPostAg</td>
-</tr>
-<tr>
-<td>KNZ</td>
-<td>KNZ</td>
-<td>KNZNative</td>
-</tr>
-<tr>
-<td>KNZ</td>
-<td>KNZ</td>
-<td>KNZAgri</td>
-</tr>
-<tr>
-<td>KNZ</td>
-<td>KNZ</td>
-<td>KNZPostAg</td>
-</tr>
-<tr>
-<td>HAY</td>
-<td>HAY</td>
-<td>HAYNative</td>
-</tr>
-<tr>
-<td>HAY</td>
-<td>HAY</td>
-<td>HAYAgri</td>
-</tr>
-<tr>
-<td>HAY</td>
-<td>HAY</td>
-<td>HAYPostAg</td>
-</tr>
-<tr>
-<td>TRB</td>
-<td>TRB</td>
-<td>TRBNative</td>
-</tr>
-<tr>
-<td>TRB</td>
-<td>TRB</td>
-<td>TRBAgri</td>
-</tr>
-<tr>
-<td>TRB</td>
-<td>TRB</td>
-<td>TRBAgriIrrig</td>
-</tr>
-<tr>
-<td>TRB</td>
-<td>TRB</td>
-<td>TRBPostAg</td>
-</tr>
-<tr>
-<td>FRESCC</td>
-<td>CC1</td>
-<td>CC1_2020</td>
-</tr>
-<tr>
-<td>FRESCC</td>
-<td>CC2</td>
-<td>CC2_2020</td>
-</tr>
-<tr>
-<td>FRESCC</td>
-<td>CC2</td>
-<td>CC2_2022</td>
-</tr>
-<tr>
-<td>FRESCC</td>
-<td>CC3</td>
-<td>CC3_2021</td>
-</tr>
-<tr>
-<td>FRESCC</td>
-<td>CC3</td>
-<td>CC3_2022</td>
-</tr>
-<tr>
-<td>FRESCC</td>
-<td>CC4</td>
-<td>CC4_2021</td>
-</tr>
-<tr>
-<td>FRESCC</td>
-<td>CC5</td>
-<td>CC5_2021</td>
-</tr>
-<tr>
-<td>Konza</td>
-<td>GrassyToe</td>
-<td>GrToeN01B</td>
-</tr>
-<tr>
-<td>Konza</td>
-<td>WoodyToe</td>
-<td>WdToeN04D</td>
-</tr>
-<tr>
-<td>Konza</td>
-<td>GrassyBackslope</td>
-<td>GrBackslN01B</td>
-</tr>
-<tr>
-<td>Konza</td>
-<td>WoodyBackslope</td>
-<td>WdBackslN04D</td>
-</tr>
-<tr>
-<td>Konza</td>
-<td>GrassySummit</td>
-<td>GrSummN01B</td>
-</tr>
-<tr>
-<td>Konza</td>
-<td>WoodySummit</td>
-<td>WdSummN04D</td>
-</tr>
-<tr>
-<td>HJAndrews</td>
-<td>WS01</td>
-<td>NF_Y_A</td>
-</tr>
-<tr>
-<td>HJAndrews</td>
-<td>WS01</td>
-<td>SF_Y_A</td>
-</tr>
-<tr>
-<td>HJAndrews</td>
-<td>WS02</td>
-<td>NF_O_A</td>
-</tr>
-<tr>
-<td>HJAndrews</td>
-<td>WS02</td>
-<td>SF_O_A</td>
-</tr>
-<tr>
-<td>HJAndrews</td>
-<td>WS03</td>
-<td>NF_O_A</td>
-</tr>
-<tr>
-<td>HJAndrews</td>
-<td>WS03</td>
-<td>NF_Y_A</td>
-</tr>
-<tr>
-<td>HJAndrews</td>
-<td>WS03</td>
-<td>SF_O_A</td>
-</tr>
-<tr>
-<td>HJAndrews</td>
-<td>WS03</td>
-<td>SF_Y_A</td>
-</tr>
-<tr>
-<td>Alps</td>
-<td>Glacier</td>
-<td>Alps1</td>
-</tr>
-<tr>
-<td>Alps</td>
-<td>GlacierRidge</td>
-<td>Alps2</td>
-</tr>
-<tr>
-<td>Alps</td>
-<td>Limestone</td>
-<td>Alps3</td>
-</tr>
-<tr>
-<td>Alps</td>
-<td>Gneiss</td>
-<td>Alps5</td>
-</tr>
-<tr>
-<td>Alps</td>
-<td>Alluvial</td>
-<td>Alps6</td>
-</tr>
-<tr>
-<td>NH</td>
-<td>ThompsonPasture</td>
-<td>NH_TP</td>
-</tr>
-<tr>
-<td>NH</td>
-<td>ThompsonForest</td>
-<td>NH_TF</td>
-</tr>
-<tr>
-<td>NH</td>
-<td>OrganicPasture</td>
-<td>NH_OP</td>
-</tr>
-<tr>
-<td>NH</td>
-<td>OrganicForest</td>
-<td>NH_OF</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>RegionName</th>
+          <th>SiteName</th>
+          <th>Pit</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Calhoun</td>
+          <td>R7</td>
+          <td>R7P2</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R2</td>
+          <td>R2P1</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R7</td>
+          <td>R7P1</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R8</td>
+          <td>R8P1</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R8</td>
+          <td>R8P2.5</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R8</td>
+          <td>R8P2</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R1</td>
+          <td>R1C2</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R1</td>
+          <td>R1C3</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R2</td>
+          <td>R2H1</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R7</td>
+          <td>R7H1</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R7</td>
+          <td>R7H2</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R8</td>
+          <td>R8H1</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R8</td>
+          <td>R8H2.5</td>
+      </tr>
+      <tr>
+          <td>Calhoun</td>
+          <td>R8</td>
+          <td>R8H2</td>
+      </tr>
+      <tr>
+          <td>Luquillo<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></td>
+          <td>ElVerde</td>
+          <td>ElVerdeM</td>
+      </tr>
+      <tr>
+          <td>Luquillo<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></td>
+          <td>ElVerde</td>
+          <td>ElVerdeR</td>
+      </tr>
+      <tr>
+          <td>Luquillo<sup id="fnref2:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></td>
+          <td>ElVerde</td>
+          <td>ElVerdeT</td>
+      </tr>
+      <tr>
+          <td>Luquillo<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></td>
+          <td>Icacos</td>
+          <td>IcacosM</td>
+      </tr>
+      <tr>
+          <td>Luquillo<sup id="fnref1:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></td>
+          <td>Icacos</td>
+          <td>IcacosR</td>
+      </tr>
+      <tr>
+          <td>Luquillo<sup id="fnref2:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></td>
+          <td>Icacos</td>
+          <td>IcacosT</td>
+      </tr>
+      <tr>
+          <td>Catalina<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></td>
+          <td>MixedCon</td>
+          <td>MC_M</td>
+      </tr>
+      <tr>
+          <td>Catalina<sup id="fnref1:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></td>
+          <td>MixedCon</td>
+          <td>MC_R</td>
+      </tr>
+      <tr>
+          <td>Catalina<sup id="fnref2:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></td>
+          <td>MixedCon</td>
+          <td>MC_T</td>
+      </tr>
+      <tr>
+          <td>Catalina<sup id="fnref3:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></td>
+          <td>BigelowDesert</td>
+          <td>B2D_M</td>
+      </tr>
+      <tr>
+          <td>Catalina<sup id="fnref4:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></td>
+          <td>BigelowDesert</td>
+          <td>B2D_R</td>
+      </tr>
+      <tr>
+          <td>Catalina<sup id="fnref5:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></td>
+          <td>BigelowDesert</td>
+          <td>B2D_T</td>
+      </tr>
+      <tr>
+          <td>ReynoldsCr<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></td>
+          <td>NorthBasalt</td>
+          <td>NB_R</td>
+      </tr>
+      <tr>
+          <td>ReynoldsCr<sup id="fnref1:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></td>
+          <td>NorthBasalt</td>
+          <td>NB_T</td>
+      </tr>
+      <tr>
+          <td>ReynoldsCr<sup id="fnref2:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></td>
+          <td>NorthLoess</td>
+          <td>NL_T</td>
+      </tr>
+      <tr>
+          <td>ReynoldsCr<sup id="fnref3:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></td>
+          <td>SWBasalt</td>
+          <td>SWB_M</td>
+      </tr>
+      <tr>
+          <td>ReynoldsCr<sup id="fnref4:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></td>
+          <td>SWBasalt</td>
+          <td>SWB_T</td>
+      </tr>
+      <tr>
+          <td>ReynoldsCr<sup id="fnref5:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></td>
+          <td>SWLoess</td>
+          <td>SWL_T</td>
+      </tr>
+      <tr>
+          <td>SouthernSierra<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></td>
+          <td>SJER</td>
+          <td>SJER_M</td>
+      </tr>
+      <tr>
+          <td>SouthernSierra<sup id="fnref1:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></td>
+          <td>SJER</td>
+          <td>SJER_R</td>
+      </tr>
+      <tr>
+          <td>SouthernSierra<sup id="fnref2:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></td>
+          <td>SJER</td>
+          <td>SJER_T</td>
+      </tr>
+      <tr>
+          <td>DukeFarm</td>
+          <td>DukeFarm</td>
+          <td>DFPasture</td>
+      </tr>
+      <tr>
+          <td>EKS</td>
+          <td>Ottawa</td>
+          <td>EKSAgri</td>
+      </tr>
+      <tr>
+          <td>EKS</td>
+          <td>Welda</td>
+          <td>EKSNative</td>
+      </tr>
+      <tr>
+          <td>EKS</td>
+          <td>Welda</td>
+          <td>EKSPostAg</td>
+      </tr>
+      <tr>
+          <td>KNZ</td>
+          <td>KNZ</td>
+          <td>KNZNative</td>
+      </tr>
+      <tr>
+          <td>KNZ</td>
+          <td>KNZ</td>
+          <td>KNZAgri</td>
+      </tr>
+      <tr>
+          <td>KNZ</td>
+          <td>KNZ</td>
+          <td>KNZPostAg</td>
+      </tr>
+      <tr>
+          <td>HAY</td>
+          <td>HAY</td>
+          <td>HAYNative</td>
+      </tr>
+      <tr>
+          <td>HAY</td>
+          <td>HAY</td>
+          <td>HAYAgri</td>
+      </tr>
+      <tr>
+          <td>HAY</td>
+          <td>HAY</td>
+          <td>HAYPostAg</td>
+      </tr>
+      <tr>
+          <td>TRB</td>
+          <td>TRB</td>
+          <td>TRBNative</td>
+      </tr>
+      <tr>
+          <td>TRB</td>
+          <td>TRB</td>
+          <td>TRBAgri</td>
+      </tr>
+      <tr>
+          <td>TRB</td>
+          <td>TRB</td>
+          <td>TRBAgriIrrig</td>
+      </tr>
+      <tr>
+          <td>TRB</td>
+          <td>TRB</td>
+          <td>TRBPostAg</td>
+      </tr>
+      <tr>
+          <td>FRESCC</td>
+          <td>CC1</td>
+          <td>CC1_2020</td>
+      </tr>
+      <tr>
+          <td>FRESCC</td>
+          <td>CC2</td>
+          <td>CC2_2020</td>
+      </tr>
+      <tr>
+          <td>FRESCC</td>
+          <td>CC2</td>
+          <td>CC2_2022</td>
+      </tr>
+      <tr>
+          <td>FRESCC</td>
+          <td>CC3</td>
+          <td>CC3_2021</td>
+      </tr>
+      <tr>
+          <td>FRESCC</td>
+          <td>CC3</td>
+          <td>CC3_2022</td>
+      </tr>
+      <tr>
+          <td>FRESCC</td>
+          <td>CC4</td>
+          <td>CC4_2021</td>
+      </tr>
+      <tr>
+          <td>FRESCC</td>
+          <td>CC5</td>
+          <td>CC5_2021</td>
+      </tr>
+      <tr>
+          <td>Konza</td>
+          <td>GrassyToe</td>
+          <td>GrToeN01B</td>
+      </tr>
+      <tr>
+          <td>Konza</td>
+          <td>WoodyToe</td>
+          <td>WdToeN04D</td>
+      </tr>
+      <tr>
+          <td>Konza</td>
+          <td>GrassyBackslope</td>
+          <td>GrBackslN01B</td>
+      </tr>
+      <tr>
+          <td>Konza</td>
+          <td>WoodyBackslope</td>
+          <td>WdBackslN04D</td>
+      </tr>
+      <tr>
+          <td>Konza</td>
+          <td>GrassySummit</td>
+          <td>GrSummN01B</td>
+      </tr>
+      <tr>
+          <td>Konza</td>
+          <td>WoodySummit</td>
+          <td>WdSummN04D</td>
+      </tr>
+      <tr>
+          <td>HJAndrews<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></td>
+          <td>WS01</td>
+          <td>NF_Y_A</td>
+      </tr>
+      <tr>
+          <td>HJAndrews<sup id="fnref1:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></td>
+          <td>WS01</td>
+          <td>SF_Y_A</td>
+      </tr>
+      <tr>
+          <td>HJAndrews<sup id="fnref2:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></td>
+          <td>WS02</td>
+          <td>NF_O_A</td>
+      </tr>
+      <tr>
+          <td>HJAndrews<sup id="fnref3:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></td>
+          <td>WS02</td>
+          <td>SF_O_A</td>
+      </tr>
+      <tr>
+          <td>HJAndrews<sup id="fnref4:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></td>
+          <td>WS03</td>
+          <td>NF_O_A</td>
+      </tr>
+      <tr>
+          <td>HJAndrews<sup id="fnref5:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></td>
+          <td>WS03</td>
+          <td>NF_Y_A</td>
+      </tr>
+      <tr>
+          <td>HJAndrews<sup id="fnref6:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></td>
+          <td>WS03</td>
+          <td>SF_O_A</td>
+      </tr>
+      <tr>
+          <td>HJAndrews<sup id="fnref7:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></td>
+          <td>WS03</td>
+          <td>SF_Y_A</td>
+      </tr>
+      <tr>
+          <td>Alps</td>
+          <td>Glacier</td>
+          <td>Alps1</td>
+      </tr>
+      <tr>
+          <td>Alps</td>
+          <td>GlacierRidge</td>
+          <td>Alps2</td>
+      </tr>
+      <tr>
+          <td>Alps</td>
+          <td>Limestone</td>
+          <td>Alps3</td>
+      </tr>
+      <tr>
+          <td>Alps</td>
+          <td>Gneiss</td>
+          <td>Alps5</td>
+      </tr>
+      <tr>
+          <td>Alps</td>
+          <td>Alluvial</td>
+          <td>Alps6</td>
+      </tr>
+      <tr>
+          <td>NH</td>
+          <td>ThompsonPasture</td>
+          <td>NH_TP</td>
+      </tr>
+      <tr>
+          <td>NH</td>
+          <td>ThompsonForest</td>
+          <td>NH_TF</td>
+      </tr>
+      <tr>
+          <td>NH</td>
+          <td>OrganicPasture</td>
+          <td>NH_OP</td>
+      </tr>
+      <tr>
+          <td>NH</td>
+          <td>OrganicForest</td>
+          <td>NH_OF</td>
+      </tr>
+      <tr>
+          <td>SouthernSierra<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup></td>
+          <td>Providence</td>
+          <td>PROV304_R</td>
+      </tr>
+      <tr>
+          <td>SouthernSierra<sup id="fnref1:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup></td>
+          <td>Providence</td>
+          <td>PROV304_M</td>
+      </tr>
+      <tr>
+          <td>SouthernSierra<sup id="fnref2:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup></td>
+          <td>Providence</td>
+          <td>PROV304_T</td>
+      </tr>
+      <tr>
+          <td>RCEW</td>
+          <td>RCEW_OC</td>
+          <td>RCEW_OC</td>
+      </tr>
+      <tr>
+          <td>RCEW</td>
+          <td>RCEW_OJ</td>
+          <td>RCEW_OJ</td>
+      </tr>
+      <tr>
+          <td>RCEW</td>
+          <td>RCEW_OS</td>
+          <td>RCEW_OS</td>
+      </tr>
+      <tr>
+          <td>RCEW</td>
+          <td>RCEW_YC</td>
+          <td>RCEW_YC</td>
+      </tr>
+      <tr>
+          <td>RCEW</td>
+          <td>RCEW_YJ</td>
+          <td>RCEW_YJ</td>
+      </tr>
+      <tr>
+          <td>RCEW</td>
+          <td>RCEW_YS</td>
+          <td>RCEW_YS</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="process">Process<a hidden class="anchor" aria-hidden="true" href="#process">#</a></h2>
 <h3 id="mat">MAT<a hidden class="anchor" aria-hidden="true" href="#mat">#</a></h3>
@@ -735,118 +821,51 @@
 </ul>
 </li>
 <li>The list of columns should now be ID, Category, Latitude, Longitude, Date, Year, GPP.</li>
-<li>In the script, &ldquo;appears.csv&rdquo; refers to the downloaded .csv - you will need to either rename your file or change this to change the call in the file to point to the correct location.</li>
+<li>In the script, &ldquo;GPP all sites.csv&rdquo; refers to the downloaded .csv - you will need to either rename your file or change this to change the call in the file to point to the correct location.</li>
 </ul>
-<!--list-separator-->
-<ul>
-<li>
-<p>Multiple sites</p>
+<!--listend-->
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(dplyr)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># sets initial df as the sanitzed, edited .csv</span>
-</span></span><span style="display:flex;"><span>  df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;appeears.csv&#34;</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># sets output to not be in scientific notation</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">options</span>(scipen <span style="color:#f92672">=</span> <span style="color:#ae81ff">999</span>)
+</span></span><span style="display:flex;"><span>gpp_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;GPP all sites.csv&#34;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># checking the df to make sure all good.</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># I had to mess around in excel a bit to get rid of empty rows at the bottom.</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">head</span>(df)
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tail</span>(df)
+</span></span><span style="display:flex;"><span>gpp_data <span style="color:#f92672">&lt;-</span> gpp_data <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">filter</span>(Year <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2005</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># set object to sum all the 8day GPP values</span>
-</span></span><span style="display:flex;"><span>  summarized_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(GPP <span style="color:#f92672">~</span> Category <span style="color:#f92672">+</span> Year, data<span style="color:#f92672">=</span>df, sum, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</span></span><span style="display:flex;"><span>yearly_gpp <span style="color:#f92672">&lt;-</span> gpp_data <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(ID, Category, Year) <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">summarize</span>(total_GPP <span style="color:#f92672">=</span> <span style="color:#a6e22e">sum</span>(GPP, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>), .groups <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drop&#34;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># The goal was to take the sum values and keep the Site and Pit labels</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   in the sheet.</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">names</span>(summarized_data)<span style="color:#a6e22e">[names</span>(summarized_data) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;GPP&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;total_GPP&#34;</span>
+</span></span><span style="display:flex;"><span>average_gpp <span style="color:#f92672">&lt;-</span> yearly_gpp <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">group_by</span>(ID, Category) <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">summarize</span>(average_GPP <span style="color:#f92672">=</span> <span style="color:#a6e22e">mean</span>(total_GPP, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>), .groups <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drop&#34;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Gets rid of duplicates for Category and Year rows.</span>
-</span></span><span style="display:flex;"><span>  unique_rows <span style="color:#f92672">&lt;-</span> df[<span style="color:#f92672">!</span><span style="color:#a6e22e">duplicated</span>(df[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Category&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>)]), ]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># set object to merge the sum&#39;d GPPs and the category and year</span>
-</span></span><span style="display:flex;"><span>  summarized_all_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge</span>(unique_rows, summarized_data, by<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Category&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># export a .csv with the above</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">write.csv</span>(summarized_all_data, <span style="color:#e6db74">&#34;annual_gpp.csv&#34;</span>, row.names<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># New goal: to average each sites GPP values across all the defined years 2006-2021</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># removed stray 2005 8day values from output .csv in excel</span>
-</span></span><span style="display:flex;"><span>  df2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;annual_gpp.csv&#34;</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#checking df2</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">head</span>(df2)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># ALERT!! I open the annual_gpp.csv here and rename columns to be &#34;Pit&#34; and &#34;Site&#34;, accordingly.</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># adds mean of total_GPP, and sets that to be average_GPP</span>
-</span></span><span style="display:flex;"><span>  average_GPP <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(total_GPP <span style="color:#f92672">~</span> Pit, data <span style="color:#f92672">=</span> df2, FUN <span style="color:#f92672">=</span> mean)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># takes average_GPP value and merges it with all the label columns</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># sorts by Pit</span>
-</span></span><span style="display:flex;"><span>  merged_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge</span>(average_GPP, df2<span style="color:#a6e22e">[c</span>(<span style="color:#e6db74">&#34;Site&#34;</span>, <span style="color:#e6db74">&#34;Pit&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>, <span style="color:#e6db74">&#34;Latitude&#34;</span>, <span style="color:#e6db74">&#34;Longitude&#34;</span>)]
-</span></span><span style="display:flex;"><span>                       , by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Pit&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># removes duplicates</span>
-</span></span><span style="display:flex;"><span>  merged_data <span style="color:#f92672">&lt;-</span> merged_data[<span style="color:#f92672">!</span><span style="color:#a6e22e">duplicated</span>(merged_data<span style="color:#f92672">$</span>Pit), ]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#  exports a csv with all of that stuff. Hip Hip hooray</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">write.csv</span>(merged_data, file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;time_averaged_GPP.csv&#34;</span>, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
-</span></span></code></pre></div></li>
-</ul>
-<!--list-separator-->
-<ul>
-<li>
-<p>Single site</p>
-<p>If you only are processing GPP data from one site, then some slight modifications are needed for the script to function.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(dplyr)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># sets initial df as the sanitized, edited data</span>
-</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;appeears.csv&#34;</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># sets output to not be in scientific notation</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">options</span>(scipen <span style="color:#f92672">=</span> <span style="color:#ae81ff">999</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># checking the df to make sure all good</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(df)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">tail</span>(df)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># set object to sum all the 8day GPP values</span>
-</span></span><span style="display:flex;"><span>summarized_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(GPP <span style="color:#f92672">~</span> Year, data<span style="color:#f92672">=</span>df, sum, na.rm <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># The goal was to take the sum values and keep the Site and Pit labels in the sheet</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(summarized_data)<span style="color:#a6e22e">[names</span>(summarized_data) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;GPP&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;total_GPP&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Gets rid of duplicates for Year rows</span>
-</span></span><span style="display:flex;"><span>unique_rows <span style="color:#f92672">&lt;-</span> df[<span style="color:#f92672">!</span><span style="color:#a6e22e">duplicated</span>(df<span style="color:#f92672">$</span>Year), ]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># set object to merge the summed GPPs and the year</span>
-</span></span><span style="display:flex;"><span>summarized_all_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge</span>(unique_rows, summarized_data, by<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Year&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># export a .csv with the above</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">write.csv</span>(summarized_all_data, <span style="color:#e6db74">&#34;annual_gpp.csv&#34;</span>, row.names<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Read the exported .csv</span>
-</span></span><span style="display:flex;"><span>df2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;annual_gpp.csv&#34;</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Checking df2</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(df2)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Calculate the average of total_GPP for each combination of Latitude and Longitude</span>
-</span></span><span style="display:flex;"><span>average_GPP <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">aggregate</span>(total_GPP <span style="color:#f92672">~</span> Latitude <span style="color:#f92672">+</span> Longitude, data <span style="color:#f92672">=</span> df2, FUN <span style="color:#f92672">=</span> mean)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Rename the average GPP column</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(average_GPP)<span style="color:#a6e22e">[names</span>(average_GPP) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;total_GPP&#34;</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;average_GPP&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Merge the average GPP values with the original data to keep all necessary columns</span>
-</span></span><span style="display:flex;"><span>merged_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">merge</span>(average_GPP, df2[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;ID&#34;</span>, <span style="color:#e6db74">&#34;Latitude&#34;</span>, <span style="color:#e6db74">&#34;Longitude&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>)], by <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Latitude&#34;</span>, <span style="color:#e6db74">&#34;Longitude&#34;</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Remove duplicates to ensure each Latitude-Longitude combination appears only once</span>
-</span></span><span style="display:flex;"><span>merged_data <span style="color:#f92672">&lt;-</span> merged_data[<span style="color:#f92672">!</span><span style="color:#a6e22e">duplicated</span>(merged_data[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Latitude&#34;</span>, <span style="color:#e6db74">&#34;Longitude&#34;</span>)]), ]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Export a csv with the averaged GPP values</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">write.csv</span>(merged_data, file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;final_averaged_GPP.csv&#34;</span>, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
-</span></span></code></pre></div></li>
-</ul>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">write.csv</span>(average_gpp, <span style="color:#e6db74">&#34;average gpp.csv&#34;</span>, row.names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span></code></pre></div><div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Precipitation and temperature data for El Verde pits were gathered from <a href="https://luquillo.lter.network/long-term-datasets/">Luquillo LTER</a>; &ldquo;<a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-luq&amp;identifier=184&amp;revision=185265">Field Station Air temperature from automatic sensor</a>&rdquo; and &ldquo;<a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-luq&amp;identifier=14&amp;revision=470060">Rainfall at El Verde Field Station</a>&rdquo;, from 2010-2023. MAT data is viewable and automatically averaged with the &ldquo;Explore data&rdquo; button, but MAP data needs to be downloaded, manually added and averaged.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>Temperature data from the El Verde site was used. Precipitation data was pulled from <a href="https://www.ncei.noaa.gov/maps/annual/">NCEI at NOAA</a>.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>Precipitation and temperature data for MC and B2D pits were gathered from Oregon State University&rsquo;s PRISM climate data base.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref3:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref4:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref5:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>Precipitation and temperature data for NorthBasalt and NorthLoess pits were gathered from <a href="https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2018WR023063">Warming Alters Hydrologic Heterogeneity: Simulated Climate Sensitivity of Hydrology-Based Microrefugia in the Snow-to-Rain Transition Zone</a>, Table 1. NL_T is associated with Aspen, and all other pits were associated with Low sage.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref3:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref4:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref5:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p>Precipitation and temperature data were gathered from <a href="https://www.hydroshare.org/resource/d915275953c94b298b00872d98559e64/">Hydroshare</a>, from 2010-2018. Data is taken hourly, so it was summed and averaged across years. Data from 2018 was excluded from the precipitation average because it was erroneous. For temperature, TACTUAL was used in the average.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6">
+<p>Precipitation and temperature data for HJAndrews pits were gathered from <a href="https://andrewsforest.oregonstate.edu/sites/default/files/lter/pubs/webdocs/reports/decomp/study_areas.htm#:~:text=elevation%20mixed%20conifer.-,The%20climate%20is%20characterized%20by%20cold%2C%20snowy%20winters%20and%20warm,1778%20mm%20(70%20inches).">Oregon State University</a>.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref3:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref4:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref5:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref6:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref7:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7">
+<p>Precipitation and temperature data from <a href="https://www.hydroshare.org/resource/10664457c48342fa8b1e046ea740cd9c/">Hydroshare</a>, from 2008-2018. Data is taken hourly, so it was summed and averaged across years. For temperature, TACTUAL was used in the average.&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
   </div>
@@ -860,7 +879,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 </span> · 
+        <span>&copy; 2025 </span> · 
 
     <span>
         Love from Kansas · Created with Emacs

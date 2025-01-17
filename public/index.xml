@@ -4,7 +4,7 @@
     <title>morgan docs</title>
     <link>http://localhost:1313/</link>
     <description>Recent content on morgan docs</description>
-    <generator>Hugo -- 0.132.0</generator>
+    <generator>Hugo -- 0.140.2</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 20 Nov 2024 13:53:00 -0600</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
@@ -13,99 +13,358 @@
       <link>http://localhost:1313/posts/creating-animations-of-soil-cores/</link>
       <pubDate>Wed, 20 Nov 2024 13:53:00 -0600</pubDate>
       <guid>http://localhost:1313/posts/creating-animations-of-soil-cores/</guid>
-      <description>Introduction Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.
-We&amp;rsquo;re getting our files from the Environmental Molecular Sciences Laboratory at the Pacific Northwest National Laboratory, who have scanned the soil cores with a Nikon XTH CT scanner.
-Requirements .vol files from a CT scanner At least 16gb of memory Ideally more. Both Fiji and Dragonfly attempt to load the entire file into memory; the downloaded .</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.&lt;/p&gt;
+&lt;p&gt;We&amp;rsquo;re getting our files from the Environmental Molecular Sciences Laboratory at the Pacific Northwest National Laboratory, who have scanned the soil cores with a Nikon XTH CT scanner.&lt;/p&gt;
+&lt;h2 id=&#34;requirements&#34;&gt;Requirements&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;.vol files from a CT scanner&lt;/li&gt;
+&lt;li&gt;At least 16gb of memory
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://downloadmoreram.com/&#34;&gt;Ideally more&lt;/a&gt;. Both Fiji and Dragonfly attempt to load the entire file into memory; the downloaded .vol is almost 40gb.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dragonfly.comet.tech/&#34;&gt;Dragonfly from Comet Software&lt;/a&gt;. You&amp;rsquo;ll need a license: &lt;a href=&#34;https://www.theobjects.com/dragonfly/get-trial-version-request-comet.php&#34;&gt;30 day free trials&lt;/a&gt; are easily accessible, and &lt;a href=&#34;https://dragonfly.comet.tech/en/non-commercial-licensing&#34;&gt;non commercial licenses are available&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://fiji.sc/&#34;&gt;Fiji&lt;/a&gt; or ImageJ, but use Fiji.&lt;/li&gt;
+&lt;li&gt;A windows or Linux machine to run Dragonfly on; everything but that can be done on Mac&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;tl-dr&#34;&gt;TL;DR&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Download .vol files from &lt;a href=&#34;https://sc-data.emsl.pnnl.gov/#state=32f73ab7-1755-4bad-8f02-a5640adf3a1a&amp;amp;session_state=0f3eb580-fa1b-48b2-aed4-6eefcad788f9&amp;amp;code=6f48e754-f383-442b-884b-f7222be36fbe.0f3eb580-fa1b-48b2-aed4-6eefcad788f9.21cf84f6-6ada-4d20-8b12-72f0a3e0bce3&#34;&gt;EMSL Data portal&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Import the files into Fiji as raw data, 2000x2000x2000
+&lt;ul&gt;
+&lt;li&gt;Convert to 8-bit, save as .tiff&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Open the .tiff in Dragonfly, crop to slices 250-1800
+&lt;ul&gt;
+&lt;li&gt;Make a cylindrical mask to crop the garbage off the core&lt;/li&gt;
+&lt;li&gt;Use movie maker to make a rotating movie, export to .avi&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Use ffmpeg or similar to convert to mp4&lt;/li&gt;
+&lt;li&gt;Use kdenlive or similar to crop to square&lt;/li&gt;
+&lt;li&gt;Use Gifski to convert to reasonably sized gif&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;getting-dot-vol-files-from-emsl-data-portal&#34;&gt;Getting .vol files from EMSL data portal&lt;/h2&gt;
+&lt;h3 id=&#34;selecting-cores&#34;&gt;Selecting cores&lt;/h3&gt;
+&lt;p&gt;To start, we need to get the CT scan files from EMSL, provided as .vol files.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Analyzing soil with a XRF</title>
       <link>http://localhost:1313/posts/analyzing-soil-with-xrf/</link>
       <pubDate>Mon, 21 Oct 2024 08:56:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/analyzing-soil-with-xrf/</guid>
-      <description>Warning: The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.
-Introduction This article assumes you already are in possession of pucks of finely ground soil.
-Procedure Prepare the XRF Analyzer
-Take the battery from the charger and insert it into the back of the XRF. Note that a good amount of force is required to latch the battery into place.</description>
+      <description>&lt;p&gt;&lt;strong&gt;Warning&lt;/strong&gt;: The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.&lt;/p&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;This article assumes you already are in possession of pucks of finely ground soil.&lt;/p&gt;
+&lt;h2 id=&#34;procedure&#34;&gt;Procedure&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Prepare the XRF Analyzer&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Take the battery from the charger and insert it into the back of the XRF.
+&lt;ul&gt;
+&lt;li&gt;Note that a good amount of force is required to latch the battery into place.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Power on the XRF by holding the power button on the left of the front for about 3 seconds.&lt;/li&gt;
+&lt;li&gt;Wait for the system to boot.&lt;/li&gt;
+&lt;li&gt;Log into the device using the password.&lt;/li&gt;
+&lt;li&gt;The four directional buttons are used to select items on the interface.&lt;/li&gt;
+&lt;li&gt;The button to the right of the pad is the enter or confirm button, not a back button.&lt;/li&gt;
+&lt;li&gt;The center of the pad is not a button, which is incredibly unintuitive and confused me for an unbelievably long period of time.&lt;/li&gt;
+&lt;li&gt;From the main menu, select &lt;code&gt;System Check&lt;/code&gt; to calibrate the scanner.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Connect the XRF to a Computer&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Git basics</title>
       <link>http://localhost:1313/posts/git-basics/</link>
       <pubDate>Wed, 21 Aug 2024 11:00:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/git-basics/</guid>
-      <description>Introduction to Git and GitHub It&amp;rsquo;s easiest to think of Git (and other forms of source control) like a time machine.
-When you make changes to your project, it&amp;rsquo;s easy to see what has changed. You have a perfect history of everything that&amp;rsquo;s ever happened in your project, and can always revert to any point in that history. Git allows you to work with other people on the same project, while guaranteeing that you won&amp;rsquo;t mess up each other&amp;rsquo;s work.</description>
+      <description>&lt;h2 id=&#34;introduction-to-git-and-github&#34;&gt;Introduction to Git and GitHub&lt;/h2&gt;
+&lt;p&gt;It&amp;rsquo;s easiest to think of Git (and other forms of source control) like a time machine.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;When you make changes to your project, it&amp;rsquo;s easy to see what has changed.&lt;/li&gt;
+&lt;li&gt;You have a perfect history of everything that&amp;rsquo;s ever happened in your project, and can always revert to any point in that history.&lt;/li&gt;
+&lt;li&gt;Git allows you to work with other people on the same project, while guaranteeing that you won&amp;rsquo;t mess up each other&amp;rsquo;s work.&lt;/li&gt;
+&lt;li&gt;Git allows you to send and receive files from your computer to a server, making it easy to put your projects online.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;concepts&#34;&gt;Concepts&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Commits:&lt;/strong&gt; Think of a commit as taking a snapshot of your project. Every time you make a commit, you are saving a record of what your project looks like at that moment in time. This allows you to track changes over time and gives you a perfect history of your entire project.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Creating a .kml file from a Google Earth project</title>
       <link>http://localhost:1313/posts/creating-a-kml-from-a-project/</link>
       <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/creating-a-kml-from-a-project/</guid>
-      <description>Introduction &amp;ldquo;Keyhole Markup Language&amp;rdquo;
-.kml files are useful for a number of reasons, namely storing pins, locations, polygons, images, and other GIS info. One of the easiest ways to make them is with Google Earth.
-You can approach this in a couple of ways. Both the Earth website and the Google Earth Pro desktop app are usable.
-Google Earth Web Open Google Earth in a browser. Open the left hand side bar.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;&amp;ldquo;Keyhole Markup Language&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;.kml files are useful for a number of reasons, namely storing pins, locations, polygons, images, and other GIS info. One of the easiest ways to make them is with Google Earth.&lt;/p&gt;
+&lt;p&gt;You can approach this in a couple of ways. Both the &lt;a href=&#34;https://earth.google.com&#34;&gt;Earth website&lt;/a&gt; and the &lt;a href=&#34;https://www.google.com/earth/about/versions/&#34;&gt;Google Earth Pro desktop app&lt;/a&gt; are usable.&lt;/p&gt;
+&lt;h2 id=&#34;google-earth-web&#34;&gt;Google Earth Web&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Open &lt;a href=&#34;https://earth.google.com&#34;&gt;Google Earth&lt;/a&gt; in a browser.&lt;/li&gt;
+&lt;li&gt;Open the left hand side bar. It&amp;rsquo;s a little arrow in the middle of the left edge.&lt;/li&gt;
+&lt;li&gt;Click the &amp;ldquo;+ New&amp;rdquo; button, select &amp;ldquo;Local KML file&amp;rdquo;, and click &amp;ldquo;Create&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;You should see a new section, &amp;ldquo;Local KML files&amp;rdquo;, and your new project, &amp;ldquo;Untitled&amp;rdquo;.
+&lt;ul&gt;
+&lt;li&gt;You can rename the project by clicking on the kebab menu while hovering on it, and clicking &amp;ldquo;Rename&amp;rdquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Click on the project to select it.&lt;/li&gt;
+&lt;li&gt;To add a location to the project, navigate to it, and then click the &amp;ldquo;Save to project&amp;rdquo; button that appears in the card.
+&lt;ul&gt;
+&lt;li&gt;Alternatively, you can use the pin / placemark tool (first on the left in the toolbar) and it will be automatically added to the selected project.&lt;/li&gt;
+&lt;li&gt;You can rename the pin / placemark by either doing so when you initially place it, or by using the kebab menu in the project menu.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Once you are done adding to your project, you can export by clicking the kebab menu on it, and then selecting &amp;ldquo;Export as KML file&amp;rdquo;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;google-earth-pro&#34;&gt;Google Earth Pro&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Open &lt;a href=&#34;https://www.google.com/earth/about/versions/&#34;&gt;Google Earth Pro&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Create a folder under Add &amp;gt; Folder. This is your project, so name it accordingly.&lt;/li&gt;
+&lt;li&gt;Create placemarks with the placemark tool.
+&lt;ul&gt;
+&lt;li&gt;They should be automatically placed into the new folder.&lt;/li&gt;
+&lt;li&gt;You can drag other objects inside of the folder to add them to the project.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Once you are done with the project, export it by right clicking on the folder and selecting &amp;ldquo;Save place as..&amp;rdquo;
+&lt;ul&gt;
+&lt;li&gt;There are two options to save: a .kml and .kmz.&lt;/li&gt;
+&lt;li&gt;If you don&amp;rsquo;t know what to use, select .kml.&lt;/li&gt;
+&lt;li&gt;.kmz files are used to compress larger projects, typically ones that include images, but have some compatability issues.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     <item>
       <title>Mapping DI and EP with rgee</title>
       <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
       <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
-      <description>Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
-Note 2: JS version had the same issues and created more problems. Nevermind!
-Rgee version Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.</description>
+      <description>&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/rgee_global.png&#34; alt=&#34;&#34;  /&gt;
+
+Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.&lt;/p&gt;
+&lt;p&gt;Note 2: JS version had the same issues and created more problems. Nevermind!&lt;/p&gt;
+&lt;h2 id=&#34;rgee-version&#34;&gt;Rgee version&lt;/h2&gt;
+&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Exporting data to a CSV with rgee</title>
       <link>http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/</guid>
-      <description>Introduction In general, exporting data to a .csv with rgee is pretty easy. The general gist of the process is:
-Define the area or points you are interested in Filter data Convert the results to a list, and Export to a csv. Example Make sure to load and initialize rgee first!
-# Define an AOI over Kansas aoi &amp;lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Define sample points in the area points &amp;lt;- ee$FeatureCollection(c( ee$Feature(ee$Geometry$Point(-98.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;In general, exporting data to a .csv with rgee is pretty easy. The general gist of the process is:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Define the area or points you are interested in&lt;/li&gt;
+&lt;li&gt;Filter data&lt;/li&gt;
+&lt;li&gt;Convert the results to a list, and&lt;/li&gt;
+&lt;li&gt;Export to a csv.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Make sure to load and initialize rgee first!&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-R&#34; data-lang=&#34;R&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Define an AOI over Kansas&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;aoi &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;Geometry&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Rectangle&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-102.05&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;36.99&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;-94.6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;40.0&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Define sample points in the area&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;points &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;FeatureCollection&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Feature&lt;/span&gt;(ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;Geometry&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Point&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-98.5795&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;39.8283&lt;/span&gt;), &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;)),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Feature&lt;/span&gt;(ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;Geometry&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Point&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-97.5795&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;38.8283&lt;/span&gt;), &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2&amp;#34;&lt;/span&gt;)),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Feature&lt;/span&gt;(ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;Geometry&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Point&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-96.5795&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;37.8283&lt;/span&gt;), &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Grab an image from Sentinal 2 and calculate NDVI&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;s2_collection &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ImageCollection&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;COPERNICUS/S2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filterDate&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-06-01&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-06-30&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filterBounds&lt;/span&gt;(aoi)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;map&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;(image) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ndvi &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; image&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;normalizedDifference&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;B8&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;B4&amp;#34;&lt;/span&gt;))&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;NDVI&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;(image&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;addBands&lt;/span&gt;(ndvi))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  })
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ndvi_image &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; s2_collection&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;NDVI&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mean&lt;/span&gt;()&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;clip&lt;/span&gt;(aoi)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Grab NDVI values at the sample points&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ndvi_values &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; ndvi_image&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;reduceRegions&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  collection &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; points,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  reducer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;Reducer&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mean&lt;/span&gt;(),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  scale &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Convert the result to a list and then to a data frame&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ndvi_list &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; ndvi_values&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;getInfo&lt;/span&gt;()&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;features
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ndvi_df &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;do.call&lt;/span&gt;(rbind, &lt;span style=&#34;color:#a6e22e&#34;&gt;lapply&lt;/span&gt;(ndvi_list, &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;(x) &lt;span style=&#34;color:#a6e22e&#34;&gt;data.frame&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;properties&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;label,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  NDVI &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;properties&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;mean,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  lon &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;geometry&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;coordinates[1],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  lat &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;geometry&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;coordinates[2]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Save the data frame as a CSV&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;write.csv&lt;/span&gt;(ndvi_df, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ndvi_values_hello.csv&amp;#34;&lt;/span&gt;, row.names &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Getting data from AppEEARS and NOAA</title>
       <link>http://localhost:1313/posts/getting-data-from-appeears-and-noaa/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/getting-data-from-appeears-and-noaa/</guid>
-      <description>Data types (link to method of gathering) MAT (Mean Annual Temperature) Average yearly temperature. MAP (Mean Annual Precipitation) Average yearly precipitation. GPP (Gross Primary Productivity) Total amount of energy captured by plants. Does not account for respiration losses. NPP (Net Primary Productivity) Amount of energy that remains after plants have used some of the captured energy for their own respiration. Actual amount of new biomass that is available for consumption by other critters.</description>
+      <description>&lt;h2 id=&#34;data-types--link-to-method-of-gathering&#34;&gt;Data types (link to method of gathering)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#mat&#34;&gt;MAT (Mean Annual Temperature)&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;Average yearly temperature.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#map&#34;&gt;MAP (Mean Annual Precipitation)&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;Average yearly precipitation.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#gpp&#34;&gt;GPP (Gross Primary Productivity)&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;Total amount of energy captured by plants. Does not account for respiration losses.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#npp&#34;&gt;NPP (Net Primary Productivity)&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;Amount of energy that remains after plants have used some of the captured energy for their own respiration. Actual amount of new biomass that is available for consumption by other critters. NPP = GPP - Respiration&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#pet&#34;&gt;PET (Potential Evapotranspiration)&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;Amount of water that would be evaporated and transpired by vegetation if there was sufficient water available. Atmospheric demand for water.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#aet-et&#34;&gt;AET, ET (Actual Evapotranspiration)&lt;/a&gt;  - Actual amount of water that is evaporated from soil and transpired by vegetation. Less than or equal to PET. Depends on availability of water.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#di&#34;&gt;DI (Dryness Index)&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;PET / MAP&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#ep&#34;&gt;EP (Evaporation Potential)&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;1 - (PET /MAP)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;sites&#34;&gt;Sites&lt;/h2&gt;
+&lt;p&gt;Data was gathered from multiple sites, sorted with a RegionName, SiteName, and Pit. It&amp;rsquo;s important that the Pit is unique.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Making maps of variables with rgee</title>
       <link>http://localhost:1313/posts/making-maps-of-variables-with-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/making-maps-of-variables-with-rgee/</guid>
-      <description>Introduction Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.
-Dividing EVI by Precipitation In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.
-Load and initialize rgee first!
-library(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi &amp;lt;- ee$Geometry$Rectangle(c(-102.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.&lt;/p&gt;
+&lt;h3 id=&#34;dividing-evi-by-precipitation&#34;&gt;Dividing EVI by Precipitation&lt;/h3&gt;
+&lt;p&gt;In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Load and initialize rgee first!&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-R&#34; data-lang=&#34;R&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(rgee)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ee_Initialize&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Define an area of interest (AOI) over Kansas&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;aoi &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;Geometry&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Rectangle&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-102.05&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;36.99&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;-94.6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;40.0&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Load the Sentinel-2 image collection and calculate EVI&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;s2_collection &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ImageCollection&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;COPERNICUS/S2&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filterDate&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-06-01&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-08-31&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filterBounds&lt;/span&gt;(aoi)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;map&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;(image) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    evi &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; image&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;expression&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))&amp;#39;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;NIR&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; image&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;B8&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;RED&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; image&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;B4&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;BLUE&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; image&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;B2&amp;#34;&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    )&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;EVI&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;(image&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;addBands&lt;/span&gt;(evi))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  })
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;evi_image &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; s2_collection&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;EVI&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mean&lt;/span&gt;()&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;clip&lt;/span&gt;(aoi)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Visualize EVI to ensure it&amp;#39;s calculated correctly&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;evi_viz &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  min &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;-1&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  max &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  palette &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;brown&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yellow&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;green&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Map&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;setCenter&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-98.35&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;38.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Map&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;addLayer&lt;/span&gt;(evi_image, evi_viz, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;EVI&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Load the TerraClimate PPT (precipitation) dataset&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ppt_dataset &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ImageCollection&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;IDAHO_EPSCOR/TERRACLIMATE&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filterDate&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-01-01&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-12-31&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pr&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;mean&lt;/span&gt;()&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;clip&lt;/span&gt;(aoi)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Visualize PPT to ensure it&amp;#39;s loaded correctly&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ppt_viz &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  min &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  max &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2000&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  palette &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;blue&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;green&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Map&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;addLayer&lt;/span&gt;(ppt_dataset, ppt_viz, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Precipitation&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Ensure the datasets align perfectly for each pixel&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;evi_resampled &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; evi_image&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;reproject&lt;/span&gt;(crs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ppt_dataset&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;projection&lt;/span&gt;(), scale &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ppt_resampled &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; ppt_dataset&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;reproject&lt;/span&gt;(crs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; evi_image&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;projection&lt;/span&gt;(), scale &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Divide EVI by PPT&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;evi_ppt_ratio &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; evi_resampled&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;divide&lt;/span&gt;(ppt_resampled)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Define visualization parameters for the ratio&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;evi_ppt_viz &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  min &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  max &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  palette &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;blue&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;white&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;red&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Add the EVI/PPT ratio layer&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Map&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;addLayer&lt;/span&gt;(evi_ppt_ratio, evi_ppt_viz, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;EVI/PPT Ratio&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;breakdown&#34;&gt;Breakdown&lt;/h3&gt;
+&lt;h4 id=&#34;define-the-aoi-the-state-of-kansas-dot&#34;&gt;Define the AOI, the state of Kansas.&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-R&#34; data-lang=&#34;R&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;aoi &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;Geometry&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Rectangle&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-102.05&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;36.99&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;-94.6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;40.0&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;load-and-filter-sentinel-2-data&#34;&gt;Load and Filter Sentinel-2 Data&lt;/h4&gt;
+&lt;p&gt;Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Setting up rgee</title>
       <link>http://localhost:1313/posts/setting-up-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/setting-up-rgee/</guid>
-      <description>Introduction From the rgee github page: &amp;ldquo;rgee is an R binding package for calling Google Earth Engine API from within R. Various functions are implemented to simplify the connection with the R spatial ecosystem.&amp;rdquo;
-This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven&amp;rsquo;t tested it.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;From the &lt;a href=&#34;https://github.com/r-spatial/rgee&#34;&gt;rgee github page&lt;/a&gt;: &amp;ldquo;rgee is an R binding package for calling Google Earth Engine API from within R. Various functions are implemented to simplify the connection with the R spatial ecosystem.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven&amp;rsquo;t tested it.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Using variables in rgee</title>
       <link>http://localhost:1313/posts/using-variables-in-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/using-variables-in-rgee/</guid>
-      <description>Introduction Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.
-Calling variables Load and initialize rgee first!
-Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.
-aoi &amp;lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I&amp;rsquo;ll use the MODIS land cover datasets.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.&lt;/p&gt;
+&lt;h2 id=&#34;calling-variables&#34;&gt;Calling variables&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Load and initialize rgee first!&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-R&#34; data-lang=&#34;R&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;aoi &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;Geometry&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Rectangle&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-120.4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;34.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;-119.4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;35.5&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this example, I&amp;rsquo;ll use the MODIS land cover datasets.&lt;/p&gt;</description>
     </item>
     <item>
       <title>About</title>
       <link>http://localhost:1313/posts/creating-this-website/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/creating-this-website/</guid>
-      <description>Writing and formatting All posts are written in Emacs 29.4 in Org mode.
-Publishing Posts are published to markdown using ox-hugo, and pushed to GitHub using Magit. Hugo is used as a framework for the website, with a modified version of the papermod theme. I use Cloudflare for the majority of domain work. Cloudflare pages is used for building the site.
-Written in Emacs 29.4, using Doom 2.0.9, in Org mode 9.</description>
+      <description>&lt;h2 id=&#34;writing-and-formatting&#34;&gt;Writing and formatting&lt;/h2&gt;
+&lt;p&gt;All posts are written in Emacs 29.4 in Org mode.&lt;/p&gt;
+&lt;h2 id=&#34;publishing&#34;&gt;Publishing&lt;/h2&gt;
+&lt;p&gt;Posts are published to markdown using ox-hugo, and pushed to GitHub using Magit. Hugo is used as a framework for the website, with a modified version of the papermod theme. I use Cloudflare for the majority of domain work. Cloudflare pages is used for building the site.&lt;/p&gt;
+&lt;p&gt;Written in Emacs 29.4, using Doom 2.0.9, in Org mode 9.7. Published to markdown using ox-hugo, and pushed to GitHub using Magit. Hugo is used as the website framework with a modified version of the papermod theme. Cloudflare is used for domain management, and Cloudflare pages builds the site.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
