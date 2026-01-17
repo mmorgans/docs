@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="en" dir="auto" data-theme="auto">
 
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -58,7 +58,7 @@ write.csv(ndvi_df, &#34;ndvi_values_hello.csv&#34;, row.names = FALSE)
 ">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.448d5f24638899265072f20170acde64aefbab1ef7089a0e64c84ccfa31051c7.css" integrity="sha256-RI1fJGOImSZQcvIBcKzeZK77qx73CJoOZMhMz6MQUcc=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bd71ba41d6c077d7ecc44c8bb7c0d5040d140d8a09c794c04bd5468e03e1fa3c.css" integrity="sha256-vXG6QdbAd9fsxEyLt8DVBA0UDYoJx5TAS9VGjgPh&#43;jw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -87,23 +87,38 @@ write.csv(ndvi_df, &#34;ndvi_values_hello.csv&#34;, row.names = FALSE)
                 --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
+                color-scheme: dark;
             }
 
             .list {
                 background: var(--theme);
             }
 
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
+            .toc {
+                background: var(--entry);
             }
+        }
 
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
             }
         }
 
     </style>
 </noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
 
 
 <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)">
@@ -112,25 +127,13 @@ write.csv(ndvi_df, &#34;ndvi_values_hello.csv&#34;, row.names = FALSE)
 
 <meta name="color-scheme" content="light dark">
 </head>
-
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
+<body id="top">
+    <header class="header">
     <nav class="nav">
         <div class="logo">
             <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -169,7 +172,9 @@ write.csv(ndvi_df, &#34;ndvi_values_hello.csv&#34;, row.names = FALSE)
     <h1 class="post-title entry-hint-parent">
       Exporting data to a CSV with rgee
     </h1>
-    <div class="post-meta"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;1 min&nbsp;|&nbsp;<a href="https://github.com/mmorgans/docs/tree/main/content/posts/Exporting-data-to-a-csv-with-rgee.md" rel="noopener noreferrer" target="_blank">suggest changes</a>
+    <div class="post-meta"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;|&nbsp;<span>
+    <a href="https://github.com/mmorgans/docs/tree/main/content/posts/Exporting-data-to-a-csv-with-rgee.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
+</span>
 
 </div>
   </header> <div class="toc">

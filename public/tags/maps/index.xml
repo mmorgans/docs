@@ -13,8 +13,7 @@
       <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
       <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
       <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
-      <description>&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/rgee_global.png&#34; alt=&#34;&#34;  /&gt;
-
+      <description>&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/rgee_global.png&#34;&gt;
 Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.&lt;/p&gt;
 &lt;p&gt;Note 2: JS version had the same issues and created more problems. Nevermind!&lt;/p&gt;
 &lt;h2 id=&#34;rgee-version&#34;&gt;Rgee version&lt;/h2&gt;
