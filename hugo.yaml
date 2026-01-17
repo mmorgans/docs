@@ -13,9 +13,6 @@ markup:
     renderer:
       unsafe: true
 params:
-  homeInfoParams:
-    Title: docs
-    Content: documentation for a variety of projects
   ShowReadingTime: true
   ShowToc: true
   ShowBreadCrumbs: true
