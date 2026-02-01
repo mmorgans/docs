@@ -13,7 +13,7 @@ markup:
     renderer:
       unsafe: true
 params:
-  defaultTheme: auto
+  defaultTheme: dark
   disableThemeToggle: false
   ShowReadingTime: true
   ShowToc: true

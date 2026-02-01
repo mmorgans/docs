@@ -26,15 +26,20 @@ h6 {
 }
 
 /* --------------------------------------------------------------------------
-   Homepage - Clean article list
+   Homepage - Clean article list (no featured styling)
    -------------------------------------------------------------------------- */
 .first-entry {
     border: none;
     font-size: inherit;
+    padding: var(--gap);
+    background: var(--entry);
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
 }
 
 .first-entry .entry-header h2 {
     font-size: 1.25rem;
+    font-weight: 500;
 }
 
 /* --------------------------------------------------------------------------

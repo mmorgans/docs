@@ -6,12 +6,12 @@
     <description>Recent content in Posts on morgan docs</description>
     <generator>Hugo -- 0.148.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 30 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 31 Jan 2026 21:54:00 -0600</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using the EGM-4 &amp; open-egm4 software</title>
       <link>http://localhost:1313/posts/using-the-egm-4/</link>
-      <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 31 Jan 2026 21:54:00 -0600</pubDate>
       <guid>http://localhost:1313/posts/using-the-egm-4/</guid>
       <description>&lt;h2 id=&#34;obligatory-data-loss-warning&#34;&gt;Obligatory data loss warning&lt;/h2&gt;
 &lt;p&gt;The EGM-4 uses a RS-232 serial connection that can be finicky. Improper connection can result in corrupted data streams or lost measurements. If there is any risk of the serial connection being bumped, take the time to secure the connection with the screws.&lt;/p&gt;
