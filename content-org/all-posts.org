@@ -1120,7 +1120,8 @@ Smash =Convert= once you are happy with the estimated size, and enjoy.
 
 Wooo!!!!
 # watch https://newbeelearn.com/tools/videoeditor/ for alleged export settings. makes life easier if added
-* TODO Using the EGM-4 & open-egm4 software
+* DONE Using the EGM-4 & open-egm4 software
+CLOSED: [2026-02-01 Sun 15:25]
 :PROPERTIES:
 :EXPORT_FILE_NAME:  using-the-egm-4
 :EXPORT_HUGO_PAIRED_SHORTCODES: alert2
@@ -1326,6 +1327,12 @@ At low temperatures, you should hold the EGM inside your jacket, maintaining ski
 *Charging:* The manual proports that the battery takes 12 hours to charge fully. /I/ think that's a made up number, and in my testing it's ready for action after around 2 hours. Your mileage may vary.
 
 If you are planning on storing the EGM long term, charge the battery beforehand to avoid damaging it.
+
+#+attr_shortcode: Caution
+#+begin_alert2
+The EGM's internal clock loses time when the battery dies. After replacing or fully recharging the battery, make sure the date/time settings are correct before taking measurements.
+#+end_alert2
+
 
 *Replacement:* To replace the battery, [[Troubleshooting & Maintenance]].
 

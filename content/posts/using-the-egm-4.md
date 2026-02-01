@@ -1,7 +1,7 @@
 +++
 title = "Using the EGM-4 & open-egm4 software"
-date = 2026-01-30
-draft = true
+date = 2026-02-01T15:25:00-06:00
+draft = false
 +++
 
 {{< alert2 Warning >}}
@@ -220,6 +220,10 @@ At low temperatures, you should hold the EGM inside your jacket, maintaining ski
 **Charging:** The manual proports that the battery takes 12 hours to charge fully. _I_ think that's a made up number, and in my testing it's ready for action after around 2 hours. Your mileage may vary.
 
 If you are planning on storing the EGM long term, charge the battery beforehand to avoid damaging it.
+
+{{< alert2 Caution >}}
+The EGM's internal clock loses time when the battery dies. After replacing or fully recharging the battery, make sure the date/time settings are correct before taking measurements.
+{{< /alert2 >}}
 
 **Replacement:** To replace the battery, [Troubleshooting &amp; Maintenance](#troubleshooting-and-maintenance).
 
