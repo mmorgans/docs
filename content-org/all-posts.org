@@ -1524,8 +1524,10 @@ If you use a plot number that has already been used, the EGM will overwrite the 
 The plot number will *not* auto-increment. You must manually enter the plot number for each measurement. Note that the EGM will happily overwrite the previous measurement if you don't change the plot number between measurements!
 #+end_alert2
 
-10. *Data Storage:*
-If you had a laptop connected to the EGM while you were taking measurements, then you were able to view the incoming data in real-time and export it at will. If not, the data are stored in the EGM's internal memory. The EGM stores up to 999 records, and will start overwriting old records if full. See for [[Exporting data][instructions on how to export data from the EGM]].
+10. *Data Viewing & Storage:*
+  Though not nescesssary, you can have your computer connected to the EGM while you are taking soil repisration measurements. This allows you to view the incoming the data in real time, using open-egm4, and see it graphed. This can be helpful for understanding how long it takes your soil system to produce enough CO₂ to lessen the diffusion gradient driving respiration fluxes into the chamber.
+
+  Regardless, because you desginated a plot number before you started the measurement, the EGM will store the data in its internal memory. The EGM stores up to 999 records, and will start overwriting old records if full. See  [[Exporting data][instructions on how to export data from the EGM]].
 
 *** Workflow 2: Static Sampling via Syringe Injection
 
@@ -1536,7 +1538,13 @@ Instead of pumping air continuously through the EGM-4, you inject a small volume
 *Equipment Needed:*
 - EGM-4 with battery
 - Luer-lock syringe (5-10 ml)
-- Sample collection vial (if collecting from field, and perhaps if collecting in the lab)
+- Sample vial or other vessel from which you will take a syringe sample
+- A female luer-lock adapter to connect the syringe to the EGM
+
+#+attr_shortcode: Warning
+#+begin_alert2
+Ensure that water does not enter the EGM when injecting a sample. If water enters the EGM, it will damage the IRGA.
+#+end_alert2
 
 *Setup Procedure:*
 
@@ -1550,8 +1558,7 @@ Instead of pumping air continuously through the EGM-4, you inject a small volume
 
 2. *Prepare for Injection:*
    - Press ~1~ (REC) to enter measurement mode
-   - EGM-4 now displays CO₂ concentration
-   - Display will show the current CO₂ concentration
+   - The EGM will show the current CO₂ concentration
 
 *Sampling Procedure:*
 
@@ -1559,27 +1566,26 @@ Instead of pumping air continuously through the EGM-4, you inject a small volume
    - Draw sample into syringe, at least 5 ml is required for a stable reading.
 
 2. *Inject Sample:*
-   - Locate the Gas Out port on top of EGM-4
-   - Inject sample into the Gas Out port
+   - Locate the gas out port on top of EGM and ensure that the female luer-lock adapter is securely connected
+   - Attach the luer-lock syringe to the gas out port and inject sample
    - Watch CO₂ reading on display
 
-3. *Read Stabilized Value:*
+3. *Record Value:*
    - The CO₂ reading will change as your sample fills the cell
-   - Wait 10-20 seconds for reading to stabilize
-   - Reading is stable when it changes less than 1-2 ppm over 30 seconds
-   - Press ~Y~ to record measurement
+   - Wait several seconds until you see the highest CO₂ reading on the display
+   - Make note of it!
 
 4. *Flush Between Samples:*
-   - Inject ambient air several times to flush
-   - Or wait for auto-zero cycle (warnings appear at 2 min and 1 min before zero)
-   - During zero, pump turns on automatically to flush cell, then turns off
+   - Return to the main menu by pressing ~N~
+   - Turn the pump back on by pressing ~2SET~, ~3PMP~, ~N~ to change, and ~Y~ to confirm
+   - Once the pump is back on, wait at least 1 minute before shutting the pump back off and running another sample
 
 *Auto-Zero Warnings in Static Mode:*
 The EGM-4 will still perform automatic zeros even with pump off. You'll see warnings:
 - "AUTO ZERO IN 2 MINUTES"
 - "AUTO ZERO IN 1 MINUTE"
 
-When zero begins, the pump turns on for ~15 seconds, then turns off again. This ensures an accurate baseline.
+When zero begins, the pump turns on for ~15 seconds, then turns off again. This ensures an accurate baseline by passing air scrubbed of CO₂ by the soda lime to the IRGA, and setting its CO₂ concentration to 0 ppm.
 
 #+attr_shortcode: Caution
 #+begin_alert2
@@ -1588,7 +1594,7 @@ Don't forget to re-enable the pump when finished.
 
 *** Workflow 3: Dumping Stored Data from EGM-4 Memory
 
-To transfer stored records from the EGM-4 to your computer, do the following: 
+To transfer stored records from field plots (not static samples, for which you must record the data manually) on the EGM-4 to your computer, do the following: 
 
 1. Connect the EGM-4 to your computer using a serial cable and USB adapter
 2. Power on the EGM-4 and open the open-egm4 app on your computer by typing ~open-egm4~ in the terminal

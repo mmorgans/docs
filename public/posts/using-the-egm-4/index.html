@@ -371,7 +371,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                 <h1 class="post-title entry-hint-parent">
                     Using the EGM-4 &amp; open-egm4 software
                 </h1>
-                <div class="post-meta"><span title='2026-02-01 15:25:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>35 min</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2026-02-01 15:25:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>36 min</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-egm-4.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
@@ -781,9 +781,12 @@ To export only a subset of that data, use the <code>p</code> and <code>d</code> 
   The plot number will <strong>not</strong> auto-increment. You must manually enter the plot number for each measurement. Note that the EGM will happily overwrite the previous measurement if you don&rsquo;t change the plot number between measurements!
 </div>
 <ol>
-<li><strong>Data Storage:</strong></li>
+<li>
+<p><strong>Data Viewing &amp; Storage:</strong>
+Though not nescesssary, you can have your computer connected to the EGM while you are taking soil repisration measurements. This allows you to view the incoming the data in real time, using open-egm4, and see it graphed. This can be helpful for understanding how long it takes your soil system to produce enough CO₂ to lessen the diffusion gradient driving respiration fluxes into the chamber.</p>
+<p>Regardless, because you desginated a plot number before you started the measurement, the EGM will store the data in its internal memory. The EGM stores up to 999 records, and will start overwriting old records if full. See  <a href="#exporting-data">instructions on how to export data from the EGM</a>.</p>
+</li>
 </ol>
-<p>If you had a laptop connected to the EGM while you were taking measurements, then you were able to view the incoming data in real-time and export it at will. If not, the data are stored in the EGM&rsquo;s internal memory. The EGM stores up to 999 records, and will start overwriting old records if full. See for <a href="#exporting-data">instructions on how to export data from the EGM</a>.</p>
 <h3 id="workflow-2-static-sampling-via-syringe-injection">Workflow 2: Static Sampling via Syringe Injection<a hidden class="anchor" aria-hidden="true" href="#workflow-2-static-sampling-via-syringe-injection">#</a></h3>
 <p>Static sampling is used when you want to measure CO₂ concentration of a discrete air sample without continuous flow. Common applications: measuring gas concentrations from sealed containers, soil headspace, or captured gas samples.</p>
 <p>Instead of pumping air continuously through the EGM-4, you inject a small volume of sample directly into the measurement cell using a syringe. The internal pump is turned off to avoid diluting your sample.</p>
@@ -791,8 +794,12 @@ To export only a subset of that data, use the <code>p</code> and <code>d</code> 
 <ul>
 <li>EGM-4 with battery</li>
 <li>Luer-lock syringe (5-10 ml)</li>
-<li>Sample collection vial (if collecting from field, and perhaps if collecting in the lab)</li>
+<li>Sample vial or other vessel from which you will take a syringe sample</li>
+<li>A female luer-lock adapter to connect the syringe to the EGM</li>
 </ul>
+<div class="alert alert-Warning">
+  Ensure that water does not enter the EGM when injecting a sample. If water enters the EGM, it will damage the IRGA.
+</div>
 <p><strong>Setup Procedure:</strong></p>
 <ol>
 <li>
@@ -810,8 +817,7 @@ To export only a subset of that data, use the <code>p</code> and <code>d</code> 
 <p><strong>Prepare for Injection:</strong></p>
 <ul>
 <li>Press <code>1</code> (REC) to enter measurement mode</li>
-<li>EGM-4 now displays CO₂ concentration</li>
-<li>Display will show the current CO₂ concentration</li>
+<li>The EGM will show the current CO₂ concentration</li>
 </ul>
 </li>
 </ol>
@@ -826,26 +832,25 @@ To export only a subset of that data, use the <code>p</code> and <code>d</code> 
 <li>
 <p><strong>Inject Sample:</strong></p>
 <ul>
-<li>Locate the Gas Out port on top of EGM-4</li>
-<li>Inject sample into the Gas Out port</li>
+<li>Locate the gas out port on top of EGM and ensure that the female luer-lock adapter is securely connected</li>
+<li>Attach the luer-lock syringe to the gas out port and inject sample</li>
 <li>Watch CO₂ reading on display</li>
 </ul>
 </li>
 <li>
-<p><strong>Read Stabilized Value:</strong></p>
+<p><strong>Record Value:</strong></p>
 <ul>
 <li>The CO₂ reading will change as your sample fills the cell</li>
-<li>Wait 10-20 seconds for reading to stabilize</li>
-<li>Reading is stable when it changes less than 1-2 ppm over 30 seconds</li>
-<li>Press <code>Y</code> to record measurement</li>
+<li>Wait several seconds until you see the highest CO₂ reading on the display</li>
+<li>Make note of it!</li>
 </ul>
 </li>
 <li>
 <p><strong>Flush Between Samples:</strong></p>
 <ul>
-<li>Inject ambient air several times to flush</li>
-<li>Or wait for auto-zero cycle (warnings appear at 2 min and 1 min before zero)</li>
-<li>During zero, pump turns on automatically to flush cell, then turns off</li>
+<li>Return to the main menu by pressing <code>N</code></li>
+<li>Turn the pump back on by pressing <code>2SET</code>, <code>3PMP</code>, <code>N</code> to change, and <code>Y</code> to confirm</li>
+<li>Once the pump is back on, wait at least 1 minute before shutting the pump back off and running another sample</li>
 </ul>
 </li>
 </ol>
@@ -855,12 +860,12 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
 <li>&ldquo;AUTO ZERO IN 2 MINUTES&rdquo;</li>
 <li>&ldquo;AUTO ZERO IN 1 MINUTE&rdquo;</li>
 </ul>
-<p>When zero begins, the pump turns on for ~15 seconds, then turns off again. This ensures an accurate baseline.</p>
+<p>When zero begins, the pump turns on for ~15 seconds, then turns off again. This ensures an accurate baseline by passing air scrubbed of CO₂ by the soda lime to the IRGA, and setting its CO₂ concentration to 0 ppm.</p>
 <div class="alert alert-Caution">
   Don&rsquo;t forget to re-enable the pump when finished.
 </div>
 <h3 id="workflow-3-dumping-stored-data-from-egm-4-memory">Workflow 3: Dumping Stored Data from EGM-4 Memory<a hidden class="anchor" aria-hidden="true" href="#workflow-3-dumping-stored-data-from-egm-4-memory">#</a></h3>
-<p>To transfer stored records from the EGM-4 to your computer, do the following:</p>
+<p>To transfer stored records from field plots (not static samples, for which you must record the data manually) on the EGM-4 to your computer, do the following:</p>
 <ol>
 <li>Connect the EGM-4 to your computer using a serial cable and USB adapter</li>
 <li>Power on the EGM-4 and open the open-egm4 app on your computer by typing <code>open-egm4</code> in the terminal</li>
