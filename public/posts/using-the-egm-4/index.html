@@ -380,8 +380,15 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                 <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
                 <h1 class="post-title entry-hint-parent">
                     Using the EGM-4 &amp; open-egm4 software
+                    <span class="entry-hint" title="Draft">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960"
+                            fill="currentColor">
+                            <path
+                                d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+                        </svg>
+                    </span>
                 </h1>
-                <div class="post-meta"><span title='2026-02-01 12:00:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>33 min</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2026-01-30 00:00:00 +0000 UTC'>January 30, 2026</span>&nbsp;·&nbsp;<span>33 min</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-egm-4.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
@@ -1441,14 +1448,11 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
 <h3 id="f-open-egm4-software-design-philosophy">F: open-egm4 Software Design Philosophy<a hidden class="anchor" aria-hidden="true" href="#f-open-egm4-software-design-philosophy">#</a></h3>
 <p>This section explains why open-egm4 was built as a terminal user interface (TUI) and how the software works internally.</p>
 <h4 id="why-a-terminal-interface">Why a Terminal Interface?<a hidden class="anchor" aria-hidden="true" href="#why-a-terminal-interface">#</a></h4>
-<p>Open-egm4 deliberately uses a text-based terminal interface instead of a graphical interface for several important reasons.</p>
-<p>Cross-platform compatibility is a major advantage. The software runs identically on macOS, Linux, and Windows because it does not rely on platform-specific UI frameworks. This eliminates the &ldquo;it works on my machine&rdquo; inconsistencies that often arise when porting graphical applications between different operating systems.</p>
-<p>Remote access via SSH is trivial with a terminal application. Users can monitor field equipment from any location with an internet connection. Because terminal interfaces use minimal bandwidth—approximately 1 KB/s compared to over 100 KB/s for a standard GUI—the software remains responsive even over slow or unreliable network connections.</p>
-<p>The application is lightweight and fast, typically starting in less than one second and consuming only 10–20 MB of RAM. By avoiding the overhead of graphics rendering, the application remains fully functional on older or low-powered field hardware.</p>
-<p>A terminal interface is inherently scriptable and automatable. The application can be controlled via shell scripts, making it simple to integrate the EGM-4 into automated data collection pipelines or broader research workflows.</p>
-<p>There&rsquo;s also the matter of reliability—terminal applications <em>should</em> be more reliable than GUI apps. Maybe. And finally: KISS. Keep it simple, stupid.</p>
+<p>I deliberately chose to use a text-based interface instead of a graphical interface for several reasons.</p>
+<p>Chiefly, keep it simple, stupid. Additionally, it makes cross-platform support automatic, while the previous PP Systems software was Windows-only. It also eliminates dependencies on GUI toolkits, which can be a pain to install and maintain. It allows for remote access via SSH, which could theoretically be useful. I guess. A terminal interface is inherently scriptable and automatable, and it&rsquo;s much easier to fix if something goes wrong.</p>
 <h4 id="advantages-over-legacy-windows-software">Advantages Over Legacy Windows Software<a hidden class="anchor" aria-hidden="true" href="#advantages-over-legacy-windows-software">#</a></h4>
-<p>The official PP Systems software is Windows-only and has several limitations. It requires specific .NET framework versions that may conflict with other software, offers no remote access capability, and is closed-source (so you can&rsquo;t fix bugs or add features). It also appears to no longer be actively maintained.</p>
+<p>The official PP Systems software is Windows-only and has several limitations. It requires specific .NET framework versions that may conflict with other software, offers no remote access capability, and is closed-source. It also is no longer maintained.</p>
+<p>Open-egm4 meets and exceeds all of the featues that the official software has to offer.</p>
 <p>Open-egm4 addresses all of these concerns. It runs on any operating system, is open source under the MIT license, and is actively developed and maintained. The community can contribute features, and it works seamlessly over SSH for remote field sites.</p>
 <p><strong>Architecture Overview:</strong></p>
 <p>Open-egm4 is built in Python using the <a href="https://textual.textualize.io/">Textual</a> framework for terminal UI rendering.</p>
@@ -1469,7 +1473,7 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
 </span></span><span style="display:flex;"><span>                                                               CSV Export
 </span></span></code></pre></div><p><em>Created in Doom Emacs 2.0.9, using org-mode 9.7.</em></p>
 <p><em>Written in January 2026.</em></p>
-<p>Created by Morgan Salisbury</p>
+<p>Created by Morgan Salisbury 😊🐇⛵️🏔️❤️</p>
 
 
             </div>

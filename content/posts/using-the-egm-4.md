@@ -1,7 +1,7 @@
 +++
 title = "Using the EGM-4 & open-egm4 software"
-date = 2026-02-01T12:00:00-06:00
-draft = false
+date = 2026-01-30
+draft = true
 +++
 
 {{< alert2 Warning >}}
@@ -827,22 +827,16 @@ This section explains why open-egm4 was built as a terminal user interface (TUI)
 
 #### Why a Terminal Interface? {#why-a-terminal-interface}
 
-Open-egm4 deliberately uses a text-based terminal interface instead of a graphical interface for several important reasons.
+I deliberately chose to use a text-based interface instead of a graphical interface for several reasons.
 
-Cross-platform compatibility is a major advantage. The software runs identically on macOS, Linux, and Windows because it does not rely on platform-specific UI frameworks. This eliminates the "it works on my machine" inconsistencies that often arise when porting graphical applications between different operating systems.
-
-Remote access via SSH is trivial with a terminal application. Users can monitor field equipment from any location with an internet connection. Because terminal interfaces use minimal bandwidth—approximately 1 KB/s compared to over 100 KB/s for a standard GUI—the software remains responsive even over slow or unreliable network connections.
-
-The application is lightweight and fast, typically starting in less than one second and consuming only 10–20 MB of RAM. By avoiding the overhead of graphics rendering, the application remains fully functional on older or low-powered field hardware.
-
-A terminal interface is inherently scriptable and automatable. The application can be controlled via shell scripts, making it simple to integrate the EGM-4 into automated data collection pipelines or broader research workflows.
-
-There's also the matter of reliability—terminal applications _should_ be more reliable than GUI apps. Maybe. And finally: KISS. Keep it simple, stupid.
+Chiefly, keep it simple, stupid. Additionally, it makes cross-platform support automatic, while the previous PP Systems software was Windows-only. It also eliminates dependencies on GUI toolkits, which can be a pain to install and maintain. It allows for remote access via SSH, which could theoretically be useful. I guess. A terminal interface is inherently scriptable and automatable, and it's much easier to fix if something goes wrong.
 
 
 #### Advantages Over Legacy Windows Software {#advantages-over-legacy-windows-software}
 
-The official PP Systems software is Windows-only and has several limitations. It requires specific .NET framework versions that may conflict with other software, offers no remote access capability, and is closed-source (so you can't fix bugs or add features). It also appears to no longer be actively maintained.
+The official PP Systems software is Windows-only and has several limitations. It requires specific .NET framework versions that may conflict with other software, offers no remote access capability, and is closed-source. It also is no longer maintained.
+
+Open-egm4 meets and exceeds all of the featues that the official software has to offer.
 
 Open-egm4 addresses all of these concerns. It runs on any operating system, is open source under the MIT license, and is actively developed and maintained. The community can contribute features, and it works seamlessly over SSH for remote field sites.
 
@@ -878,4 +872,4 @@ _Created in Doom Emacs 2.0.9, using org-mode 9.7._
 
 _Written in January 2026._
 
-Created by Morgan Salisbury
+Created by Morgan Salisbury 😊🐇⛵️🏔️❤️
