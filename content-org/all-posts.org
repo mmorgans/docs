@@ -1171,7 +1171,7 @@ For more information on my debatable decision to develop the app for the termina
    - /Note/ If you are buying a USB-serial adapter, make sure to get one that uses a FTDI chipset. Cheap adapters often use "Prolific" chips which have notoriously bad drivers. FTDI chips are easier and require zero thought to use.
 - Internet connection (for installation only)
 
-*** One-Line Installation (Recommended)
+*** One-Line Installation
 
 This is the easiest method. A script handles everything: installing Python dependencies, downloading the software, and setting up shortcuts so you can run ~open-egm4~ from anywhere.
 

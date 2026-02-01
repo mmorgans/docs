@@ -49,7 +49,7 @@ For more information on my debatable decision to develop the app for the termina
 -   Internet connection (for installation only)
 
 
-### One-Line Installation (Recommended) {#one-line-installation--recommended}
+### One-Line Installation {#one-line-installation}
 
 This is the easiest method. A script handles everything: installing Python dependencies, downloading the software, and setting up shortcuts so you can run `open-egm4` from anywhere.
 
