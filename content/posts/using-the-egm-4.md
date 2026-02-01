@@ -161,7 +161,8 @@ open-egm4
     -   On Windows, look for "COM" ports (COM3, COM4, etc.)
 
 2.  **Verify Connection:**
-    -   The EGM screams out data over the serial connection, but it's incapable of receiving any data back. Therefore, you'll have no way of knowing if you're actually connected to the EGM unless you dump some data to a computer.
+    -   The EGM screams out data over the serial connection, but it's incapable of receiving any data back. Therefore, you'll have no way of knowing if you're actually connected to the EGM unless you dump some data to your computer.
+    -   Details on how to collect data are [in the workflow section](#workflow-3-dumping-stored-data-from-egm-4-memory), but for now you can verify that the software was installed correctly by dumping existing data from the EGM to your computer, assuming that there is pre-existing data on the EGM.
     -   To send data from the EGM to a computer, press `4DMP` on the EGM, then `2 DATA DUMP`, then press any key to begin the transfer.
     -   If you see the data streaming in on your computer, celebrate. If you don't, then check out [the troubleshooting section](#troubleshooting-and-maintenance).
 
@@ -185,7 +186,7 @@ The EGM-4 is a portable, battery-powered CO₂ analyzer. Key components:
 **Top:**
 
 -   **Gas In Port**: Connect sample inlet tubing (1/8" ID)
--   **Gas Out Port**: Exhaust port (1/8" ID) AND static sample injection port
+-   **Gas Out Port**: Exhaust port (1/8" ID) AND (counter-intuitively) should be used as an injection port for static syringe samples
 -   **I/O Connectors**: Two 15-pin D-sub connectors for sensors (notably the SRC-1)
 -   **RS232 Port**: 9-pin connector for data transfer to a computer
 
@@ -213,12 +214,12 @@ If you are planning on storing the EGM long term, charge the battery beforehand 
 The EGM's internal clock loses time when the battery dies. After replacing or fully recharging the battery, make sure the date/time settings are correct before taking measurements. This is critical for ensuring that your data is properly timestamped.
 {{< /alert2 >}}
 
-**Replacement:** To replace the battery, [Troubleshooting &amp; Maintenance](#troubleshooting-and-maintenance).
+**Replacement:** To replace the battery, see [the troubleshooting section](#troubleshooting-and-maintenance).
 
 
 ### SRC-1 Soil Respiration Chamber {#src-1-soil-respiration-chamber}
 
-The SRC-1 is a soil respiration chamber that allows you to measure the rate of soil respiration by monitoring the rate of increase of CO₂concentration within a closed system: the chamber itself. See the [SRC-1 Workflow section.](#workflow-1-soil-respiration-with-src-1-chamber)
+The SRC-1 is a soil respiration chamber that allows you to measure the rate of soil respiration by monitoring the rate of increase of CO₂ concentration within a closed system: the chamber itself. See the [SRC-1 Workflow section.](#workflow-1-soil-respiration-with-src-1-chamber)
 
 
 ## open-egm4 software {#open-egm4-software}

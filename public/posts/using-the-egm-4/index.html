@@ -371,7 +371,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                 <h1 class="post-title entry-hint-parent">
                     Using the EGM-4 &amp; open-egm4 software
                 </h1>
-                <div class="post-meta"><span title='2026-02-01 15:25:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>34 min</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2026-02-01 15:25:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>35 min</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-egm-4.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
@@ -501,7 +501,8 @@ You already know how to open a terminal.</p>
 <li>
 <p><strong>Verify Connection:</strong></p>
 <ul>
-<li>The EGM screams out data over the serial connection, but it&rsquo;s incapable of receiving any data back. Therefore, you&rsquo;ll have no way of knowing if you&rsquo;re actually connected to the EGM unless you dump some data to a computer.</li>
+<li>The EGM screams out data over the serial connection, but it&rsquo;s incapable of receiving any data back. Therefore, you&rsquo;ll have no way of knowing if you&rsquo;re actually connected to the EGM unless you dump some data to your computer.</li>
+<li>Details on how to collect data are <a href="#workflow-3-dumping-stored-data-from-egm-4-memory">in the workflow section</a>, but for now you can verify that the software was installed correctly by dumping existing data from the EGM to your computer, assuming that there is pre-existing data on the EGM.</li>
 <li>To send data from the EGM to a computer, press <code>4DMP</code> on the EGM, then <code>2 DATA DUMP</code>, then press any key to begin the transfer.</li>
 <li>If you see the data streaming in on your computer, celebrate. If you don&rsquo;t, then check out <a href="#troubleshooting-and-maintenance">the troubleshooting section</a>.</li>
 </ul>
@@ -523,7 +524,7 @@ You already know how to open a terminal.</p>
 <p><strong>Top:</strong></p>
 <ul>
 <li><strong>Gas In Port</strong>: Connect sample inlet tubing (1/8&quot; ID)</li>
-<li><strong>Gas Out Port</strong>: Exhaust port (1/8&quot; ID) AND static sample injection port</li>
+<li><strong>Gas Out Port</strong>: Exhaust port (1/8&quot; ID) AND (counter-intuitively) should be used as an injection port for static syringe samples</li>
 <li><strong>I/O Connectors</strong>: Two 15-pin D-sub connectors for sensors (notably the SRC-1)</li>
 <li><strong>RS232 Port</strong>: 9-pin connector for data transfer to a computer</li>
 </ul>
@@ -544,9 +545,9 @@ You already know how to open a terminal.</p>
 <div class="alert alert-Warning">
   The EGM&rsquo;s internal clock loses time when the battery dies. After replacing or fully recharging the battery, make sure the date/time settings are correct before taking measurements. This is critical for ensuring that your data is properly timestamped.
 </div>
-<p><strong>Replacement:</strong> To replace the battery, <a href="#troubleshooting-and-maintenance">Troubleshooting &amp; Maintenance</a>.</p>
+<p><strong>Replacement:</strong> To replace the battery, see <a href="#troubleshooting-and-maintenance">the troubleshooting section</a>.</p>
 <h3 id="src-1-soil-respiration-chamber">SRC-1 Soil Respiration Chamber<a hidden class="anchor" aria-hidden="true" href="#src-1-soil-respiration-chamber">#</a></h3>
-<p>The SRC-1 is a soil respiration chamber that allows you to measure the rate of soil respiration by monitoring the rate of increase of CO₂concentration within a closed system: the chamber itself. See the <a href="#workflow-1-soil-respiration-with-src-1-chamber">SRC-1 Workflow section.</a></p>
+<p>The SRC-1 is a soil respiration chamber that allows you to measure the rate of soil respiration by monitoring the rate of increase of CO₂ concentration within a closed system: the chamber itself. See the <a href="#workflow-1-soil-respiration-with-src-1-chamber">SRC-1 Workflow section.</a></p>
 <h2 id="open-egm4-software">open-egm4 software<a hidden class="anchor" aria-hidden="true" href="#open-egm4-software">#</a></h2>
 <p>This section covers how to use the open-egm4 software, assuming you&rsquo;ve already installed it.</p>
 <p>Launch the software by running <code>open-egm4</code> in your terminal.</p>
