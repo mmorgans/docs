@@ -205,12 +205,12 @@ The EGM-4 uses a 12V 2.0Ah sealed lead-acid battery. It should last around 4 hou
 At low temperatures, you should hold the EGM inside your jacket, maintaining skin-to-skin contact. This will increase the battery life by a few minutes, and will psychologically bond you with the device.
 {{< /alert2 >}}
 
-**Charging:** The manual proports that the battery takes 12 hours to charge fully. _I_ think that's a made up number, and in my testing it's ready for action after around 2 hours. Your mileage may vary.
+**Charging:** The manual purports that the battery takes 12 hours to charge fully. _I_ think that's a made up number, and in my testing it's ready for action after around 2 hours. Your mileage may vary.
 
 If you are planning on storing the EGM long term, charge the battery beforehand to avoid damaging it.
 
-{{< alert2 Caution >}}
-The EGM's internal clock loses time when the battery dies. After replacing or fully recharging the battery, make sure the date/time settings are correct before taking measurements.
+{{< alert2 Warning >}}
+The EGM's internal clock loses time when the battery dies. After replacing or fully recharging the battery, make sure the date/time settings are correct before taking measurements. This is critical for ensuring that your data is properly timestamped.
 {{< /alert2 >}}
 
 **Replacement:** To replace the battery, [Troubleshooting &amp; Maintenance](#troubleshooting-and-maintenance).
