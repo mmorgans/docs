@@ -379,12 +379,12 @@ If you use a plot number that has already been used, the EGM will overwrite the 
 {{< /alert2 >}}
 
 1.  **Chamber Flush:**
-    -   Display shows "CHAMBER FLUSHING - HOLD IN AIR"
-    -   Hold chamber in air for ~15 seconds at arms length
+    -   This happens automatically. The display will show "CHAMBER FLUSHING - HOLD IN AIR"
+    -   Hold the chamber in the air for ~15 seconds at arms length
 
 2.  **Deployment:**
     -   Display shows "PLACE ON SOIL - PRESS Y TO START"
-    -   Place chamber on soil collar, using blue tac to ensure a good seal
+    -   Place the chamber on the soil collar, using blue tac to ensure a good seal
     -   Press `Y` to start measurement
 
 3.  **Equilibration:**
@@ -395,7 +395,7 @@ If you use a plot number that has already been used, the EGM will overwrite the 
 4.  **Measurement:**
     -   Display shows:
         ```text
-                  C 395 H14.7 T22
+                  C 420 H14.7 T22
                   A02.11 Q0000 110
         ```
     -   `C`: Current CO₂ (ppm)
