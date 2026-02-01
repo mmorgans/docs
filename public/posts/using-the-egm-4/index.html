@@ -132,7 +132,8 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                         data-title="Quitting (q)"></div><div class="toc-marker" data-target="#workflows" data-level="2"
                         data-title="Workflows"></div><div class="toc-marker" data-target="#workflow-1-soil-respiration-with-src-1-chamber" data-level="3"
                         data-title="Workflow 1: Soil Respiration with SRC-1 Chamber"></div><div class="toc-marker" data-target="#workflow-2-static-sampling-via-syringe-injection" data-level="3"
-                        data-title="Workflow 2: Static Sampling via Syringe Injection"></div><div class="toc-marker" data-target="#workflow-3-dumping-stored-data-from-egm-4-memory" data-level="3"
+                        data-title="Workflow 2: Static Sampling via Syringe Injection"></div><div class="toc-marker" data-target="#date-viewing--storage" data-level="2"
+                        data-title="Date Viewing &amp; Storage:"></div><div class="toc-marker" data-target="#workflow-3-dumping-stored-data-from-egm-4-memory" data-level="3"
                         data-title="Workflow 3: Dumping Stored Data from EGM-4 Memory"></div><div class="toc-marker" data-target="#troubleshooting-and-maintenance" data-level="2"
                         data-title="Troubleshooting &amp; Maintenance"></div><div class="toc-marker" data-target="#replacing-the-soda-lime-co-scrubber" data-level="3"
                         data-title="Replacing the Soda Lime CO₂ Scrubber"></div><div class="toc-marker" data-target="#replacing-the-internal-battery" data-level="3"
@@ -208,7 +209,10 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                     <li>
                         <a href="#workflow-1-soil-respiration-with-src-1-chamber" aria-label="Workflow 1: Soil Respiration with SRC-1 Chamber">Workflow 1: Soil Respiration with SRC-1 Chamber</a></li>
                     <li>
-                        <a href="#workflow-2-static-sampling-via-syringe-injection" aria-label="Workflow 2: Static Sampling via Syringe Injection">Workflow 2: Static Sampling via Syringe Injection</a></li>
+                        <a href="#workflow-2-static-sampling-via-syringe-injection" aria-label="Workflow 2: Static Sampling via Syringe Injection">Workflow 2: Static Sampling via Syringe Injection</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#date-viewing--storage" aria-label="Date Viewing &amp; Storage:">Date Viewing &amp; Storage:</a><ul>
                     <li>
                         <a href="#workflow-3-dumping-stored-data-from-egm-4-memory" aria-label="Workflow 3: Dumping Stored Data from EGM-4 Memory">Workflow 3: Dumping Stored Data from EGM-4 Memory</a></li></ul>
                     </li>
@@ -321,6 +325,8 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                             <a href="#workflow-1-soil-respiration-with-src-1-chamber">Workflow 1: Soil Respiration with SRC-1 Chamber</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
                             <a href="#workflow-2-static-sampling-via-syringe-injection">Workflow 2: Static Sampling via Syringe Injection</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#date-viewing--storage"><strong>Date Viewing &amp; Storage:</strong></a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
                             <a href="#workflow-3-dumping-stored-data-from-egm-4-memory">Workflow 3: Dumping Stored Data from EGM-4 Memory</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
@@ -796,6 +802,7 @@ Though not nescesssary, you can have your computer connected to the EGM while yo
 <li>Luer-lock syringe (5-10 ml)</li>
 <li>Sample vial or other vessel from which you will take a syringe sample</li>
 <li>A female luer-lock adapter to connect the syringe to the EGM</li>
+<li>A computer with open-egm4 installed</li>
 </ul>
 <div class="alert alert-Warning">
   Ensure that water does not enter the EGM when injecting a sample. If water enters the EGM, it will damage the IRGA.
@@ -803,7 +810,14 @@ Though not nescesssary, you can have your computer connected to the EGM while yo
 <p><strong>Setup Procedure:</strong></p>
 <ol>
 <li>
-<p><strong>Enable Static Sampling Mode:</strong></p>
+<p><strong>Connect to Computer:</strong></p>
+<ul>
+<li>Connect the EGM to your computer using a serial cable and USB adapter</li>
+<li>Open the open-egm4 app on your computer by typing <code>open-egm4</code> in the terminal</li>
+</ul>
+</li>
+<li>
+<p><strong>Enable Static Sampling Mode on the EGM:</strong></p>
 <ul>
 <li>From Main Menu, press <code>2</code> (SET)</li>
 <li>Press <code>3</code> (PMP) to access pump control</li>
@@ -814,15 +828,13 @@ Though not nescesssary, you can have your computer connected to the EGM while yo
 </ul>
 </li>
 <li>
-<p><strong>Prepare for Injection:</strong></p>
+<p><strong>Prepare for Injection on the EGM:</strong></p>
 <ul>
 <li>Press <code>1</code> (REC) to enter measurement mode</li>
 <li>The EGM will show the current CO₂ concentration</li>
+<li>Observe the baseline CO₂ concentration on your computer over time</li>
 </ul>
 </li>
-</ol>
-<p><strong>Sampling Procedure:</strong></p>
-<ol>
 <li>
 <p><strong>Collect Sample:</strong></p>
 <ul>
@@ -864,6 +876,11 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
 <div class="alert alert-Caution">
   Don&rsquo;t forget to re-enable the pump when finished.
 </div>
+<ol>
+<li>
+<h2 id="date-viewing--storage"><strong>Date Viewing &amp; Storage:</strong><a hidden class="anchor" aria-hidden="true" href="#date-viewing--storage">#</a></h2>
+</li>
+</ol>
 <h3 id="workflow-3-dumping-stored-data-from-egm-4-memory">Workflow 3: Dumping Stored Data from EGM-4 Memory<a hidden class="anchor" aria-hidden="true" href="#workflow-3-dumping-stored-data-from-egm-4-memory">#</a></h3>
 <p>To transfer stored records from field plots (not static samples, for which you must record the data manually) on the EGM-4 to your computer, do the following:</p>
 <ol>

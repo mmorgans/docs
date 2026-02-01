@@ -435,6 +435,7 @@ Instead of pumping air continuously through the EGM-4, you inject a small volume
 -   Luer-lock syringe (5-10 ml)
 -   Sample vial or other vessel from which you will take a syringe sample
 -   A female luer-lock adapter to connect the syringe to the EGM
+-   A computer with open-egm4 installed
 
 {{< alert2 Warning >}}
 Ensure that water does not enter the EGM when injecting a sample. If water enters the EGM, it will damage the IRGA.
@@ -442,7 +443,11 @@ Ensure that water does not enter the EGM when injecting a sample. If water enter
 
 **Setup Procedure:**
 
-1.  **Enable Static Sampling Mode:**
+1.  **Connect to Computer:**
+    -   Connect the EGM to your computer using a serial cable and USB adapter
+    -   Open the open-egm4 app on your computer by typing `open-egm4` in the terminal
+
+2.  **Enable Static Sampling Mode on the EGM:**
     -   From Main Menu, press `2` (SET)
     -   Press `3` (PMP) to access pump control
     -   Current display shows "SAMPLE PUMP ON / Y/OK N/CHANGE"
@@ -450,26 +455,25 @@ Ensure that water does not enter the EGM when injecting a sample. If water enter
     -   Display now shows "STATIC SAMPLING / Y/OK N/CHANGE"
     -   Press `Y` to confirm
 
-2.  **Prepare for Injection:**
+3.  **Prepare for Injection on the EGM:**
     -   Press `1` (REC) to enter measurement mode
     -   The EGM will show the current CO₂ concentration
+    -   Observe the baseline CO₂ concentration on your computer over time
 
-**Sampling Procedure:**
-
-1.  **Collect Sample:**
+4.  **Collect Sample:**
     -   Draw sample into syringe, at least 5 ml is required for a stable reading.
 
-2.  **Inject Sample:**
+5.  **Inject Sample:**
     -   Locate the gas out port on top of EGM and ensure that the female luer-lock adapter is securely connected
     -   Attach the luer-lock syringe to the gas out port and inject sample
     -   Watch CO₂ reading on display
 
-3.  **Record Value:**
+6.  **Record Value:**
     -   The CO₂ reading will change as your sample fills the cell
     -   Wait several seconds until you see the highest CO₂ reading on the display
     -   Make note of it!
 
-4.  **Flush Between Samples:**
+7.  **Flush Between Samples:**
     -   Return to the main menu by pressing `N`
     -   Turn the pump back on by pressing `2SET`, `3PMP`, `N` to change, and `Y` to confirm
     -   Once the pump is back on, wait at least 1 minute before shutting the pump back off and running another sample
@@ -485,6 +489,9 @@ When zero begins, the pump turns on for ~15 seconds, then turns off again. This 
 {{< alert2 Caution >}}
 Don't forget to re-enable the pump when finished.
 {{< /alert2 >}}
+
+1.  **Date Viewing &amp; Storage:**
+    -
 
 
 ### Workflow 3: Dumping Stored Data from EGM-4 Memory {#workflow-3-dumping-stored-data-from-egm-4-memory}
