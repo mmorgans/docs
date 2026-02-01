@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.4555b12a4ade42b476016b47a758171139ea5cc4d7e82a45a4f114884a78cdab.css" integrity="sha256-RVWxKkreQrR2AWtHp1gXETnqXMTX6CpFpPEUiEp4zas=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.6c08a3ebad6cf2bf42711814737bb4c81fbab4a961a6eb663a1f50fd9331cec4.css" integrity="sha256-bAij661s8r9CcRgUc3u0yB&#43;6tKlhputmOh9Q/ZMxzsQ=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -44,6 +44,21 @@
 
 
 <meta name="color-scheme" content="light dark">
+
+
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body class="list" id="top">
     <header class="header">
@@ -84,17 +99,22 @@
 </header>
 <main class="main"> 
 
-<article class="first-entry"> 
+<article class="post-entry"> 
   <header class="entry-header">
     <h2 class="entry-hint-parent">Using the EGM-4 &amp; open-egm4 software
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
     </h2>
   </header>
   <div class="entry-content">
-    <p>Obligatory data loss warning The EGM-4 uses a RS-232 serial connection that can be finicky. Improper connection can result in corrupted data streams or lost measurements. If there is any risk of the serial connection being bumped, take the time to secure the connection with the screws.
-Backup your data regularly. The EGM-4’s internal memory is limited to 999 records. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten. You are responsible for your data. Significant care has been taken to ensure data safety. However, by using the open-egm4 software, you accept the risk of data loss. Open-egm4 can not send commands to the EGM-4 itself, and therefore cannot damage it internally. Don’t get water in the sample line. If you do, it might enter the IRGA itself and damage it. It’s like $15,000 to replace. Introduction The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in it’s internal memory.
+    <p> Backup your data regularly. The EGM-4’s internal memory is limited to 999 records. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten. You are responsible for your data. Significant care has been taken to ensure data safety. However, by using the open-egm4 software, you accept the risk of data loss. Open-egm4 can not send commands to the EGM-4 itself, and therefore cannot damage it internally. Don’t get water in the gas lines. If you do, it might enter the IRGA itself and damage it. It’s like $15,000 to replace. Introduction The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in it’s internal memory.
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-01-31 21:54:00 -0600 CST'>January 31, 2026</span>&nbsp;·&nbsp;<span>29 min</span></footer>
+  <footer class="entry-footer"><span title='2026-01-30 00:00:00 +0000 UTC'>January 30, 2026</span>&nbsp;·&nbsp;<span>29 min</span></footer>
   <a class="entry-link" aria-label="post link to Using the EGM-4 & open-egm4 software" href="http://localhost:1313/posts/using-the-egm-4/"></a>
 </article>
 

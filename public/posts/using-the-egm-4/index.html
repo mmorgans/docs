@@ -7,22 +7,20 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Using the EGM-4 &amp; open-egm4 software | morgan docs</title>
 <meta name="keywords" content="">
-<meta name="description" content="Obligatory data loss warning
-The EGM-4 uses a RS-232 serial connection that can be finicky. Improper connection can result in corrupted data streams or lost measurements. If there is any risk of the serial connection being bumped, take the time to secure the connection with the screws.
-
+<meta name="description" content="
   Backup your data regularly.  The EGM-4&rsquo;s internal memory is limited to 999 records. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
 
 
   You are responsible for your data. Significant care has been taken to ensure data safety. However, by using the open-egm4 software, you accept the risk of data loss. Open-egm4 can not send commands to the EGM-4 itself, and therefore cannot damage it internally.
 
 
-  Don&rsquo;t get water in the sample line. If you do, it might enter the IRGA itself and damage it. It&rsquo;s like $15,000 to replace.
+  Don&rsquo;t get water in the gas lines. If you do, it might enter the IRGA itself and damage it. It&rsquo;s like $15,000 to replace.
 
 Introduction
 The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in it&rsquo;s internal memory.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/using-the-egm-4/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.4555b12a4ade42b476016b47a758171139ea5cc4d7e82a45a4f114884a78cdab.css" integrity="sha256-RVWxKkreQrR2AWtHp1gXETnqXMTX6CpFpPEUiEp4zas=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.6c08a3ebad6cf2bf42711814737bb4c81fbab4a961a6eb663a1f50fd9331cec4.css" integrity="sha256-bAij661s8r9CcRgUc3u0yB&#43;6tKlhputmOh9Q/ZMxzsQ=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -53,6 +51,21 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
 
 
 <meta name="color-scheme" content="light dark">
+
+
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body id="top">
     <header class="header">
@@ -95,8 +108,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
 
 <div class="post-wrapper">
         <aside class="toc-sidebar" id="toc-sidebar">
-            <div class="toc-progress"><div class="toc-marker" data-target="#obligatory-data-loss-warning" data-level="2"
-                        data-title="Obligatory data loss warning"></div><div class="toc-marker" data-target="#introduction" data-level="2"
+            <div class="toc-progress"><div class="toc-marker" data-target="#introduction" data-level="2"
                         data-title="Introduction"></div><div class="toc-marker" data-target="#tl-dr-checklist" data-level="2"
                         data-title="TL;DR checklist"></div><div class="toc-marker" data-target="#installing-open-egm4" data-level="2"
                         data-title="Installing open-egm4"></div><div class="toc-marker" data-target="#one-line-installation--recommended" data-level="3"
@@ -106,7 +118,10 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                         data-title="Step 3: What You&rsquo;ll See During Installation"></div><div class="toc-marker" data-target="#pip-installation" data-level="3"
                         data-title="Pip Installation"></div><div class="toc-marker" data-target="#initial-connection-to-the-egm-4" data-level="3"
                         data-title="Initial Connection to the EGM-4"></div><div class="toc-marker" data-target="#egm-4-hardware" data-level="2"
-                        data-title="EGM-4 hardware"></div><div class="toc-marker" data-target="#open-egm4-software" data-level="2"
+                        data-title="EGM-4 hardware"></div><div class="toc-marker" data-target="#physical-interface-and-controls" data-level="3"
+                        data-title="Physical Interface &amp; Controls"></div><div class="toc-marker" data-target="#power-and-battery" data-level="3"
+                        data-title="Power &amp; Battery"></div><div class="toc-marker" data-target="#src-1-soil-respiration-chamber" data-level="3"
+                        data-title="SRC-1 Soil Respiration Chamber"></div><div class="toc-marker" data-target="#open-egm4-software" data-level="2"
                         data-title="open-egm4 software"></div><div class="toc-marker" data-target="#connection-screen" data-level="3"
                         data-title="Connection screen"></div><div class="toc-marker" data-target="#main-interface" data-level="3"
                         data-title="Main interface"></div><div class="toc-marker" data-target="#keyboard-commands" data-level="4"
@@ -115,10 +130,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                         data-title="Pausing (p)"></div><div class="toc-marker" data-target="#adding-notes--n" data-level="4"
                         data-title="Adding notes (n)"></div><div class="toc-marker" data-target="#clearing-data--c" data-level="4"
                         data-title="Clearing data (c)"></div><div class="toc-marker" data-target="#quitting--q" data-level="3"
-                        data-title="Quitting (q)"></div><div class="toc-marker" data-target="#physical-interface-and-controls" data-level="3"
-                        data-title="Physical Interface &amp; Controls"></div><div class="toc-marker" data-target="#power-and-battery" data-level="3"
-                        data-title="Power &amp; Battery"></div><div class="toc-marker" data-target="#src-1-soil-respiration-chamber" data-level="3"
-                        data-title="SRC-1 Soil Respiration Chamber"></div><div class="toc-marker" data-target="#workflows" data-level="2"
+                        data-title="Quitting (q)"></div><div class="toc-marker" data-target="#workflows" data-level="2"
                         data-title="Workflows"></div><div class="toc-marker" data-target="#workflow-1-soil-respiration-with-src-1-chamber" data-level="3"
                         data-title="Workflow 1: Soil Respiration with SRC-1 Chamber"></div><div class="toc-marker" data-target="#workflow-2-static-sampling-via-syringe-injection" data-level="3"
                         data-title="Workflow 2: Static Sampling via Syringe Injection"></div><div class="toc-marker" data-target="#workflow-3-dumping-stored-data-from-egm-4-memory" data-level="3"
@@ -140,8 +152,6 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
             <nav class="toc-nav" id="toc-nav">
                 <div class="toc-title">Contents</div><ul>
                     <li>
-                        <a href="#obligatory-data-loss-warning" aria-label="Obligatory data loss warning">Obligatory data loss warning</a></li>
-                    <li>
                         <a href="#introduction" aria-label="Introduction">Introduction</a></li>
                     <li>
                         <a href="#tl-dr-checklist" aria-label="TL;DR checklist">TL;DR checklist</a></li>
@@ -162,7 +172,14 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                         <a href="#initial-connection-to-the-egm-4" aria-label="Initial Connection to the EGM-4">Initial Connection to the EGM-4</a></li></ul>
                     </li>
                     <li>
-                        <a href="#egm-4-hardware" aria-label="EGM-4 hardware">EGM-4 hardware</a></li>
+                        <a href="#egm-4-hardware" aria-label="EGM-4 hardware">EGM-4 hardware</a><ul>
+                    <li>
+                        <a href="#physical-interface-and-controls" aria-label="Physical Interface &amp; Controls">Physical Interface &amp; Controls</a></li>
+                    <li>
+                        <a href="#power-and-battery" aria-label="Power &amp; Battery">Power &amp; Battery</a></li>
+                    <li>
+                        <a href="#src-1-soil-respiration-chamber" aria-label="SRC-1 Soil Respiration Chamber">SRC-1 Soil Respiration Chamber</a></li></ul>
+                    </li>
                     <li>
                         <a href="#open-egm4-software" aria-label="open-egm4 software">open-egm4 software</a><ul>
                     <li>
@@ -181,13 +198,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                         <a href="#clearing-data--c" aria-label="Clearing data (c)">Clearing data (c)</a></li></ul>
                     </li>
                     <li>
-                        <a href="#quitting--q" aria-label="Quitting (q)">Quitting (q)</a></li>
-                    <li>
-                        <a href="#physical-interface-and-controls" aria-label="Physical Interface &amp; Controls">Physical Interface &amp; Controls</a></li>
-                    <li>
-                        <a href="#power-and-battery" aria-label="Power &amp; Battery">Power &amp; Battery</a></li>
-                    <li>
-                        <a href="#src-1-soil-respiration-chamber" aria-label="SRC-1 Soil Respiration Chamber">SRC-1 Soil Respiration Chamber</a></li></ul>
+                        <a href="#quitting--q" aria-label="Quitting (q)">Quitting (q)</a></li></ul>
                     </li>
                     <li>
                         <a href="#workflows" aria-label="Workflows">Workflows</a><ul>
@@ -237,23 +248,28 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                 <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
                 <h1 class="post-title entry-hint-parent">
                     Using the EGM-4 &amp; open-egm4 software
+                    <span class="entry-hint" title="Draft">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960"
+                            fill="currentColor">
+                            <path
+                                d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+                        </svg>
+                    </span>
                 </h1>
-                <div class="post-meta"><span title='2026-01-31 21:54:00 -0600 CST'>January 31, 2026</span>&nbsp;·&nbsp;<span>29 min</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2026-01-30 00:00:00 +0000 UTC'>January 30, 2026</span>&nbsp;·&nbsp;<span>29 min</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-egm-4.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
 </div>
             </header> 
-            <div class="post-content"><h2 id="obligatory-data-loss-warning">Obligatory data loss warning<a hidden class="anchor" aria-hidden="true" href="#obligatory-data-loss-warning">#</a></h2>
-<p>The EGM-4 uses a RS-232 serial connection that can be finicky. Improper connection can result in corrupted data streams or lost measurements. If there is any risk of the serial connection being bumped, take the time to secure the connection with the screws.</p>
-<div class="alert alert-Warning">
+            <div class="post-content"><div class="alert alert-Warning">
   <strong>Backup your data regularly.</strong>  The EGM-4&rsquo;s internal memory is limited to 999 records. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
 </div>
 <div class="alert alert-Warning">
   <strong>You are responsible for your data.</strong> Significant care has been taken to ensure data safety. However, by using the open-egm4 software, you accept the risk of data loss. Open-egm4 can not send commands to the EGM-4 itself, and therefore cannot damage it internally.
 </div>
 <div class="alert alert-Caution">
-  <strong>Don&rsquo;t get water in the sample line.</strong> If you do, it might enter the IRGA itself and damage it. It&rsquo;s like $15,000 to replace.
+  <strong>Don&rsquo;t get water in the gas lines.</strong> If you do, it might enter the IRGA itself and damage it. It&rsquo;s like $15,000 to replace.
 </div>
 <h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
 <p>The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in it&rsquo;s internal memory.</p>
@@ -365,7 +381,7 @@ You already know how to open a terminal.</p>
 </li>
 </ol>
 <p>On your computer, in the terminal, run</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>   open-egm4
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>open-egm4
 </span></span></code></pre></div><ol>
 <li>
 <p><strong>Select Serial Port:</strong></p>
@@ -391,6 +407,39 @@ You already know how to open a terminal.</p>
 </li>
 </ol>
 <h2 id="egm-4-hardware">EGM-4 hardware<a hidden class="anchor" aria-hidden="true" href="#egm-4-hardware">#</a></h2>
+<h3 id="physical-interface-and-controls">Physical Interface &amp; Controls<a hidden class="anchor" aria-hidden="true" href="#physical-interface-and-controls">#</a></h3>
+<p>The EGM-4 is a portable, battery-powered CO₂ analyzer. Key components:</p>
+<p><strong>Front Panel:</strong></p>
+<ul>
+<li><strong>LCD Display</strong>: 2×16 character display</li>
+<li>1-9 keypad, along with <code>Y/R</code> key (used for accepting and recording) and <code>N</code> key (used for denying and going back)</li>
+<li><code>8/X</code> allows you to toggle between display screens while taking a measurement</li>
+<li><code>0/Z</code> allows you to manually zero the EGM-4 during a measurement</li>
+</ul>
+<p><strong>Top:</strong></p>
+<ul>
+<li><strong>Gas In Port</strong>: Connect sample inlet tubing (1/8&quot; ID)</li>
+<li><strong>Gas Out Port</strong>: Exhaust port (1/8&quot; ID) AND static sample injection port</li>
+<li><strong>I/O Connectors</strong>: Two 15-pin D-sub connectors for sensors (notably the SRC-1)</li>
+<li><strong>RS232 Port</strong>: 9-pin connector for data transfer to a computer</li>
+</ul>
+<p><strong>Back:</strong></p>
+<ul>
+<li><strong>Power Switch</strong>: Self explanatory</li>
+<li><strong>12V DC Charge Socket</strong>: For charging the internal battery <em>and</em> running the EGM off of mains power</li>
+<li><strong>Fuse</strong>: 1A fuse</li>
+<li><strong>Soda Lime Cap</strong>: Access to the CO₂ scrubbing column for replacing it.</li>
+</ul>
+<h3 id="power-and-battery">Power &amp; Battery<a hidden class="anchor" aria-hidden="true" href="#power-and-battery">#</a></h3>
+<p>The EGM-4 uses a 12V 2.0Ah sealed lead-acid battery. It should last around 4 hours of use at 20ºC. If the temperature is below 5ºC, the battery life drops 30-40%.</p>
+<div class="alert alert-Note">
+  At low temperatures, you should hold the EGM inside your jacket, maintaining skin-to-skin contact. This will increase the battery life by a few minutes, and will psychologically bond you with the device.
+</div>
+<p><strong>Charging:</strong> The manual proports that the battery takes 12 hours to charge fully. <em>I</em> think that&rsquo;s a made up number, and in my testing it&rsquo;s ready for action after around 2 hours. Your mileage may vary.</p>
+<p>If you are planning on storing the EGM long term, charge the battery beforehand to avoid damaging it.</p>
+<p><strong>Replacement:</strong> To replace the battery, <a href="#troubleshooting-and-maintenance">Troubleshooting &amp; Maintenance</a>.</p>
+<h3 id="src-1-soil-respiration-chamber">SRC-1 Soil Respiration Chamber<a hidden class="anchor" aria-hidden="true" href="#src-1-soil-respiration-chamber">#</a></h3>
+<p>The SRC-1 is a soil respiration chamber that allows you to measure the rate of soil respiration by monitoring the rate of increase of CO₂concentration within a closed system: the chamber itself. See the <a href="#workflow-1-soil-respiration-with-src-1-chamber">SRC-1 Workflow section.</a></p>
 <h2 id="open-egm4-software">open-egm4 software<a hidden class="anchor" aria-hidden="true" href="#open-egm4-software">#</a></h2>
 <p>This section covers how to use the open-egm4 software, assuming you&rsquo;ve already installed it.</p>
 <p>Launch the software by running <code>open-egm4</code> in your terminal.</p>
@@ -507,39 +556,6 @@ To export only a subset of that data, use the <code>p</code> and <code>d</code> 
 <p>Press <code>c</code> to clear all data from the current session. You will be asked to confirm before the data is cleared.</p>
 <h3 id="quitting--q">Quitting (<code>q</code>)<a hidden class="anchor" aria-hidden="true" href="#quitting--q">#</a></h3>
 <p>Press <code>q</code> to quit the app. All data from your session is automatically saved, and you can restore it the next time you open the app by pressing <code>s</code> while on the connection screen.</p>
-<h3 id="physical-interface-and-controls">Physical Interface &amp; Controls<a hidden class="anchor" aria-hidden="true" href="#physical-interface-and-controls">#</a></h3>
-<p>The EGM-4 is a portable, battery-powered CO₂ analyzer. Key components:</p>
-<p><strong>Front Panel:</strong></p>
-<ul>
-<li><strong>LCD Display</strong>: 2×16 character backlit display</li>
-<li>1-9 keypad, along with <code>Y/R</code> key (used for accepting and recording) and <code>N</code> key (used for denying and going back)</li>
-<li><code>8/X</code> allows you to toggle between display screens while taking a measurement</li>
-<li><code>0/Z</code> allows you to manually zero the EGM-4 during a measurement</li>
-</ul>
-<p><strong>Top:</strong></p>
-<ul>
-<li><strong>Gas In Port</strong>: Connect sample inlet tubing (1/8&quot; ID)</li>
-<li><strong>Gas Out Port</strong>: Exhaust port (1/8&quot; ID) AND static sample injection port</li>
-<li><strong>I/O Connectors</strong>: Two 15-pin D-sub connectors for sensors (notably the SRC-1)</li>
-<li><strong>RS232 Port</strong>: 9-pin connector for data transfer to a computer</li>
-</ul>
-<p><strong>Back:</strong></p>
-<ul>
-<li><strong>Power Switch</strong>: Self explanatory</li>
-<li><strong>12V DC Charge Socket</strong>: For charging the internal battery <em>and</em> running the EGM off of mains power</li>
-<li><strong>Fuse</strong>: 1A fuse</li>
-<li><strong>Soda Lime Cap</strong>: Access to the CO₂ scrubbing column for replacing it.</li>
-</ul>
-<h3 id="power-and-battery">Power &amp; Battery<a hidden class="anchor" aria-hidden="true" href="#power-and-battery">#</a></h3>
-<p>The EGM-4 uses a 12V 2.0Ah sealed lead-acid battery. It should last around 4 hours of use at 20ºC. If the temperature is below 5ºC, the battery life drops 30-40%.</p>
-<div class="alert alert-Note">
-  At low temperatures, you should hold the EGM inside your jacket, maintaining skin-to-skin contact. This will increase the battery life by a few minutes, and will psychologically bond you with the device.
-</div>
-<p><strong>Charging:</strong> The manual proports that the battery takes 12 hours to charge fully. <em>I</em> think that&rsquo;s a made up number, and in my testing it&rsquo;s ready for action after around 2 hours. Your mileage may vary.</p>
-<p>If you are planning on storing the EGM long term, charge the battery beforehand to avoid damaging it.</p>
-<p><strong>Replacement:</strong> To replace the battery, <a href="#troubleshooting-and-maintenance">Troubleshooting &amp; Maintenance</a>.</p>
-<h3 id="src-1-soil-respiration-chamber">SRC-1 Soil Respiration Chamber<a hidden class="anchor" aria-hidden="true" href="#src-1-soil-respiration-chamber">#</a></h3>
-<p>The SRC-1 is a soil respiration chamber that allows you to measure the rate of soil respiration by monitoring the rate of increase of CO₂concentration within a closed system: the chamber itself. See the <a href="#workflow-1-soil-respiration-with-src-1-chamber">SRC-1 Workflow section.</a></p>
 <h2 id="workflows">Workflows<a hidden class="anchor" aria-hidden="true" href="#workflows">#</a></h2>
 <h3 id="workflow-1-soil-respiration-with-src-1-chamber">Workflow 1: Soil Respiration with SRC-1 Chamber<a hidden class="anchor" aria-hidden="true" href="#workflow-1-soil-respiration-with-src-1-chamber">#</a></h3>
 <p>This is the most common application: measuring CO₂ flux from soil using the SRC-1 closed-chamber method.</p>
@@ -987,16 +1003,27 @@ The EGM-4 measures atmospheric pressure internally. At high elevations:</p>
 <li>Initial CO₂: 400 ppm</li>
 <li>Final CO₂: 450 ppm</li>
 <li>Time elapsed: 90 seconds</li>
-<li>Chamber volume: 1171 ml</li>
-<li>Chamber area: 78.5 cm²</li>
-<li>Temperature: 20°C = 293K</li>
+<li>Chamber volume (V): 1171 ml = 1.171 × 10⁻³ m³</li>
+<li>Chamber area (A): 78.5 cm² = 7.85 × 10⁻³ m²</li>
+<li>Temperature: 20°C = 293 K</li>
 <li>Pressure: 101,300 Pa</li>
+<li>Gas constant (R): 8.314 J mol⁻¹ K⁻¹</li>
 </ul>
-<p>Calculate flux:
-\[\frac{dC}{dt} = \frac{450 - 400}{90} = 0.556 \text{ ppm/s}\]</p>
-<p>\[F = 0.556 \times \frac{1171}{78.5} \times \frac{101300}{8.314 \times 293}\]</p>
-<p>\[F = 0.556 \times 14.91 \times 41.6 = 345 \text{ µmol m⁻² s⁻¹}\]</p>
-<p>\[F = 345 \times 44.01 \times 10^{-6} \times 3600 = 5.47 \text{ g CO₂ m⁻² hr⁻¹}\]</p>
+<p><strong>Step 1: Calculate rate of CO₂ change</strong></p>
+<p>\[\frac{dC}{dt} = \frac{C_{final} - C_{initial}}{\Delta t} = \frac{450 - 400}{90} = 0.556 \text{ ppm s}^{-1}\]</p>
+<p>Note: 1 ppm = 10⁻⁶ mol/mol, so this equals 0.556 × 10⁻⁶ mol mol⁻¹ s⁻¹</p>
+<p><strong>Step 2: Calculate molar density of air using ideal gas law</strong></p>
+<p>\[\frac{P}{RT} = \frac{101300}{8.314 \times 293} = \frac{101300}{2436} = 41.58 \text{ mol m}^{-3}\]</p>
+<p><strong>Step 3: Calculate V/A ratio</strong></p>
+<p>\[\frac{V}{A} = \frac{1.171 \times 10^{-3} \text{ m}^3}{7.85 \times 10^{-3} \text{ m}^2} = 0.149 \text{ m}\]</p>
+<p><strong>Step 4: Calculate flux in µmol m⁻² s⁻¹</strong></p>
+<p>\[F = \frac{dC}{dt} \times \frac{V}{A} \times \frac{P}{RT}\]</p>
+<p>\[F = (0.556 \times 10^{-6}) \times 0.149 \times 41.58\]</p>
+<p>\[F = 3.45 \times 10^{-6} \text{ mol m}^{-2} \text{ s}^{-1} = 3.45 \text{ µmol m}^{-2} \text{ s}^{-1}\]</p>
+<p><strong>Step 5: Convert to g CO₂ m⁻² hr⁻¹</strong></p>
+<p>\[F = 3.45 \text{ µmol m}^{-2} \text{ s}^{-1} \times 44.01 \frac{\text{g}}{\text{mol}} \times 10^{-6} \frac{\text{mol}}{\text{µmol}} \times 3600 \frac{\text{s}}{\text{hr}}\]</p>
+<p>\[F = 3.45 \times 44.01 \times 10^{-6} \times 3600 = 0.55 \text{ g CO}_2 \text{ m}^{-2} \text{ hr}^{-1}\]</p>
+<p><strong>Sanity check:</strong> Typical soil respiration rates range from 0.1 to 2.0 g CO₂ m⁻² hr⁻¹, so 0.55 is reasonable for a moderately active soil.</p>
 <p><strong>Sources of Error:</strong></p>
 <ul>
 <li>Chamber leaks (usually causes underestimation)</li>

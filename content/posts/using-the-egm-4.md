@@ -1,12 +1,8 @@
 +++
 title = "Using the EGM-4 & open-egm4 software"
-date = 2026-01-31T21:54:00-06:00
-draft = false
+date = 2026-01-30
+draft = true
 +++
-
-## Obligatory data loss warning {#obligatory-data-loss-warning}
-
-The EGM-4 uses a RS-232 serial connection that can be finicky. Improper connection can result in corrupted data streams or lost measurements. If there is any risk of the serial connection being bumped, take the time to secure the connection with the screws.
 
 {{< alert2 Warning >}}
 **Backup your data regularly.**  The EGM-4's internal memory is limited to 999 records. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
@@ -17,7 +13,7 @@ The EGM-4 uses a RS-232 serial connection that can be finicky. Improper connecti
 {{< /alert2 >}}
 
 {{< alert2 Caution >}}
-**Don't get water in the sample line.** If you do, it might enter the IRGA itself and damage it. It's like $15,000 to replace.
+**Don't get water in the gas lines.** If you do, it might enter the IRGA itself and damage it. It's like $15,000 to replace.
 {{< /alert2 >}}
 
 
@@ -165,7 +161,7 @@ Once software is installed, connect the EGM to a computer:
 On your computer, in the terminal, run
 
 ```bash
-   open-egm4
+open-egm4
 ```
 
 1.  **Select Serial Port:**
@@ -185,6 +181,52 @@ On your computer, in the terminal, run
 
 
 ## EGM-4 hardware {#egm-4-hardware}
+
+
+### Physical Interface &amp; Controls {#physical-interface-and-controls}
+
+The EGM-4 is a portable, battery-powered CO₂ analyzer. Key components:
+
+**Front Panel:**
+
+-   **LCD Display**: 2×16 character display
+-   1-9 keypad, along with `Y/R` key (used for accepting and recording) and `N` key (used for denying and going back)
+-   `8/X` allows you to toggle between display screens while taking a measurement
+-   `0/Z` allows you to manually zero the EGM-4 during a measurement
+
+**Top:**
+
+-   **Gas In Port**: Connect sample inlet tubing (1/8" ID)
+-   **Gas Out Port**: Exhaust port (1/8" ID) AND static sample injection port
+-   **I/O Connectors**: Two 15-pin D-sub connectors for sensors (notably the SRC-1)
+-   **RS232 Port**: 9-pin connector for data transfer to a computer
+
+**Back:**
+
+-   **Power Switch**: Self explanatory
+-   **12V DC Charge Socket**: For charging the internal battery _and_ running the EGM off of mains power
+-   **Fuse**: 1A fuse
+-   **Soda Lime Cap**: Access to the CO₂ scrubbing column for replacing it.
+
+
+### Power &amp; Battery {#power-and-battery}
+
+The EGM-4 uses a 12V 2.0Ah sealed lead-acid battery. It should last around 4 hours of use at 20ºC. If the temperature is below 5ºC, the battery life drops 30-40%.
+
+{{< alert2 Note >}}
+At low temperatures, you should hold the EGM inside your jacket, maintaining skin-to-skin contact. This will increase the battery life by a few minutes, and will psychologically bond you with the device.
+{{< /alert2 >}}
+
+**Charging:** The manual proports that the battery takes 12 hours to charge fully. _I_ think that's a made up number, and in my testing it's ready for action after around 2 hours. Your mileage may vary.
+
+If you are planning on storing the EGM long term, charge the battery beforehand to avoid damaging it.
+
+**Replacement:** To replace the battery, [Troubleshooting &amp; Maintenance](#troubleshooting-and-maintenance).
+
+
+### SRC-1 Soil Respiration Chamber {#src-1-soil-respiration-chamber}
+
+The SRC-1 is a soil respiration chamber that allows you to measure the rate of soil respiration by monitoring the rate of increase of CO₂concentration within a closed system: the chamber itself. See the [SRC-1 Workflow section.](#workflow-1-soil-respiration-with-src-1-chamber)
 
 
 ## open-egm4 software {#open-egm4-software}
@@ -283,52 +325,6 @@ Press `c` to clear all data from the current session. You will be asked to confi
 ### Quitting (`q`) {#quitting--q}
 
 Press `q` to quit the app. All data from your session is automatically saved, and you can restore it the next time you open the app by pressing `s` while on the connection screen.
-
-
-### Physical Interface &amp; Controls {#physical-interface-and-controls}
-
-The EGM-4 is a portable, battery-powered CO₂ analyzer. Key components:
-
-**Front Panel:**
-
--   **LCD Display**: 2×16 character backlit display
--   1-9 keypad, along with `Y/R` key (used for accepting and recording) and `N` key (used for denying and going back)
--   `8/X` allows you to toggle between display screens while taking a measurement
--   `0/Z` allows you to manually zero the EGM-4 during a measurement
-
-**Top:**
-
--   **Gas In Port**: Connect sample inlet tubing (1/8" ID)
--   **Gas Out Port**: Exhaust port (1/8" ID) AND static sample injection port
--   **I/O Connectors**: Two 15-pin D-sub connectors for sensors (notably the SRC-1)
--   **RS232 Port**: 9-pin connector for data transfer to a computer
-
-**Back:**
-
--   **Power Switch**: Self explanatory
--   **12V DC Charge Socket**: For charging the internal battery _and_ running the EGM off of mains power
--   **Fuse**: 1A fuse
--   **Soda Lime Cap**: Access to the CO₂ scrubbing column for replacing it.
-
-
-### Power &amp; Battery {#power-and-battery}
-
-The EGM-4 uses a 12V 2.0Ah sealed lead-acid battery. It should last around 4 hours of use at 20ºC. If the temperature is below 5ºC, the battery life drops 30-40%.
-
-{{< alert2 Note >}}
-At low temperatures, you should hold the EGM inside your jacket, maintaining skin-to-skin contact. This will increase the battery life by a few minutes, and will psychologically bond you with the device.
-{{< /alert2 >}}
-
-**Charging:** The manual proports that the battery takes 12 hours to charge fully. _I_ think that's a made up number, and in my testing it's ready for action after around 2 hours. Your mileage may vary.
-
-If you are planning on storing the EGM long term, charge the battery beforehand to avoid damaging it.
-
-**Replacement:** To replace the battery, [Troubleshooting &amp; Maintenance](#troubleshooting-and-maintenance).
-
-
-### SRC-1 Soil Respiration Chamber {#src-1-soil-respiration-chamber}
-
-The SRC-1 is a soil respiration chamber that allows you to measure the rate of soil respiration by monitoring the rate of increase of CO₂concentration within a closed system: the chamber itself. See the [SRC-1 Workflow section.](#workflow-1-soil-respiration-with-src-1-chamber)
 
 
 ## Workflows {#workflows}
@@ -785,19 +781,41 @@ Measured data:
 -   Initial CO₂: 400 ppm
 -   Final CO₂: 450 ppm
 -   Time elapsed: 90 seconds
--   Chamber volume: 1171 ml
--   Chamber area: 78.5 cm²
--   Temperature: 20°C = 293K
+-   Chamber volume (V): 1171 ml = 1.171 × 10⁻³ m³
+-   Chamber area (A): 78.5 cm² = 7.85 × 10⁻³ m²
+-   Temperature: 20°C = 293 K
 -   Pressure: 101,300 Pa
+-   Gas constant (R): 8.314 J mol⁻¹ K⁻¹
 
-Calculate flux:
-\\[\frac{dC}{dt} = \frac{450 - 400}{90} = 0.556 \text{ ppm/s}\\]
+**Step 1: Calculate rate of CO₂ change**
 
-\\[F = 0.556 \times \frac{1171}{78.5} \times \frac{101300}{8.314 \times 293}\\]
+\\[\frac{dC}{dt} = \frac{C\_{final} - C\_{initial}}{\Delta t} = \frac{450 - 400}{90} = 0.556 \text{ ppm s}^{-1}\\]
 
-\\[F = 0.556 \times 14.91 \times 41.6 = 345 \text{ µmol m⁻² s⁻¹}\\]
+Note: 1 ppm = 10⁻⁶ mol/mol, so this equals 0.556 × 10⁻⁶ mol mol⁻¹ s⁻¹
 
-\\[F = 345 \times 44.01 \times 10^{-6} \times 3600 = 5.47 \text{ g CO₂ m⁻² hr⁻¹}\\]
+**Step 2: Calculate molar density of air using ideal gas law**
+
+\\[\frac{P}{RT} = \frac{101300}{8.314 \times 293} = \frac{101300}{2436} = 41.58 \text{ mol m}^{-3}\\]
+
+**Step 3: Calculate V/A ratio**
+
+\\[\frac{V}{A} = \frac{1.171 \times 10^{-3} \text{ m}^3}{7.85 \times 10^{-3} \text{ m}^2} = 0.149 \text{ m}\\]
+
+**Step 4: Calculate flux in µmol m⁻² s⁻¹**
+
+\\[F = \frac{dC}{dt} \times \frac{V}{A} \times \frac{P}{RT}\\]
+
+\\[F = (0.556 \times 10^{-6}) \times 0.149 \times 41.58\\]
+
+\\[F = 3.45 \times 10^{-6} \text{ mol m}^{-2} \text{ s}^{-1} = 3.45 \text{ µmol m}^{-2} \text{ s}^{-1}\\]
+
+**Step 5: Convert to g CO₂ m⁻² hr⁻¹**
+
+\\[F = 3.45 \text{ µmol m}^{-2} \text{ s}^{-1} \times 44.01 \frac{\text{g}}{\text{mol}} \times 10^{-6} \frac{\text{mol}}{\text{µmol}} \times 3600 \frac{\text{s}}{\text{hr}}\\]
+
+\\[F = 3.45 \times 44.01 \times 10^{-6} \times 3600 = 0.55 \text{ g CO}\_2 \text{ m}^{-2} \text{ hr}^{-1}\\]
+
+**Sanity check:** Typical soil respiration rates range from 0.1 to 2.0 g CO₂ m⁻² hr⁻¹, so 0.55 is reasonable for a moderately active soil.
 
 **Sources of Error:**
 

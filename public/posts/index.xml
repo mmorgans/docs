@@ -384,13 +384,5 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
 &lt;p&gt;Posts are published to markdown using ox-hugo, and pushed to GitHub using Magit. Hugo is used as a framework for the website, with a modified version of the papermod theme. I use Cloudflare for the majority of domain work. Cloudflare pages is used for building the site.&lt;/p&gt;
 &lt;p&gt;Written in Emacs 29.4, using Doom 2.0.9, in Org mode 9.7. Published to markdown using ox-hugo, and pushed to GitHub using Magit. Hugo is used as the website framework with a modified version of the papermod theme. Cloudflare is used for domain management, and Cloudflare pages builds the site.&lt;/p&gt;</description>
     </item>
-    <item>
-      <title>Device Overview</title>
-      <link>http://localhost:1313/posts/all-posts/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/all-posts/</guid>
-      <description>&lt;p&gt;The EGM-4 is a handheld IRGA with a backlit LCD screen, numeric keypad, a serial port, and two I/O ports. The device measures CO₂ concentration using infrared absorption, while connected probes give additional datapoints. Internal memory stores records organized by plot.&lt;/p&gt;
-&lt;p&gt;A few notes that may be useful: The EGM can store up to 999 records. Once you hit that limit, it starts overwriting the oldest record (e.g. 001) with new ones. However: the plot number, which is assigned to a set of records, can go up to 9999.&lt;/p&gt;</description>
-    </item>
   </channel>
 </rss>

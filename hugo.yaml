@@ -15,6 +15,7 @@ markup:
 params:
   defaultTheme: dark
   disableThemeToggle: false
+  disableSpecial1stPost: true
   ShowReadingTime: true
   ShowToc: true
   ShowBreadCrumbs: true
