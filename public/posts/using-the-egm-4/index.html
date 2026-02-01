@@ -147,8 +147,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                         data-title="Closed-System Chamber Method"></div><div class="toc-marker" data-target="#linear-vs-dot-quadratic-fitting" data-level="4"
                         data-title="Linear vs. Quadratic Fitting"></div><div class="toc-marker" data-target="#chamber-corrections" data-level="4"
                         data-title="Chamber Corrections"></div><div class="toc-marker" data-target="#worked-example" data-level="4"
-                        data-title="Worked Example"></div><div class="toc-marker" data-target="#sources-of-error" data-level="4"
-                        data-title="Sources of Error"></div><div class="toc-marker" data-target="#c-probe-types-reference--0-11" data-level="3"
+                        data-title="Worked Example"></div><div class="toc-marker" data-target="#c-probe-types-reference--0-11" data-level="3"
                         data-title="C: Probe Types Reference (0-11)"></div><div class="toc-marker" data-target="#d-water-vapor-and-temperature-corrections" data-level="3"
                         data-title="D: Water Vapor &amp; Temperature Corrections"></div><div class="toc-marker" data-target="#e-chamber-volume-calculations" data-level="3"
                         data-title="E: Chamber Volume Calculations"></div><div class="toc-marker" data-target="#f-open-egm4-software-design-philosophy" data-level="3"
@@ -242,9 +241,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                     <li>
                         <a href="#chamber-corrections" aria-label="Chamber Corrections">Chamber Corrections</a></li>
                     <li>
-                        <a href="#worked-example" aria-label="Worked Example">Worked Example</a></li>
-                    <li>
-                        <a href="#sources-of-error" aria-label="Sources of Error">Sources of Error</a></li></ul>
+                        <a href="#worked-example" aria-label="Worked Example">Worked Example</a></li></ul>
                     </li>
                     <li>
                         <a href="#c-probe-types-reference--0-11" aria-label="C: Probe Types Reference (0-11)">C: Probe Types Reference (0-11)</a></li>
@@ -357,8 +354,6 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                             <a href="#chamber-corrections">Chamber Corrections</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
                             <a href="#worked-example">Worked Example</a>
-                        </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#sources-of-error">Sources of Error</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
                             <a href="#c-probe-types-reference--0-11">C: Probe Types Reference (0-11)</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
@@ -388,7 +383,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                         </svg>
                     </span>
                 </h1>
-                <div class="post-meta"><span title='2026-01-30 00:00:00 +0000 UTC'>January 30, 2026</span>&nbsp;·&nbsp;<span>33 min</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2026-01-30 00:00:00 +0000 UTC'>January 30, 2026</span>&nbsp;·&nbsp;<span>35 min</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-egm-4.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
@@ -1331,16 +1326,32 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
 <p>For the SRC-1, the default chamber volume is 1171 ml with a soil contact area of 78.5 cm² (corresponding to the 10 cm diameter opening). Tubing typically adds 50–100 ml to the total volume. If you&rsquo;re using a custom chamber setup, the total volume is simply the chamber volume plus the tubing volume, where tubing volume can be calculated as \(V_{tubing} = \pi r^2 L\) with \(r\) being the internal radius and \(L\) the total length in centimeters.</p>
 <p>Temperature should ideally be measured inside the chamber using the RH/Temp sensor or an STP-1 probe, as the sample air temperature directly affects the flux calculation. The EGM-4 measures atmospheric pressure internally and applies corrections automatically. At higher elevations, pressure drops significantly—approximately 900 mb at 1000 m and 800 mb at 2000 m compared to 1013 mb at sea level—and this affects how many CO₂ molecules occupy a given volume.</p>
 <h4 id="worked-example">Worked Example<a hidden class="anchor" aria-hidden="true" href="#worked-example">#</a></h4>
-<p>Consider a measurement where CO₂ rose from 400 ppm to 450 ppm over 90 seconds, with a chamber volume of 1171 ml (1.171 × 10⁻³ m³), area of 78.5 cm² (7.85 × 10⁻³ m²), temperature of 20°C (293 K), and pressure of 101,300 Pa.</p>
-<p>First, calculate the rate of change: \(\frac{dC}{dt} = \frac{450 - 400}{90} = 0.556\) ppm/s, which equals 0.556 × 10⁻⁶ mol mol⁻¹ s⁻¹.</p>
-<p>Next, determine the molar density of air: \(\frac{P}{RT} = \frac{101300}{8.314 \times 293} = 41.58\) mol m⁻³.</p>
-<p>Calculate the volume-to-area ratio: \(\frac{V}{A} = \frac{1.171 \times 10^{-3}}{7.85 \times 10^{-3}} = 0.149\) m.</p>
-<p>Now compute the flux: \(F = (0.556 \times 10^{-6}) \times 0.149 \times 41.58 = 3.45\) µmol m⁻² s⁻¹.</p>
-<p>Finally, convert to standard units: \(F = 3.45 \times 44.01 \times 10^{-6} \times 3600 = 0.55\) g CO₂ m⁻² hr⁻¹.</p>
-<p>This result falls within the typical range for moderately active soil (0.1 to 2.0 g CO₂ m⁻² hr⁻¹), providing a useful sanity check.</p>
-<h4 id="sources-of-error">Sources of Error<a hidden class="anchor" aria-hidden="true" href="#sources-of-error">#</a></h4>
-<p>Measurement accuracy can be compromised by chamber leaks (which typically cause underestimation), temperature gradients inside the chamber (particularly when exposed to direct sunlight), pressure fluctuations from wind or weather changes, and non-representative soil coverage due to stones or gaps in the collar seal.</p>
-<p>For the complete mathematical derivation, consult pages 22–26 of the EGM-4 Operator&rsquo;s Manual and pages 15–20 of the SRC-1 Chamber Manual.</p>
+<p>Flux is measured by placing a closed chamber on the soil and monitoring the rate of CO₂ concentration increase inside the chamber. Assuming a well-mixed, sealed system:</p>
+<p>\[R = \frac{(C_n - C_0)}{T_n} \times \frac{V}{A}\]</p>
+<p>where \(R\) is the flux (CO₂ per unit area per unit time), \(C_0\) is the initial CO₂ concentration, \(C_n\) is the concentration after time \(T_n\), \(V\) is the total system volume, and \(A\) is the exposed soil area.</p>
+<p>Over short measurement periods with small concentration changes relative to soil CO₂ levels, flux should be constant, giving a linear concentration increase. However, any chamber leakage causes the apparent flux to decrease with time, producing a curved response. Fitting a quadratic equation \(C = a + bT + cT^2\) between concentration and time allows extraction of the true initial flux rate.</p>
+<p>Since \(\frac{dC}{dT} = b + 2cT\), at time \(T = 0\) we have \(\frac{dC}{dT} = b\). This gives the instantaneous flux rate before leakage effects accumulate and become a problem. Comparing the magnitude of \(cT\) to \(b\) indicates leakage severity—the EGM will yell <code>NON LINEAR FIT</code> at you if \(cT\) exceeds 20% of \(b\).</p>
+<p>From the basic equation, \(R = b \times \frac{V}{A}\). To express flux in mass per unit area per unit time, the rate \(b\) must be in mass per unit volume. The CO₂ analyzer measures volume/volume ratio (ppm by volume = µL/L = µbar/bar = µmol/mol).</p>
+<p>One kilogram-mole of gas (44.01 kg of CO₂) occupies 22.41 m³ at STP. The full conversion equation is:</p>
+<p>\[R = b \times \frac{P}{1000} \times \frac{273}{273 + T_a} \times \frac{44.01}{22.41} \times \frac{V}{A}\]</p>
+<p>where \(R\) is flux in kg m⁻² s⁻¹, \(b\) is measured as ppm s⁻¹, \(P\) is atmospheric pressure in mb, \(T_a\) is air temperature in °C, \(V\) is system volume in m³, and \(A\) is exposed area in m².</p>
+<p>In practice, the EGM measures \(\frac{dC}{dt}\) in ppm/second, \(V\) in cm³, and \(A\) in cm². Results are expressed as g m⁻² hr⁻¹. To convert g m⁻² hr⁻¹ to µmol m⁻² s⁻¹, multiply by 6.312.</p>
+<p><strong>Environmental correction notes:</strong></p>
+<p><em>Water Vapor:</em> Adding water vapor to dry air dilutes the CO₂ concentration because the total air volume increases. From an infrared measurement perspective, water vapor induces a slight increase in CO₂ absorption (foreign gas broadening) that approximately cancels the dilution effect. The net result is that the analyzer reports approximately the dry-gas concentration.</p>
+<p><em>Atmospheric Pressure:</em> Increased pressure raises concentration according to the Gas Law, but infrared absorption increases more than expected due to pressure broadening of absorption bands. The approximate correction is:</p>
+<p>\[C = C_M \times \frac{1000}{0.75P + 0.00025P^2}\]</p>
+<p>where \(C\) is the concentration that would be measured at 1000 mb and \(C_M\) is the concentration measured at \(P\) mb.</p>
+<p><em>Air Temperature:</em> With the EGM&rsquo;s thermostatted detector at 45°C, the primary temperature effect is on gas density, following the Gas Law (approximately −0.3% per °C increase). The correction referenced to calibration at 0°C is:</p>
+<p>\[C = C_M \times \frac{273 + T_a}{273}\]</p>
+<p>When all corrections are applied, the complete equation becomes:</p>
+<p>\[R = b \times \frac{1000}{1000} \times \frac{1000}{P(0.75 + 0.00025P)} \times \frac{273 + T_a}{273} \times \frac{273}{273 + T_a} \times \frac{44.01}{22.41} \times \frac{V}{A}\]</p>
+<p>Simplifying:</p>
+<p>\[R = \frac{b \times 44.01 \times V}{(0.75 + 0.00025P) \times 22.41 \times A}\]</p>
+<p>The temperature corrections cancel, and the pressure effect is small. When calibrating at high altitude, the simplified form uses average atmospheric pressure at that altitude:</p>
+<p>\[R = b \times \frac{P_{av}}{1000} \times \frac{44.01}{22.41} \times \frac{V}{A}\]</p>
+<div class="alert alert-caution">
+  Measurement accuracy can be compromised by chamber leaks (which typically cause underestimation), temperature gradients inside the chamber (particularly when exposed to direct sunlight), pressure fluctuations from wind or weather changes, and non-representative soil coverage due to stones or gaps in the collar seal. Make sure your blue tac is firmly pressed into place.
+</div>
 <h3 id="c-probe-types-reference--0-11">C: Probe Types Reference (0-11)<a hidden class="anchor" aria-hidden="true" href="#c-probe-types-reference--0-11">#</a></h3>
 <p>The EGM-4 automatically identifies connected sensors by reading a code resistor on Pin 1 of the 15-pin connector. When you power on the device with a sensor attached, the startup screen displays &ldquo;PROBETYPE X&rdquo; where X is the detected type number from the table below:</p>
 <table>
@@ -1564,27 +1575,30 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
                     if (current.link) current.link.classList.add('active');
 
                     if (currentLabel) {
-                        let parentTitle = null;
-                        let childTitle = current.title;
+                        
+                        let breadcrumbs = [];
+                        let targetLevel = current.level;
 
-                        if (current.level > 2) {
-                            for (let j = currentIndex - 1; j >= 0; j--) {
-                                if (headings[j].level === 2) {
-                                    parentTitle = headings[j].title;
-                                    break;
-                                }
+                        
+                        for (let j = currentIndex - 1; j >= 0; j--) {
+                            if (headings[j].level < targetLevel) {
+                                breadcrumbs.unshift(headings[j].title);
+                                targetLevel = headings[j].level;
                             }
+                            if (targetLevel <= 2) break;
                         }
 
-                        if (parentTitle) {
-                            currentLabel.innerHTML = `<span class="toc-parent-label">${parentTitle}</span><span class="toc-child-label">${childTitle}</span>`;
-                        } else {
-                            currentLabel.innerHTML = `<span class="toc-child-label">${childTitle}</span>`;
+                        
+                        let html = '';
+                        if (breadcrumbs.length > 0) {
+                            html += `<span class="toc-parent-label">${breadcrumbs.join(' › ')}</span>`;
                         }
+                        html += `<span class="toc-child-label">${current.title}</span>`;
+                        currentLabel.innerHTML = html;
 
                         const markerRect = current.marker.getBoundingClientRect();
                         const sidebarRect = sidebar.getBoundingClientRect();
-                        currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (parentTitle ? 18 : 10)) + 'px';
+                        currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (breadcrumbs.length > 0 ? 18 : 10)) + 'px';
                     }
                 }
             }
@@ -1600,18 +1614,18 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
                 }
 
                 
-                let parentTitle = null;
-                if (current.level > 2) {
-                    for (let j = currentIndex - 1; j >= 0; j--) {
-                        if (headings[j].level === 2) {
-                            parentTitle = headings[j].title;
-                            break;
-                        }
+                let breadcrumbs = [];
+                let targetLevel = current.level;
+                for (let j = currentIndex - 1; j >= 0; j--) {
+                    if (headings[j].level < targetLevel) {
+                        breadcrumbs.unshift(headings[j].title);
+                        targetLevel = headings[j].level;
                     }
+                    if (targetLevel <= 2) break;
                 }
 
                 if (mobileCurrent) mobileCurrent.textContent = current.title;
-                if (mobileParent) mobileParent.textContent = parentTitle || '';
+                if (mobileParent) mobileParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
 
                 
                 mobileLinks.forEach(l => l.classList.remove('active'));

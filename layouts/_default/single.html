@@ -274,27 +274,30 @@
                     if (current.link) current.link.classList.add('active');
 
                     if (currentLabel) {
-                        let parentTitle = null;
-                        let childTitle = current.title;
+                        // Build breadcrumb chain of all parent headings
+                        let breadcrumbs = [];
+                        let targetLevel = current.level;
 
-                        if (current.level > 2) {
-                            for (let j = currentIndex - 1; j >= 0; j--) {
-                                if (headings[j].level === 2) {
-                                    parentTitle = headings[j].title;
-                                    break;
-                                }
+                        // Walk backwards collecting parent headings
+                        for (let j = currentIndex - 1; j >= 0; j--) {
+                            if (headings[j].level < targetLevel) {
+                                breadcrumbs.unshift(headings[j].title);
+                                targetLevel = headings[j].level;
                             }
+                            if (targetLevel <= 2) break;
                         }
 
-                        if (parentTitle) {
-                            currentLabel.innerHTML = `<span class="toc-parent-label">${parentTitle}</span><span class="toc-child-label">${childTitle}</span>`;
-                        } else {
-                            currentLabel.innerHTML = `<span class="toc-child-label">${childTitle}</span>`;
+                        // Build the label HTML
+                        let html = '';
+                        if (breadcrumbs.length > 0) {
+                            html += `<span class="toc-parent-label">${breadcrumbs.join(' › ')}</span>`;
                         }
+                        html += `<span class="toc-child-label">${current.title}</span>`;
+                        currentLabel.innerHTML = html;
 
                         const markerRect = current.marker.getBoundingClientRect();
                         const sidebarRect = sidebar.getBoundingClientRect();
-                        currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (parentTitle ? 18 : 10)) + 'px';
+                        currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (breadcrumbs.length > 0 ? 18 : 10)) + 'px';
                     }
                 }
             }
@@ -309,19 +312,19 @@
                     mobileBar.classList.remove('open');
                 }
 
-                // Update current section label
-                let parentTitle = null;
-                if (current.level > 2) {
-                    for (let j = currentIndex - 1; j >= 0; j--) {
-                        if (headings[j].level === 2) {
-                            parentTitle = headings[j].title;
-                            break;
-                        }
+                // Build breadcrumb chain for mobile
+                let breadcrumbs = [];
+                let targetLevel = current.level;
+                for (let j = currentIndex - 1; j >= 0; j--) {
+                    if (headings[j].level < targetLevel) {
+                        breadcrumbs.unshift(headings[j].title);
+                        targetLevel = headings[j].level;
                     }
+                    if (targetLevel <= 2) break;
                 }
 
                 if (mobileCurrent) mobileCurrent.textContent = current.title;
-                if (mobileParent) mobileParent.textContent = parentTitle || '';
+                if (mobileParent) mobileParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
 
                 // Update active state in mobile nav
                 mobileLinks.forEach(l => l.classList.remove('active'));

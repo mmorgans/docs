@@ -740,26 +740,55 @@ Temperature should ideally be measured inside the chamber using the RH/Temp sens
 
 #### Worked Example {#worked-example}
 
-Consider a measurement where CO₂ rose from 400 ppm to 450 ppm over 90 seconds, with a chamber volume of 1171 ml (1.171 × 10⁻³ m³), area of 78.5 cm² (7.85 × 10⁻³ m²), temperature of 20°C (293 K), and pressure of 101,300 Pa.
+Flux is measured by placing a closed chamber on the soil and monitoring the rate of CO₂ concentration increase inside the chamber. Assuming a well-mixed, sealed system:
 
-First, calculate the rate of change: \\(\frac{dC}{dt} = \frac{450 - 400}{90} = 0.556\\) ppm/s, which equals 0.556 × 10⁻⁶ mol mol⁻¹ s⁻¹.
+\\[R = \frac{(C\_n - C\_0)}{T\_n} \times \frac{V}{A}\\]
 
-Next, determine the molar density of air: \\(\frac{P}{RT} = \frac{101300}{8.314 \times 293} = 41.58\\) mol m⁻³.
+where \\(R\\) is the flux (CO₂ per unit area per unit time), \\(C\_0\\) is the initial CO₂ concentration, \\(C\_n\\) is the concentration after time \\(T\_n\\), \\(V\\) is the total system volume, and \\(A\\) is the exposed soil area.
 
-Calculate the volume-to-area ratio: \\(\frac{V}{A} = \frac{1.171 \times 10^{-3}}{7.85 \times 10^{-3}} = 0.149\\) m.
+Over short measurement periods with small concentration changes relative to soil CO₂ levels, flux should be constant, giving a linear concentration increase. However, any chamber leakage causes the apparent flux to decrease with time, producing a curved response. Fitting a quadratic equation \\(C = a + bT + cT^2\\) between concentration and time allows extraction of the true initial flux rate.
 
-Now compute the flux: \\(F = (0.556 \times 10^{-6}) \times 0.149 \times 41.58 = 3.45\\) µmol m⁻² s⁻¹.
+Since \\(\frac{dC}{dT} = b + 2cT\\), at time \\(T = 0\\) we have \\(\frac{dC}{dT} = b\\). This gives the instantaneous flux rate before leakage effects accumulate and become a problem. Comparing the magnitude of \\(cT\\) to \\(b\\) indicates leakage severity—the EGM will yell `NON LINEAR FIT` at you if \\(cT\\) exceeds 20% of \\(b\\).
 
-Finally, convert to standard units: \\(F = 3.45 \times 44.01 \times 10^{-6} \times 3600 = 0.55\\) g CO₂ m⁻² hr⁻¹.
+From the basic equation, \\(R = b \times \frac{V}{A}\\). To express flux in mass per unit area per unit time, the rate \\(b\\) must be in mass per unit volume. The CO₂ analyzer measures volume/volume ratio (ppm by volume = µL/L = µbar/bar = µmol/mol).
 
-This result falls within the typical range for moderately active soil (0.1 to 2.0 g CO₂ m⁻² hr⁻¹), providing a useful sanity check.
+One kilogram-mole of gas (44.01 kg of CO₂) occupies 22.41 m³ at STP. The full conversion equation is:
 
+\\[R = b \times \frac{P}{1000} \times \frac{273}{273 + T\_a} \times \frac{44.01}{22.41} \times \frac{V}{A}\\]
 
-#### Sources of Error {#sources-of-error}
+where \\(R\\) is flux in kg m⁻² s⁻¹, \\(b\\) is measured as ppm s⁻¹, \\(P\\) is atmospheric pressure in mb, \\(T\_a\\) is air temperature in °C, \\(V\\) is system volume in m³, and \\(A\\) is exposed area in m².
 
-Measurement accuracy can be compromised by chamber leaks (which typically cause underestimation), temperature gradients inside the chamber (particularly when exposed to direct sunlight), pressure fluctuations from wind or weather changes, and non-representative soil coverage due to stones or gaps in the collar seal.
+In practice, the EGM measures \\(\frac{dC}{dt}\\) in ppm/second, \\(V\\) in cm³, and \\(A\\) in cm². Results are expressed as g m⁻² hr⁻¹. To convert g m⁻² hr⁻¹ to µmol m⁻² s⁻¹, multiply by 6.312.
 
-For the complete mathematical derivation, consult pages 22–26 of the EGM-4 Operator's Manual and pages 15–20 of the SRC-1 Chamber Manual.
+**Environmental correction notes:**
+
+_Water Vapor:_ Adding water vapor to dry air dilutes the CO₂ concentration because the total air volume increases. From an infrared measurement perspective, water vapor induces a slight increase in CO₂ absorption (foreign gas broadening) that approximately cancels the dilution effect. The net result is that the analyzer reports approximately the dry-gas concentration.
+
+_Atmospheric Pressure:_ Increased pressure raises concentration according to the Gas Law, but infrared absorption increases more than expected due to pressure broadening of absorption bands. The approximate correction is:
+
+\\[C = C\_M \times \frac{1000}{0.75P + 0.00025P^2}\\]
+
+where \\(C\\) is the concentration that would be measured at 1000 mb and \\(C\_M\\) is the concentration measured at \\(P\\) mb.
+
+_Air Temperature:_ With the EGM's thermostatted detector at 45°C, the primary temperature effect is on gas density, following the Gas Law (approximately −0.3% per °C increase). The correction referenced to calibration at 0°C is:
+
+\\[C = C\_M \times \frac{273 + T\_a}{273}\\]
+
+When all corrections are applied, the complete equation becomes:
+
+\\[R = b \times \frac{1000}{1000} \times \frac{1000}{P(0.75 + 0.00025P)} \times \frac{273 + T\_a}{273} \times \frac{273}{273 + T\_a} \times \frac{44.01}{22.41} \times \frac{V}{A}\\]
+
+Simplifying:
+
+\\[R = \frac{b \times 44.01 \times V}{(0.75 + 0.00025P) \times 22.41 \times A}\\]
+
+The temperature corrections cancel, and the pressure effect is small. When calibrating at high altitude, the simplified form uses average atmospheric pressure at that altitude:
+
+\\[R = b \times \frac{P\_{av}}{1000} \times \frac{44.01}{22.41} \times \frac{V}{A}\\]
+
+{{< alert2 caution >}}
+Measurement accuracy can be compromised by chamber leaks (which typically cause underestimation), temperature gradients inside the chamber (particularly when exposed to direct sunlight), pressure fluctuations from wind or weather changes, and non-representative soil coverage due to stones or gaps in the collar seal. Make sure your blue tac is firmly pressed into place.
+{{< /alert2 >}}
 
 
 ### C: Probe Types Reference (0-11) {#c-probe-types-reference--0-11}
