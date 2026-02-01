@@ -156,15 +156,14 @@ open-egm4
 1.  **Select Serial Port:**
     -   The software will list available serial ports (e.g., `/dev/tty.usbserial`, `COM3`)
     -   It will also attempt to guess at which one the EGM is connected to and automatically connect to it
-    -   If it doesn't, select the port manually. If you don't see your port listed, check the cable connection and hit `r` on your keyboard to refresh the list of ports.
+    -   If it doesn't, select the port manually using the arrow keys, and hit Enter to confirm your choice. If you don't see your port listed, check the cable connection and hit `r` on your keyboard to refresh the list of ports.
     -   On macOS, look for ports containing "usbserial" or "FTDI"
     -   On Windows, look for "COM" ports (COM3, COM4, etc.)
-    -   Use arrow keys to select the port, and press Enter to confirm it
 
 2.  **Verify Connection:**
     -   The EGM screams out data over the serial connection, but it's incapable of receiving any data back. Therefore, you'll have no way of knowing if you're actually connected to the EGM unless you dump some data to a computer.
     -   To send data from the EGM to a computer, press `4DMP` on the EGM, then `2 DATA DUMP`, then press any key to begin the transfer.
-    -   If you see the data streaming in on your computer, celebrate. If you don't, then check out the troubleshooting section.
+    -   If you see the data streaming in on your computer, celebrate. If you don't, then check out [the troubleshooting section](#troubleshooting-and-maintenance).
 
 3.  **Press `q` to quit** (or `Ctl + c`, which should quit most running terminal commands) when you're done exploring.
 
