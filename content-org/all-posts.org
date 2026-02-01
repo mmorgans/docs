@@ -1145,34 +1145,24 @@ CLOSED: [2026-02-01 Sun 15:25]
 #+end_alert2
 
 ** Introduction
-The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in it's internal memory.
+The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in its internal memory.
 
 The open-egm4 software is a terminal interface designed to make data collection from the EGM reliable and easy. Unlike the legacy (read: outdated, buggy and frustrating) Windows software from PP Systems, this runs on macOS, Linux, and modern Windows systems.
 
 This guide covers operation of the EGM itself, the SRC-1 chamber, how to use them alongside the open-egm4 software, common field scenarios and troubleshooting everything involved.
 
-** TL;DR checklist
-
-1. *Charge*: The internal battery lasts a few hours. Make sure the EGM-4 is fully charged if you need to go on an expedition to get your data.
-2. *Connect*: Serial Cable → USB Adapter → Computer
-3. *Install Software*: Run the one-line installer (see Installation section below)
-4. *Launch*: Run ~open-egm4~ in your terminal of choice. It should auto select the serial connection.
-5. *Warm Up*: Wait 5-10 minutes after powering on EGM-4 for it to warm up.
-6. *Measure*: Press ~1REC~ on EGM-4 to take measurements.
-7. *Export*: Press ~4DMP~ to dump date after a session
-
 ** Installing open-egm4
 
 *What is open-egm4?*
 - A terminal-based (text interface) application that communicates with the EGM
-- Provides real-time CO₂ visualization, data logging, and exporting said data to a csv
+- Provides real-time CO₂ visualization, data logging, and exporting of said data to a csv
 - Works on any modern operating system
 - Can run over SSH for remote field work (if anyone thinks of a genuine use case for this [[mailto:egm4@mor-gan.com][please tell me]])
 
 *What is a Terminal?*
-A terminal (also called "command line" or "shell") is a text-based interface for your computer. Think of it as typing commands directly to your computer instead of clicking on icons. Using a computer through the terminal (or, pediantrically, /it's/ terminal) typically gives you much greater control and choice over it's operation. In this case, open-egm4 was developed as a TUI (/terminal user interface/: an app that runs inside of the terminal) because it allows the app to be significantly smaller, more portable, and more lightweight to run on underpowered computers.
+A terminal (also called "command line" or "shell") is a text-based interface for your computer. Think of it as typing commands directly to your computer instead of clicking on icons. Using a computer through the terminal (or, pedantically, /it's/ terminal) typically gives you much greater control and choice over its operation. In this case, open-egm4 was developed as a TUI (/terminal user interface/: an app that runs inside of the terminal) because it allows the app to be significantly smaller, more portable, and more lightweight to run on underpowered computers.
 
-For more information on my debatable decision to develop the app for the terminal, see the appendix.
+For more information on my debatable decision to develop the app for the terminal, see [[Why a Terminal Interface?][the appendix]].
 
 *System Requirements:*
 - macOS 10.14+, Windows 10+, or any modern Linux

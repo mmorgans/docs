@@ -17,7 +17,7 @@
   Don&rsquo;t get water in the gas lines. If you do, it might enter the IRGA itself and damage it. It&rsquo;s like $15,000 to replace.
 
 Introduction
-The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in it&rsquo;s internal memory.">
+The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in its internal memory.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/using-the-egm-4/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.2848bf1135132d476bbf8b7f50dc02f3efe20c69a9e3465b361f3509010e0ce5.css" integrity="sha256-KEi/ETUTLUdrv4t/UNwC8&#43;/iDGmp40ZbNh81CQEODOU=" rel="preload stylesheet" as="style">
@@ -109,8 +109,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
 <div class="post-wrapper">
         <aside class="toc-sidebar" id="toc-sidebar">
             <div class="toc-progress"><div class="toc-marker" data-target="#introduction" data-level="2"
-                        data-title="Introduction"></div><div class="toc-marker" data-target="#tl-dr-checklist" data-level="2"
-                        data-title="TL;DR checklist"></div><div class="toc-marker" data-target="#installing-open-egm4" data-level="2"
+                        data-title="Introduction"></div><div class="toc-marker" data-target="#installing-open-egm4" data-level="2"
                         data-title="Installing open-egm4"></div><div class="toc-marker" data-target="#one-line-installation--recommended" data-level="3"
                         data-title="One-Line Installation (Recommended)"></div><div class="toc-marker" data-target="#step-1-open-your-terminal" data-level="4"
                         data-title="Step 1: Open Your Terminal"></div><div class="toc-marker" data-target="#step-2-copy-and-paste-the-installation-command" data-level="4"
@@ -159,8 +158,6 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                 <div class="toc-title">Contents</div><ul>
                     <li>
                         <a href="#introduction" aria-label="Introduction">Introduction</a></li>
-                    <li>
-                        <a href="#tl-dr-checklist" aria-label="TL;DR checklist">TL;DR checklist</a></li>
                     <li>
                         <a href="#installing-open-egm4" aria-label="Installing open-egm4">Installing open-egm4</a><ul>
                     <li>
@@ -279,8 +276,6 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                 <ul><li class="toc-mobile-item level-2" data-level="2">
                             <a href="#introduction">Introduction</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#tl-dr-checklist">TL;DR checklist</a>
-                        </li><li class="toc-mobile-item level-2" data-level="2">
                             <a href="#installing-open-egm4">Installing open-egm4</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
                             <a href="#one-line-installation--recommended">One-Line Installation (Recommended)</a>
@@ -376,7 +371,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                 <h1 class="post-title entry-hint-parent">
                     Using the EGM-4 &amp; open-egm4 software
                 </h1>
-                <div class="post-meta"><span title='2026-02-01 15:25:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>35 min</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2026-02-01 15:25:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>34 min</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-egm-4.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
@@ -392,30 +387,20 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
   <strong>Don&rsquo;t get water in the gas lines.</strong> If you do, it might enter the IRGA itself and damage it. It&rsquo;s like $15,000 to replace.
 </div>
 <h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
-<p>The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in it&rsquo;s internal memory.</p>
+<p>The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in its internal memory.</p>
 <p>The open-egm4 software is a terminal interface designed to make data collection from the EGM reliable and easy. Unlike the legacy (read: outdated, buggy and frustrating) Windows software from PP Systems, this runs on macOS, Linux, and modern Windows systems.</p>
 <p>This guide covers operation of the EGM itself, the SRC-1 chamber, how to use them alongside the open-egm4 software, common field scenarios and troubleshooting everything involved.</p>
-<h2 id="tl-dr-checklist">TL;DR checklist<a hidden class="anchor" aria-hidden="true" href="#tl-dr-checklist">#</a></h2>
-<ol>
-<li><strong>Charge</strong>: The internal battery lasts a few hours. Make sure the EGM-4 is fully charged if you need to go on an expedition to get your data.</li>
-<li><strong>Connect</strong>: Serial Cable → USB Adapter → Computer</li>
-<li><strong>Install Software</strong>: Run the one-line installer (see Installation section below)</li>
-<li><strong>Launch</strong>: Run <code>open-egm4</code> in your terminal of choice. It should auto select the serial connection.</li>
-<li><strong>Warm Up</strong>: Wait 5-10 minutes after powering on EGM-4 for it to warm up.</li>
-<li><strong>Measure</strong>: Press <code>1REC</code> on EGM-4 to take measurements.</li>
-<li><strong>Export</strong>: Press <code>4DMP</code> to dump date after a session</li>
-</ol>
 <h2 id="installing-open-egm4">Installing open-egm4<a hidden class="anchor" aria-hidden="true" href="#installing-open-egm4">#</a></h2>
 <p><strong>What is open-egm4?</strong></p>
 <ul>
 <li>A terminal-based (text interface) application that communicates with the EGM</li>
-<li>Provides real-time CO₂ visualization, data logging, and exporting said data to a csv</li>
+<li>Provides real-time CO₂ visualization, data logging, and exporting of said data to a csv</li>
 <li>Works on any modern operating system</li>
 <li>Can run over SSH for remote field work (if anyone thinks of a genuine use case for this <a href="mailto:egm4@mor-gan.com">please tell me</a>)</li>
 </ul>
 <p><strong>What is a Terminal?</strong>
-A terminal (also called &ldquo;command line&rdquo; or &ldquo;shell&rdquo;) is a text-based interface for your computer. Think of it as typing commands directly to your computer instead of clicking on icons. Using a computer through the terminal (or, pediantrically, <em>it&rsquo;s</em> terminal) typically gives you much greater control and choice over it&rsquo;s operation. In this case, open-egm4 was developed as a TUI (<em>terminal user interface</em>: an app that runs inside of the terminal) because it allows the app to be significantly smaller, more portable, and more lightweight to run on underpowered computers.</p>
-<p>For more information on my debatable decision to develop the app for the terminal, see the appendix.</p>
+A terminal (also called &ldquo;command line&rdquo; or &ldquo;shell&rdquo;) is a text-based interface for your computer. Think of it as typing commands directly to your computer instead of clicking on icons. Using a computer through the terminal (or, pedantically, <em>it&rsquo;s</em> terminal) typically gives you much greater control and choice over its operation. In this case, open-egm4 was developed as a TUI (<em>terminal user interface</em>: an app that runs inside of the terminal) because it allows the app to be significantly smaller, more portable, and more lightweight to run on underpowered computers.</p>
+<p>For more information on my debatable decision to develop the app for the terminal, see <a href="#why-a-terminal-interface">the appendix</a>.</p>
 <p><strong>System Requirements:</strong></p>
 <ul>
 <li>macOS 10.14+, Windows 10+, or any modern Linux</li>
