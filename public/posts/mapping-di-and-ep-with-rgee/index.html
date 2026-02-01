@@ -15,7 +15,7 @@ Introduction
 Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/mapping-di-and-ep-with-rgee/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.bd71ba41d6c077d7ecc44c8bb7c0d5040d140d8a09c794c04bd5468e03e1fa3c.css" integrity="sha256-vXG6QdbAd9fsxEyLt8DVBA0UDYoJx5TAS9VGjgPh&#43;jw=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.eca6af3563abb297848a0c6a7afb11ad461c4f1eadc9b3aa78ab0ee09a4c24ec.css" integrity="sha256-7KavNWOrspeEigxqevsRrUYcTx6tybOqeKsO4JpMJOw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -123,48 +123,51 @@ Goal: create global maps showing Dryness Index and Evaporative Index in both 201
 </header>
 <main class="main">
 
-<article class="post-single">
-  <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
-    <h1 class="post-title entry-hint-parent">
-      Mapping DI and EP with rgee
-    </h1>
-    <div class="post-meta"><span title='2024-08-15 12:39:00 -0500 CDT'>August 15, 2024</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;|&nbsp;<span>
+<div class="post-wrapper">
+        <aside class="toc-sidebar" id="toc-sidebar">
+            <div class="toc-progress"><div class="toc-marker" data-target="#rgee-version" data-level="2"
+                        data-title="Rgee version"></div><div class="toc-marker" data-target="#introduction" data-level="3"
+                        data-title="Introduction"></div><div class="toc-marker" data-target="#scale-values-min-and-max" data-level="4"
+                        data-title="Scale values / min and max"></div><div class="toc-marker" data-target="#color-palette" data-level="4"
+                        data-title="Color palette"></div><div class="toc-marker" data-target="#data-statistics" data-level="4"
+                        data-title="Data statistics"></div><div class="toc-marker" data-target="#script" data-level="3"
+                        data-title="Script"></div></div>
+            <div class="toc-current-label" id="toc-current-label"></div>
+            <nav class="toc-nav" id="toc-nav">
+                <div class="toc-title">Contents</div><ul>
+                    <li>
+                        <a href="#rgee-version" aria-label="Rgee version">Rgee version</a><ul>
+                    <li>
+                        <a href="#introduction" aria-label="Introduction">Introduction</a><ul>
+                    <li>
+                        <a href="#scale-values-min-and-max" aria-label="Scale values / min and max">Scale values / min and max</a></li>
+                    <li>
+                        <a href="#color-palette" aria-label="Color palette">Color palette</a></li>
+                    <li>
+                        <a href="#data-statistics" aria-label="Data statistics">Data statistics</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#script" aria-label="Script">Script</a>
+                    </li>
+                </ul>
+                </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <article class="post-single">
+            <header class="post-header">
+                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <h1 class="post-title entry-hint-parent">
+                    Mapping DI and EP with rgee
+                </h1>
+                <div class="post-meta"><span title='2024-08-15 12:39:00 -0500 CDT'>August 15, 2024</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/Mapping-DI-and-EP-with-rgee.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
 </div>
-  </header> <div class="toc">
-    <details >
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
-
-        <div class="inner"><ul>
-                <li>
-                    <a href="#rgee-version" aria-label="Rgee version">Rgee version</a><ul>
-                        
-                <li>
-                    <a href="#introduction" aria-label="Introduction">Introduction</a><ul>
-                        
-                <li>
-                    <a href="#scale-values-min-and-max" aria-label="Scale values / min and max">Scale values / min and max</a></li>
-                <li>
-                    <a href="#color-palette" aria-label="Color palette">Color palette</a></li>
-                <li>
-                    <a href="#data-statistics" aria-label="Data statistics">Data statistics</a></li></ul>
-                </li>
-                <li>
-                    <a href="#script" aria-label="Script">Script</a>
-                </li>
-            </ul>
-            </li>
-            </ul>
-        </div>
-    </details>
-</div>
-
-  <div class="post-content"><p><img loading="lazy" src="/images/rgee_global.png">
+            </header> 
+            <div class="post-content"><p><img loading="lazy" src="/images/rgee_global.png">
 Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.</p>
 <p>Note 2: JS version had the same issues and created more problems. Nevermind!</p>
 <h2 id="rgee-version">Rgee version<a hidden class="anchor" aria-hidden="true" href="#rgee-version">#</a></h2>
@@ -270,19 +273,72 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">visualize_layer</span>(indices_2019<span style="color:#f92672">$</span>evap_index, <span style="color:#e6db74">&#34;EI 2019&#34;</span>, evap_index_min, evap_index_max)
 </span></span></code></pre></div>
 
-  </div>
+            </div>
 
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/rgee/">Rgee</a></li>
-      <li><a href="http://localhost:1313/tags/maps/">Maps</a></li>
-    </ul>
-  </footer>
-</article>
+            <footer class="post-footer">
+                <ul class="post-tags">
+                    <li><a href="http://localhost:1313/tags/rgee/">Rgee</a></li>
+                    <li><a href="http://localhost:1313/tags/maps/">Maps</a></li>
+                </ul>
+            </footer>
+        </article>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.getElementById('toc-sidebar');
+        if (!sidebar) return;
+
+        const markers = sidebar.querySelectorAll('.toc-marker');
+        const tocNav = sidebar.querySelector('.toc-nav');
+        const tocLinks = sidebar.querySelectorAll('.toc-nav a');
+        const currentLabel = document.getElementById('toc-current-label');
+        const headings = [];
+
+        
+        markers.forEach((marker, i) => {
+            const id = marker.dataset.target.slice(1);
+            const heading = document.getElementById(id);
+            const title = marker.dataset.title;
+            if (heading) {
+                headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title });
+            }
+        });
+
+        function updateActiveState() {
+            const scrollPos = window.scrollY + 150;
+            let current = headings[0];
+
+            for (const heading of headings) {
+                if (heading.element.offsetTop <= scrollPos) {
+                    current = heading;
+                }
+            }
+
+            markers.forEach(m => m.classList.remove('active'));
+            tocLinks.forEach(l => l.classList.remove('active'));
+
+            if (current) {
+                current.marker.classList.add('active');
+                if (current.link) current.link.classList.add('active');
+                if (currentLabel && current.title) {
+                    currentLabel.textContent = current.title;
+                    
+                    const markerRect = current.marker.getBoundingClientRect();
+                    const sidebarRect = sidebar.getBoundingClientRect();
+                    currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - 10) + 'px';
+                }
+            }
+        }
+
+        window.addEventListener('scroll', updateActiveState);
+        updateActiveState();
+    });
+</script>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 </span> · 
+    <span>&copy; 2026 </span> · 
 
     <span>
         Love from Kansas · Created with Emacs
@@ -338,11 +394,12 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
 </script>
 <script>
     document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
             localStorage.setItem("pref-theme", 'light');
         } else {
-            document.body.classList.add('dark');
+            html.dataset.theme = 'dark';
             localStorage.setItem("pref-theme", 'dark');
         }
     })
@@ -394,7 +451,6 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
             codeblock.parentNode.appendChild(copybutton);
         }
     });
-</script>
-</body>
+</script></body>
 
 </html>

@@ -6,8 +6,27 @@
     <description>Recent content on morgan docs</description>
     <generator>Hugo -- 0.148.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 20 Nov 2024 13:53:00 -0600</lastBuildDate>
+    <lastBuildDate>Fri, 30 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using the EGM-4 &amp; open-egm4 software</title>
+      <link>http://localhost:1313/posts/using-the-egm-4/</link>
+      <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/using-the-egm-4/</guid>
+      <description>&lt;h2 id=&#34;obligatory-data-loss-warning&#34;&gt;Obligatory data loss warning&lt;/h2&gt;
+&lt;p&gt;The EGM-4 uses a RS-232 serial connection that can be finicky. Improper connection can result in corrupted data streams or lost measurements. If there is any risk of the serial connection being bumped, take the time to secure the connection with the screws.&lt;/p&gt;
+&lt;div class=&#34;alert alert-Warning&#34;&gt;
+  &lt;strong&gt;Backup your data regularly.&lt;/strong&gt;  The EGM-4&amp;rsquo;s internal memory is limited to 999 records. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
+&lt;/div&gt;
+&lt;div class=&#34;alert alert-Warning&#34;&gt;
+  &lt;strong&gt;You are responsible for your data.&lt;/strong&gt; Significant care has been taken to ensure data safety. However, by using the open-egm4 software, you accept the risk of data loss. Open-egm4 can not send commands to the EGM-4 itself, and therefore cannot damage it internally.
+&lt;/div&gt;
+&lt;div class=&#34;alert alert-Caution&#34;&gt;
+  &lt;strong&gt;Don&amp;rsquo;t get water in the sample line.&lt;/strong&gt; If you do, it might enter the IRGA itself and damage it. It&amp;rsquo;s like $15,000 to replace.
+&lt;/div&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in it&amp;rsquo;s internal memory.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Creating animations of soil cores out of CT scans</title>
       <link>http://localhost:1313/posts/creating-animations-of-soil-cores/</link>
@@ -366,11 +385,12 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
 &lt;p&gt;Written in Emacs 29.4, using Doom 2.0.9, in Org mode 9.7. Published to markdown using ox-hugo, and pushed to GitHub using Magit. Hugo is used as the website framework with a modified version of the papermod theme. Cloudflare is used for domain management, and Cloudflare pages builds the site.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Using the EGM-4</title>
-      <link>http://localhost:1313/posts/using-the-egm-4/</link>
+      <title>Device Overview</title>
+      <link>http://localhost:1313/posts/all-posts/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/using-the-egm-4/</guid>
-      <description>&lt;p&gt;Blog post about how to use the EGM-4.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/all-posts/</guid>
+      <description>&lt;p&gt;The EGM-4 is a handheld IRGA with a backlit LCD screen, numeric keypad, a serial port, and two I/O ports. The device measures CO₂ concentration using infrared absorption, while connected probes give additional datapoints. Internal memory stores records organized by plot.&lt;/p&gt;
+&lt;p&gt;A few notes that may be useful: The EGM can store up to 999 records. Once you hit that limit, it starts overwriting the oldest record (e.g. 001) with new ones. However: the plot number, which is assigned to a set of records, can go up to 9999.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

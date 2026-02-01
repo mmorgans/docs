@@ -19,7 +19,7 @@ Concepts
 Commits: Think of a commit as taking a snapshot of your project. Every time you make a commit, you are saving a record of what your project looks like at that moment in time. This allows you to track changes over time and gives you a perfect history of your entire project.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/git-basics/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.bd71ba41d6c077d7ecc44c8bb7c0d5040d140d8a09c794c04bd5468e03e1fa3c.css" integrity="sha256-vXG6QdbAd9fsxEyLt8DVBA0UDYoJx5TAS9VGjgPh&#43;jw=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.eca6af3563abb297848a0c6a7afb11ad461c4f1eadc9b3aa78ab0ee09a4c24ec.css" integrity="sha256-7KavNWOrspeEigxqevsRrUYcTx6tybOqeKsO4JpMJOw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -127,41 +127,45 @@ Commits: Think of a commit as taking a snapshot of your project. Every time you 
 </header>
 <main class="main">
 
-<article class="post-single">
-  <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
-    <h1 class="post-title entry-hint-parent">
-      Git basics
-    </h1>
-    <div class="post-meta"><span title='2024-08-21 11:00:00 -0500 CDT'>August 21, 2024</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;|&nbsp;<span>
+<div class="post-wrapper">
+        <aside class="toc-sidebar" id="toc-sidebar">
+            <div class="toc-progress"><div class="toc-marker" data-target="#introduction-to-git-and-github" data-level="2"
+                        data-title="Introduction to Git and GitHub"></div><div class="toc-marker" data-target="#concepts" data-level="2"
+                        data-title="Concepts"></div><div class="toc-marker" data-target="#how-github-works" data-level="2"
+                        data-title="How GitHub Works"></div><div class="toc-marker" data-target="#branches-and-pull-requests" data-level="2"
+                        data-title="Branches and Pull Requests"></div><div class="toc-marker" data-target="#glossary" data-level="2"
+                        data-title="Glossary"></div></div>
+            <div class="toc-current-label" id="toc-current-label"></div>
+            <nav class="toc-nav" id="toc-nav">
+                <div class="toc-title">Contents</div><ul>
+                    <li>
+                        <a href="#introduction-to-git-and-github" aria-label="Introduction to Git and GitHub">Introduction to Git and GitHub</a></li>
+                    <li>
+                        <a href="#concepts" aria-label="Concepts">Concepts</a></li>
+                    <li>
+                        <a href="#how-github-works" aria-label="How GitHub Works">How GitHub Works</a></li>
+                    <li>
+                        <a href="#branches-and-pull-requests" aria-label="Branches and Pull Requests">Branches and Pull Requests</a></li>
+                    <li>
+                        <a href="#glossary" aria-label="Glossary">Glossary</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <article class="post-single">
+            <header class="post-header">
+                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <h1 class="post-title entry-hint-parent">
+                    Git basics
+                </h1>
+                <div class="post-meta"><span title='2024-08-21 11:00:00 -0500 CDT'>August 21, 2024</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/Git-basics.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
 </div>
-  </header> <div class="toc">
-    <details >
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
-
-        <div class="inner"><ul>
-                <li>
-                    <a href="#introduction-to-git-and-github" aria-label="Introduction to Git and GitHub">Introduction to Git and GitHub</a></li>
-                <li>
-                    <a href="#concepts" aria-label="Concepts">Concepts</a></li>
-                <li>
-                    <a href="#how-github-works" aria-label="How GitHub Works">How GitHub Works</a></li>
-                <li>
-                    <a href="#branches-and-pull-requests" aria-label="Branches and Pull Requests">Branches and Pull Requests</a></li>
-                <li>
-                    <a href="#glossary" aria-label="Glossary">Glossary</a>
-                </li>
-            </ul>
-        </div>
-    </details>
-</div>
-
-  <div class="post-content"><h2 id="introduction-to-git-and-github">Introduction to Git and GitHub<a hidden class="anchor" aria-hidden="true" href="#introduction-to-git-and-github">#</a></h2>
+            </header> 
+            <div class="post-content"><h2 id="introduction-to-git-and-github">Introduction to Git and GitHub<a hidden class="anchor" aria-hidden="true" href="#introduction-to-git-and-github">#</a></h2>
 <p>It&rsquo;s easiest to think of Git (and other forms of source control) like a time machine.</p>
 <ul>
 <li>When you make changes to your project, it&rsquo;s easy to see what has changed.</li>
@@ -202,17 +206,70 @@ Commits: Think of a commit as taking a snapshot of your project. Every time you 
 </ul>
 
 
-  </div>
+            </div>
 
-  <footer class="post-footer">
-    <ul class="post-tags">
-    </ul>
-  </footer>
-</article>
+            <footer class="post-footer">
+                <ul class="post-tags">
+                </ul>
+            </footer>
+        </article>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.getElementById('toc-sidebar');
+        if (!sidebar) return;
+
+        const markers = sidebar.querySelectorAll('.toc-marker');
+        const tocNav = sidebar.querySelector('.toc-nav');
+        const tocLinks = sidebar.querySelectorAll('.toc-nav a');
+        const currentLabel = document.getElementById('toc-current-label');
+        const headings = [];
+
+        
+        markers.forEach((marker, i) => {
+            const id = marker.dataset.target.slice(1);
+            const heading = document.getElementById(id);
+            const title = marker.dataset.title;
+            if (heading) {
+                headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title });
+            }
+        });
+
+        function updateActiveState() {
+            const scrollPos = window.scrollY + 150;
+            let current = headings[0];
+
+            for (const heading of headings) {
+                if (heading.element.offsetTop <= scrollPos) {
+                    current = heading;
+                }
+            }
+
+            markers.forEach(m => m.classList.remove('active'));
+            tocLinks.forEach(l => l.classList.remove('active'));
+
+            if (current) {
+                current.marker.classList.add('active');
+                if (current.link) current.link.classList.add('active');
+                if (currentLabel && current.title) {
+                    currentLabel.textContent = current.title;
+                    
+                    const markerRect = current.marker.getBoundingClientRect();
+                    const sidebarRect = sidebar.getBoundingClientRect();
+                    currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - 10) + 'px';
+                }
+            }
+        }
+
+        window.addEventListener('scroll', updateActiveState);
+        updateActiveState();
+    });
+</script>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 </span> · 
+    <span>&copy; 2026 </span> · 
 
     <span>
         Love from Kansas · Created with Emacs
@@ -268,11 +325,12 @@ Commits: Think of a commit as taking a snapshot of your project. Every time you 
 </script>
 <script>
     document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
             localStorage.setItem("pref-theme", 'light');
         } else {
-            document.body.classList.add('dark');
+            html.dataset.theme = 'dark';
             localStorage.setItem("pref-theme", 'dark');
         }
     })
@@ -324,7 +382,6 @@ Commits: Think of a commit as taking a snapshot of your project. Every time you 
             codeblock.parentNode.appendChild(copybutton);
         }
     });
-</script>
-</body>
+</script></body>
 
 </html>

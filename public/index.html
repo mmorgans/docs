@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.bd71ba41d6c077d7ecc44c8bb7c0d5040d140d8a09c794c04bd5468e03e1fa3c.css" integrity="sha256-vXG6QdbAd9fsxEyLt8DVBA0UDYoJx5TAS9VGjgPh&#43;jw=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.eca6af3563abb297848a0c6a7afb11ad461c4f1eadc9b3aa78ab0ee09a4c24ec.css" integrity="sha256-7KavNWOrspeEigxqevsRrUYcTx6tybOqeKsO4JpMJOw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -122,6 +122,26 @@
 <main class="main"> 
 
 <article class="first-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Using the EGM-4 &amp; open-egm4 software
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Obligatory data loss warning The EGM-4 uses a RS-232 serial connection that can be finicky. Improper connection can result in corrupted data streams or lost measurements. If there is any risk of the serial connection being bumped, take the time to secure the connection with the screws.
+Backup your data regularly. The EGM-4’s internal memory is limited to 999 records. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten. You are responsible for your data. Significant care has been taken to ensure data safety. However, by using the open-egm4 software, you accept the risk of data loss. Open-egm4 can not send commands to the EGM-4 itself, and therefore cannot damage it internally. Don’t get water in the sample line. If you do, it might enter the IRGA itself and damage it. It’s like $15,000 to replace. Introduction The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in it’s internal memory.
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-01-30 00:00:00 +0000 UTC'>January 30, 2026</span>&nbsp;·&nbsp;<span>29 min</span></footer>
+  <a class="entry-link" aria-label="post link to Using the EGM-4 & open-egm4 software" href="http://localhost:1313/posts/using-the-egm-4/"></a>
+</article>
+
+<article class="post-entry"> 
   <header class="entry-header">
     <h2 class="entry-hint-parent">Creating animations of soil cores out of CT scans
     </h2>
@@ -252,22 +272,6 @@ This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS 
   <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;<span>5 min</span></footer>
   <a class="entry-link" aria-label="post link to Setting up rgee" href="http://localhost:1313/posts/setting-up-rgee/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Using variables in rgee
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Introduction Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.
-Calling variables Load and initialize rgee first!
-Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.
-aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I’ll use the MODIS land cover datasets.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;<span>1 min</span></footer>
-  <a class="entry-link" aria-label="post link to Using variables in rgee" href="http://localhost:1313/posts/using-variables-in-rgee/"></a>
-</article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="next" href="http://localhost:1313/page/2/">Next&nbsp;&nbsp;»
@@ -277,7 +281,7 @@ aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, 
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 </span> · 
+    <span>&copy; 2026 </span> · 
 
     <span>
         Love from Kansas · Created with Emacs
@@ -333,16 +337,16 @@ aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, 
 </script>
 <script>
     document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
             localStorage.setItem("pref-theme", 'light');
         } else {
-            document.body.classList.add('dark');
+            html.dataset.theme = 'dark';
             localStorage.setItem("pref-theme", 'dark');
         }
     })
 
-</script>
-</body>
+</script></body>
 
 </html>

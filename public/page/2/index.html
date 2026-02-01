@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.bd71ba41d6c077d7ecc44c8bb7c0d5040d140d8a09c794c04bd5468e03e1fa3c.css" integrity="sha256-vXG6QdbAd9fsxEyLt8DVBA0UDYoJx5TAS9VGjgPh&#43;jw=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.eca6af3563abb297848a0c6a7afb11ad461c4f1eadc9b3aa78ab0ee09a4c24ec.css" integrity="sha256-7KavNWOrspeEigxqevsRrUYcTx6tybOqeKsO4JpMJOw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -123,6 +123,22 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Using variables in rgee
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Introduction Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.
+Calling variables Load and initialize rgee first!
+Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.
+aoi &lt;- ee$Geometry$Rectangle(c(-120.4, 34.5, -119.4, 35.5)) In this example, I’ll use the MODIS land cover datasets.
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;<span>1 min</span></footer>
+  <a class="entry-link" aria-label="post link to Using variables in rgee" href="http://localhost:1313/posts/using-variables-in-rgee/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">About
       <span class="entry-hint" title="Draft">
         <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
@@ -144,21 +160,16 @@ Written in Emacs 29.4, using Doom 2.0.9, in Org mode 9.7. Published to markdown 
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Using the EGM-4
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
+    <h2 class="entry-hint-parent">Device Overview
     </h2>
   </header>
   <div class="entry-content">
-    <p>Blog post about how to use the EGM-4.
-</p>
+    <p>The EGM-4 is a handheld IRGA with a backlit LCD screen, numeric keypad, a serial port, and two I/O ports. The device measures CO₂ concentration using infrared absorption, while connected probes give additional datapoints. Internal memory stores records organized by plot.
+A few notes that may be useful: The EGM can store up to 999 records. Once you hit that limit, it starts overwriting the oldest record (e.g. 001) with new ones. However: the plot number, which is assigned to a set of records, can go up to 9999.
+...</p>
   </div>
   <footer class="entry-footer"><span>1 min</span></footer>
-  <a class="entry-link" aria-label="post link to Using the EGM-4" href="http://localhost:1313/posts/using-the-egm-4/"></a>
+  <a class="entry-link" aria-label="post link to Device Overview" href="http://localhost:1313/posts/all-posts/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
@@ -170,7 +181,7 @@ Written in Emacs 29.4, using Doom 2.0.9, in Org mode 9.7. Published to markdown 
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 </span> · 
+    <span>&copy; 2026 </span> · 
 
     <span>
         Love from Kansas · Created with Emacs
@@ -226,16 +237,16 @@ Written in Emacs 29.4, using Doom 2.0.9, in Org mode 9.7. Published to markdown 
 </script>
 <script>
     document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
             localStorage.setItem("pref-theme", 'light');
         } else {
-            document.body.classList.add('dark');
+            html.dataset.theme = 'dark';
             localStorage.setItem("pref-theme", 'dark');
         }
     })
 
-</script>
-</body>
+</script></body>
 
 </html>

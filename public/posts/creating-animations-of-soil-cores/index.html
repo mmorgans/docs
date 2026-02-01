@@ -45,7 +45,7 @@ Selecting cores
 To start, we need to get the CT scan files from EMSL, provided as .vol files.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/creating-animations-of-soil-cores/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.bd71ba41d6c077d7ecc44c8bb7c0d5040d140d8a09c794c04bd5468e03e1fa3c.css" integrity="sha256-vXG6QdbAd9fsxEyLt8DVBA0UDYoJx5TAS9VGjgPh&#43;jw=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.eca6af3563abb297848a0c6a7afb11ad461c4f1eadc9b3aa78ab0ee09a4c24ec.css" integrity="sha256-7KavNWOrspeEigxqevsRrUYcTx6tybOqeKsO4JpMJOw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -153,66 +153,76 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
 </header>
 <main class="main">
 
-<article class="post-single">
-  <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
-    <h1 class="post-title entry-hint-parent">
-      Creating animations of soil cores out of CT scans
-    </h1>
-    <div class="post-meta"><span title='2024-11-20 13:53:00 -0600 CST'>November 20, 2024</span>&nbsp;·&nbsp;<span>13 min</span>&nbsp;|&nbsp;<span>
+<div class="post-wrapper">
+        <aside class="toc-sidebar" id="toc-sidebar">
+            <div class="toc-progress"><div class="toc-marker" data-target="#introduction" data-level="2"
+                        data-title="Introduction"></div><div class="toc-marker" data-target="#requirements" data-level="2"
+                        data-title="Requirements"></div><div class="toc-marker" data-target="#tl-dr" data-level="2"
+                        data-title="TL;DR"></div><div class="toc-marker" data-target="#getting-dot-vol-files-from-emsl-data-portal" data-level="2"
+                        data-title="Getting .vol files from EMSL data portal"></div><div class="toc-marker" data-target="#selecting-cores" data-level="3"
+                        data-title="Selecting cores"></div><div class="toc-marker" data-target="#downloading-cores" data-level="3"
+                        data-title="Downloading cores"></div><div class="toc-marker" data-target="#initial-dot-vol-work-in-fiji" data-level="2"
+                        data-title="Initial .vol work in Fiji"></div><div class="toc-marker" data-target="#working-in-dragonfly" data-level="2"
+                        data-title="Working in Dragonfly"></div><div class="toc-marker" data-target="#loading-and-masking" data-level="3"
+                        data-title="Loading &amp; masking"></div><div class="toc-marker" data-target="#animating" data-level="3"
+                        data-title="Animating"></div><div class="toc-marker" data-target="#working-with-dot-avi-video-files-dot" data-level="2"
+                        data-title="Working with .avi video files."></div><div class="toc-marker" data-target="#converting-dot-avi-to-dot-mp4-with-ffmpeg" data-level="3"
+                        data-title="Converting .avi to .mp4 with ffmpeg"></div><div class="toc-marker" data-target="#cropping-with-kdenlive" data-level="3"
+                        data-title="Cropping with Kdenlive"></div><div class="toc-marker" data-target="#converting-a-dot-mp4-file-to-a-dot-gif-with-gifski" data-level="3"
+                        data-title="Converting a .mp4 file to a .gif with Gifski"></div></div>
+            <div class="toc-current-label" id="toc-current-label"></div>
+            <nav class="toc-nav" id="toc-nav">
+                <div class="toc-title">Contents</div><ul>
+                    <li>
+                        <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                    <li>
+                        <a href="#requirements" aria-label="Requirements">Requirements</a></li>
+                    <li>
+                        <a href="#tl-dr" aria-label="TL;DR">TL;DR</a></li>
+                    <li>
+                        <a href="#getting-dot-vol-files-from-emsl-data-portal" aria-label="Getting .vol files from EMSL data portal">Getting .vol files from EMSL data portal</a><ul>
+                    <li>
+                        <a href="#selecting-cores" aria-label="Selecting cores">Selecting cores</a></li>
+                    <li>
+                        <a href="#downloading-cores" aria-label="Downloading cores">Downloading cores</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#initial-dot-vol-work-in-fiji" aria-label="Initial .vol work in Fiji">Initial .vol work in Fiji</a></li>
+                    <li>
+                        <a href="#working-in-dragonfly" aria-label="Working in Dragonfly">Working in Dragonfly</a><ul>
+                    <li>
+                        <a href="#loading-and-masking" aria-label="Loading &amp; masking">Loading &amp; masking</a></li>
+                    <li>
+                        <a href="#animating" aria-label="Animating">Animating</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#working-with-dot-avi-video-files-dot" aria-label="Working with .avi video files.">Working with .avi video files.</a><ul>
+                    <li>
+                        <a href="#converting-dot-avi-to-dot-mp4-with-ffmpeg" aria-label="Converting .avi to .mp4 with ffmpeg">Converting .avi to .mp4 with ffmpeg</a></li>
+                    <li>
+                        <a href="#cropping-with-kdenlive" aria-label="Cropping with Kdenlive">Cropping with Kdenlive</a></li>
+                    <li>
+                        <a href="#converting-a-dot-mp4-file-to-a-dot-gif-with-gifski" aria-label="Converting a .mp4 file to a .gif with Gifski">Converting a .mp4 file to a .gif with Gifski</a>
+                    </li>
+                </ul>
+                </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <article class="post-single">
+            <header class="post-header">
+                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <h1 class="post-title entry-hint-parent">
+                    Creating animations of soil cores out of CT scans
+                </h1>
+                <div class="post-meta"><span title='2024-11-20 13:53:00 -0600 CST'>November 20, 2024</span>&nbsp;·&nbsp;<span>13 min</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/creating-animations-of-soil-cores.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
 </div>
-  </header> <div class="toc">
-    <details >
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
-
-        <div class="inner"><ul>
-                <li>
-                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
-                <li>
-                    <a href="#requirements" aria-label="Requirements">Requirements</a></li>
-                <li>
-                    <a href="#tl-dr" aria-label="TL;DR">TL;DR</a></li>
-                <li>
-                    <a href="#getting-dot-vol-files-from-emsl-data-portal" aria-label="Getting .vol files from EMSL data portal">Getting .vol files from EMSL data portal</a><ul>
-                        
-                <li>
-                    <a href="#selecting-cores" aria-label="Selecting cores">Selecting cores</a></li>
-                <li>
-                    <a href="#downloading-cores" aria-label="Downloading cores">Downloading cores</a></li></ul>
-                </li>
-                <li>
-                    <a href="#initial-dot-vol-work-in-fiji" aria-label="Initial .vol work in Fiji">Initial .vol work in Fiji</a></li>
-                <li>
-                    <a href="#working-in-dragonfly" aria-label="Working in Dragonfly">Working in Dragonfly</a><ul>
-                        
-                <li>
-                    <a href="#loading-and-masking" aria-label="Loading &amp; masking">Loading &amp; masking</a></li>
-                <li>
-                    <a href="#animating" aria-label="Animating">Animating</a></li></ul>
-                </li>
-                <li>
-                    <a href="#working-with-dot-avi-video-files-dot" aria-label="Working with .avi video files.">Working with .avi video files.</a><ul>
-                        
-                <li>
-                    <a href="#converting-dot-avi-to-dot-mp4-with-ffmpeg" aria-label="Converting .avi to .mp4 with ffmpeg">Converting .avi to .mp4 with ffmpeg</a></li>
-                <li>
-                    <a href="#cropping-with-kdenlive" aria-label="Cropping with Kdenlive">Cropping with Kdenlive</a></li>
-                <li>
-                    <a href="#converting-a-dot-mp4-file-to-a-dot-gif-with-gifski" aria-label="Converting a .mp4 file to a .gif with Gifski">Converting a .mp4 file to a .gif with Gifski</a>
-                </li>
-            </ul>
-            </li>
-            </ul>
-        </div>
-    </details>
-</div>
-
-  <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+            </header> 
+            <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
 <p>Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.</p>
 <p>We&rsquo;re getting our files from the Environmental Molecular Sciences Laboratory at the Pacific Northwest National Laboratory, who have scanned the soil cores with a Nikon XTH CT scanner.</p>
 <h2 id="requirements">Requirements<a hidden class="anchor" aria-hidden="true" href="#requirements">#</a></h2>
@@ -403,17 +413,70 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
 <p>Wooo!!!!</p>
 
 
-  </div>
+            </div>
 
-  <footer class="post-footer">
-    <ul class="post-tags">
-    </ul>
-  </footer>
-</article>
+            <footer class="post-footer">
+                <ul class="post-tags">
+                </ul>
+            </footer>
+        </article>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.getElementById('toc-sidebar');
+        if (!sidebar) return;
+
+        const markers = sidebar.querySelectorAll('.toc-marker');
+        const tocNav = sidebar.querySelector('.toc-nav');
+        const tocLinks = sidebar.querySelectorAll('.toc-nav a');
+        const currentLabel = document.getElementById('toc-current-label');
+        const headings = [];
+
+        
+        markers.forEach((marker, i) => {
+            const id = marker.dataset.target.slice(1);
+            const heading = document.getElementById(id);
+            const title = marker.dataset.title;
+            if (heading) {
+                headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title });
+            }
+        });
+
+        function updateActiveState() {
+            const scrollPos = window.scrollY + 150;
+            let current = headings[0];
+
+            for (const heading of headings) {
+                if (heading.element.offsetTop <= scrollPos) {
+                    current = heading;
+                }
+            }
+
+            markers.forEach(m => m.classList.remove('active'));
+            tocLinks.forEach(l => l.classList.remove('active'));
+
+            if (current) {
+                current.marker.classList.add('active');
+                if (current.link) current.link.classList.add('active');
+                if (currentLabel && current.title) {
+                    currentLabel.textContent = current.title;
+                    
+                    const markerRect = current.marker.getBoundingClientRect();
+                    const sidebarRect = sidebar.getBoundingClientRect();
+                    currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - 10) + 'px';
+                }
+            }
+        }
+
+        window.addEventListener('scroll', updateActiveState);
+        updateActiveState();
+    });
+</script>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 </span> · 
+    <span>&copy; 2026 </span> · 
 
     <span>
         Love from Kansas · Created with Emacs
@@ -469,11 +532,12 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
 </script>
 <script>
     document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
             localStorage.setItem("pref-theme", 'light');
         } else {
-            document.body.classList.add('dark');
+            html.dataset.theme = 'dark';
             localStorage.setItem("pref-theme", 'dark');
         }
     })
@@ -525,7 +589,6 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
             codeblock.parentNode.appendChild(copybutton);
         }
     });
-</script>
-</body>
+</script></body>
 
 </html>

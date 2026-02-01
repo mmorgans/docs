@@ -5,12 +5,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Using the EGM-4 | morgan docs</title>
+<title>Using the EGM-4 &amp; open-egm4 software | morgan docs</title>
 <meta name="keywords" content="">
-<meta name="description" content="Blog post about how to use the EGM-4.">
+<meta name="description" content="Obligatory data loss warning
+The EGM-4 uses a RS-232 serial connection that can be finicky. Improper connection can result in corrupted data streams or lost measurements. If there is any risk of the serial connection being bumped, take the time to secure the connection with the screws.
+
+  Backup your data regularly.  The EGM-4&rsquo;s internal memory is limited to 999 records. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
+
+
+  You are responsible for your data. Significant care has been taken to ensure data safety. However, by using the open-egm4 software, you accept the risk of data loss. Open-egm4 can not send commands to the EGM-4 itself, and therefore cannot damage it internally.
+
+
+  Don&rsquo;t get water in the sample line. If you do, it might enter the IRGA itself and damage it. It&rsquo;s like $15,000 to replace.
+
+Introduction
+The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in it&rsquo;s internal memory.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/using-the-egm-4/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.bd71ba41d6c077d7ecc44c8bb7c0d5040d140d8a09c794c04bd5468e03e1fa3c.css" integrity="sha256-vXG6QdbAd9fsxEyLt8DVBA0UDYoJx5TAS9VGjgPh&#43;jw=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.eca6af3563abb297848a0c6a7afb11ad461c4f1eadc9b3aa78ab0ee09a4c24ec.css" integrity="sha256-7KavNWOrspeEigxqevsRrUYcTx6tybOqeKsO4JpMJOw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -118,39 +130,1280 @@
 </header>
 <main class="main">
 
-<article class="post-single">
-  <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
-    <h1 class="post-title entry-hint-parent">
-      Using the EGM-4
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
-    </h1>
-    <div class="post-meta"><span>1 min</span>&nbsp;|&nbsp;<span>
+<div class="post-wrapper">
+        <aside class="toc-sidebar" id="toc-sidebar">
+            <div class="toc-progress"><div class="toc-marker" data-target="#obligatory-data-loss-warning" data-level="2"
+                        data-title="Obligatory data loss warning"></div><div class="toc-marker" data-target="#introduction" data-level="2"
+                        data-title="Introduction"></div><div class="toc-marker" data-target="#tl-dr-checklist" data-level="2"
+                        data-title="TL;DR checklist"></div><div class="toc-marker" data-target="#installing-open-egm4" data-level="2"
+                        data-title="Installing open-egm4"></div><div class="toc-marker" data-target="#one-line-installation--recommended" data-level="3"
+                        data-title="One-Line Installation (Recommended)"></div><div class="toc-marker" data-target="#step-1-open-your-terminal" data-level="4"
+                        data-title="Step 1: Open Your Terminal"></div><div class="toc-marker" data-target="#step-2-copy-and-paste-the-installation-command" data-level="4"
+                        data-title="Step 2: Copy and Paste the Installation Command"></div><div class="toc-marker" data-target="#step-3-what-you-ll-see-during-installation" data-level="4"
+                        data-title="Step 3: What You&rsquo;ll See During Installation"></div><div class="toc-marker" data-target="#pip-installation" data-level="3"
+                        data-title="Pip Installation"></div><div class="toc-marker" data-target="#initial-connection-to-the-egm-4" data-level="3"
+                        data-title="Initial Connection to the EGM-4"></div><div class="toc-marker" data-target="#egm-4-hardware" data-level="2"
+                        data-title="EGM-4 hardware"></div><div class="toc-marker" data-target="#open-egm4-software" data-level="2"
+                        data-title="open-egm4 software"></div><div class="toc-marker" data-target="#connection-screen" data-level="3"
+                        data-title="Connection screen"></div><div class="toc-marker" data-target="#main-interface" data-level="3"
+                        data-title="Main interface"></div><div class="toc-marker" data-target="#keyboard-commands" data-level="4"
+                        data-title="Keyboard Commands"></div><div class="toc-marker" data-target="#exporting-data" data-level="4"
+                        data-title="Exporting data"></div><div class="toc-marker" data-target="#pausing--p" data-level="4"
+                        data-title="Pausing (p)"></div><div class="toc-marker" data-target="#adding-notes--n" data-level="4"
+                        data-title="Adding notes (n)"></div><div class="toc-marker" data-target="#clearing-data--c" data-level="4"
+                        data-title="Clearing data (c)"></div><div class="toc-marker" data-target="#quitting--q" data-level="3"
+                        data-title="Quitting (q)"></div><div class="toc-marker" data-target="#physical-interface-and-controls" data-level="3"
+                        data-title="Physical Interface &amp; Controls"></div><div class="toc-marker" data-target="#power-and-battery" data-level="3"
+                        data-title="Power &amp; Battery"></div><div class="toc-marker" data-target="#src-1-soil-respiration-chamber" data-level="3"
+                        data-title="SRC-1 Soil Respiration Chamber"></div><div class="toc-marker" data-target="#workflows" data-level="2"
+                        data-title="Workflows"></div><div class="toc-marker" data-target="#workflow-1-soil-respiration-with-src-1-chamber" data-level="3"
+                        data-title="Workflow 1: Soil Respiration with SRC-1 Chamber"></div><div class="toc-marker" data-target="#workflow-2-static-sampling-via-syringe-injection" data-level="3"
+                        data-title="Workflow 2: Static Sampling via Syringe Injection"></div><div class="toc-marker" data-target="#workflow-3-dumping-stored-data-from-egm-4-memory" data-level="3"
+                        data-title="Workflow 3: Dumping Stored Data from EGM-4 Memory"></div><div class="toc-marker" data-target="#troubleshooting-and-maintenance" data-level="2"
+                        data-title="Troubleshooting &amp; Maintenance"></div><div class="toc-marker" data-target="#replacing-the-soda-lime-co-scrubber" data-level="3"
+                        data-title="Replacing the Soda Lime CO₂ Scrubber"></div><div class="toc-marker" data-target="#replacing-the-internal-battery" data-level="3"
+                        data-title="Replacing the Internal Battery"></div><div class="toc-marker" data-target="#replacing-internal-tubing" data-level="3"
+                        data-title="Replacing internal tubing"></div><div class="toc-marker" data-target="#egm-4-error-codes" data-level="3"
+                        data-title="EGM-4 error codes"></div><div class="toc-marker" data-target="#software-connection-issues" data-level="3"
+                        data-title="Software Connection Issues"></div><div class="toc-marker" data-target="#technical-appendix" data-level="2"
+                        data-title="Technical Appendix"></div><div class="toc-marker" data-target="#a-serial-protocol-specification" data-level="3"
+                        data-title="A: Serial Protocol Specification"></div><div class="toc-marker" data-target="#b-flux-calculation-methods" data-level="3"
+                        data-title="B: Flux Calculation Methods"></div><div class="toc-marker" data-target="#c-probe-types-reference--0-11" data-level="3"
+                        data-title="C: Probe Types Reference (0-11)"></div><div class="toc-marker" data-target="#d-water-vapor-and-temperature-corrections" data-level="3"
+                        data-title="D: Water Vapor &amp; Temperature Corrections"></div><div class="toc-marker" data-target="#e-chamber-volume-calculations" data-level="3"
+                        data-title="E: Chamber Volume Calculations"></div><div class="toc-marker" data-target="#f-open-egm4-software-design-philosophy" data-level="3"
+                        data-title="F: open-egm4 Software Design Philosophy"></div></div>
+            <div class="toc-current-label" id="toc-current-label"></div>
+            <nav class="toc-nav" id="toc-nav">
+                <div class="toc-title">Contents</div><ul>
+                    <li>
+                        <a href="#obligatory-data-loss-warning" aria-label="Obligatory data loss warning">Obligatory data loss warning</a></li>
+                    <li>
+                        <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                    <li>
+                        <a href="#tl-dr-checklist" aria-label="TL;DR checklist">TL;DR checklist</a></li>
+                    <li>
+                        <a href="#installing-open-egm4" aria-label="Installing open-egm4">Installing open-egm4</a><ul>
+                    <li>
+                        <a href="#one-line-installation--recommended" aria-label="One-Line Installation (Recommended)">One-Line Installation (Recommended)</a><ul>
+                    <li>
+                        <a href="#step-1-open-your-terminal" aria-label="Step 1: Open Your Terminal">Step 1: Open Your Terminal</a></li>
+                    <li>
+                        <a href="#step-2-copy-and-paste-the-installation-command" aria-label="Step 2: Copy and Paste the Installation Command">Step 2: Copy and Paste the Installation Command</a></li>
+                    <li>
+                        <a href="#step-3-what-you-ll-see-during-installation" aria-label="Step 3: What You&rsquo;ll See During Installation">Step 3: What You&rsquo;ll See During Installation</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#pip-installation" aria-label="Pip Installation">Pip Installation</a></li>
+                    <li>
+                        <a href="#initial-connection-to-the-egm-4" aria-label="Initial Connection to the EGM-4">Initial Connection to the EGM-4</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#egm-4-hardware" aria-label="EGM-4 hardware">EGM-4 hardware</a></li>
+                    <li>
+                        <a href="#open-egm4-software" aria-label="open-egm4 software">open-egm4 software</a><ul>
+                    <li>
+                        <a href="#connection-screen" aria-label="Connection screen">Connection screen</a></li>
+                    <li>
+                        <a href="#main-interface" aria-label="Main interface">Main interface</a><ul>
+                    <li>
+                        <a href="#keyboard-commands" aria-label="Keyboard Commands">Keyboard Commands</a></li>
+                    <li>
+                        <a href="#exporting-data" aria-label="Exporting data">Exporting data</a></li>
+                    <li>
+                        <a href="#pausing--p" aria-label="Pausing (p)">Pausing (p)</a></li>
+                    <li>
+                        <a href="#adding-notes--n" aria-label="Adding notes (n)">Adding notes (n)</a></li>
+                    <li>
+                        <a href="#clearing-data--c" aria-label="Clearing data (c)">Clearing data (c)</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#quitting--q" aria-label="Quitting (q)">Quitting (q)</a></li>
+                    <li>
+                        <a href="#physical-interface-and-controls" aria-label="Physical Interface &amp; Controls">Physical Interface &amp; Controls</a></li>
+                    <li>
+                        <a href="#power-and-battery" aria-label="Power &amp; Battery">Power &amp; Battery</a></li>
+                    <li>
+                        <a href="#src-1-soil-respiration-chamber" aria-label="SRC-1 Soil Respiration Chamber">SRC-1 Soil Respiration Chamber</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#workflows" aria-label="Workflows">Workflows</a><ul>
+                    <li>
+                        <a href="#workflow-1-soil-respiration-with-src-1-chamber" aria-label="Workflow 1: Soil Respiration with SRC-1 Chamber">Workflow 1: Soil Respiration with SRC-1 Chamber</a></li>
+                    <li>
+                        <a href="#workflow-2-static-sampling-via-syringe-injection" aria-label="Workflow 2: Static Sampling via Syringe Injection">Workflow 2: Static Sampling via Syringe Injection</a></li>
+                    <li>
+                        <a href="#workflow-3-dumping-stored-data-from-egm-4-memory" aria-label="Workflow 3: Dumping Stored Data from EGM-4 Memory">Workflow 3: Dumping Stored Data from EGM-4 Memory</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#troubleshooting-and-maintenance" aria-label="Troubleshooting &amp; Maintenance">Troubleshooting &amp; Maintenance</a><ul>
+                    <li>
+                        <a href="#replacing-the-soda-lime-co-scrubber" aria-label="Replacing the Soda Lime CO₂ Scrubber">Replacing the Soda Lime CO₂ Scrubber</a></li>
+                    <li>
+                        <a href="#replacing-the-internal-battery" aria-label="Replacing the Internal Battery">Replacing the Internal Battery</a></li>
+                    <li>
+                        <a href="#replacing-internal-tubing" aria-label="Replacing internal tubing">Replacing internal tubing</a></li>
+                    <li>
+                        <a href="#egm-4-error-codes" aria-label="EGM-4 error codes">EGM-4 error codes</a></li>
+                    <li>
+                        <a href="#software-connection-issues" aria-label="Software Connection Issues">Software Connection Issues</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#technical-appendix" aria-label="Technical Appendix">Technical Appendix</a><ul>
+                    <li>
+                        <a href="#a-serial-protocol-specification" aria-label="A: Serial Protocol Specification">A: Serial Protocol Specification</a></li>
+                    <li>
+                        <a href="#b-flux-calculation-methods" aria-label="B: Flux Calculation Methods">B: Flux Calculation Methods</a></li>
+                    <li>
+                        <a href="#c-probe-types-reference--0-11" aria-label="C: Probe Types Reference (0-11)">C: Probe Types Reference (0-11)</a></li>
+                    <li>
+                        <a href="#d-water-vapor-and-temperature-corrections" aria-label="D: Water Vapor &amp; Temperature Corrections">D: Water Vapor &amp; Temperature Corrections</a></li>
+                    <li>
+                        <a href="#e-chamber-volume-calculations" aria-label="E: Chamber Volume Calculations">E: Chamber Volume Calculations</a></li>
+                    <li>
+                        <a href="#f-open-egm4-software-design-philosophy" aria-label="F: open-egm4 Software Design Philosophy">F: open-egm4 Software Design Philosophy</a>
+                    </li>
+                </ul>
+                </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <article class="post-single">
+            <header class="post-header">
+                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <h1 class="post-title entry-hint-parent">
+                    Using the EGM-4 &amp; open-egm4 software
+                    <span class="entry-hint" title="Draft">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960"
+                            fill="currentColor">
+                            <path
+                                d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+                        </svg>
+                    </span>
+                </h1>
+                <div class="post-meta"><span title='2026-01-30 00:00:00 +0000 UTC'>January 30, 2026</span>&nbsp;·&nbsp;<span>29 min</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-egm-4.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
 </div>
-  </header> 
+            </header> 
+            <div class="post-content"><h2 id="obligatory-data-loss-warning">Obligatory data loss warning<a hidden class="anchor" aria-hidden="true" href="#obligatory-data-loss-warning">#</a></h2>
+<p>The EGM-4 uses a RS-232 serial connection that can be finicky. Improper connection can result in corrupted data streams or lost measurements. If there is any risk of the serial connection being bumped, take the time to secure the connection with the screws.</p>
+<div class="alert alert-Warning">
+  <strong>Backup your data regularly.</strong>  The EGM-4&rsquo;s internal memory is limited to 999 records. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
+</div>
+<div class="alert alert-Warning">
+  <strong>You are responsible for your data.</strong> Significant care has been taken to ensure data safety. However, by using the open-egm4 software, you accept the risk of data loss. Open-egm4 can not send commands to the EGM-4 itself, and therefore cannot damage it internally.
+</div>
+<div class="alert alert-Caution">
+  <strong>Don&rsquo;t get water in the sample line.</strong> If you do, it might enter the IRGA itself and damage it. It&rsquo;s like $15,000 to replace.
+</div>
+<h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in it&rsquo;s internal memory.</p>
+<p>The open-egm4 software is a terminal interface designed to make data collection from the EGM reliable and easy. Unlike the legacy (read: outdated, buggy and frustrating) Windows software from PP Systems, this runs on macOS, Linux, and modern Windows systems.</p>
+<p>This guide covers operation of the EGM itself, the SRC-1 chamber, how to use them alongside the open-egm4 software, common field scenarios and troubleshooting everything involved.</p>
+<h2 id="tl-dr-checklist">TL;DR checklist<a hidden class="anchor" aria-hidden="true" href="#tl-dr-checklist">#</a></h2>
+<ol>
+<li><strong>Charge</strong>: The internal battery lasts a few hours. Make sure the EGM-4 is fully charged if you need to go on an expedition to get your data.</li>
+<li><strong>Connect</strong>: Serial Cable → USB Adapter → Computer</li>
+<li><strong>Install Software</strong>: Run the one-line installer (see Installation section below)</li>
+<li><strong>Launch</strong>: Run <code>open-egm4</code> in your terminal of choice. It should auto select the serial connection.</li>
+<li><strong>Warm Up</strong>: Wait 5-10 minutes after powering on EGM-4 for it to warm up.</li>
+<li><strong>Measure</strong>: Press <code>1REC</code> on EGM-4 to take measurements.</li>
+<li><strong>Export</strong>: Press <code>4DMP</code> to dump date after a session</li>
+</ol>
+<h2 id="installing-open-egm4">Installing open-egm4<a hidden class="anchor" aria-hidden="true" href="#installing-open-egm4">#</a></h2>
+<p><strong>What is open-egm4?</strong></p>
+<ul>
+<li>A terminal-based (text interface) application that communicates with the EGM</li>
+<li>Provides real-time CO₂ visualization, data logging, and exporting said data to a csv</li>
+<li>Works on any modern operating system</li>
+<li>Can run over SSH for remote field work (if anyone thinks of a genuine use case for this <a href="mailto:egm4@mor-gan.com">please tell me</a>)</li>
+</ul>
+<p><strong>What is a Terminal?</strong>
+A terminal (also called &ldquo;command line&rdquo; or &ldquo;shell&rdquo;) is a text-based interface for your computer. Think of it as typing commands directly to your computer instead of clicking on icons. Using a computer through the terminal (or, pediantrically, <em>it&rsquo;s</em> terminal) typically gives you much greater control and choice over it&rsquo;s operation. In this case, open-egm4 was developed as a TUI (<em>terminal user interface</em>: an app that runs inside of the terminal) because it allows the app to be significantly smaller, more portable, and more lightweight to run on underpowered computers.</p>
+<p>For more information on my debatable decision to develop the app for the terminal, see the appendix.</p>
+<p><strong>System Requirements:</strong></p>
+<ul>
+<li>macOS 10.14+, Windows 10+, or any modern Linux</li>
+<li>Python 3.8+ (the installer handles this automatically)</li>
+<li>USB serial port or USB-to-serial adapter
+<ul>
+<li><em>Note</em> If you are buying a USB-serial adapter, make sure to get one that uses a FTDI chipset. Cheap adapters often use &ldquo;Prolific&rdquo; chips which have notoriously bad drivers. FTDI chips are easier and require zero thought to use.</li>
+</ul>
+</li>
+<li>Internet connection (for installation only)</li>
+</ul>
+<h3 id="one-line-installation--recommended">One-Line Installation (Recommended)<a hidden class="anchor" aria-hidden="true" href="#one-line-installation--recommended">#</a></h3>
+<p>This is the easiest method. A script handles everything: installing Python dependencies, downloading the software, and setting up shortcuts so you can run <code>open-egm4</code> from anywhere.</p>
+<h4 id="step-1-open-your-terminal">Step 1: Open Your Terminal<a hidden class="anchor" aria-hidden="true" href="#step-1-open-your-terminal">#</a></h4>
+<p><strong>macOS:</strong></p>
+<ol>
+<li>Press <code>Cmd + Space</code> to open Spotlight search.</li>
+<li>Type &ldquo;Terminal&rdquo;</li>
+<li>Press Enter</li>
+<li>A window with white or black background appears—this is your terminal.</li>
+</ol>
+<p><strong>Windows:</strong></p>
+<ol>
+<li>Click the Start Menu (Windows logo)</li>
+<li>Type &ldquo;cmd&rdquo; or &ldquo;PowerShell&rdquo;</li>
+<li>Press Enter</li>
+<li>A window appears with text—this is your command prompt (command prompt is exclusive to Windows; it is <em>a</em> terminal. It has also been around since the 80s: PowerShell is Microsoft&rsquo;s attempt at an updated terminal for Windows.)</li>
+</ol>
+<p><strong>Linux:</strong>
+You already know how to open a terminal.</p>
+<h4 id="step-2-copy-and-paste-the-installation-command">Step 2: Copy and Paste the Installation Command<a hidden class="anchor" aria-hidden="true" href="#step-2-copy-and-paste-the-installation-command">#</a></h4>
+<div class="alert alert-Caution">
+  <strong>With great power&hellip;</strong> Entering commands into a terminal gives you much more control over your computer than most users are used to. While this power is beneficial for knowledgeable users, it also makes it easy to make potentially irreversible mistakes.
+</div>
+<div class="alert alert-Warning">
+  <strong>&hellip;comes great responsibility.</strong> You should never copy and paste commands into your terminal from sources you do not trust. A malicious command could delete files, install malware, or send your data to an attacker. While <strong>I</strong> wrote this script, you are ultimately trusting <em>me</em> not to do something harmful. You can (and really should) view the install script source before running it.
+</div>
+<p>In your terminal window, copy and paste this line as written:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sSL https://raw.githubusercontent.com/mmorgans/open-egm4/main/install.sh | bash
+</span></span></code></pre></div><p><strong>How to Paste in Terminal:</strong></p>
+<ul>
+<li><strong>macOS</strong>: Press <code>Cmd + V</code> (normal paste works)</li>
+<li><strong>Windows (cmd)</strong>: Right-click in the window, select &ldquo;Paste&rdquo;</li>
+<li><strong>Windows (PowerShell)</strong>: Right-click to paste, OR <code>Ctrl + Shift + V</code></li>
+<li><strong>Linux</strong>: <code>Ctrl + Shift + V</code> (not <code>Ctrl + V</code>!)</li>
+</ul>
+<p>Press <code>Enter</code> to run the command.</p>
+<h4 id="step-3-what-you-ll-see-during-installation">Step 3: What You&rsquo;ll See During Installation<a hidden class="anchor" aria-hidden="true" href="#step-3-what-you-ll-see-during-installation">#</a></h4>
+<p>After pressing Enter, text will start scrolling down the screen. You&rsquo;ll see messages like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>[INFO] Checking prerequisites...
+</span></span><span style="display:flex;"><span>[INFO] Installing fresh to /Users/hello/.open-egm4...
+</span></span><span style="display:flex;"><span>[INFO] Creating virtual environment...
+</span></span><span style="display:flex;"><span>[INFO] Fetching latest version and installing dependencies...
+</span></span></code></pre></div><p>The installation takes 1-3 minutes depending on your internet speed. When you see &ldquo;Installation Complete&rdquo;, it&rsquo;s done.</p>
+<p><strong>Troubleshooting</strong>:</p>
+<ul>
+<li>On Linux, you might need to add your user to the <code>dialout</code> group to access the serial port. You can do this with the command <code>sudo usermod -a -G dialout $USER</code></li>
+<li>If you see &ldquo;curl: command not found&rdquo; on Windows, try using PowerShell instead of cmd</li>
+<li>If you see &ldquo;Python not found&rdquo;, the installer will attempt to install it automatically</li>
+<li>If installation fails, try the manual installation below. If it still doesn&rsquo;t work, <a href="mailto:egm4@mor-gan.com">shoot me an email</a> and I&rsquo;ll try to help.</li>
+</ul>
+<h3 id="pip-installation">Pip Installation<a hidden class="anchor" aria-hidden="true" href="#pip-installation">#</a></h3>
+<p>If you&rsquo;re comfortable with Python environments:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Install via pipx (recommended for isolation)</span>
+</span></span><span style="display:flex;"><span>pipx install git+https://github.com/mmorgans/open-egm4
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># OR install in your active virtual environment</span>
+</span></span><span style="display:flex;"><span>pip install git+https://github.com/mmorgans/open-egm4
+</span></span></code></pre></div><p>If you want to edit the code of open-egm4, there are more instructions on <a href="https://github.com/mmorgans/open-egm4">the repository page</a>.</p>
+<h3 id="initial-connection-to-the-egm-4">Initial Connection to the EGM-4<a hidden class="anchor" aria-hidden="true" href="#initial-connection-to-the-egm-4">#</a></h3>
+<p>Once software is installed, connect the EGM to a computer:</p>
+<ol>
+<li>
+<p><strong>Physical Connection:</strong></p>
+<ul>
+<li>Connect the serial cable to the EGM&rsquo;s RS232 port</li>
+<li>Connect the USB-to-serial adapter to your computer</li>
+<li>Power on the EGM with the switch on the back</li>
+</ul>
+</li>
+<li>
+<p><strong>Launch the Software:</strong></p>
+</li>
+</ol>
+<p>On your computer, in the terminal, run</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>   open-egm4
+</span></span></code></pre></div><ol>
+<li>
+<p><strong>Select Serial Port:</strong></p>
+<ul>
+<li>The software will list available serial ports (e.g., <code>/dev/tty.usbserial</code>, <code>COM3</code>)</li>
+<li>It will also attempt to guess at which one the EGM is connected to and automatically connect to it</li>
+<li>If it doesn&rsquo;t, select the port manually. If you don&rsquo;t see your port listed, check the cable connection and hit <code>r</code> on your keyboard to refresh the list of ports.</li>
+<li>On macOS, look for ports containing &ldquo;usbserial&rdquo; or &ldquo;FTDI&rdquo;</li>
+<li>On Windows, look for &ldquo;COM&rdquo; ports (COM3, COM4, etc.)</li>
+<li>Use arrow keys to select the port, and press Enter to confirm it</li>
+</ul>
+</li>
+<li>
+<p><strong>Verify Connection:</strong></p>
+<ul>
+<li>The EGM screams out data over the serial connection, but it&rsquo;s incapable of receiving any data back. Therefore, you&rsquo;ll have no way of knowing if you&rsquo;re actually connected to the EGM unless you dump some data to a computer.</li>
+<li>To send data from the EGM to a computer, press <code>4DMP</code> on the EGM, then <code>2 DATA DUMP</code>, then press any key to begin the transfer.</li>
+<li>If you see the data streaming in on your computer, celebrate. If you don&rsquo;t, then check out the troubleshooting section.</li>
+</ul>
+</li>
+<li>
+<p><strong>Press <code>q</code> to quit</strong> (or <code>Ctl + c</code>, which should quit most running terminal commands) when you&rsquo;re done exploring.</p>
+</li>
+</ol>
+<h2 id="egm-4-hardware">EGM-4 hardware<a hidden class="anchor" aria-hidden="true" href="#egm-4-hardware">#</a></h2>
+<h2 id="open-egm4-software">open-egm4 software<a hidden class="anchor" aria-hidden="true" href="#open-egm4-software">#</a></h2>
+<p>This section covers how to use the open-egm4 software, assuming you&rsquo;ve already installed it.</p>
+<p>Launch the software by running <code>open-egm4</code> in your terminal.</p>
+<h3 id="connection-screen">Connection screen<a hidden class="anchor" aria-hidden="true" href="#connection-screen">#</a></h3>
+<p>When you launch the software, you&rsquo;ll see the connection screen, with a list of ports.</p>
+<p>Open-egm4 will attempt to detect which port the EGM-4 is connected to and automatically connect to it after 5 seconds. Use the arrow keys to cancel this countdown and select a port manually.</p>
+<p>To select a port manually, use the arrow keys to navigate the list of ports and press <code>Enter</code> to confirm your selection. If you don&rsquo;t see your port listed, check the cable connection and hit <code>r</code> on your keyboard to refresh the list of ports. If you accidentally select the wrong port, hit <code>q</code> to quit and try again.</p>
+<ul>
+<li>On macOS, the EGM-4 will likely appear as a port containing &ldquo;usbserial&rdquo; or &ldquo;FTDI&rdquo;</li>
+<li>On Windows, the EGM-4 will likely appear as a &ldquo;COM&rdquo; port (COM3, COM4, etc.)</li>
+</ul>
+<p>Open-egm4 automatically saves data to its internal database. This allows you to restore from a previous session without having to re-dump data from the EGM. To do this, press <code>s</code> while on the connection screen. You&rsquo;ll see a list of saved sessions, and you can use the arrow keys to select one and press <code>Enter</code> to restore it. You do not need to have the EGM connected to the computer to restore a session. While the EGM is not connected, &ldquo;Offline&rdquo; will be displayed in the status panel.</p>
+<h3 id="main-interface">Main interface<a hidden class="anchor" aria-hidden="true" href="#main-interface">#</a></h3>
+<p>This is the main interface, where you&rsquo;ll spend most of your time. It consists of:</p>
+<p><strong>Left Panel - Graph:</strong> This panel displays incoming data from the EGM, whether it be from a live measurement or a data dump. The axes will automatically rescale to fit the data. The units will also change depending on how you are viewing the data, so be sure to check the legend to understand what you&rsquo;re looking at.</p>
+<p>Directly below the graph are the available channels and graph controls. The available channels will change depending on what probe was connected when the the data was recorded. Press the number key associated with each channel to view that channel in the graph.</p>
+<p>Above the graph, you&rsquo;ll see information about what the graph is currently displaying, including the currently selected channel, the units of the y-axis, and the plot number.</p>
+<p>Press the <code>&lt;</code> or <code>&gt;</code> keys to cycle through different plots. This is useful to view measurements from a specific location, and to filter out data you aren&rsquo;t interested in viewing.</p>
+<p>Press <code>i</code> to toggle inspect mode on the graph. In this mode, a yellow <code>x</code> appears on the graph, and you can use the left and right arrow keys to move the cursor along the x-axis. The y-values for the currently selected channel at the cursor&rsquo;s position are displayed above the graph. Press <code>i</code> again to exit inspect mode.</p>
+<p><strong>Right Panels - Status and Log:</strong> These panels display the current status of the EGM and the log of recent events. The status panel shows the current CO₂ concentration, along with derived statistics from that value. The log panel shows EGM system messages and app events.</p>
+<p><strong>Footer:</strong> The footer displays a list of all commands, along with their keyboard shortcuts.</p>
+<h4 id="keyboard-commands">Keyboard Commands<a hidden class="anchor" aria-hidden="true" href="#keyboard-commands">#</a></h4>
+<table>
+  <thead>
+      <tr>
+          <th>Key</th>
+          <th>Action</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>q</code></td>
+          <td>Quit</td>
+          <td>Saves and exits as quickly as possible</td>
+      </tr>
+      <tr>
+          <td><code>e</code></td>
+          <td>Export</td>
+          <td>Opens the export screen to save data as CSV</td>
+      </tr>
+      <tr>
+          <td><code>c</code></td>
+          <td>Clear</td>
+          <td>Clears all chart data (with confirmation)</td>
+      </tr>
+      <tr>
+          <td><code>p</code></td>
+          <td>Pause</td>
+          <td>Pauses/resumes the data stream</td>
+      </tr>
+      <tr>
+          <td><code>n</code></td>
+          <td>Note</td>
+          <td>Add a timestamped note to the log</td>
+      </tr>
+      <tr>
+          <td><code>b</code></td>
+          <td>Big Mode</td>
+          <td>Large CO₂ display for visibility outdoors</td>
+      </tr>
+      <tr>
+          <td><code>d</code></td>
+          <td>Theme</td>
+          <td>Toggle between dark and light themes</td>
+      </tr>
+      <tr>
+          <td><code>i</code></td>
+          <td>Inspect</td>
+          <td>Toggleable mode to examine individual points</td>
+      </tr>
+      <tr>
+          <td><code>?</code></td>
+          <td>Help</td>
+          <td>Information about the app</td>
+      </tr>
+      <tr>
+          <td><code>1</code> - <code>9</code></td>
+          <td>Switch between data channels</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>,</code> / <code>.</code></td>
+          <td>Cycle between different plots</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>&lt;</code> / <code>&gt;</code></td>
+          <td>Same as above: plot selection</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>←</code> / <code>→</code></td>
+          <td>Move cursor (when in Inspect mode)</td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="exporting-data">Exporting data<a hidden class="anchor" aria-hidden="true" href="#exporting-data">#</a></h4>
+<p>Press <code>e</code> to open the export screen. This allows you to filter and export your data.</p>
+<p>At the top of the export screen, you&rsquo;ll see the number of data currently selected to export. Initially, this will be all of the data currently in the app.</p>
+<p><strong>Filtering data</strong>
+To export only a subset of that data, use the <code>p</code> and <code>d</code> keys to select only certain plots and dates, respectively.</p>
+<p>To select specific plots to export, press <code>p</code> to open the plot selection screen. Use the arrow keys to navigate the list of plots and press <code>Space</code> to select or deselect a plot. Press <code>p</code> again to confirm and return to the export screen.</p>
+<p>To select specific dates to export, press <code>d</code> to open the date selection screen. Use the arrow keys to navigate the list of dates and press <code>Space</code> to select or deselect a date. Press <code>d</code> again to confirm and return to the export screen.</p>
+<p>You should see the number of data points to export update as you make your selections. Once you&rsquo;ve selected the data you want to export, press <code>e</code> to export the data.</p>
+<p><strong>Output</strong>
+.csv files are attempted to be saved to your Downloads directory. If this fails, the file will be saved in the same directory as open-egm4 was run in (likely your home directory).</p>
+<h4 id="pausing--p">Pausing (<code>p</code>)<a hidden class="anchor" aria-hidden="true" href="#pausing--p">#</a></h4>
+<p>Press <code>p</code> to pause the data stream. While paused, the chart will stop updating with data, but you can still interact with the app. This is useful if you need to examine the chart without it updating with new data. Press <code>p</code> again to resume the data stream.</p>
+<h4 id="adding-notes--n">Adding notes (<code>n</code>)<a hidden class="anchor" aria-hidden="true" href="#adding-notes--n">#</a></h4>
+<p>Press <code>n</code> to add a timestamped note to the log. This will open a prompt where you can type a note. Press <code>Enter</code> to save the note, or <code>Esc</code> to cancel.</p>
+<h4 id="clearing-data--c">Clearing data (<code>c</code>)<a hidden class="anchor" aria-hidden="true" href="#clearing-data--c">#</a></h4>
+<p>Press <code>c</code> to clear all data from the current session. You will be asked to confirm before the data is cleared.</p>
+<h3 id="quitting--q">Quitting (<code>q</code>)<a hidden class="anchor" aria-hidden="true" href="#quitting--q">#</a></h3>
+<p>Press <code>q</code> to quit the app. All data from your session is automatically saved, and you can restore it the next time you open the app by pressing <code>s</code> while on the connection screen.</p>
+<h3 id="physical-interface-and-controls">Physical Interface &amp; Controls<a hidden class="anchor" aria-hidden="true" href="#physical-interface-and-controls">#</a></h3>
+<p>The EGM-4 is a portable, battery-powered CO₂ analyzer. Key components:</p>
+<p><strong>Front Panel:</strong></p>
+<ul>
+<li><strong>LCD Display</strong>: 2×16 character backlit display</li>
+<li>1-9 keypad, along with <code>Y/R</code> key (used for accepting and recording) and <code>N</code> key (used for denying and going back)</li>
+<li><code>8/X</code> allows you to toggle between display screens while taking a measurement</li>
+<li><code>0/Z</code> allows you to manually zero the EGM-4 during a measurement</li>
+</ul>
+<p><strong>Top:</strong></p>
+<ul>
+<li><strong>Gas In Port</strong>: Connect sample inlet tubing (1/8&quot; ID)</li>
+<li><strong>Gas Out Port</strong>: Exhaust port (1/8&quot; ID) AND static sample injection port</li>
+<li><strong>I/O Connectors</strong>: Two 15-pin D-sub connectors for sensors (notably the SRC-1)</li>
+<li><strong>RS232 Port</strong>: 9-pin connector for data transfer to a computer</li>
+</ul>
+<p><strong>Back:</strong></p>
+<ul>
+<li><strong>Power Switch</strong>: Self explanatory</li>
+<li><strong>12V DC Charge Socket</strong>: For charging the internal battery <em>and</em> running the EGM off of mains power</li>
+<li><strong>Fuse</strong>: 1A fuse</li>
+<li><strong>Soda Lime Cap</strong>: Access to the CO₂ scrubbing column for replacing it.</li>
+</ul>
+<h3 id="power-and-battery">Power &amp; Battery<a hidden class="anchor" aria-hidden="true" href="#power-and-battery">#</a></h3>
+<p>The EGM-4 uses a 12V 2.0Ah sealed lead-acid battery. It should last around 4 hours of use at 20ºC. If the temperature is below 5ºC, the battery life drops 30-40%.</p>
+<div class="alert alert-Note">
+  At low temperatures, you should hold the EGM inside your jacket, maintaining skin-to-skin contact. This will increase the battery life by a few minutes, and will psychologically bond you with the device.
+</div>
+<p><strong>Charging:</strong> The manual proports that the battery takes 12 hours to charge fully. <em>I</em> think that&rsquo;s a made up number, and in my testing it&rsquo;s ready for action after around 2 hours. Your mileage may vary.</p>
+<p>If you are planning on storing the EGM long term, charge the battery beforehand to avoid damaging it.</p>
+<p><strong>Replacement:</strong> To replace the battery, <a href="#troubleshooting-and-maintenance">Troubleshooting &amp; Maintenance</a>.</p>
+<h3 id="src-1-soil-respiration-chamber">SRC-1 Soil Respiration Chamber<a hidden class="anchor" aria-hidden="true" href="#src-1-soil-respiration-chamber">#</a></h3>
+<p>The SRC-1 is a soil respiration chamber that allows you to measure the rate of soil respiration by monitoring the rate of increase of CO₂concentration within a closed system: the chamber itself. See the <a href="#workflow-1-soil-respiration-with-src-1-chamber">SRC-1 Workflow section.</a></p>
+<h2 id="workflows">Workflows<a hidden class="anchor" aria-hidden="true" href="#workflows">#</a></h2>
+<h3 id="workflow-1-soil-respiration-with-src-1-chamber">Workflow 1: Soil Respiration with SRC-1 Chamber<a hidden class="anchor" aria-hidden="true" href="#workflow-1-soil-respiration-with-src-1-chamber">#</a></h3>
+<p>This is the most common application: measuring CO₂ flux from soil using the SRC-1 closed-chamber method.</p>
+<p><strong>Equipment Needed:</strong></p>
+<ul>
+<li>EGM-4 with fully charged battery</li>
+<li>SRC-1 soil respiration chamber</li>
+<li>Soil collars (pre-installed in field 24-48 hrs before measurements)</li>
+<li>Optional: Laptop running open-egm4 for monitoring</li>
+</ul>
+<p><strong>Soil Collars</strong>: Install the soil collars in the soil days* before you plan to measure. A well-placed collar should be 3-5cm** into the ground. Remove any above ground vegetation inside the collar after placing it.</p>
+<div class="alert alert-Note">
+  The above instructions depend almost <em>entirely</em> on your situation. You might consider installing the soil collar weeks or months ahead of time. The depth of the collar needed to ensure a good measurement will depend on the soil type and the goals of your experiment.
+</div>
+<p><strong>Field Procedure:</strong></p>
+<ol>
+<li>
+<p><strong>Connect SRC-1 to EGM-4:</strong></p>
+<ul>
+<li>Connect the I/O cable of the SRC-1 to the EGM-4</li>
+<li>Connect the gas tube labeled &ldquo;R&rdquo; to the gas in port of the EGM-4</li>
+<li>Connect the unlabeled gas tube to the gas out port of the EGM-4</li>
+</ul>
+</li>
+<li>
+<p><strong>Startup &amp; Warmup (10-15 minutes):</strong></p>
+<ul>
+<li>Power on EGM-4</li>
+<li>Wait for warm-up message to complete: the EGM must reach an internal temperature of 55°C to be able to take readings</li>
+</ul>
+</li>
+<li>
+<p><strong>Enter Measurement Mode:</strong></p>
+<ul>
+<li>Press <code>1</code> (REC) from main menu</li>
+<li>EGM-4 displays measurement settings</li>
+<li>Default: DT=120 seconds (measurement duration), DC=50 ppm (max CO₂ change)</li>
+<li><strong>To change settings</strong>: Press <code>N</code> to go back</li>
+<li>Press <code>Y</code> to confirm settings</li>
+</ul>
+</li>
+<li>
+<p><strong>Set Plot Number (if needed):</strong></p>
+<ul>
+<li>Display shows &ldquo;PLOT NO = X&rdquo;</li>
+<li>Press <code>Y</code> to keep current plot number</li>
+<li>Or enter new number (e.g., &ldquo;01&rdquo; for plot 1) and press <code>Y</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Chamber Flush:</strong></p>
+<ul>
+<li>Display shows &ldquo;CHAMBER FLUSHING - HOLD IN AIR&rdquo;</li>
+<li>Hold chamber in air for ~15 seconds at arms length</li>
+</ul>
+</li>
+<li>
+<p><strong>Deployment:</strong></p>
+<ul>
+<li>Display shows &ldquo;PLACE ON SOIL - PRESS Y TO START&rdquo;</li>
+<li>Place chamber on soil collar, using blue tac to ensure a good seal</li>
+<li>Press <code>Y</code> to start measurement</li>
+</ul>
+</li>
+<li>
+<p><strong>Equilibration:</strong></p>
+<ul>
+<li>Display shows &ldquo;EQUILIBRATION - PLEASE WAIT&rdquo;</li>
+<li>System equilibrates for ~5 seconds</li>
+<li>Then measurement begins automatically</li>
+</ul>
+</li>
+<li>
+<p><strong>Measurement:</strong></p>
+<ul>
+<li>Display shows:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>          C 395 H14.7 T22
+</span></span><span style="display:flex;"><span>          A02.11 Q0000 110
+</span></span></code></pre></div></li>
+<li><code>C</code>: Current CO₂ (ppm)</li>
+<li><code>H</code>: Humidity (mb, if sensor connected)</li>
+<li><code>T</code>: Soil temperature (°C, if sensor connected)</li>
+<li><code>A</code>: Calculated flux rate (g CO₂ m⁻² hr⁻¹)</li>
+<li><code>Q</code>: PAR light level (if sensor connected)</li>
+<li><code>110</code>: Elapsed time (seconds) — shows &ldquo;END&rdquo; when complete</li>
+<li>After a measurement, you will be prompted to save the measurement with &ldquo;RECORD Y/N&rdquo;</li>
+<li>Press <code>Y</code> to save the measurement</li>
+<li>Press <code>N</code> to discard and retry</li>
+</ul>
+</li>
+<li>
+<p><strong>Remove Chamber &amp; Continue:</strong></p>
+<ul>
+<li>Display shows &ldquo;REMOVE FROM SOIL THEN PRESS Y KEY&rdquo;</li>
+<li>Lift chamber from soil collar</li>
+<li>Press <code>Y</code> to prepare for next measurement</li>
+</ul>
+</li>
+</ol>
+<div class="alert alert-Caution">
+  The plot number will <strong>not</strong> auto-increment. You must manually enter the plot number for each measurement, and the EGM will happily overwrite the previous measurement if you don&rsquo;t change the plot number between measurements.
+</div>
+<ol>
+<li><strong>Data Storage:</strong></li>
+</ol>
+<p>If you had a laptop connected to the EGM while you were taking measurements, then you were able to view the incoming data in real-time and export it at will. If not, the data is stored in the EGM&rsquo;s internal memory. The EGM stores up to 999 records, and will start overwriting old records if full. See for instructions on how to export data from the EGM.</p>
+<h3 id="workflow-2-static-sampling-via-syringe-injection">Workflow 2: Static Sampling via Syringe Injection<a hidden class="anchor" aria-hidden="true" href="#workflow-2-static-sampling-via-syringe-injection">#</a></h3>
+<p>Static sampling is used when you want to measure CO₂ concentration of a discrete air sample without continuous flow. Common applications: measuring gas concentrations from sealed containers, soil headspace, or captured gas samples.</p>
+<p>Instead of pumping air continuously through the EGM-4, you inject a small volume of sample directly into the measurement cell using a syringe. The internal pump is turned off to avoid diluting your sample.</p>
+<p><strong>Equipment Needed:</strong></p>
+<ul>
+<li>EGM-4 with battery</li>
+<li>Luer-lock syringe (5-10 ml)</li>
+<li>Sample collection container (if collecting from field)</li>
+<li>Septum or sampling port (if sampling from closed system)</li>
+</ul>
+<p><strong>Setup Procedure:</strong></p>
+<ol>
+<li>
+<p><strong>Enable Static Sampling Mode:</strong></p>
+<ul>
+<li>From Main Menu, press <code>2</code> (SET)</li>
+<li>Press <code>3</code> (PMP) to access pump control</li>
+<li>Current display shows &ldquo;SAMPLE PUMP ON / Y/OK N/CHANGE&rdquo;</li>
+<li>Press <code>N</code> to change</li>
+<li>Display now shows &ldquo;STATIC SAMPLING / Y/OK N/CHANGE&rdquo;</li>
+<li>Press <code>Y</code> to confirm</li>
+</ul>
+</li>
+<li>
+<p><strong>Prepare for Injection:</strong></p>
+<ul>
+<li>Press <code>1</code> (REC) to enter measurement mode</li>
+<li>EGM-4 now displays CO₂ concentration</li>
+<li>Display will show the current CO₂ concentration</li>
+</ul>
+</li>
+</ol>
+<p><strong>Sampling Procedure:</strong></p>
+<ol>
+<li>
+<p><strong>Collect Sample:</strong></p>
+<ul>
+<li>Draw sample into syringe, at least 5 ml is required for a stable reading.</li>
+</ul>
+</li>
+<li>
+<p><strong>Inject Sample:</strong></p>
+<ul>
+<li>Locate the Gas Out port on top of EGM-4</li>
+<li>Inject sample into the Gas Out port</li>
+<li>Watch CO₂ reading on display</li>
+</ul>
+</li>
+<li>
+<p><strong>Read Stabilized Value:</strong></p>
+<ul>
+<li>The CO₂ reading will change as your sample fills the cell</li>
+<li>Wait 10-20 seconds for reading to stabilize</li>
+<li>Reading is stable when it changes less than 1-2 ppm over 30 seconds</li>
+<li>Press <code>Y</code> to record measurement</li>
+</ul>
+</li>
+<li>
+<p><strong>Flush Between Samples:</strong></p>
+<ul>
+<li>Inject ambient air several times to flush</li>
+<li>Or wait for auto-zero cycle (warnings appear at 2 min and 1 min before zero)</li>
+<li>During zero, pump turns on automatically to flush cell, then turns off</li>
+</ul>
+</li>
+</ol>
+<p><strong>Auto-Zero Warnings in Static Mode:</strong>
+The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll see warnings:</p>
+<ul>
+<li>&ldquo;AUTO ZERO IN 2 MINUTES&rdquo;</li>
+<li>&ldquo;AUTO ZERO IN 1 MINUTE&rdquo;</li>
+</ul>
+<p>When zero begins, the pump turns on for ~15 seconds, then turns off again. This ensures an accurate baseline.</p>
+<div class="alert alert-Caution">
+  Don&rsquo;t forget to re-enable the pump when finished.
+</div>
+<h3 id="workflow-3-dumping-stored-data-from-egm-4-memory">Workflow 3: Dumping Stored Data from EGM-4 Memory<a hidden class="anchor" aria-hidden="true" href="#workflow-3-dumping-stored-data-from-egm-4-memory">#</a></h3>
+<p>To transfer stored records from the EGM-4 to your computer, do the following:</p>
+<ol>
+<li>Connect the EGM-4 to your computer using a serial cable and USB adapter</li>
+<li>Power on the EGM-4 and open the open-egm4 app on your computer by typing <code>open-egm4</code> in the terminal</li>
+<li>Press <code>4DMP</code> from the Main Menu on the EGM-4, then Press <code>2 DATA DUMP</code></li>
+<li>Once the open-egm4 app is ready, press any key on the EGM-4 to start the transfer</li>
+<li>View your data on the graph, and use the <code>&lt;</code> and <code>&gt;</code> keys to view a specific plot</li>
+<li>Press <code>e</code> to open the export menu. Use the <code>p</code> and <code>d</code> keys to select the plot(s) and/or date(s) you want to export, then press <code>e</code> to export</li>
+<li>The .csv will be saved to your Downloads directory</li>
+</ol>
+<p><strong>Data Record Structure:</strong></p>
+<p>Each record contains (in CSV format):</p>
+<ul>
+<li>M/R flag (M=real-time, R=stored record)</li>
+<li>Plot number (0-9999)</li>
+<li>Record number (1-9999)</li>
+<li>Date (day, month)</li>
+<li>Time (hour, minute)</li>
+<li>CO₂ (ppm)</li>
+<li>H₂O vapor (mb, if sensor present)</li>
+<li>RH/Temp sensor data</li>
+<li>Sensor inputs A-E (mV values)</li>
+<li>Atmospheric pressure (mb)</li>
+<li>Probe type (0-11)</li>
+</ul>
+<h2 id="troubleshooting-and-maintenance">Troubleshooting &amp; Maintenance<a hidden class="anchor" aria-hidden="true" href="#troubleshooting-and-maintenance">#</a></h2>
+<div class="alert alert-Warning">
+  Only open the unit if you feel comfortable with electronics. Static discharge can damage sensitive components. Ground yourself before poking around.
+</div>
+<h3 id="replacing-the-soda-lime-co-scrubber">Replacing the Soda Lime CO₂ Scrubber<a hidden class="anchor" aria-hidden="true" href="#replacing-the-soda-lime-co-scrubber">#</a></h3>
+<p>The EGM needs to know what zero CO₂ looks like to make accurate measurements, and uses the soda lime to figure that out. Gradually, the granules in the soda lime column become saturated with CO₂ and can no longer absorb it, becoming pale in color as they do so. Replace when around 2/3 of the column have changed color.</p>
+<p>To do this, unscrew the black cap on the back panel, pour out the old granules, and fill the column with fresh soda lime, leaving about an inch of space at the top. Replace the foam filter and cap.</p>
+<div class="alert alert-Warning">
+  Wash your hands after handling soda lime. It&rsquo;s caustic.
+</div>
+<h3 id="replacing-the-internal-battery">Replacing the Internal Battery<a hidden class="anchor" aria-hidden="true" href="#replacing-the-internal-battery">#</a></h3>
+<p>The internal battery will need to be replaced after a few years of use. To do this, unscrew the</p>
+<p>flip the egm on its back</p>
+<p>4 screws</p>
+<p>flip the egm back over, carefully so it doesn&rsquo;t fall out of the case</p>
+<p>remove the outer cover</p>
+<p>remove the two screws on the back cover, and, leaning the back cover away from the EGM, carefully remove it.</p>
+<p>fix this section</p>
+<h3 id="replacing-internal-tubing">Replacing internal tubing<a hidden class="anchor" aria-hidden="true" href="#replacing-internal-tubing">#</a></h3>
+<p>Over time, the internal gas tubing will become aged and leak air. You&rsquo;ll need to replace it with 1/8&quot; tubing, being careful not to create kinks or bends in the tubing. If you need 90 degree bends, some are availabe at McMaster-Carr (item number 5463K42).</p>
+<h3 id="egm-4-error-codes">EGM-4 error codes<a hidden class="anchor" aria-hidden="true" href="#egm-4-error-codes">#</a></h3>
+<p>The EGM-4 displays numbered error codes when problems occur:</p>
+<p><strong>Error 01: Zero Too Low</strong></p>
+<ul>
+<li><strong>Cause</strong>: Soda lime exhausted, absorber column not seated, or valve failure</li>
+<li><strong>Solution</strong>:
+<ol>
+<li>Replace the soda lime.</li>
+<li>Ensure the soda lime cap is tight.</li>
+</ol>
+</li>
+</ul>
+<p><strong>Error 02: CO₂ &lt; 250 ppm</strong></p>
+<ul>
+<li><strong>Cause</strong>: Either genuine low CO₂ or same as Error 01</li>
+<li><strong>Solution</strong>: If you&rsquo;re measuring ambient air (~400 ppm), this indicates same problems as Error 01</li>
+</ul>
+<p><strong>Error 03: Analyzer Temperature &lt; 50°C</strong></p>
+<ul>
+<li><strong>Cause</strong>: Instrument too cold or thermostat failure</li>
+<li><strong>Solution</strong>:
+<ol>
+<li>Allow longer warm-up time, or move somewhere warmer.</li>
+</ol>
+</li>
+</ul>
+<p><strong>Error 04: Analyzer Temperature &gt; 60°C</strong></p>
+<ul>
+<li><strong>Cause</strong>: Instrument overheating or thermostat failure</li>
+<li><strong>Solution</strong>:
+<ol>
+<li>Turn off, allow to cool.</li>
+<li>Check for ventilation blockage.</li>
+</ol>
+</li>
+</ul>
+<p><strong>Error 05: RH &gt; 90%</strong></p>
+<ul>
+<li><strong>Cause</strong>: High humidity or water in sample line</li>
+<li><strong>Solution</strong>: In humid conditions, this may be normal.</li>
+</ul>
+<p><strong>Error 06: Battery Voltage Low</strong></p>
+<ul>
+<li><strong>Cause</strong>: Battery voltage &lt; 10.5V</li>
+<li><strong>Solution</strong>: Recharge the battery. If problem persists, replace the battery.</li>
+</ul>
+<h3 id="software-connection-issues">Software Connection Issues<a hidden class="anchor" aria-hidden="true" href="#software-connection-issues">#</a></h3>
+<ul>
+<li><strong>&ldquo;command not found&rdquo;</strong>: Installation didn&rsquo;t complete. Try re-installing.</li>
+<li><strong>&ldquo;No module named &lsquo;serial&rsquo;&rdquo;</strong>: Missing dependency—reinstall with <code>pip install pyserial</code></li>
+</ul>
+<p><strong>Can&rsquo;t connect to EGM-4:</strong></p>
+<ul>
+<li>Check the cables and make sure they&rsquo;re securely connected</li>
+<li>Check EGM-4 is powered on</li>
+<li>Verify you selected the correct serial port</li>
+<li>Try a different serial port if multiple are available</li>
+<li>On Linux: check permissions (<code>ls -l /dev/ttyUSB0</code> should show you have read access)</li>
+</ul>
+<h2 id="technical-appendix">Technical Appendix<a hidden class="anchor" aria-hidden="true" href="#technical-appendix">#</a></h2>
+<h3 id="a-serial-protocol-specification">A: Serial Protocol Specification<a hidden class="anchor" aria-hidden="true" href="#a-serial-protocol-specification">#</a></h3>
+<p><strong>Connection Parameters:</strong></p>
+<ul>
+<li>Baud: 9600</li>
+<li>Data bits: 8</li>
+<li>Parity: None</li>
+<li>Stop bits: 1</li>
+<li>Flow control: None</li>
+</ul>
+<p><strong>Data Format:</strong></p>
+<ul>
+<li>ASCII text, comma-separated values (CSV)</li>
+<li>Line terminator: <code>\r\n</code> (carriage return + line feed)</li>
+<li>Continuous stream in REC mode (1 record per second)</li>
+<li>Full dump in DUMP mode</li>
+</ul>
+<p><strong>Record Structure (comma seperated for readability):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>M,1,5,27,1,13,19,968,0,000.0,0000,0000,0000,0000,0000,0000,00,00,991,0
+</span></span></code></pre></div><p>Fields (in order):</p>
+<ol>
+<li>Mode: <code>M</code> (real-time measurement) or <code>R</code> (stored record)</li>
+<li>Plot number (0-99)</li>
+<li>Record number (1-9999)</li>
+<li>Day (1-31)</li>
+<li>Month (1-12)</li>
+<li>Hour (0-23, 24-hour format)</li>
+<li>Minute (0-59)</li>
+<li>CO₂ Reference (ppm)</li>
+<li>H₂O Reference (mb, or 0 if no sensor)</li>
+<li>RH/Temp sensor temperature (°C × 10, &ldquo;000.0&rdquo; format)</li>
+</ol>
+<p>11-15. Sensor inputs A-E (mV, &ldquo;0000&rdquo; format)
+16-17. Reserved (00)</p>
+<ol>
+<li>Atmospheric pressure (mb)</li>
+<li>Probe type (0-11)</li>
+</ol>
+<p><strong>Probe-Type-Specific Fields (11-17):</strong></p>
+<p>For Probe Type 8 (SRC-1 Soil Respiration):</p>
+<ul>
+<li>Field 11 (A): PAR (µmol m⁻² s⁻¹)</li>
+<li>Field 12 (B): %RH (× 10, &ldquo;000.0&rdquo; format)</li>
+<li>Field 13 (C): Temperature (°C × 10)</li>
+<li>Field 14 (D): ΔC (change in CO₂, ppm)</li>
+<li>Field 15 (E): ΔT (change in time, seconds)</li>
+<li>Field 16 (F): Flux rate (g CO₂ m⁻² hr⁻¹ × 100, &ldquo;00.00&rdquo; format)</li>
+<li>Field 17 (G): Flux sign (00=positive/respiration, 01=negative/uptake)</li>
+</ul>
+<p>For other probe types, see EGM-4 manual page 35.</p>
+<p><strong>Example Parser (Python):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> re
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_egm4_record</span>(line):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Parse EGM-4 serial output line.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    parts <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;,&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    record <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;mode&#39;</span>: parts[<span style="color:#ae81ff">0</span>],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;plot&#39;</span>: int(parts[<span style="color:#ae81ff">1</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;record_num&#39;</span>: int(parts[<span style="color:#ae81ff">2</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;day&#39;</span>: int(parts[<span style="color:#ae81ff">3</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;month&#39;</span>: int(parts[<span style="color:#ae81ff">4</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;hour&#39;</span>: int(parts[<span style="color:#ae81ff">5</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;minute&#39;</span>: int(parts[<span style="color:#ae81ff">6</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;co2_ppm&#39;</span>: int(parts[<span style="color:#ae81ff">7</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;h2o_mb&#39;</span>: int(parts[<span style="color:#ae81ff">8</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;rh_temp_c&#39;</span>: float(parts[<span style="color:#ae81ff">9</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_a_mv&#39;</span>: int(parts[<span style="color:#ae81ff">10</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_b_mv&#39;</span>: int(parts[<span style="color:#ae81ff">11</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_c_mv&#39;</span>: int(parts[<span style="color:#ae81ff">12</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_d_mv&#39;</span>: int(parts[<span style="color:#ae81ff">13</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_e_mv&#39;</span>: int(parts[<span style="color:#ae81ff">14</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;pressure_mb&#39;</span>: int(parts[<span style="color:#ae81ff">18</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;probe_type&#39;</span>: int(parts[<span style="color:#ae81ff">19</span>])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> record
+</span></span></code></pre></div><p><strong>Special Messages:</strong></p>
+<p>During startup/operation, EGM-4 sends status messages:</p>
+<ul>
+<li><code>B,EGM4,&lt;serial&gt;,&lt;firmware&gt;</code>: Boot message with serial number and firmware version</li>
+<li><code>I,NN</code>: Initialization countdown (NN = counter)</li>
+<li><code>W,TT</code>: Warmup message (TT = cell temperature)</li>
+<li><code>Z,NN</code>: Zeroing countdown (NN = counter)</li>
+<li><code>D,&lt;diagnostic_data&gt;</code>: Diagnostic data (see manual p.38)</li>
+</ul>
+<h3 id="b-flux-calculation-methods">B: Flux Calculation Methods<a hidden class="anchor" aria-hidden="true" href="#b-flux-calculation-methods">#</a></h3>
+<p>The EGM-4 calculates soil respiration flux automatically, but understanding the math helps interpret results and troubleshoot problems.</p>
+<p><strong>Closed-System Chamber Method (SRC-1):</strong></p>
+<p>Flux is calculated from the rate of CO₂ increase inside the sealed chamber:</p>
+<p><strong>Basic equation:</strong>
+\[F = \frac{dC}{dt} \times \frac{V}{A} \times \frac{P}{R \times T}\]</p>
+<p>Where:</p>
+<ul>
+<li>\(F\) = CO₂ flux (µmol m⁻² s⁻¹)</li>
+<li>\(\frac{dC}{dt}\) = rate of CO₂ concentration change (ppm s⁻¹)</li>
+<li>\(V\) = system volume (chamber + tubing, ml)</li>
+<li>\(A\) = soil area covered (cm²)</li>
+<li>\(P\) = atmospheric pressure (Pa)</li>
+<li>\(R\) = gas constant (8.314 J mol⁻¹ K⁻¹)</li>
+<li>\(T\) = air temperature (K)</li>
+</ul>
+<p><strong>Units conversion to g CO₂ m⁻² hr⁻¹:</strong>
+The EGM-4 reports flux in g CO₂ m⁻² hr⁻¹. To convert:
+\[F_{g/m²/hr} = F_{µmol/m²/s} \times 44.01 \times 10^{-6} \times 3600\]</p>
+<p>Where 44.01 is the molecular weight of CO₂ (g/mol).</p>
+<p><strong>Linear vs. Quadratic Fitting:</strong></p>
+<p>The EGM-4 offers two methods for calculating \(\frac{dC}{dt}\):</p>
+<ol>
+<li>
+<p><strong>Linear fit</strong>: Assumes constant flux rate</p>
+<ul>
+<li>Fits line: \(C(t) = C_0 + kt\)</li>
+<li>Slope \(k\) = \(\frac{dC}{dt}\)</li>
+<li>Works well for short measurements (&lt;2 min)</li>
+</ul>
+</li>
+<li>
+<p><strong>Quadratic fit</strong>: Accounts for chamber leakage and feedback effects</p>
+<ul>
+<li>Fits curve: \(C(t) = C_0 + kt + ct^2\)</li>
+<li>Initial slope \(k\) = \(\frac{dC}{dt}\)</li>
+<li>Corrects for non-linearity</li>
+<li>Recommended for longer measurements (&gt;2 min)</li>
+</ul>
+</li>
+</ol>
+<p>The EGM-4 automatically uses quadratic if coefficient \(c &gt; 0.1k\), otherwise defaults to linear.</p>
+<p><strong>Chamber-Specific Corrections:</strong></p>
+<p><strong>SRC-1 Default Values:</strong></p>
+<ul>
+<li>Volume: 1171 ml (chamber) + tubing volume</li>
+<li>Area: 78.5 cm² (10 cm diameter)</li>
+<li>Typical tubing adds ~50-100 ml</li>
+</ul>
+<p><strong>Volume calculation for custom setups:</strong>
+\[V_{total} = V_{chamber} + V_{tubing}\]</p>
+<p>Where:
+\[V_{tubing} = \pi r^2 L\]</p>
+<ul>
+<li>\(r\) = internal tubing radius (cm)</li>
+<li>\(L\) = total tubing length (cm)</li>
+</ul>
+<p><strong>Temperature correction:</strong>
+The EGM-4 uses air temperature (from RH/Temp sensor or approximate value set by user). For more accuracy, use actual temperature measured inside chamber.</p>
+<p><strong>Pressure correction:</strong>
+The EGM-4 measures atmospheric pressure internally. At high elevations:</p>
+<ul>
+<li>Sea level: ~1013 mb</li>
+<li>1000m elevation: ~900 mb</li>
+<li>2000m elevation: ~800 mb</li>
+</ul>
+<p>Pressure affects the number of CO₂ molecules per volume, so measurement is automatically corrected.</p>
+<p><strong>Worked Example:</strong></p>
+<p>Measured data:</p>
+<ul>
+<li>Initial CO₂: 400 ppm</li>
+<li>Final CO₂: 450 ppm</li>
+<li>Time elapsed: 90 seconds</li>
+<li>Chamber volume: 1171 ml</li>
+<li>Chamber area: 78.5 cm²</li>
+<li>Temperature: 20°C = 293K</li>
+<li>Pressure: 101,300 Pa</li>
+</ul>
+<p>Calculate flux:
+\[\frac{dC}{dt} = \frac{450 - 400}{90} = 0.556 \text{ ppm/s}\]</p>
+<p>\[F = 0.556 \times \frac{1171}{78.5} \times \frac{101300}{8.314 \times 293}\]</p>
+<p>\[F = 0.556 \times 14.91 \times 41.6 = 345 \text{ µmol m⁻² s⁻¹}\]</p>
+<p>\[F = 345 \times 44.01 \times 10^{-6} \times 3600 = 5.47 \text{ g CO₂ m⁻² hr⁻¹}\]</p>
+<p><strong>Sources of Error:</strong></p>
+<ul>
+<li>Chamber leaks (usually causes underestimation)</li>
+<li>Temperature gradients (chamber warms in sun)</li>
+<li>Pressure fluctuations (wind, weather changes)</li>
+<li>Non-representative soil area (stones, cracks in collar seal)</li>
+</ul>
+<p><strong>For full derivation, see:</strong></p>
+<ul>
+<li>EGM-4 Operator&rsquo;s Manual, page 22-26</li>
+<li>SRC-1 Chamber Manual, pages 15-20</li>
+</ul>
+<h3 id="c-probe-types-reference--0-11">C: Probe Types Reference (0-11)<a hidden class="anchor" aria-hidden="true" href="#c-probe-types-reference--0-11">#</a></h3>
+<p>The EGM-4 recognizes different sensor types via code resistors in the 15-pin connector.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Type</th>
+          <th>Sensor/Probe</th>
+          <th>Code Resistor</th>
+          <th>Typical Use</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0</td>
+          <td>No sensor</td>
+          <td>None</td>
+          <td>Stand-alone CO₂ analyzer</td>
+      </tr>
+      <tr>
+          <td>1</td>
+          <td>STP-1 Soil Temperature</td>
+          <td>100 kΩ</td>
+          <td>Soil temperature logging</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>HTR-2 RH/Temp/PAR</td>
+          <td>56 kΩ</td>
+          <td>Environmental monitoring</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>HTR-1 RH/Temp/PAR</td>
+          <td>36 kΩ</td>
+          <td>Environmental monitoring (legacy)</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>PAR-1 Light Sensor</td>
+          <td>27 kΩ</td>
+          <td>PAR (photosynthetically active radiation)</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>PAR-1 LUX</td>
+          <td>20 kΩ</td>
+          <td>Light intensity in lux</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>SRM-1</td>
+          <td>15 kΩ</td>
+          <td>Solarimeter</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>PMR-4 Porometer</td>
+          <td>User-set</td>
+          <td>Leaf stomatal conductance</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>SRC-1 Soil Respiration</td>
+          <td>9.1 kΩ</td>
+          <td>Closed-system soil CO₂ flux</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>RH/T/O₂</td>
+          <td>20 kΩ</td>
+          <td>Humidity, temp, oxygen</td>
+      </tr>
+      <tr>
+          <td>10</td>
+          <td>50Y RH/Temperature</td>
+          <td>5.6 kΩ</td>
+          <td>Humidity and temperature only</td>
+      </tr>
+      <tr>
+          <td>11</td>
+          <td>CFX-1 / CPY-3</td>
+          <td>4.3 kΩ</td>
+          <td>Open-system flux chambers</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Sensor Conversions (from mV to real units):</strong></p>
+<p>When using Type 2/3/10 sensors:</p>
+<ul>
+<li>PAR: \(\text{PAR (µmol m⁻² s⁻¹)} = \text{mV} \times 3\)</li>
+<li>%RH: \(\text{RH (\%)} = \text{mV} / 10\)</li>
+<li>Temperature: \(\text{Temp (°C)} = \text{mV} / 20\)</li>
+</ul>
+<p><strong>Auto-Detection:</strong>
+When you connect a PP Systems sensor and power on the EGM-4, it reads the code resistor on Pin 1 of the connector and automatically sets the probe type. You&rsquo;ll see &ldquo;PROBETYPE X&rdquo; on the startup screen.</p>
+<p><strong>Manually Setting Probe Type:</strong>
+If using non-PP Systems sensors or for Type 0/7:</p>
+<ul>
+<li>Menu <code>2</code> (SET) → <code>1</code> (EGM)</li>
+<li>Select option <code>1</code> (stand-alone), <code>2</code> (with probe), or <code>3</code> (porometer)</li>
+</ul>
+<p><strong>Custom Sensors:</strong>
+You can connect custom sensors to the I/O ports. Each port accepts 0-1V input:</p>
+<ul>
+<li>A-E inputs appear as mV values (0-1000 mV) in data records</li>
+<li>Scale your sensor output to 0-1V range</li>
+<li>Apply conversion factors in post-processing</li>
+</ul>
+<h3 id="d-water-vapor-and-temperature-corrections">D: Water Vapor &amp; Temperature Corrections<a hidden class="anchor" aria-hidden="true" href="#d-water-vapor-and-temperature-corrections">#</a></h3>
+<p>CO₂ measurements are affected by water vapor (dilution effect) and temperature. The EGM-4 applies corrections automatically, but understanding these helps troubleshoot anomalies.</p>
+<p><strong>Water Vapor Dilution:</strong></p>
+<p>Water vapor dilutes the mole fraction of CO₂ in air. Relationship:
+\[C_{dry} = \frac{C_{wet}}{1 - \frac{e}{P}}\]</p>
+<p>Where:</p>
+<ul>
+<li>\(C_{dry}\) = CO₂ mole fraction in dry air (ppm)</li>
+<li>\(C_{wet}\) = measured CO₂ in humid air (ppm)</li>
+<li>\(e\) = water vapor pressure (mb)</li>
+<li>\(P\) = total atmospheric pressure (mb)</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Measured: 400 ppm CO₂ at 20 mb H₂O vapor, 1013 mb pressure</li>
+<li>Correction factor: \(1 - (20/1013) = 0.980\)</li>
+<li>Dry-air equivalent: \(400 / 0.980 = 408\) ppm</li>
+</ul>
+<p>The EGM-4 applies this correction when an RH/Temp sensor is connected. Without the sensor, no correction is applied.</p>
+<p><strong>Temperature Effects:</strong></p>
+<p>Temperature affects:</p>
+<ol>
+<li><strong>Gas density</strong>: More molecules per volume when cold</li>
+<li><strong>IRGA sensitivity</strong>: Detector response varies with temperature</li>
+<li><strong>Flux calculations</strong>: See Flux Calculations section</li>
+</ol>
+<p>The EGM-4 thermostatically controls the sample cell at 55°C to minimize temperature effects on the IRGA itself. However, sample temperature still matters for flux calculations.</p>
+<p><strong>Best Practices:</strong></p>
+<ul>
+<li>Always use RH/Temp sensor for accurate measurements</li>
+<li>Record temperature inside chamber (STP-1) for flux calculations</li>
+<li>In very humid conditions (&gt;90% RH), expect ~2-4% correction to CO₂ values</li>
+</ul>
+<h3 id="e-chamber-volume-calculations">E: Chamber Volume Calculations<a hidden class="anchor" aria-hidden="true" href="#e-chamber-volume-calculations">#</a></h3>
+<p>Accurate flux measurements require knowing the total system volume (chamber + tubing).</p>
+<p><strong>SRC-1 Default:</strong></p>
+<ul>
+<li>Chamber volume: 1171 ml (manufacturer spec)</li>
+<li>Standard tubing: ~50-100 ml (depends on length)</li>
+<li>Total: ~1220-1270 ml</li>
+</ul>
+<p><strong>Calculating Custom Volumes:</strong></p>
+<p><strong>Chamber volume</strong> (for cylindrical chambers):
+\[V = \pi r^2 h\]</p>
+<ul>
+<li>\(r\) = radius (cm)</li>
+<li>\(h\) = height (cm)</li>
+<li>Volume in cm³ (= ml)</li>
+</ul>
+<p><strong>Tubing volume:</strong>
+\[V_{tube} = \pi r^2 L\]</p>
+<ul>
+<li>\(r\) = internal radius (cm)</li>
+<li>\(L\) = total length (cm)</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>1/8&quot; ID tubing = 3.175 mm ID = 0.15875 cm radius</li>
+<li>100 cm length</li>
+<li>\(V = \pi (0.15875)^2 (100) = 7.9\) ml</li>
+</ul>
+<p><strong>Area Calculation:</strong>
+\[A = \pi r^2\]</p>
+<p>For SRC-1 (10 cm diameter):
+\[A = \pi (5)^2 = 78.5 \text{ cm²}\]</p>
+<p><strong>Setting Custom Values in EGM-4:</strong></p>
+<ol>
+<li>Press <code>1</code> (REC) from Main Menu</li>
+<li>At settings screen, press <code>N</code> to modify</li>
+<li>Press <code>1</code> to change volume, <code>2</code> to change area</li>
+<li>Enter new values</li>
+<li>EGM-4 auto-updates V/A ratio used in calculations</li>
+</ol>
+<p><strong>Why V/A Ratio Matters:</strong>
+The \(\frac{V}{A}\) ratio determines how quickly CO₂ accumulates per unit flux:</p>
+<ul>
+<li>High V/A: Slower accumulation, longer measurement time needed</li>
+<li>Low V/A: Faster accumulation, shorter measurement time</li>
+</ul>
+<p>For soil respiration, typical V/A ≈ 15 cm (SRC-1 default is 14.9 cm).</p>
+<h3 id="f-open-egm4-software-design-philosophy">F: open-egm4 Software Design Philosophy<a hidden class="anchor" aria-hidden="true" href="#f-open-egm4-software-design-philosophy">#</a></h3>
+<p>This section explains why open-egm4 was built as a terminal user interface (TUI) and how the software works internally.</p>
+<p><strong>Why a Terminal Interface?</strong></p>
+<p>Open-egm4 deliberately uses a text-based terminal interface instead of a graphical interface (GUI) for several important reasons:</p>
+<ol>
+<li>
+<p><strong>Cross-Platform Compatibility:</strong>
+The software runs identically on macOS, Linux, and Windows because it does not rely on platform-specific UI frameworks. This eliminates the &ldquo;it works on my machine&rdquo; inconsistencies that often arise when porting graphical applications between different operating systems.</p>
+</li>
+<li>
+<p><strong>Remote Access via SSH:</strong>
+Users can monitor field equipment from any location with an internet connection. Because terminal interfaces use minimal bandwidth—approximately 1 KB/s compared to over 100 KB/s for a standard GUI—the software remains responsive even over slow or unreliable network connections.</p>
+</li>
+<li>
+<p><strong>Lightweight and Fast:</strong>
+Open-egm4 is designed to be highly efficient, typically starting in less than one second and consuming only 10–20 MB of RAM. By avoiding the overhead of graphics rendering, the application remains fully functional on older or low-powered field hardware.</p>
+</li>
+<li>
+<p><strong>Scriptable and Automatable:</strong>
+The interface can be controlled via shell scripts, making it simple to integrate the EGM-4 into automated data collection pipelines or broader research workflows.</p>
+</li>
+<li>
+<p><strong>Reliability:</strong>
+It should be much more reliable than a GUI app. Maybe.</p>
+</li>
+<li>
+<p><strong>KISS:</strong>
+Keep it simple, stupid.</p>
+</li>
+</ol>
+<p><strong>Advantages Over Legacy Windows Software:</strong></p>
+<p>The official PP Systems software (Windows-only) has several limitations:</p>
+<ul>
+<li>Only runs on Windows</li>
+<li>Requires specific .NET framework versions</li>
+<li>No remote access capability</li>
+<li>Closed-source (can&rsquo;t fix bugs or add features)</li>
+<li>No longer actively maintained</li>
+</ul>
+<p>Open-egm4 addresses all of these:</p>
+<ul>
+<li>✓ Runs on any OS</li>
+<li>✓ Open source (MIT license)</li>
+<li>✓ Actively developed and maintained</li>
+<li>✓ Community can contribute features</li>
+<li>✓ Works over SSH for remote field sites</li>
+</ul>
+<p><strong>Architecture Overview:</strong></p>
+<p>Open-egm4 is built in Python with these components:</p>
+<ol>
+<li>
+<p><strong>Serial Handler</strong> (<code>serial_handler.py</code>):</p>
+<ul>
+<li>Manages connection to EGM-4 via pyserial library</li>
+<li>Parses incoming data stream using regex</li>
+<li>Handles reconnection on dropout</li>
+<li>Runs in separate thread to prevent blocking UI</li>
+</ul>
+</li>
+<li>
+<p><strong>Data Manager</strong> (<code>data_manager.py</code>):</p>
+<ul>
+<li>Stores measurements in memory during session</li>
+<li>Validates data (checks for anomalies)</li>
+<li>Timestamps each record</li>
+<li>Handles session management (start/stop/export)</li>
+</ul>
+</li>
+<li>
+<p><strong>Terminal UI</strong> (<code>tui.py</code>):</p>
+<ul>
+<li>Built with textual</li>
+<li>Real-time chart rendering using ASCII art</li>
+<li>Keyboard input handling</li>
+<li>Layout management (adaptive to terminal size)</li>
+</ul>
+</li>
+<li>
+<p><strong>CSV Exporter</strong> (<code>export.py</code>):</p>
+<ul>
+<li>Converts in-memory data to CSV format</li>
+<li>Adds headers with metadata (session info, device settings)</li>
+<li>Handles multiple sessions in one export</li>
+</ul>
+</li>
+</ol>
+<p><strong>Data Flow:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>EGM-4 → Serial Cable → USB Adapter → pyserial → Serial Handler
+</span></span><span style="display:flex;"><span>                                                        ↓
+</span></span><span style="display:flex;"><span>                                                   Parser (regex)
+</span></span><span style="display:flex;"><span>                                                        ↓
+</span></span><span style="display:flex;"><span>                                                  Data Manager
+</span></span><span style="display:flex;"><span>                                                   ↙         ↘
+</span></span><span style="display:flex;"><span>                                           Terminal UI     CSV Export
+</span></span></code></pre></div><p><em>Created in Doom Emacs 2.0.9, using org-mode 9.7.</em></p>
+<p><em>Written in January 2026.</em></p>
+<p>Created by Morgan Salisbury</p>
 
-  <div class="post-content"><p>Blog post about how to use the EGM-4.</p>
 
+            </div>
 
-  </div>
+            <footer class="post-footer">
+                <ul class="post-tags">
+                </ul>
+            </footer>
+        </article>
+</div>
 
-  <footer class="post-footer">
-    <ul class="post-tags">
-    </ul>
-  </footer>
-</article>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.getElementById('toc-sidebar');
+        if (!sidebar) return;
+
+        const markers = sidebar.querySelectorAll('.toc-marker');
+        const tocNav = sidebar.querySelector('.toc-nav');
+        const tocLinks = sidebar.querySelectorAll('.toc-nav a');
+        const currentLabel = document.getElementById('toc-current-label');
+        const headings = [];
+
+        
+        markers.forEach((marker, i) => {
+            const id = marker.dataset.target.slice(1);
+            const heading = document.getElementById(id);
+            const title = marker.dataset.title;
+            if (heading) {
+                headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title });
+            }
+        });
+
+        function updateActiveState() {
+            const scrollPos = window.scrollY + 150;
+            let current = headings[0];
+
+            for (const heading of headings) {
+                if (heading.element.offsetTop <= scrollPos) {
+                    current = heading;
+                }
+            }
+
+            markers.forEach(m => m.classList.remove('active'));
+            tocLinks.forEach(l => l.classList.remove('active'));
+
+            if (current) {
+                current.marker.classList.add('active');
+                if (current.link) current.link.classList.add('active');
+                if (currentLabel && current.title) {
+                    currentLabel.textContent = current.title;
+                    
+                    const markerRect = current.marker.getBoundingClientRect();
+                    const sidebarRect = sidebar.getBoundingClientRect();
+                    currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - 10) + 'px';
+                }
+            }
+        }
+
+        window.addEventListener('scroll', updateActiveState);
+        updateActiveState();
+    });
+</script>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 </span> · 
+    <span>&copy; 2026 </span> · 
 
     <span>
         Love from Kansas · Created with Emacs
@@ -206,11 +1459,12 @@
 </script>
 <script>
     document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
             localStorage.setItem("pref-theme", 'light');
         } else {
-            document.body.classList.add('dark');
+            html.dataset.theme = 'dark';
             localStorage.setItem("pref-theme", 'dark');
         }
     })
@@ -262,7 +1516,6 @@
             codeblock.parentNode.appendChild(copybutton);
         }
     });
-</script>
-</body>
+</script></body>
 
 </html>
