@@ -1,7 +1,7 @@
 +++
 title = "Using the EGM-4 & open-egm4 software"
-date = 2026-01-30
-draft = true
+date = 2026-01-31T21:54:00-06:00
+draft = false
 +++
 
 ## Obligatory data loss warning {#obligatory-data-loss-warning}
