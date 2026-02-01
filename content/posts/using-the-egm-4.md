@@ -414,12 +414,12 @@ If you use a plot number that has already been used, the EGM will overwrite the 
     -   Press `Y` to prepare for next measurement
 
 {{< alert2 Caution >}}
-The plot number will **not** auto-increment. You must manually enter the plot number for each measurement, and the EGM will happily overwrite the previous measurement if you don't change the plot number between measurements.
+The plot number will **not** auto-increment. You must manually enter the plot number for each measurement. Note that the EGM will happily overwrite the previous measurement if you don't change the plot number between measurements!
 {{< /alert2 >}}
 
 1.  **Data Storage:**
 
-If you had a laptop connected to the EGM while you were taking measurements, then you were able to view the incoming data in real-time and export it at will. If not, the data is stored in the EGM's internal memory. The EGM stores up to 999 records, and will start overwriting old records if full. See for instructions on how to export data from the EGM.
+If you had a laptop connected to the EGM while you were taking measurements, then you were able to view the incoming data in real-time and export it at will. If not, the data are stored in the EGM's internal memory. The EGM stores up to 999 records, and will start overwriting old records if full. See for [instructions on how to export data from the EGM](#exporting-data).
 
 
 ### Workflow 2: Static Sampling via Syringe Injection {#workflow-2-static-sampling-via-syringe-injection}
@@ -432,8 +432,7 @@ Instead of pumping air continuously through the EGM-4, you inject a small volume
 
 -   EGM-4 with battery
 -   Luer-lock syringe (5-10 ml)
--   Sample collection container (if collecting from field)
--   Septum or sampling port (if sampling from closed system)
+-   Sample collection vial (if collecting from field, and perhaps if collecting in the lab)
 
 **Setup Procedure:**
 
