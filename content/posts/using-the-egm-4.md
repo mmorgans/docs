@@ -363,10 +363,13 @@ The above instructions depend almost _entirely_ on your situation. You might con
     -   Press `1` (REC) from main menu
     -   EGM-4 displays measurement settings
     -   Default: DT=120 seconds (measurement duration), DC=50 ppm (max CO₂ change)
-    -   **To change settings**: Press `N` to go back
-    -   Press `Y` to confirm settings
+    -   Press `N` to go back and change settings, and `Y` to confirm settings
 
-4.  **Set Plot Number (if needed):**
+{{< alert2 Note >}}
+You should think carefully about the DT value that you set for a given measurement. If the DT value is too large the rate at which CO₂ accumulates in the chamber will decline, and your estimate of the efflux rate will be less accurate.
+{{< /alert2 >}}
+
+1.  **Set Plot Number (if needed):**
     -   Display shows "PLOT NO = X"
     -   Press `Y` to keep current plot number
     -   Or enter a new plot number (e.g., "01" for plot 1) and press `Y`
