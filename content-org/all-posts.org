@@ -1275,7 +1275,7 @@ open-egm4
 
 2. *Verify Connection:*
    - The EGM screams out data over the serial connection, but it's incapable of receiving any data back. Therefore, you'll have no way of knowing if you're actually connected to the EGM unless you dump some data to your computer.
-   - Details on how to collect data are [[Workflow 3: Dumping Stored Data from EGM-4 Memory][in the workflow section]], but for now you can verify that the software was installed correctly by dumping existing data from the EGM to your computer, assuming that there is pre-existing data on the EGM.
+   - Details on how to collect data are [[Exporting data][in the workflow section]], but for now you can verify that the software was installed correctly by dumping existing data from the EGM to your computer, assuming that there is pre-existing data on the EGM.
    - To send data from the EGM to a computer, press ~4DMP~ on the EGM, then ~2 DATA DUMP~, then press any key to begin the transfer.
    - If you see the data streaming in on your computer, celebrate. If you don't, then check out [[Troubleshooting & Maintenance][the troubleshooting section]].
 
@@ -1524,7 +1524,7 @@ If you use a plot number that has already been used, the EGM will overwrite the 
 The plot number will *not* auto-increment. You must manually enter the plot number for each measurement. Note that the EGM will happily overwrite the previous measurement if you don't change the plot number between measurements!
 #+end_alert2
 
-10. *Data Viewing & Storage:*
+*Data Viewing & Storage:*
   Though not necessary, you can have your computer connected to the EGM while you are taking soil repisration measurements. This allows you to view the incoming the data in real time, using open-egm4, and see it graphed. This can be helpful for understanding how long it takes your soil system to produce enough CO₂ to lessen the diffusion gradient driving respiration fluxes into the chamber.
 
   Regardless, because you desginated a plot number before you started the measurement, the EGM will store the data in its internal memory. The EGM stores up to 999 records, and will start overwriting old records if full. See  [[Exporting data][instructions on how to export data from the EGM]].

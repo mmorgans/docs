@@ -162,7 +162,7 @@ open-egm4
 
 2.  **Verify Connection:**
     -   The EGM screams out data over the serial connection, but it's incapable of receiving any data back. Therefore, you'll have no way of knowing if you're actually connected to the EGM unless you dump some data to your computer.
-    -   Details on how to collect data are [in the workflow section](#workflow-3-dumping-stored-data-from-egm-4-memory), but for now you can verify that the software was installed correctly by dumping existing data from the EGM to your computer, assuming that there is pre-existing data on the EGM.
+    -   Details on how to collect data are [in the workflow section](#exporting-data), but for now you can verify that the software was installed correctly by dumping existing data from the EGM to your computer, assuming that there is pre-existing data on the EGM.
     -   To send data from the EGM to a computer, press `4DMP` on the EGM, then `2 DATA DUMP`, then press any key to begin the transfer.
     -   If you see the data streaming in on your computer, celebrate. If you don't, then check out [the troubleshooting section](#troubleshooting-and-maintenance).
 
@@ -417,10 +417,36 @@ If you use a plot number that has already been used, the EGM will overwrite the 
 The plot number will **not** auto-increment. You must manually enter the plot number for each measurement. Note that the EGM will happily overwrite the previous measurement if you don't change the plot number between measurements!
 {{< /alert2 >}}
 
-1.  **Data Viewing &amp; Storage:**
-    Though not nescesssary, you can have your computer connected to the EGM while you are taking soil repisration measurements. This allows you to view the incoming the data in real time, using open-egm4, and see it graphed. This can be helpful for understanding how long it takes your soil system to produce enough CO₂ to lessen the diffusion gradient driving respiration fluxes into the chamber.
+**Data Viewing &amp; Storage:**
+  Though not necessary, you can have your computer connected to the EGM while you are taking soil repisration measurements. This allows you to view the incoming the data in real time, using open-egm4, and see it graphed. This can be helpful for understanding how long it takes your soil system to produce enough CO₂ to lessen the diffusion gradient driving respiration fluxes into the chamber.
 
-    Regardless, because you desginated a plot number before you started the measurement, the EGM will store the data in its internal memory. The EGM stores up to 999 records, and will start overwriting old records if full. See  [instructions on how to export data from the EGM](#exporting-data).
+Regardless, because you desginated a plot number before you started the measurement, the EGM will store the data in its internal memory. The EGM stores up to 999 records, and will start overwriting old records if full. See  [instructions on how to export data from the EGM](#exporting-data).
+
+To transfer stored records from field plots on the EGM-4 to your computer, do the following:
+
+1.  Connect the EGM-4 to your computer using a serial cable and USB adapter
+2.  Power on the EGM-4 and open the open-egm4 app on your computer by typing `open-egm4` in the terminal
+3.  Press `4DMP` from the Main Menu on the EGM-4, then Press `2 DATA DUMP`
+4.  Once the open-egm4 app is ready, press any key on the EGM-4 to start the transfer
+5.  View your data on the graph, and use the `<` and `>` keys to view a specific plot
+6.  Press `e` to open the export menu. Use the `p` and `d` keys to select the plot(s) and/or date(s) you want to export, then press `e` to export
+7.  The .csv will be saved to your Downloads directory
+
+**Data Record Structure:**
+
+Each record contains (in CSV format):
+
+-   M/R flag (M=real-time, R=stored record)
+-   Plot number (0-9999)
+-   Record number (1-9999)
+-   Date (day, month)
+-   Time (hour, minute)
+-   CO₂ (ppm)
+-   H₂O vapor (mb, if sensor present)
+-   RH/Temp sensor data
+-   Sensor inputs A-E (mV values)
+-   Atmospheric pressure (mb)
+-   Probe type (0-11)
 
 
 ### Workflow 2: Static Sampling via Syringe Injection {#workflow-2-static-sampling-via-syringe-injection}
@@ -471,12 +497,20 @@ Ensure that water does not enter the EGM when injecting a sample. If water enter
 6.  **Record Value:**
     -   The CO₂ reading will change as your sample fills the cell
     -   Wait several seconds until you see the highest CO₂ reading on the display
-    -   Make note of it!
+    -   Make note of it, and the sample name
+    -   Ideally, you will have a prepared list of your sample names next to which you will write the CO₂ reading
 
 7.  **Flush Between Samples:**
     -   Return to the main menu by pressing `N`
     -   Turn the pump back on by pressing `2SET`, `3PMP`, `N` to change, and `Y` to confirm
     -   Once the pump is back on, wait at least 1 minute before shutting the pump back off and running another sample
+
+8.  **Data Downloading:**
+    -   Because it is not possible to designate a plot number on the EGM itself when running static samples, you will need to manually record the data.
+    -   You can download a .csv file, but unlike downloading data that was recorded to the internal memory of the EGM, data from static samples are stored _only_ in the open-egm4 app on your computer.
+    -   The .csv you _could_ download would not include plot numbers or sample names, and would have a record (i.e., a row of data) for each second that the EGM was recording in that session.
+    -   If you nonetheless wish to download your session's .csv, you can do so by pressing `e` to open the export menu, and then again pressing `e` to export the data.
+    -   The only way to know which CO₂ reading corresponds to which sample is to write it down as you go.
 
 **Auto-Zero Warnings in Static Mode:**
 The EGM-4 will still perform automatic zeros even with pump off. You'll see warnings:
@@ -487,40 +521,8 @@ The EGM-4 will still perform automatic zeros even with pump off. You'll see warn
 When zero begins, the pump turns on for ~15 seconds, then turns off again. This ensures an accurate baseline by passing air scrubbed of CO₂ by the soda lime to the IRGA, and setting its CO₂ concentration to 0 ppm.
 
 {{< alert2 Caution >}}
-Don't forget to re-enable the pump when finished.
+Don't forget to re-enable the pump after you have run all of your samples.
 {{< /alert2 >}}
-
-1.  **Date Viewing &amp; Storage:**
-    -
-
-
-### Workflow 3: Dumping Stored Data from EGM-4 Memory {#workflow-3-dumping-stored-data-from-egm-4-memory}
-
-To transfer stored records from field plots (not static samples, for which you must record the data manually) on the EGM-4 to your computer, do the following:
-
-1.  Connect the EGM-4 to your computer using a serial cable and USB adapter
-2.  Power on the EGM-4 and open the open-egm4 app on your computer by typing `open-egm4` in the terminal
-3.  Press `4DMP` from the Main Menu on the EGM-4, then Press `2 DATA DUMP`
-4.  Once the open-egm4 app is ready, press any key on the EGM-4 to start the transfer
-5.  View your data on the graph, and use the `<` and `>` keys to view a specific plot
-6.  Press `e` to open the export menu. Use the `p` and `d` keys to select the plot(s) and/or date(s) you want to export, then press `e` to export
-7.  The .csv will be saved to your Downloads directory
-
-**Data Record Structure:**
-
-Each record contains (in CSV format):
-
--   M/R flag (M=real-time, R=stored record)
--   Plot number (0-9999)
--   Record number (1-9999)
--   Date (day, month)
--   Time (hour, minute)
--   CO₂ (ppm)
--   H₂O vapor (mb, if sensor present)
--   RH/Temp sensor data
--   Sensor inputs A-E (mV values)
--   Atmospheric pressure (mb)
--   Probe type (0-11)
 
 
 ## Troubleshooting &amp; Maintenance {#troubleshooting-and-maintenance}
@@ -560,7 +562,7 @@ fix this section
 
 ### Replacing internal tubing {#replacing-internal-tubing}
 
-Over time, the internal gas tubing will become aged and leak air. You'll need to replace it with 1/8" tubing, being careful not to create kinks or bends in the tubing. If you need 90 degree bends, some are availabe at McMaster-Carr (item number 5463K42).
+Over time, the internal gas tubing will become aged and leak. You'll need to replace it with 1/8" tubing, being careful not to create kinks or bends in the tubing. If you need 90 degree bends, some are availabe at McMaster-Carr (item number 5463K42).
 
 
 ### EGM-4 error codes {#egm-4-error-codes}
@@ -577,7 +579,7 @@ The EGM-4 displays numbered error codes when problems occur:
 **Error 02: CO₂ &lt; 250 ppm**
 
 -   **Cause**: Either genuine low CO₂ or same as Error 01
--   **Solution**: If you're measuring ambient air (~400 ppm), this indicates same problems as Error 01
+-   **Solution**: If you're measuring ambient air (&gt;420 ppm), this indicates same problems as Error 01
 
 **Error 03: Analyzer Temperature &lt; 50°C**
 
