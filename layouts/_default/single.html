@@ -198,24 +198,59 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const sidebar = document.getElementById('toc-sidebar');
-        if (!sidebar) return;
+        const mobileBar = document.getElementById('toc-mobile-bar');
+        const mobileToggle = document.getElementById('toc-mobile-toggle');
+        const mobileNav = document.getElementById('toc-mobile-nav');
+        const mobileCurrent = document.getElementById('toc-mobile-current');
+        const mobileParent = document.getElementById('toc-mobile-parent');
 
-        const markers = sidebar.querySelectorAll('.toc-marker');
-        const tocNav = sidebar.querySelector('.toc-nav');
-        const tocLinks = sidebar.querySelectorAll('.toc-nav a');
+        if (!sidebar && !mobileBar) return;
+
+        const markers = sidebar ? sidebar.querySelectorAll('.toc-marker') : [];
+        const tocLinks = sidebar ? sidebar.querySelectorAll('.toc-nav a') : [];
         const currentLabel = document.getElementById('toc-current-label');
+        const mobileLinks = mobileBar ? mobileBar.querySelectorAll('.toc-mobile-item a') : [];
         const headings = [];
 
-        // Build headings array from markers
-        markers.forEach((marker, i) => {
-            const id = marker.dataset.target.slice(1);
-            const heading = document.getElementById(id);
-            const title = marker.dataset.title;
-            const level = parseInt(marker.dataset.level);
-            if (heading) {
-                headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title, level: level });
-            }
-        });
+        // Build headings array from markers (desktop) or mobile items
+        if (markers.length > 0) {
+            markers.forEach((marker, i) => {
+                const id = marker.dataset.target.slice(1);
+                const heading = document.getElementById(id);
+                const title = marker.dataset.title;
+                const level = parseInt(marker.dataset.level);
+                if (heading) {
+                    headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title, level: level });
+                }
+            });
+        } else if (mobileLinks.length > 0) {
+            mobileLinks.forEach((link, i) => {
+                const href = link.getAttribute('href');
+                const id = href.slice(1);
+                const heading = document.getElementById(id);
+                const title = link.textContent.trim();
+                const level = parseInt(link.closest('.toc-mobile-item').dataset.level);
+                if (heading) {
+                    headings.push({ element: heading, link: link, title: title, level: level });
+                }
+            });
+        }
+
+        // Mobile toggle functionality
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function () {
+                mobileBar.classList.toggle('open');
+            });
+        }
+
+        // Close mobile nav when link is clicked
+        if (mobileNav) {
+            mobileNav.addEventListener('click', function (e) {
+                if (e.target.tagName === 'A') {
+                    mobileBar.classList.remove('open');
+                }
+            });
+        }
 
         function updateActiveState() {
             const scrollPos = window.scrollY + 150;
@@ -229,40 +264,69 @@
                 }
             }
 
-            markers.forEach(m => m.classList.remove('active'));
-            tocLinks.forEach(l => l.classList.remove('active'));
+            // Desktop sidebar updates
+            if (sidebar) {
+                markers.forEach(m => m.classList.remove('active'));
+                tocLinks.forEach(l => l.classList.remove('active'));
 
-            if (current) {
-                current.marker.classList.add('active');
-                if (current.link) current.link.classList.add('active');
+                if (current) {
+                    if (current.marker) current.marker.classList.add('active');
+                    if (current.link) current.link.classList.add('active');
 
-                if (currentLabel) {
-                    // Find parent heading (h2) if current is a child (h3+)
-                    let parentTitle = null;
-                    let childTitle = current.title;
+                    if (currentLabel) {
+                        let parentTitle = null;
+                        let childTitle = current.title;
 
-                    if (current.level > 2) {
-                        // Look backwards for the nearest h2
-                        for (let j = currentIndex - 1; j >= 0; j--) {
-                            if (headings[j].level === 2) {
-                                parentTitle = headings[j].title;
-                                break;
+                        if (current.level > 2) {
+                            for (let j = currentIndex - 1; j >= 0; j--) {
+                                if (headings[j].level === 2) {
+                                    parentTitle = headings[j].title;
+                                    break;
+                                }
                             }
                         }
-                    }
 
-                    // Build the label HTML
-                    if (parentTitle) {
-                        currentLabel.innerHTML = `<span class="toc-parent-label">${parentTitle}</span><span class="toc-child-label">${childTitle}</span>`;
-                    } else {
-                        currentLabel.innerHTML = `<span class="toc-child-label">${childTitle}</span>`;
-                    }
+                        if (parentTitle) {
+                            currentLabel.innerHTML = `<span class="toc-parent-label">${parentTitle}</span><span class="toc-child-label">${childTitle}</span>`;
+                        } else {
+                            currentLabel.innerHTML = `<span class="toc-child-label">${childTitle}</span>`;
+                        }
 
-                    // Position label next to the active marker
-                    const markerRect = current.marker.getBoundingClientRect();
-                    const sidebarRect = sidebar.getBoundingClientRect();
-                    currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (parentTitle ? 18 : 10)) + 'px';
+                        const markerRect = current.marker.getBoundingClientRect();
+                        const sidebarRect = sidebar.getBoundingClientRect();
+                        currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (parentTitle ? 18 : 10)) + 'px';
+                    }
                 }
+            }
+
+            // Mobile bar updates
+            if (mobileBar && current) {
+                // Show/hide bar based on scroll position
+                if (scrollPos > 200) {
+                    mobileBar.classList.add('visible');
+                } else {
+                    mobileBar.classList.remove('visible');
+                    mobileBar.classList.remove('open');
+                }
+
+                // Update current section label
+                let parentTitle = null;
+                if (current.level > 2) {
+                    for (let j = currentIndex - 1; j >= 0; j--) {
+                        if (headings[j].level === 2) {
+                            parentTitle = headings[j].title;
+                            break;
+                        }
+                    }
+                }
+
+                if (mobileCurrent) mobileCurrent.textContent = current.title;
+                if (mobileParent) mobileParent.textContent = parentTitle || '';
+
+                // Update active state in mobile nav
+                mobileLinks.forEach(l => l.classList.remove('active'));
+                const activeLink = mobileBar.querySelector(`a[href="#${current.element.id}"]`);
+                if (activeLink) activeLink.classList.add('active');
             }
         }
 
