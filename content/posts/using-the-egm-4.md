@@ -5,7 +5,7 @@ draft = true
 +++
 
 {{< alert2 Warning >}}
-**Backup your data regularly.**  The EGM-4's internal memory is limited to 999 records. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
+**Backup your data regularly.**  The EGM-4's internal memory is limited to 9999 records and 99 plots. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
 {{< /alert2 >}}
 
 {{< alert2 Warning >}}
@@ -604,235 +604,167 @@ The EGM-4 displays numbered error codes when problems occur:
 
 ### A: Serial Protocol Specification {#a-serial-protocol-specification}
 
-**Connection Parameters:**
+The EGM-4 communicates over RS-232 serial at 9600 baud, 8 data bits, no parity, 1 stop bit, and no flow control. This is a standard configuration supported by virtually all serial terminal software.
 
--   Baud: 9600
--   Data bits: 8
--   Parity: None
--   Stop bits: 1
--   Flow control: None
+Each data record is exactly 61 characters long (1 letter followed by 60 digits), with no spaces or delimiters, terminated by a carriage return and line feed (`\r\n`). The manual refers to "60 digits" which excludes the initial M/R mode character. During live measurements, the EGM transmits one record per second. When dumping stored data, all records are sent consecutively.
 
-**Data Format:**
+Here's an example raw record:
 
--   ASCII text, comma-separated values (CSV)
--   Line terminator: `\r\n` (carriage return + line feed)
--   Continuous stream in REC mode (1 record per second)
--   Full dump in DUMP mode
+`R000002180313170042900000000000000000000000000400000000096508`
 
-**Record Structure (comma seperated for readability):**
+The table below shows how to interpret parsed records. Both real-time measurements (`M`) and stored records (`R`) use the same format:
 
-```text
-M,1,5,27,1,13,19,968,0,000.0,0000,0000,0000,0000,0000,0000,00,00,991,0
-```
+| M/R | Plot No. | Rec No | Day | Mo | Hr | Min | CO₂ Ref | H₂O Ref | RHT   | A    | B    | C    | D    | E    | F    | G  | H  | AP  | PT |
+|-----|----------|--------|-----|----|----|-----|---------|---------|-------|------|------|------|------|------|------|----|----|-----|----|
+| M   | 1        | 1      | 28  | 1  | 13 | 19  | 968     | 0       | 000.0 | 0000 | 0000 | 0000 | 0000 | 0000 | 0000 | 00 | 00 | 991 | 0  |
+| R   | 1        | 2      | 28  | 1  | 13 | 21  | 930     | 0       | 000.0 | 0000 | 0000 | 0000 | 0000 | 0000 | 0000 | 00 | 00 | 991 | 0  |
 
-Fields (in order):
+The fixed columns are:
 
-1.  Mode: `M` (real-time measurement) or `R` (stored record)
-2.  Plot number (0-99)
-3.  Record number (1-9999)
-4.  Day (1-31)
-5.  Month (1-12)
-6.  Hour (0-23, 24-hour format)
-7.  Minute (0-59)
-8.  CO₂ Reference (ppm)
-9.  H₂O Reference (mb, or 0 if no sensor)
-10. RH/Temp sensor temperature (°C × 10, "000.0" format)
+| Column  | Description                                                     |
+|---------|-----------------------------------------------------------------|
+| M/R     | M = real-time measurement, R = record retrieved from memory     |
+| Plot No | Plot number, 0-99                                               |
+| Rec No  | Record number within the plot, 1-9999                           |
+| Day     | Day of month, 1-31                                              |
+| Mo      | Month, 1-12                                                     |
+| Hr      | Hour in 24-hour format, 0-23                                    |
+| Min     | Minute, 0-59                                                    |
+| CO₂ Ref | CO₂ concentration in ppm (equivalent to µmol mol⁻¹)             |
+| H₂O Ref | Water vapor in millibars (only if optional RH sensor is fitted) |
+| RHT     | Temperature from RH sensor in °C (if sensor is fitted)          |
+| A-H     | Probe-specific fields (see probe type table below)              |
+| AP      | Atmospheric pressure in millibars                               |
+| PT      | Probe type code, 0-11                                           |
 
-11-15. Sensor inputs A-E (mV, "0000" format)
-16-17. Reserved (00)
+Columns A through H contain probe-specific data whose meaning depends on the connected sensor:
 
-1.  Atmospheric pressure (mb)
-2.  Probe type (0-11)
+| Type | Sensor                  | A        | B         | C        | D        | E        | F       | G          | H           |
+|------|-------------------------|----------|-----------|----------|----------|----------|---------|------------|-------------|
+| 0    | No Sensor (stand-alone) | mV Pin 1 | mV Pin 2  | mV Pin 3 | mV Pin 4 | mV Pin 5 | —       | —          | —           |
+| 1    | STP-1 Soil Temp         | PAR      | %RH       | Temp     | —        | mV Pin 5 | —       | —          | —           |
+| 2    | HTR-2 %RH/Temp/PAR      | PAR      | %RH       | Temp     | —        | —        | —       | —          | —           |
+| 3    | HTR-1 %RH/Temp/LUX      | PAR      | %RH       | Temp     | —        | —        | —       | —          | —           |
+| 7    | PMR-4 Porometer         | PAR      | %RH In    | Temp     | %RH Out  | Flow     | GS      | —          | —           |
+| 8    | SRC-1 Soil Respiration  | PAR      | %RH       | Temp     | DC       | DT       | SR Rate | —          | +/- SR Rate |
+| 10   | 50Y %RH/Temp            | —        | %RH       | Temp     | —        | —        | —       | —          | —           |
+| 11   | CFX-1 / CPY-3           | PAR      | Evap Rate | Temp     | DC       | Flow     | SR Rate | Flow Mult. | +/- SR Rate |
 
-**Probe-Type-Specific Fields (11-17):**
+The units for each data type are:
 
-For Probe Type 8 (SRC-1 Soil Respiration):
+| Output Data | Units                                                       |
+|-------------|-------------------------------------------------------------|
+| PAR         | µmol m⁻² s⁻¹                                                |
+| %RH         | %                                                           |
+| Evap Rate   | mmol m⁻² s⁻¹ × 1000                                         |
+| Temperature | °C                                                          |
+| Flow        | ml min⁻¹                                                    |
+| GS          | mmol (H₂O) m⁻² s⁻¹ (Stomatal Conductance)                   |
+| SR Rate     | g CO₂ m⁻² hr⁻¹ for SRC-1; µmol m⁻² s⁻¹ for CPY-3 and CFX-1  |
+| DC          | ppm (change in CO₂ concentration)                           |
+| DT          | seconds (change in time)                                    |
+| +/-         | 00 = respiration (CO₂ increase), 01 = uptake (CO₂ decrease) |
 
--   Field 11 (A): PAR (µmol m⁻² s⁻¹)
--   Field 12 (B): %RH (× 10, "000.0" format)
--   Field 13 (C): Temperature (°C × 10)
--   Field 14 (D): ΔC (change in CO₂, ppm)
--   Field 15 (E): ΔT (change in time, seconds)
--   Field 16 (F): Flux rate (g CO₂ m⁻² hr⁻¹ × 100, "00.00" format)
--   Field 17 (G): Flux sign (00=positive/respiration, 01=negative/uptake)
+{{< alert2 Note >}}
+For CFX-1/CPY-3, column G contains a flow multiplier (1 or 10) that should be applied to get the true flow rate.
+{{< /alert2 >}}
 
-For other probe types, see EGM-4 manual page 35.
-
-**Example Parser (Python):**
+Here's a Python function that parses a raw 61-character record:
 
 ```python
-import re
+def parse_egm4_record(raw):
+    """Parse EGM-4 61-character fixed-width record (1 letter + 60 digits).
 
-def parse_egm4_record(line):
-    """Parse EGM-4 serial output line."""
-    parts = line.strip().split(',')
-
-    record = {
-        'mode': parts[0],
-        'plot': int(parts[1]),
-        'record_num': int(parts[2]),
-        'day': int(parts[3]),
-        'month': int(parts[4]),
-        'hour': int(parts[5]),
-        'minute': int(parts[6]),
-        'co2_ppm': int(parts[7]),
-        'h2o_mb': int(parts[8]),
-        'rh_temp_c': float(parts[9]),
-        'sensor_a_mv': int(parts[10]),
-        'sensor_b_mv': int(parts[11]),
-        'sensor_c_mv': int(parts[12]),
-        'sensor_d_mv': int(parts[13]),
-        'sensor_e_mv': int(parts[14]),
-        'pressure_mb': int(parts[18]),
-        'probe_type': int(parts[19])
+    Example input: 'R000002180313170042900000000000000000000000000400000000096508'
+    """
+    return {
+        'mode': raw[0],              # 1 char: M or R
+        'plot': int(raw[1:3]),       # 2 chars: 00-99
+        'record_num': int(raw[3:7]), # 4 chars: 0001-9999
+        'day': int(raw[7:9]),        # 2 chars
+        'month': int(raw[9:11]),     # 2 chars
+        'hour': int(raw[11:13]),     # 2 chars
+        'minute': int(raw[13:15]),   # 2 chars
+        'co2_ppm': int(raw[15:19]),  # 4 chars
+        'h2o_mb': int(raw[19:23]),   # 4 chars
+        'rht_temp': float(raw[23:28]) / 10,  # 5 chars (XXX.X format)
+        'sensor_a': int(raw[28:32]), # 4 chars
+        'sensor_b': int(raw[32:36]), # 4 chars
+        'sensor_c': int(raw[36:40]), # 4 chars
+        'sensor_d': int(raw[40:44]), # 4 chars
+        'sensor_e': int(raw[44:48]), # 4 chars
+        'sensor_f': int(raw[48:52]), # 4 chars
+        'sensor_g': int(raw[52:54]), # 2 chars
+        'sensor_h': int(raw[54:56]), # 2 chars
+        'pressure_mb': int(raw[56:59]),  # 3 chars
+        'probe_type': int(raw[59:61])    # 2 chars (types 0-11)
     }
-
-    return record
 ```
 
-**Special Messages:**
-
-During startup/operation, EGM-4 sends status messages:
-
--   `B,EGM4,<serial>,<firmware>`: Boot message with serial number and firmware version
--   `I,NN`: Initialization countdown (NN = counter)
--   `W,TT`: Warmup message (TT = cell temperature)
--   `Z,NN`: Zeroing countdown (NN = counter)
--   `D,<diagnostic_data>`: Diagnostic data (see manual p.38)
+Beyond data records, the EGM-4 also sends status messages during startup and operation. A boot message takes the form `B,EGM4,<serial>,<firmware>` and provides the device's serial number and firmware version. During warmup, you'll see `W,TT` messages where TT indicates the current cell temperature. The instrument sends `I,NN` during initialization and `Z,NN` during zeroing, where NN is a countdown counter. Diagnostic messages beginning with `D,` contain internal state information documented in the manual on page 38.
 
 
 ### B: Flux Calculation Methods {#b-flux-calculation-methods}
 
-The EGM-4 calculates soil respiration flux automatically, but understanding the math helps interpret results and troubleshoot problems.
+The EGM-4 calculates soil respiration flux automatically, but understanding the underlying mathematics helps with interpreting results and troubleshooting anomalies.
 
-**Closed-System Chamber Method (SRC-1):**
 
-Flux is calculated from the rate of CO₂ increase inside the sealed chamber:
+#### Closed-System Chamber Method {#closed-system-chamber-method}
 
-**Basic equation:**
+When using the SRC-1 chamber, flux is calculated from the rate at which CO₂ accumulates inside the sealed volume. The fundamental equation is:
+
 \\[F = \frac{dC}{dt} \times \frac{V}{A} \times \frac{P}{R \times T}\\]
 
-Where:
+In this equation, \\(F\\) represents the CO₂ flux in µmol m⁻² s⁻¹, \\(\frac{dC}{dt}\\) is the rate of CO₂ concentration change in ppm per second, \\(V\\) is the total system volume (chamber plus tubing) in milliliters, and \\(A\\) is the soil area covered by the chamber in square centimeters. The term \\(\frac{P}{RT}\\) converts the concentration change to molar units, where \\(P\\) is atmospheric pressure in Pascals, \\(R\\) is the gas constant (8.314 J mol⁻¹ K⁻¹), and \\(T\\) is air temperature in Kelvin.
 
--   \\(F\\) = CO₂ flux (µmol m⁻² s⁻¹)
--   \\(\frac{dC}{dt}\\) = rate of CO₂ concentration change (ppm s⁻¹)
--   \\(V\\) = system volume (chamber + tubing, ml)
--   \\(A\\) = soil area covered (cm²)
--   \\(P\\) = atmospheric pressure (Pa)
--   \\(R\\) = gas constant (8.314 J mol⁻¹ K⁻¹)
--   \\(T\\) = air temperature (K)
+The EGM-4 reports flux in g CO₂ m⁻² hr⁻¹. The conversion from µmol m⁻² s⁻¹ involves multiplying by the molecular weight of CO₂ (44.01 g/mol), converting micromoles to moles (× 10⁻⁶), and converting seconds to hours (× 3600):
 
-**Units conversion to g CO₂ m⁻² hr⁻¹:**
-The EGM-4 reports flux in g CO₂ m⁻² hr⁻¹. To convert:
 \\[F\_{g/m²/hr} = F\_{µmol/m²/s} \times 44.01 \times 10^{-6} \times 3600\\]
 
-Where 44.01 is the molecular weight of CO₂ (g/mol).
 
-**Linear vs. Quadratic Fitting:**
+#### Linear vs. Quadratic Fitting {#linear-vs-dot-quadratic-fitting}
 
-The EGM-4 offers two methods for calculating \\(\frac{dC}{dt}\\):
+The EGM-4 offers two methods for determining the rate of CO₂ change over time.
 
-1.  **Linear fit**: Assumes constant flux rate
-    -   Fits line: \\(C(t) = C\_0 + kt\\)
-    -   Slope \\(k\\) = \\(\frac{dC}{dt}\\)
-    -   Works well for short measurements (&lt;2 min)
+Linear fitting assumes a constant flux rate throughout the measurement period. The instrument fits the data to the equation \\(C(t) = C\_0 + kt\\), where the slope \\(k\\) equals \\(\frac{dC}{dt}\\). This approach works well for short measurements under two minutes.
 
-2.  **Quadratic fit**: Accounts for chamber leakage and feedback effects
-    -   Fits curve: \\(C(t) = C\_0 + kt + ct^2\\)
-    -   Initial slope \\(k\\) = \\(\frac{dC}{dt}\\)
-    -   Corrects for non-linearity
-    -   Recommended for longer measurements (&gt;2 min)
+Quadratic fitting accounts for non-linear effects such as chamber leakage and feedback from rising CO₂ concentrations. The instrument fits a curve of the form \\(C(t) = C\_0 + kt + ct^2\\), using the initial slope \\(k\\) for the flux calculation. This method is recommended for measurements longer than two minutes. The EGM-4 automatically selects quadratic fitting when the coefficient \\(c\\) exceeds 0.1 times \\(k\\); otherwise, it defaults to linear.
 
-The EGM-4 automatically uses quadratic if coefficient \\(c > 0.1k\\), otherwise defaults to linear.
 
-**Chamber-Specific Corrections:**
+#### Chamber Corrections {#chamber-corrections}
 
-**SRC-1 Default Values:**
+For the SRC-1, the default chamber volume is 1171 ml with a soil contact area of 78.5 cm² (corresponding to the 10 cm diameter opening). Tubing typically adds 50–100 ml to the total volume. If you're using a custom chamber setup, the total volume is simply the chamber volume plus the tubing volume, where tubing volume can be calculated as \\(V\_{tubing} = \pi r^2 L\\) with \\(r\\) being the internal radius and \\(L\\) the total length in centimeters.
 
--   Volume: 1171 ml (chamber) + tubing volume
--   Area: 78.5 cm² (10 cm diameter)
--   Typical tubing adds ~50-100 ml
+Temperature should ideally be measured inside the chamber using the RH/Temp sensor or an STP-1 probe, as the sample air temperature directly affects the flux calculation. The EGM-4 measures atmospheric pressure internally and applies corrections automatically. At higher elevations, pressure drops significantly—approximately 900 mb at 1000 m and 800 mb at 2000 m compared to 1013 mb at sea level—and this affects how many CO₂ molecules occupy a given volume.
 
-**Volume calculation for custom setups:**
-\\[V\_{total} = V\_{chamber} + V\_{tubing}\\]
 
-Where:
-\\[V\_{tubing} = \pi r^2 L\\]
+#### Worked Example {#worked-example}
 
--   \\(r\\) = internal tubing radius (cm)
--   \\(L\\) = total tubing length (cm)
+Consider a measurement where CO₂ rose from 400 ppm to 450 ppm over 90 seconds, with a chamber volume of 1171 ml (1.171 × 10⁻³ m³), area of 78.5 cm² (7.85 × 10⁻³ m²), temperature of 20°C (293 K), and pressure of 101,300 Pa.
 
-**Temperature correction:**
-The EGM-4 uses air temperature (from RH/Temp sensor or approximate value set by user). For more accuracy, use actual temperature measured inside chamber.
+First, calculate the rate of change: \\(\frac{dC}{dt} = \frac{450 - 400}{90} = 0.556\\) ppm/s, which equals 0.556 × 10⁻⁶ mol mol⁻¹ s⁻¹.
 
-**Pressure correction:**
-The EGM-4 measures atmospheric pressure internally. At high elevations:
+Next, determine the molar density of air: \\(\frac{P}{RT} = \frac{101300}{8.314 \times 293} = 41.58\\) mol m⁻³.
 
--   Sea level: ~1013 mb
--   1000m elevation: ~900 mb
--   2000m elevation: ~800 mb
+Calculate the volume-to-area ratio: \\(\frac{V}{A} = \frac{1.171 \times 10^{-3}}{7.85 \times 10^{-3}} = 0.149\\) m.
 
-Pressure affects the number of CO₂ molecules per volume, so measurement is automatically corrected.
+Now compute the flux: \\(F = (0.556 \times 10^{-6}) \times 0.149 \times 41.58 = 3.45\\) µmol m⁻² s⁻¹.
 
-**Worked Example:**
+Finally, convert to standard units: \\(F = 3.45 \times 44.01 \times 10^{-6} \times 3600 = 0.55\\) g CO₂ m⁻² hr⁻¹.
 
-Measured data:
+This result falls within the typical range for moderately active soil (0.1 to 2.0 g CO₂ m⁻² hr⁻¹), providing a useful sanity check.
 
--   Initial CO₂: 400 ppm
--   Final CO₂: 450 ppm
--   Time elapsed: 90 seconds
--   Chamber volume (V): 1171 ml = 1.171 × 10⁻³ m³
--   Chamber area (A): 78.5 cm² = 7.85 × 10⁻³ m²
--   Temperature: 20°C = 293 K
--   Pressure: 101,300 Pa
--   Gas constant (R): 8.314 J mol⁻¹ K⁻¹
 
-**Step 1: Calculate rate of CO₂ change**
+#### Sources of Error {#sources-of-error}
 
-\\[\frac{dC}{dt} = \frac{C\_{final} - C\_{initial}}{\Delta t} = \frac{450 - 400}{90} = 0.556 \text{ ppm s}^{-1}\\]
+Measurement accuracy can be compromised by chamber leaks (which typically cause underestimation), temperature gradients inside the chamber (particularly when exposed to direct sunlight), pressure fluctuations from wind or weather changes, and non-representative soil coverage due to stones or gaps in the collar seal.
 
-Note: 1 ppm = 10⁻⁶ mol/mol, so this equals 0.556 × 10⁻⁶ mol mol⁻¹ s⁻¹
-
-**Step 2: Calculate molar density of air using ideal gas law**
-
-\\[\frac{P}{RT} = \frac{101300}{8.314 \times 293} = \frac{101300}{2436} = 41.58 \text{ mol m}^{-3}\\]
-
-**Step 3: Calculate V/A ratio**
-
-\\[\frac{V}{A} = \frac{1.171 \times 10^{-3} \text{ m}^3}{7.85 \times 10^{-3} \text{ m}^2} = 0.149 \text{ m}\\]
-
-**Step 4: Calculate flux in µmol m⁻² s⁻¹**
-
-\\[F = \frac{dC}{dt} \times \frac{V}{A} \times \frac{P}{RT}\\]
-
-\\[F = (0.556 \times 10^{-6}) \times 0.149 \times 41.58\\]
-
-\\[F = 3.45 \times 10^{-6} \text{ mol m}^{-2} \text{ s}^{-1} = 3.45 \text{ µmol m}^{-2} \text{ s}^{-1}\\]
-
-**Step 5: Convert to g CO₂ m⁻² hr⁻¹**
-
-\\[F = 3.45 \text{ µmol m}^{-2} \text{ s}^{-1} \times 44.01 \frac{\text{g}}{\text{mol}} \times 10^{-6} \frac{\text{mol}}{\text{µmol}} \times 3600 \frac{\text{s}}{\text{hr}}\\]
-
-\\[F = 3.45 \times 44.01 \times 10^{-6} \times 3600 = 0.55 \text{ g CO}\_2 \text{ m}^{-2} \text{ hr}^{-1}\\]
-
-**Sanity check:** Typical soil respiration rates range from 0.1 to 2.0 g CO₂ m⁻² hr⁻¹, so 0.55 is reasonable for a moderately active soil.
-
-**Sources of Error:**
-
--   Chamber leaks (usually causes underestimation)
--   Temperature gradients (chamber warms in sun)
--   Pressure fluctuations (wind, weather changes)
--   Non-representative soil area (stones, cracks in collar seal)
-
-**For full derivation, see:**
-
--   EGM-4 Operator's Manual, page 22-26
--   SRC-1 Chamber Manual, pages 15-20
+For the complete mathematical derivation, consult pages 22–26 of the EGM-4 Operator's Manual and pages 15–20 of the SRC-1 Chamber Manual.
 
 
 ### C: Probe Types Reference (0-11) {#c-probe-types-reference--0-11}
 
-The EGM-4 recognizes different sensor types via code resistors in the 15-pin connector.
+The EGM-4 automatically identifies connected sensors by reading a code resistor on Pin 1 of the 15-pin connector. When you power on the device with a sensor attached, the startup screen displays "PROBETYPE X" where X is the detected type number from the table below:
 
 | Type | Sensor/Probe           | Code Resistor | Typical Use                               |
 |------|------------------------|---------------|-------------------------------------------|
@@ -849,207 +781,97 @@ The EGM-4 recognizes different sensor types via code resistors in the 15-pin con
 | 10   | 50Y RH/Temperature     | 5.6 kΩ        | Humidity and temperature only             |
 | 11   | CFX-1 / CPY-3          | 4.3 kΩ        | Open-system flux chambers                 |
 
-**Sensor Conversions (from mV to real units):**
+For Type 2, 3, and 10 sensors, the raw millivolt readings can be converted to physical units using these relationships: PAR equals the millivolt reading multiplied by 3 (giving µmol m⁻² s⁻¹), relative humidity equals the millivolt reading divided by 10 (giving percent), and temperature equals the millivolt reading divided by 20 (giving °C).
 
-When using Type 2/3/10 sensors:
+If you're using non-PP-Systems sensors or need to override auto-detection (for Type 0 or 7), you can manually set the probe type through Menu 2 (SET), then option 1 (EGM), where you select stand-alone mode, probe mode, or porometer mode.
 
--   PAR: \\(\text{PAR (µmol m⁻² s⁻¹)} = \text{mV} \times 3\\)
--   %RH: \\(\text{RH (\\%)} = \text{mV} / 10\\)
--   Temperature: \\(\text{Temp (°C)} = \text{mV} / 20\\)
-
-**Auto-Detection:**
-When you connect a PP Systems sensor and power on the EGM-4, it reads the code resistor on Pin 1 of the connector and automatically sets the probe type. You'll see "PROBETYPE X" on the startup screen.
-
-**Manually Setting Probe Type:**
-If using non-PP Systems sensors or for Type 0/7:
-
--   Menu `2` (SET) → `1` (EGM)
--   Select option `1` (stand-alone), `2` (with probe), or `3` (porometer)
-
-**Custom Sensors:**
-You can connect custom sensors to the I/O ports. Each port accepts 0-1V input:
-
--   A-E inputs appear as mV values (0-1000 mV) in data records
--   Scale your sensor output to 0-1V range
--   Apply conversion factors in post-processing
+Custom sensors can be connected to the I/O ports, which accept 0–1V input signals. The readings appear as millivolt values (0–1000 mV) in the A through E fields of data records. When using custom sensors, ensure your output is scaled to the 0–1V range and apply your own conversion factors during post-processing.
 
 
 ### D: Water Vapor &amp; Temperature Corrections {#d-water-vapor-and-temperature-corrections}
 
-CO₂ measurements are affected by water vapor (dilution effect) and temperature. The EGM-4 applies corrections automatically, but understanding these helps troubleshoot anomalies.
+CO₂ measurements are affected by both water vapor and temperature. The EGM-4 applies corrections automatically when appropriate sensors are connected, but understanding these effects helps in troubleshooting anomalous readings.
 
-**Water Vapor Dilution:**
+Water vapor dilutes the mole fraction of CO₂ in air. The relationship between wet and dry CO₂ concentrations is:
 
-Water vapor dilutes the mole fraction of CO₂ in air. Relationship:
 \\[C\_{dry} = \frac{C\_{wet}}{1 - \frac{e}{P}}\\]
 
-Where:
+Here, \\(C\_{dry}\\) is the CO₂ concentration in dry air (ppm), \\(C\_{wet}\\) is the measured concentration in humid air, \\(e\\) is water vapor pressure in millibars, and \\(P\\) is total atmospheric pressure in millibars.
 
--   \\(C\_{dry}\\) = CO₂ mole fraction in dry air (ppm)
--   \\(C\_{wet}\\) = measured CO₂ in humid air (ppm)
--   \\(e\\) = water vapor pressure (mb)
--   \\(P\\) = total atmospheric pressure (mb)
+As a practical example: if you measure 400 ppm CO₂ in air with 20 mb of water vapor at 1013 mb total pressure, the correction factor is \\(1 - (20/1013) = 0.980\\), giving a dry-air equivalent of \\(400 / 0.980 = 408\\) ppm. The EGM-4 applies this correction automatically when an RH/Temp sensor is connected; without the sensor, no correction is applied.
 
-**Example:**
+Temperature affects CO₂ measurements in several ways. Colder air has higher gas density (more molecules per unit volume), detector sensitivity varies with temperature, and temperature is a direct input to flux calculations. To minimize temperature effects on the IRGA itself, the EGM-4 thermostatically maintains the sample cell at 55°C.
 
--   Measured: 400 ppm CO₂ at 20 mb H₂O vapor, 1013 mb pressure
--   Correction factor: \\(1 - (20/1013) = 0.980\\)
--   Dry-air equivalent: \\(400 / 0.980 = 408\\) ppm
-
-The EGM-4 applies this correction when an RH/Temp sensor is connected. Without the sensor, no correction is applied.
-
-**Temperature Effects:**
-
-Temperature affects:
-
-1.  **Gas density**: More molecules per volume when cold
-2.  **IRGA sensitivity**: Detector response varies with temperature
-3.  **Flux calculations**: See Flux Calculations section
-
-The EGM-4 thermostatically controls the sample cell at 55°C to minimize temperature effects on the IRGA itself. However, sample temperature still matters for flux calculations.
-
-**Best Practices:**
-
--   Always use RH/Temp sensor for accurate measurements
--   Record temperature inside chamber (STP-1) for flux calculations
--   In very humid conditions (&gt;90% RH), expect ~2-4% correction to CO₂ values
+For best results, always use an RH/Temp sensor for accurate measurements, record the temperature inside the chamber (using an STP-1 if available) for flux calculations, and expect 2–4% corrections to CO₂ values when humidity exceeds 90%.
 
 
 ### E: Chamber Volume Calculations {#e-chamber-volume-calculations}
 
-Accurate flux measurements require knowing the total system volume (chamber + tubing).
+Accurate flux measurements depend on knowing the total system volume, which includes both the chamber and all connecting tubing. For the SRC-1, the manufacturer specifies a chamber volume of 1171 ml. Adding the standard tubing (typically 50–100 ml depending on length) gives a total system volume of roughly 1220–1270 ml.
 
-**SRC-1 Default:**
+For cylindrical chambers, volume is calculated as \\(V = \pi r^2 h\\), where \\(r\\) is the radius and \\(h\\) is the height, both in centimeters, yielding volume in cubic centimeters (equivalent to milliliters). Tubing volume uses the same formula: \\(V\_{tube} = \pi r^2 L\\), where \\(L\\) is the total tubing length.
 
--   Chamber volume: 1171 ml (manufacturer spec)
--   Standard tubing: ~50-100 ml (depends on length)
--   Total: ~1220-1270 ml
+As an example, 1/8" inner diameter tubing has an internal diameter of 3.175 mm, or a radius of 0.15875 cm. For 100 cm of this tubing, the volume is \\(\pi \times (0.15875)^2 \times 100 = 7.9\\) ml.
 
-**Calculating Custom Volumes:**
+The soil contact area is similarly calculated as \\(A = \pi r^2\\). For the SRC-1 with its 10 cm diameter opening, this gives \\(A = \pi \times 5^2 = 78.5\\) cm².
 
-**Chamber volume** (for cylindrical chambers):
-\\[V = \pi r^2 h\\]
+To enter custom volume and area values in the EGM-4, press 1 (REC) from the Main Menu, then press N at the settings screen to modify values. Press 1 to change volume or 2 to change area, enter your new values, and the EGM-4 will automatically update the V/A ratio used in flux calculations.
 
--   \\(r\\) = radius (cm)
--   \\(h\\) = height (cm)
--   Volume in cm³ (= ml)
-
-**Tubing volume:**
-\\[V\_{tube} = \pi r^2 L\\]
-
--   \\(r\\) = internal radius (cm)
--   \\(L\\) = total length (cm)
-
-**Example:**
-
--   1/8" ID tubing = 3.175 mm ID = 0.15875 cm radius
--   100 cm length
--   \\(V = \pi (0.15875)^2 (100) = 7.9\\) ml
-
-**Area Calculation:**
-\\[A = \pi r^2\\]
-
-For SRC-1 (10 cm diameter):
-\\[A = \pi (5)^2 = 78.5 \text{ cm²}\\]
-
-**Setting Custom Values in EGM-4:**
-
-1.  Press `1` (REC) from Main Menu
-2.  At settings screen, press `N` to modify
-3.  Press `1` to change volume, `2` to change area
-4.  Enter new values
-5.  EGM-4 auto-updates V/A ratio used in calculations
-
-**Why V/A Ratio Matters:**
-The \\(\frac{V}{A}\\) ratio determines how quickly CO₂ accumulates per unit flux:
-
--   High V/A: Slower accumulation, longer measurement time needed
--   Low V/A: Faster accumulation, shorter measurement time
-
-For soil respiration, typical V/A ≈ 15 cm (SRC-1 default is 14.9 cm).
+The volume-to-area ratio determines how quickly CO₂ accumulates for a given flux rate. A high V/A ratio means slower accumulation and longer measurement times, while a low V/A ratio results in faster accumulation. For soil respiration work, typical V/A ratios are around 15 cm; the SRC-1 default is 14.9 cm.
 
 
 ### F: open-egm4 Software Design Philosophy {#f-open-egm4-software-design-philosophy}
 
 This section explains why open-egm4 was built as a terminal user interface (TUI) and how the software works internally.
 
-**Why a Terminal Interface?**
 
-Open-egm4 deliberately uses a text-based terminal interface instead of a graphical interface (GUI) for several important reasons:
+#### Why a Terminal Interface? {#why-a-terminal-interface}
 
-1.  **Cross-Platform Compatibility:**
-    The software runs identically on macOS, Linux, and Windows because it does not rely on platform-specific UI frameworks. This eliminates the "it works on my machine" inconsistencies that often arise when porting graphical applications between different operating systems.
+Open-egm4 deliberately uses a text-based terminal interface instead of a graphical interface for several important reasons.
 
-2.  **Remote Access via SSH:**
-    Users can monitor field equipment from any location with an internet connection. Because terminal interfaces use minimal bandwidth—approximately 1 KB/s compared to over 100 KB/s for a standard GUI—the software remains responsive even over slow or unreliable network connections.
+Cross-platform compatibility is a major advantage. The software runs identically on macOS, Linux, and Windows because it does not rely on platform-specific UI frameworks. This eliminates the "it works on my machine" inconsistencies that often arise when porting graphical applications between different operating systems.
 
-3.  **Lightweight and Fast:**
-    Open-egm4 is designed to be highly efficient, typically starting in less than one second and consuming only 10–20 MB of RAM. By avoiding the overhead of graphics rendering, the application remains fully functional on older or low-powered field hardware.
+Remote access via SSH is trivial with a terminal application. Users can monitor field equipment from any location with an internet connection. Because terminal interfaces use minimal bandwidth—approximately 1 KB/s compared to over 100 KB/s for a standard GUI—the software remains responsive even over slow or unreliable network connections.
 
-4.  **Scriptable and Automatable:**
-    The interface can be controlled via shell scripts, making it simple to integrate the EGM-4 into automated data collection pipelines or broader research workflows.
+The application is lightweight and fast, typically starting in less than one second and consuming only 10–20 MB of RAM. By avoiding the overhead of graphics rendering, the application remains fully functional on older or low-powered field hardware.
 
-5.  **Reliability:**
-    It should be much more reliable than a GUI app. Maybe.
+A terminal interface is inherently scriptable and automatable. The application can be controlled via shell scripts, making it simple to integrate the EGM-4 into automated data collection pipelines or broader research workflows.
 
-6.  **KISS:**
-    Keep it simple, stupid.
+There's also the matter of reliability—terminal applications _should_ be more reliable than GUI apps. Maybe. And finally: KISS. Keep it simple, stupid.
 
-**Advantages Over Legacy Windows Software:**
 
-The official PP Systems software (Windows-only) has several limitations:
+#### Advantages Over Legacy Windows Software {#advantages-over-legacy-windows-software}
 
--   Only runs on Windows
--   Requires specific .NET framework versions
--   No remote access capability
--   Closed-source (can't fix bugs or add features)
--   No longer actively maintained
+The official PP Systems software is Windows-only and has several limitations. It requires specific .NET framework versions that may conflict with other software, offers no remote access capability, and is closed-source (so you can't fix bugs or add features). It also appears to no longer be actively maintained.
 
-Open-egm4 addresses all of these:
-
--   ✓ Runs on any OS
--   ✓ Open source (MIT license)
--   ✓ Actively developed and maintained
--   ✓ Community can contribute features
--   ✓ Works over SSH for remote field sites
+Open-egm4 addresses all of these concerns. It runs on any operating system, is open source under the MIT license, and is actively developed and maintained. The community can contribute features, and it works seamlessly over SSH for remote field sites.
 
 **Architecture Overview:**
 
-Open-egm4 is built in Python with these components:
+Open-egm4 is built in Python using the [Textual](https://textual.textualize.io/) framework for terminal UI rendering.
 
-1.  **Serial Handler** (`serial_handler.py`):
-    -   Manages connection to EGM-4 via pyserial library
-    -   Parses incoming data stream using regex
-    -   Handles reconnection on dropout
-    -   Runs in separate thread to prevent blocking UI
+The core serial communication lives in `src/egm_interface.py`, which defines the `EGM4Serial` class. This class manages the connection to the EGM-4 via pyserial, parses the incoming 60-character fixed-width data records using position-based slicing, and dispatches parsed data to registered callbacks. The parser handles all probe types (0-11) and extracts fields like CO₂, temperature, humidity, and calculated flux depending on the connected sensor.
 
-2.  **Data Manager** (`data_manager.py`):
-    -   Stores measurements in memory during session
-    -   Validates data (checks for anomalies)
-    -   Timestamps each record
-    -   Handles session management (start/stop/export)
+Session persistence is handled by `src/database.py`, which uses SQLite to store readings across sessions. This allows users to close the app and resume later without losing data. The database stores each reading with its timestamp, plot number, channel values, and session metadata.
 
-3.  **Terminal UI** (`tui.py`):
-    -   Built with textual
-    -   Real-time chart rendering using ASCII art
-    -   Keyboard input handling
-    -   Layout management (adaptive to terminal size)
+The TUI itself is composed of screens and widgets in the `src/tui/` directory. The main application entry point is `src/tui/app.py`, which sets up the Textual app and manages screen transitions. Key screens include the connection screen (`screens/connect.py`), the main monitor screen (`screens/monitor.py`), the export wizard (`screens/export.py`), and the high-visibility "big mode" (`screens/big_mode.py`).
 
-4.  **CSV Exporter** (`export.py`):
-    -   Converts in-memory data to CSV format
-    -   Adds headers with metadata (session info, device settings)
-    -   Handles multiple sessions in one export
+The monitor screen orchestrates real-time display by wiring the serial handler to the chart widget (`widgets/co2_chart.py`), which renders data using [plotext](https://github.com/piccolomo/plotext) for ASCII plotting. Statistics are calculated and displayed by `widgets/stats.py`, and the channel legend is managed by `widgets/legend.py`.
+
+Export functionality converts session data to CSV format, allowing users to filter by plot number and date range before saving.
 
 **Data Flow:**
 
 ```text
-EGM-4 → Serial Cable → USB Adapter → pyserial → Serial Handler
-                                                        ↓
-                                                   Parser (regex)
-                                                        ↓
-                                                  Data Manager
-                                                   ↙         ↘
-                                           Terminal UI     CSV Export
+EGM-4 → Serial Cable → USB Adapter → pyserial → EGM4Serial (egm_interface.py)
+                                                         ↓
+                                                    Parser (position-based slicing)
+                                                         ↓
+                                               MonitorScreen (monitor.py)
+                                                ↙         ↓         ↘
+                                          CO2Chart   StatsWidget   Database
+                                                                      ↓
+                                                               CSV Export
 ```
 
 _Created in Doom Emacs 2.0.9, using org-mode 9.7._

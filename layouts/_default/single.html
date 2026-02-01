@@ -101,6 +101,36 @@
                 {{- end }}
             </nav>
         </aside>
+
+        <!-- Mobile TOC Bar -->
+        <div class="toc-mobile-bar" id="toc-mobile-bar">
+            <button class="toc-mobile-toggle" id="toc-mobile-toggle">
+                <span class="toc-mobile-label">
+                    <span class="toc-mobile-parent" id="toc-mobile-parent"></span>
+                    <span class="toc-mobile-current" id="toc-mobile-current">Contents</span>
+                </span>
+                <svg class="toc-mobile-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6" />
+                </svg>
+            </button>
+            <nav class="toc-mobile-nav" id="toc-mobile-nav">
+                {{- if (.Param "UseHugoToc") }}
+                {{- .TableOfContents -}}
+                {{- else }}
+                <ul>
+                    {{- range $i, $header := $headers -}}
+                    {{- $headerLevel := index (findRE "[1-6]" . 1) 0 -}}
+                    {{- $id := index (findRE "(id=\"(.*?)\")" $header 9) 0 }}
+                    {{- $cleanedID := replace (replace $id "id=\"" "") "\"" "" }}
+                    {{- $header := replaceRE "<h[1-6].*?>((.|\\n])+?)</h[1-6]>" "$1" $header -}}
+                        <li class="toc-mobile-item level-{{ $headerLevel }}" data-level="{{ $headerLevel }}">
+                            <a href="#{{ $cleanedID }}">{{ $header | safeHTML }}</a>
+                        </li>
+                        {{- end -}}
+                </ul>
+                {{- end }}
+            </nav>
+        </div>
         {{- end }}
         {{- end }}
 
@@ -181,18 +211,21 @@
             const id = marker.dataset.target.slice(1);
             const heading = document.getElementById(id);
             const title = marker.dataset.title;
+            const level = parseInt(marker.dataset.level);
             if (heading) {
-                headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title });
+                headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title, level: level });
             }
         });
 
         function updateActiveState() {
             const scrollPos = window.scrollY + 150;
             let current = headings[0];
+            let currentIndex = 0;
 
-            for (const heading of headings) {
-                if (heading.element.offsetTop <= scrollPos) {
-                    current = heading;
+            for (let i = 0; i < headings.length; i++) {
+                if (headings[i].element.offsetTop <= scrollPos) {
+                    current = headings[i];
+                    currentIndex = i;
                 }
             }
 
@@ -202,12 +235,33 @@
             if (current) {
                 current.marker.classList.add('active');
                 if (current.link) current.link.classList.add('active');
-                if (currentLabel && current.title) {
-                    currentLabel.textContent = current.title;
+
+                if (currentLabel) {
+                    // Find parent heading (h2) if current is a child (h3+)
+                    let parentTitle = null;
+                    let childTitle = current.title;
+
+                    if (current.level > 2) {
+                        // Look backwards for the nearest h2
+                        for (let j = currentIndex - 1; j >= 0; j--) {
+                            if (headings[j].level === 2) {
+                                parentTitle = headings[j].title;
+                                break;
+                            }
+                        }
+                    }
+
+                    // Build the label HTML
+                    if (parentTitle) {
+                        currentLabel.innerHTML = `<span class="toc-parent-label">${parentTitle}</span><span class="toc-child-label">${childTitle}</span>`;
+                    } else {
+                        currentLabel.innerHTML = `<span class="toc-child-label">${childTitle}</span>`;
+                    }
+
                     // Position label next to the active marker
                     const markerRect = current.marker.getBoundingClientRect();
                     const sidebarRect = sidebar.getBoundingClientRect();
-                    currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - 10) + 'px';
+                    currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (parentTitle ? 18 : 10)) + 'px';
                 }
             }
         }

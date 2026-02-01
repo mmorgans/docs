@@ -8,7 +8,7 @@
 <title>Using the EGM-4 &amp; open-egm4 software | morgan docs</title>
 <meta name="keywords" content="">
 <meta name="description" content="
-  Backup your data regularly.  The EGM-4&rsquo;s internal memory is limited to 999 records. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
+  Backup your data regularly.  The EGM-4&rsquo;s internal memory is limited to 9999 records and 99 plots. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
 
 
   You are responsible for your data. Significant care has been taken to ensure data safety. However, by using the open-egm4 software, you accept the risk of data loss. Open-egm4 can not send commands to the EGM-4 itself, and therefore cannot damage it internally.
@@ -20,7 +20,7 @@ Introduction
 The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in it&rsquo;s internal memory.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/using-the-egm-4/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.6c08a3ebad6cf2bf42711814737bb4c81fbab4a961a6eb663a1f50fd9331cec4.css" integrity="sha256-bAij661s8r9CcRgUc3u0yB&#43;6tKlhputmOh9Q/ZMxzsQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.dace933cd8dfd3472f8363493ef5f8966ed7dd1f9cbcac4aca3f5a354cfce08c.css" integrity="sha256-2s6TPNjf00cvg2NJPvX4lm7X3R&#43;cvKxKyj9aNUz84Iw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -143,11 +143,18 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                         data-title="Software Connection Issues"></div><div class="toc-marker" data-target="#technical-appendix" data-level="2"
                         data-title="Technical Appendix"></div><div class="toc-marker" data-target="#a-serial-protocol-specification" data-level="3"
                         data-title="A: Serial Protocol Specification"></div><div class="toc-marker" data-target="#b-flux-calculation-methods" data-level="3"
-                        data-title="B: Flux Calculation Methods"></div><div class="toc-marker" data-target="#c-probe-types-reference--0-11" data-level="3"
+                        data-title="B: Flux Calculation Methods"></div><div class="toc-marker" data-target="#closed-system-chamber-method" data-level="4"
+                        data-title="Closed-System Chamber Method"></div><div class="toc-marker" data-target="#linear-vs-dot-quadratic-fitting" data-level="4"
+                        data-title="Linear vs. Quadratic Fitting"></div><div class="toc-marker" data-target="#chamber-corrections" data-level="4"
+                        data-title="Chamber Corrections"></div><div class="toc-marker" data-target="#worked-example" data-level="4"
+                        data-title="Worked Example"></div><div class="toc-marker" data-target="#sources-of-error" data-level="4"
+                        data-title="Sources of Error"></div><div class="toc-marker" data-target="#c-probe-types-reference--0-11" data-level="3"
                         data-title="C: Probe Types Reference (0-11)"></div><div class="toc-marker" data-target="#d-water-vapor-and-temperature-corrections" data-level="3"
                         data-title="D: Water Vapor &amp; Temperature Corrections"></div><div class="toc-marker" data-target="#e-chamber-volume-calculations" data-level="3"
                         data-title="E: Chamber Volume Calculations"></div><div class="toc-marker" data-target="#f-open-egm4-software-design-philosophy" data-level="3"
-                        data-title="F: open-egm4 Software Design Philosophy"></div></div>
+                        data-title="F: open-egm4 Software Design Philosophy"></div><div class="toc-marker" data-target="#why-a-terminal-interface" data-level="4"
+                        data-title="Why a Terminal Interface?"></div><div class="toc-marker" data-target="#advantages-over-legacy-windows-software" data-level="4"
+                        data-title="Advantages Over Legacy Windows Software"></div></div>
             <div class="toc-current-label" id="toc-current-label"></div>
             <nav class="toc-nav" id="toc-nav">
                 <div class="toc-title">Contents</div><ul>
@@ -227,7 +234,18 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                     <li>
                         <a href="#a-serial-protocol-specification" aria-label="A: Serial Protocol Specification">A: Serial Protocol Specification</a></li>
                     <li>
-                        <a href="#b-flux-calculation-methods" aria-label="B: Flux Calculation Methods">B: Flux Calculation Methods</a></li>
+                        <a href="#b-flux-calculation-methods" aria-label="B: Flux Calculation Methods">B: Flux Calculation Methods</a><ul>
+                    <li>
+                        <a href="#closed-system-chamber-method" aria-label="Closed-System Chamber Method">Closed-System Chamber Method</a></li>
+                    <li>
+                        <a href="#linear-vs-dot-quadratic-fitting" aria-label="Linear vs. Quadratic Fitting">Linear vs. Quadratic Fitting</a></li>
+                    <li>
+                        <a href="#chamber-corrections" aria-label="Chamber Corrections">Chamber Corrections</a></li>
+                    <li>
+                        <a href="#worked-example" aria-label="Worked Example">Worked Example</a></li>
+                    <li>
+                        <a href="#sources-of-error" aria-label="Sources of Error">Sources of Error</a></li></ul>
+                    </li>
                     <li>
                         <a href="#c-probe-types-reference--0-11" aria-label="C: Probe Types Reference (0-11)">C: Probe Types Reference (0-11)</a></li>
                     <li>
@@ -235,13 +253,127 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                     <li>
                         <a href="#e-chamber-volume-calculations" aria-label="E: Chamber Volume Calculations">E: Chamber Volume Calculations</a></li>
                     <li>
-                        <a href="#f-open-egm4-software-design-philosophy" aria-label="F: open-egm4 Software Design Philosophy">F: open-egm4 Software Design Philosophy</a>
+                        <a href="#f-open-egm4-software-design-philosophy" aria-label="F: open-egm4 Software Design Philosophy">F: open-egm4 Software Design Philosophy</a><ul>
+                    <li>
+                        <a href="#why-a-terminal-interface" aria-label="Why a Terminal Interface?">Why a Terminal Interface?</a></li>
+                    <li>
+                        <a href="#advantages-over-legacy-windows-software" aria-label="Advantages Over Legacy Windows Software">Advantages Over Legacy Windows Software</a>
                     </li>
+                </ul>
+                </li>
                 </ul>
                 </li>
                 </ul>
             </nav>
         </aside>
+
+        
+        <div class="toc-mobile-bar" id="toc-mobile-bar">
+            <button class="toc-mobile-toggle" id="toc-mobile-toggle">
+                <span class="toc-mobile-label">
+                    <span class="toc-mobile-parent" id="toc-mobile-parent"></span>
+                    <span class="toc-mobile-current" id="toc-mobile-current">Contents</span>
+                </span>
+                <svg class="toc-mobile-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6" />
+                </svg>
+            </button>
+            <nav class="toc-mobile-nav" id="toc-mobile-nav">
+                <ul><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#introduction">Introduction</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#tl-dr-checklist">TL;DR checklist</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#installing-open-egm4">Installing open-egm4</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#one-line-installation--recommended">One-Line Installation (Recommended)</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#step-1-open-your-terminal">Step 1: Open Your Terminal</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#step-2-copy-and-paste-the-installation-command">Step 2: Copy and Paste the Installation Command</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#step-3-what-you-ll-see-during-installation">Step 3: What You&rsquo;ll See During Installation</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#pip-installation">Pip Installation</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#initial-connection-to-the-egm-4">Initial Connection to the EGM-4</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#egm-4-hardware">EGM-4 hardware</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#physical-interface-and-controls">Physical Interface &amp; Controls</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#power-and-battery">Power &amp; Battery</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#src-1-soil-respiration-chamber">SRC-1 Soil Respiration Chamber</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#open-egm4-software">open-egm4 software</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#connection-screen">Connection screen</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#main-interface">Main interface</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#keyboard-commands">Keyboard Commands</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#exporting-data">Exporting data</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#pausing--p">Pausing (<code>p</code>)</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#adding-notes--n">Adding notes (<code>n</code>)</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#clearing-data--c">Clearing data (<code>c</code>)</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#quitting--q">Quitting (<code>q</code>)</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#workflows">Workflows</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#workflow-1-soil-respiration-with-src-1-chamber">Workflow 1: Soil Respiration with SRC-1 Chamber</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#workflow-2-static-sampling-via-syringe-injection">Workflow 2: Static Sampling via Syringe Injection</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#workflow-3-dumping-stored-data-from-egm-4-memory">Workflow 3: Dumping Stored Data from EGM-4 Memory</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#troubleshooting-and-maintenance">Troubleshooting &amp; Maintenance</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#replacing-the-soda-lime-co-scrubber">Replacing the Soda Lime CO₂ Scrubber</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#replacing-the-internal-battery">Replacing the Internal Battery</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#replacing-internal-tubing">Replacing internal tubing</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#egm-4-error-codes">EGM-4 error codes</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#software-connection-issues">Software Connection Issues</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#technical-appendix">Technical Appendix</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#a-serial-protocol-specification">A: Serial Protocol Specification</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#b-flux-calculation-methods">B: Flux Calculation Methods</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#closed-system-chamber-method">Closed-System Chamber Method</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#linear-vs-dot-quadratic-fitting">Linear vs. Quadratic Fitting</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#chamber-corrections">Chamber Corrections</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#worked-example">Worked Example</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#sources-of-error">Sources of Error</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#c-probe-types-reference--0-11">C: Probe Types Reference (0-11)</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#d-water-vapor-and-temperature-corrections">D: Water Vapor &amp; Temperature Corrections</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#e-chamber-volume-calculations">E: Chamber Volume Calculations</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#f-open-egm4-software-design-philosophy">F: open-egm4 Software Design Philosophy</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#why-a-terminal-interface">Why a Terminal Interface?</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#advantages-over-legacy-windows-software">Advantages Over Legacy Windows Software</a>
+                        </li></ul>
+            </nav>
+        </div>
 
         <article class="post-single">
             <header class="post-header">
@@ -256,14 +388,14 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                         </svg>
                     </span>
                 </h1>
-                <div class="post-meta"><span title='2026-01-30 00:00:00 +0000 UTC'>January 30, 2026</span>&nbsp;·&nbsp;<span>29 min</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2026-01-30 00:00:00 +0000 UTC'>January 30, 2026</span>&nbsp;·&nbsp;<span>33 min</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-egm-4.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
 </div>
             </header> 
             <div class="post-content"><div class="alert alert-Warning">
-  <strong>Backup your data regularly.</strong>  The EGM-4&rsquo;s internal memory is limited to 999 records. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
+  <strong>Backup your data regularly.</strong>  The EGM-4&rsquo;s internal memory is limited to 9999 records and 99 plots. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
 </div>
 <div class="alert alert-Warning">
   <strong>You are responsible for your data.</strong> Significant care has been taken to ensure data safety. However, by using the open-egm4 software, you accept the risk of data loss. Open-egm4 can not send commands to the EGM-4 itself, and therefore cannot damage it internally.
@@ -845,199 +977,372 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
 </ul>
 <h2 id="technical-appendix">Technical Appendix<a hidden class="anchor" aria-hidden="true" href="#technical-appendix">#</a></h2>
 <h3 id="a-serial-protocol-specification">A: Serial Protocol Specification<a hidden class="anchor" aria-hidden="true" href="#a-serial-protocol-specification">#</a></h3>
-<p><strong>Connection Parameters:</strong></p>
-<ul>
-<li>Baud: 9600</li>
-<li>Data bits: 8</li>
-<li>Parity: None</li>
-<li>Stop bits: 1</li>
-<li>Flow control: None</li>
-</ul>
-<p><strong>Data Format:</strong></p>
-<ul>
-<li>ASCII text, comma-separated values (CSV)</li>
-<li>Line terminator: <code>\r\n</code> (carriage return + line feed)</li>
-<li>Continuous stream in REC mode (1 record per second)</li>
-<li>Full dump in DUMP mode</li>
-</ul>
-<p><strong>Record Structure (comma seperated for readability):</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>M,1,5,27,1,13,19,968,0,000.0,0000,0000,0000,0000,0000,0000,00,00,991,0
-</span></span></code></pre></div><p>Fields (in order):</p>
-<ol>
-<li>Mode: <code>M</code> (real-time measurement) or <code>R</code> (stored record)</li>
-<li>Plot number (0-99)</li>
-<li>Record number (1-9999)</li>
-<li>Day (1-31)</li>
-<li>Month (1-12)</li>
-<li>Hour (0-23, 24-hour format)</li>
-<li>Minute (0-59)</li>
-<li>CO₂ Reference (ppm)</li>
-<li>H₂O Reference (mb, or 0 if no sensor)</li>
-<li>RH/Temp sensor temperature (°C × 10, &ldquo;000.0&rdquo; format)</li>
-</ol>
-<p>11-15. Sensor inputs A-E (mV, &ldquo;0000&rdquo; format)
-16-17. Reserved (00)</p>
-<ol>
-<li>Atmospheric pressure (mb)</li>
-<li>Probe type (0-11)</li>
-</ol>
-<p><strong>Probe-Type-Specific Fields (11-17):</strong></p>
-<p>For Probe Type 8 (SRC-1 Soil Respiration):</p>
-<ul>
-<li>Field 11 (A): PAR (µmol m⁻² s⁻¹)</li>
-<li>Field 12 (B): %RH (× 10, &ldquo;000.0&rdquo; format)</li>
-<li>Field 13 (C): Temperature (°C × 10)</li>
-<li>Field 14 (D): ΔC (change in CO₂, ppm)</li>
-<li>Field 15 (E): ΔT (change in time, seconds)</li>
-<li>Field 16 (F): Flux rate (g CO₂ m⁻² hr⁻¹ × 100, &ldquo;00.00&rdquo; format)</li>
-<li>Field 17 (G): Flux sign (00=positive/respiration, 01=negative/uptake)</li>
-</ul>
-<p>For other probe types, see EGM-4 manual page 35.</p>
-<p><strong>Example Parser (Python):</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> re
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_egm4_record</span>(line):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Parse EGM-4 serial output line.&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    parts <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;,&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    record <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;mode&#39;</span>: parts[<span style="color:#ae81ff">0</span>],
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;plot&#39;</span>: int(parts[<span style="color:#ae81ff">1</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;record_num&#39;</span>: int(parts[<span style="color:#ae81ff">2</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;day&#39;</span>: int(parts[<span style="color:#ae81ff">3</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;month&#39;</span>: int(parts[<span style="color:#ae81ff">4</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;hour&#39;</span>: int(parts[<span style="color:#ae81ff">5</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;minute&#39;</span>: int(parts[<span style="color:#ae81ff">6</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;co2_ppm&#39;</span>: int(parts[<span style="color:#ae81ff">7</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;h2o_mb&#39;</span>: int(parts[<span style="color:#ae81ff">8</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;rh_temp_c&#39;</span>: float(parts[<span style="color:#ae81ff">9</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_a_mv&#39;</span>: int(parts[<span style="color:#ae81ff">10</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_b_mv&#39;</span>: int(parts[<span style="color:#ae81ff">11</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_c_mv&#39;</span>: int(parts[<span style="color:#ae81ff">12</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_d_mv&#39;</span>: int(parts[<span style="color:#ae81ff">13</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_e_mv&#39;</span>: int(parts[<span style="color:#ae81ff">14</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;pressure_mb&#39;</span>: int(parts[<span style="color:#ae81ff">18</span>]),
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;probe_type&#39;</span>: int(parts[<span style="color:#ae81ff">19</span>])
+<p>The EGM-4 communicates over RS-232 serial at 9600 baud, 8 data bits, no parity, 1 stop bit, and no flow control. This is a standard configuration supported by virtually all serial terminal software.</p>
+<p>Each data record is exactly 61 characters long (1 letter followed by 60 digits), with no spaces or delimiters, terminated by a carriage return and line feed (<code>\r\n</code>). The manual refers to &ldquo;60 digits&rdquo; which excludes the initial M/R mode character. During live measurements, the EGM transmits one record per second. When dumping stored data, all records are sent consecutively.</p>
+<p>Here&rsquo;s an example raw record:</p>
+<p><code>R000002180313170042900000000000000000000000000400000000096508</code></p>
+<p>The table below shows how to interpret parsed records. Both real-time measurements (<code>M</code>) and stored records (<code>R</code>) use the same format:</p>
+<table>
+  <thead>
+      <tr>
+          <th>M/R</th>
+          <th>Plot No.</th>
+          <th>Rec No</th>
+          <th>Day</th>
+          <th>Mo</th>
+          <th>Hr</th>
+          <th>Min</th>
+          <th>CO₂ Ref</th>
+          <th>H₂O Ref</th>
+          <th>RHT</th>
+          <th>A</th>
+          <th>B</th>
+          <th>C</th>
+          <th>D</th>
+          <th>E</th>
+          <th>F</th>
+          <th>G</th>
+          <th>H</th>
+          <th>AP</th>
+          <th>PT</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>M</td>
+          <td>1</td>
+          <td>1</td>
+          <td>28</td>
+          <td>1</td>
+          <td>13</td>
+          <td>19</td>
+          <td>968</td>
+          <td>0</td>
+          <td>000.0</td>
+          <td>0000</td>
+          <td>0000</td>
+          <td>0000</td>
+          <td>0000</td>
+          <td>0000</td>
+          <td>0000</td>
+          <td>00</td>
+          <td>00</td>
+          <td>991</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td>R</td>
+          <td>1</td>
+          <td>2</td>
+          <td>28</td>
+          <td>1</td>
+          <td>13</td>
+          <td>21</td>
+          <td>930</td>
+          <td>0</td>
+          <td>000.0</td>
+          <td>0000</td>
+          <td>0000</td>
+          <td>0000</td>
+          <td>0000</td>
+          <td>0000</td>
+          <td>0000</td>
+          <td>00</td>
+          <td>00</td>
+          <td>991</td>
+          <td>0</td>
+      </tr>
+  </tbody>
+</table>
+<p>The fixed columns are:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Column</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>M/R</td>
+          <td>M = real-time measurement, R = record retrieved from memory</td>
+      </tr>
+      <tr>
+          <td>Plot No</td>
+          <td>Plot number, 0-99</td>
+      </tr>
+      <tr>
+          <td>Rec No</td>
+          <td>Record number within the plot, 1-9999</td>
+      </tr>
+      <tr>
+          <td>Day</td>
+          <td>Day of month, 1-31</td>
+      </tr>
+      <tr>
+          <td>Mo</td>
+          <td>Month, 1-12</td>
+      </tr>
+      <tr>
+          <td>Hr</td>
+          <td>Hour in 24-hour format, 0-23</td>
+      </tr>
+      <tr>
+          <td>Min</td>
+          <td>Minute, 0-59</td>
+      </tr>
+      <tr>
+          <td>CO₂ Ref</td>
+          <td>CO₂ concentration in ppm (equivalent to µmol mol⁻¹)</td>
+      </tr>
+      <tr>
+          <td>H₂O Ref</td>
+          <td>Water vapor in millibars (only if optional RH sensor is fitted)</td>
+      </tr>
+      <tr>
+          <td>RHT</td>
+          <td>Temperature from RH sensor in °C (if sensor is fitted)</td>
+      </tr>
+      <tr>
+          <td>A-H</td>
+          <td>Probe-specific fields (see probe type table below)</td>
+      </tr>
+      <tr>
+          <td>AP</td>
+          <td>Atmospheric pressure in millibars</td>
+      </tr>
+      <tr>
+          <td>PT</td>
+          <td>Probe type code, 0-11</td>
+      </tr>
+  </tbody>
+</table>
+<p>Columns A through H contain probe-specific data whose meaning depends on the connected sensor:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Type</th>
+          <th>Sensor</th>
+          <th>A</th>
+          <th>B</th>
+          <th>C</th>
+          <th>D</th>
+          <th>E</th>
+          <th>F</th>
+          <th>G</th>
+          <th>H</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0</td>
+          <td>No Sensor (stand-alone)</td>
+          <td>mV Pin 1</td>
+          <td>mV Pin 2</td>
+          <td>mV Pin 3</td>
+          <td>mV Pin 4</td>
+          <td>mV Pin 5</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+      </tr>
+      <tr>
+          <td>1</td>
+          <td>STP-1 Soil Temp</td>
+          <td>PAR</td>
+          <td>%RH</td>
+          <td>Temp</td>
+          <td>—</td>
+          <td>mV Pin 5</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>HTR-2 %RH/Temp/PAR</td>
+          <td>PAR</td>
+          <td>%RH</td>
+          <td>Temp</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>HTR-1 %RH/Temp/LUX</td>
+          <td>PAR</td>
+          <td>%RH</td>
+          <td>Temp</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>PMR-4 Porometer</td>
+          <td>PAR</td>
+          <td>%RH In</td>
+          <td>Temp</td>
+          <td>%RH Out</td>
+          <td>Flow</td>
+          <td>GS</td>
+          <td>—</td>
+          <td>—</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>SRC-1 Soil Respiration</td>
+          <td>PAR</td>
+          <td>%RH</td>
+          <td>Temp</td>
+          <td>DC</td>
+          <td>DT</td>
+          <td>SR Rate</td>
+          <td>—</td>
+          <td>+/- SR Rate</td>
+      </tr>
+      <tr>
+          <td>10</td>
+          <td>50Y %RH/Temp</td>
+          <td>—</td>
+          <td>%RH</td>
+          <td>Temp</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+      </tr>
+      <tr>
+          <td>11</td>
+          <td>CFX-1 / CPY-3</td>
+          <td>PAR</td>
+          <td>Evap Rate</td>
+          <td>Temp</td>
+          <td>DC</td>
+          <td>Flow</td>
+          <td>SR Rate</td>
+          <td>Flow Mult.</td>
+          <td>+/- SR Rate</td>
+      </tr>
+  </tbody>
+</table>
+<p>The units for each data type are:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Output Data</th>
+          <th>Units</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>PAR</td>
+          <td>µmol m⁻² s⁻¹</td>
+      </tr>
+      <tr>
+          <td>%RH</td>
+          <td>%</td>
+      </tr>
+      <tr>
+          <td>Evap Rate</td>
+          <td>mmol m⁻² s⁻¹ × 1000</td>
+      </tr>
+      <tr>
+          <td>Temperature</td>
+          <td>°C</td>
+      </tr>
+      <tr>
+          <td>Flow</td>
+          <td>ml min⁻¹</td>
+      </tr>
+      <tr>
+          <td>GS</td>
+          <td>mmol (H₂O) m⁻² s⁻¹ (Stomatal Conductance)</td>
+      </tr>
+      <tr>
+          <td>SR Rate</td>
+          <td>g CO₂ m⁻² hr⁻¹ for SRC-1; µmol m⁻² s⁻¹ for CPY-3 and CFX-1</td>
+      </tr>
+      <tr>
+          <td>DC</td>
+          <td>ppm (change in CO₂ concentration)</td>
+      </tr>
+      <tr>
+          <td>DT</td>
+          <td>seconds (change in time)</td>
+      </tr>
+      <tr>
+          <td>+/-</td>
+          <td>00 = respiration (CO₂ increase), 01 = uptake (CO₂ decrease)</td>
+      </tr>
+  </tbody>
+</table>
+<div class="alert alert-Note">
+  For CFX-1/CPY-3, column G contains a flow multiplier (1 or 10) that should be applied to get the true flow rate.
+</div>
+<p>Here&rsquo;s a Python function that parses a raw 61-character record:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_egm4_record</span>(raw):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Parse EGM-4 61-character fixed-width record (1 letter + 60 digits).
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Example input: &#39;R000002180313170042900000000000000000000000000400000000096508&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;mode&#39;</span>: raw[<span style="color:#ae81ff">0</span>],              <span style="color:#75715e"># 1 char: M or R</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;plot&#39;</span>: int(raw[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">3</span>]),       <span style="color:#75715e"># 2 chars: 00-99</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;record_num&#39;</span>: int(raw[<span style="color:#ae81ff">3</span>:<span style="color:#ae81ff">7</span>]), <span style="color:#75715e"># 4 chars: 0001-9999</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;day&#39;</span>: int(raw[<span style="color:#ae81ff">7</span>:<span style="color:#ae81ff">9</span>]),        <span style="color:#75715e"># 2 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;month&#39;</span>: int(raw[<span style="color:#ae81ff">9</span>:<span style="color:#ae81ff">11</span>]),     <span style="color:#75715e"># 2 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;hour&#39;</span>: int(raw[<span style="color:#ae81ff">11</span>:<span style="color:#ae81ff">13</span>]),     <span style="color:#75715e"># 2 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;minute&#39;</span>: int(raw[<span style="color:#ae81ff">13</span>:<span style="color:#ae81ff">15</span>]),   <span style="color:#75715e"># 2 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;co2_ppm&#39;</span>: int(raw[<span style="color:#ae81ff">15</span>:<span style="color:#ae81ff">19</span>]),  <span style="color:#75715e"># 4 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;h2o_mb&#39;</span>: int(raw[<span style="color:#ae81ff">19</span>:<span style="color:#ae81ff">23</span>]),   <span style="color:#75715e"># 4 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;rht_temp&#39;</span>: float(raw[<span style="color:#ae81ff">23</span>:<span style="color:#ae81ff">28</span>]) <span style="color:#f92672">/</span> <span style="color:#ae81ff">10</span>,  <span style="color:#75715e"># 5 chars (XXX.X format)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_a&#39;</span>: int(raw[<span style="color:#ae81ff">28</span>:<span style="color:#ae81ff">32</span>]), <span style="color:#75715e"># 4 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_b&#39;</span>: int(raw[<span style="color:#ae81ff">32</span>:<span style="color:#ae81ff">36</span>]), <span style="color:#75715e"># 4 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_c&#39;</span>: int(raw[<span style="color:#ae81ff">36</span>:<span style="color:#ae81ff">40</span>]), <span style="color:#75715e"># 4 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_d&#39;</span>: int(raw[<span style="color:#ae81ff">40</span>:<span style="color:#ae81ff">44</span>]), <span style="color:#75715e"># 4 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_e&#39;</span>: int(raw[<span style="color:#ae81ff">44</span>:<span style="color:#ae81ff">48</span>]), <span style="color:#75715e"># 4 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_f&#39;</span>: int(raw[<span style="color:#ae81ff">48</span>:<span style="color:#ae81ff">52</span>]), <span style="color:#75715e"># 4 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_g&#39;</span>: int(raw[<span style="color:#ae81ff">52</span>:<span style="color:#ae81ff">54</span>]), <span style="color:#75715e"># 2 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sensor_h&#39;</span>: int(raw[<span style="color:#ae81ff">54</span>:<span style="color:#ae81ff">56</span>]), <span style="color:#75715e"># 2 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;pressure_mb&#39;</span>: int(raw[<span style="color:#ae81ff">56</span>:<span style="color:#ae81ff">59</span>]),  <span style="color:#75715e"># 3 chars</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;probe_type&#39;</span>: int(raw[<span style="color:#ae81ff">59</span>:<span style="color:#ae81ff">61</span>])    <span style="color:#75715e"># 2 chars (types 0-11)</span>
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> record
-</span></span></code></pre></div><p><strong>Special Messages:</strong></p>
-<p>During startup/operation, EGM-4 sends status messages:</p>
-<ul>
-<li><code>B,EGM4,&lt;serial&gt;,&lt;firmware&gt;</code>: Boot message with serial number and firmware version</li>
-<li><code>I,NN</code>: Initialization countdown (NN = counter)</li>
-<li><code>W,TT</code>: Warmup message (TT = cell temperature)</li>
-<li><code>Z,NN</code>: Zeroing countdown (NN = counter)</li>
-<li><code>D,&lt;diagnostic_data&gt;</code>: Diagnostic data (see manual p.38)</li>
-</ul>
+</span></span></code></pre></div><p>Beyond data records, the EGM-4 also sends status messages during startup and operation. A boot message takes the form <code>B,EGM4,&lt;serial&gt;,&lt;firmware&gt;</code> and provides the device&rsquo;s serial number and firmware version. During warmup, you&rsquo;ll see <code>W,TT</code> messages where TT indicates the current cell temperature. The instrument sends <code>I,NN</code> during initialization and <code>Z,NN</code> during zeroing, where NN is a countdown counter. Diagnostic messages beginning with <code>D,</code> contain internal state information documented in the manual on page 38.</p>
 <h3 id="b-flux-calculation-methods">B: Flux Calculation Methods<a hidden class="anchor" aria-hidden="true" href="#b-flux-calculation-methods">#</a></h3>
-<p>The EGM-4 calculates soil respiration flux automatically, but understanding the math helps interpret results and troubleshoot problems.</p>
-<p><strong>Closed-System Chamber Method (SRC-1):</strong></p>
-<p>Flux is calculated from the rate of CO₂ increase inside the sealed chamber:</p>
-<p><strong>Basic equation:</strong>
-\[F = \frac{dC}{dt} \times \frac{V}{A} \times \frac{P}{R \times T}\]</p>
-<p>Where:</p>
-<ul>
-<li>\(F\) = CO₂ flux (µmol m⁻² s⁻¹)</li>
-<li>\(\frac{dC}{dt}\) = rate of CO₂ concentration change (ppm s⁻¹)</li>
-<li>\(V\) = system volume (chamber + tubing, ml)</li>
-<li>\(A\) = soil area covered (cm²)</li>
-<li>\(P\) = atmospheric pressure (Pa)</li>
-<li>\(R\) = gas constant (8.314 J mol⁻¹ K⁻¹)</li>
-<li>\(T\) = air temperature (K)</li>
-</ul>
-<p><strong>Units conversion to g CO₂ m⁻² hr⁻¹:</strong>
-The EGM-4 reports flux in g CO₂ m⁻² hr⁻¹. To convert:
-\[F_{g/m²/hr} = F_{µmol/m²/s} \times 44.01 \times 10^{-6} \times 3600\]</p>
-<p>Where 44.01 is the molecular weight of CO₂ (g/mol).</p>
-<p><strong>Linear vs. Quadratic Fitting:</strong></p>
-<p>The EGM-4 offers two methods for calculating \(\frac{dC}{dt}\):</p>
-<ol>
-<li>
-<p><strong>Linear fit</strong>: Assumes constant flux rate</p>
-<ul>
-<li>Fits line: \(C(t) = C_0 + kt\)</li>
-<li>Slope \(k\) = \(\frac{dC}{dt}\)</li>
-<li>Works well for short measurements (&lt;2 min)</li>
-</ul>
-</li>
-<li>
-<p><strong>Quadratic fit</strong>: Accounts for chamber leakage and feedback effects</p>
-<ul>
-<li>Fits curve: \(C(t) = C_0 + kt + ct^2\)</li>
-<li>Initial slope \(k\) = \(\frac{dC}{dt}\)</li>
-<li>Corrects for non-linearity</li>
-<li>Recommended for longer measurements (&gt;2 min)</li>
-</ul>
-</li>
-</ol>
-<p>The EGM-4 automatically uses quadratic if coefficient \(c &gt; 0.1k\), otherwise defaults to linear.</p>
-<p><strong>Chamber-Specific Corrections:</strong></p>
-<p><strong>SRC-1 Default Values:</strong></p>
-<ul>
-<li>Volume: 1171 ml (chamber) + tubing volume</li>
-<li>Area: 78.5 cm² (10 cm diameter)</li>
-<li>Typical tubing adds ~50-100 ml</li>
-</ul>
-<p><strong>Volume calculation for custom setups:</strong>
-\[V_{total} = V_{chamber} + V_{tubing}\]</p>
-<p>Where:
-\[V_{tubing} = \pi r^2 L\]</p>
-<ul>
-<li>\(r\) = internal tubing radius (cm)</li>
-<li>\(L\) = total tubing length (cm)</li>
-</ul>
-<p><strong>Temperature correction:</strong>
-The EGM-4 uses air temperature (from RH/Temp sensor or approximate value set by user). For more accuracy, use actual temperature measured inside chamber.</p>
-<p><strong>Pressure correction:</strong>
-The EGM-4 measures atmospheric pressure internally. At high elevations:</p>
-<ul>
-<li>Sea level: ~1013 mb</li>
-<li>1000m elevation: ~900 mb</li>
-<li>2000m elevation: ~800 mb</li>
-</ul>
-<p>Pressure affects the number of CO₂ molecules per volume, so measurement is automatically corrected.</p>
-<p><strong>Worked Example:</strong></p>
-<p>Measured data:</p>
-<ul>
-<li>Initial CO₂: 400 ppm</li>
-<li>Final CO₂: 450 ppm</li>
-<li>Time elapsed: 90 seconds</li>
-<li>Chamber volume (V): 1171 ml = 1.171 × 10⁻³ m³</li>
-<li>Chamber area (A): 78.5 cm² = 7.85 × 10⁻³ m²</li>
-<li>Temperature: 20°C = 293 K</li>
-<li>Pressure: 101,300 Pa</li>
-<li>Gas constant (R): 8.314 J mol⁻¹ K⁻¹</li>
-</ul>
-<p><strong>Step 1: Calculate rate of CO₂ change</strong></p>
-<p>\[\frac{dC}{dt} = \frac{C_{final} - C_{initial}}{\Delta t} = \frac{450 - 400}{90} = 0.556 \text{ ppm s}^{-1}\]</p>
-<p>Note: 1 ppm = 10⁻⁶ mol/mol, so this equals 0.556 × 10⁻⁶ mol mol⁻¹ s⁻¹</p>
-<p><strong>Step 2: Calculate molar density of air using ideal gas law</strong></p>
-<p>\[\frac{P}{RT} = \frac{101300}{8.314 \times 293} = \frac{101300}{2436} = 41.58 \text{ mol m}^{-3}\]</p>
-<p><strong>Step 3: Calculate V/A ratio</strong></p>
-<p>\[\frac{V}{A} = \frac{1.171 \times 10^{-3} \text{ m}^3}{7.85 \times 10^{-3} \text{ m}^2} = 0.149 \text{ m}\]</p>
-<p><strong>Step 4: Calculate flux in µmol m⁻² s⁻¹</strong></p>
-<p>\[F = \frac{dC}{dt} \times \frac{V}{A} \times \frac{P}{RT}\]</p>
-<p>\[F = (0.556 \times 10^{-6}) \times 0.149 \times 41.58\]</p>
-<p>\[F = 3.45 \times 10^{-6} \text{ mol m}^{-2} \text{ s}^{-1} = 3.45 \text{ µmol m}^{-2} \text{ s}^{-1}\]</p>
-<p><strong>Step 5: Convert to g CO₂ m⁻² hr⁻¹</strong></p>
-<p>\[F = 3.45 \text{ µmol m}^{-2} \text{ s}^{-1} \times 44.01 \frac{\text{g}}{\text{mol}} \times 10^{-6} \frac{\text{mol}}{\text{µmol}} \times 3600 \frac{\text{s}}{\text{hr}}\]</p>
-<p>\[F = 3.45 \times 44.01 \times 10^{-6} \times 3600 = 0.55 \text{ g CO}_2 \text{ m}^{-2} \text{ hr}^{-1}\]</p>
-<p><strong>Sanity check:</strong> Typical soil respiration rates range from 0.1 to 2.0 g CO₂ m⁻² hr⁻¹, so 0.55 is reasonable for a moderately active soil.</p>
-<p><strong>Sources of Error:</strong></p>
-<ul>
-<li>Chamber leaks (usually causes underestimation)</li>
-<li>Temperature gradients (chamber warms in sun)</li>
-<li>Pressure fluctuations (wind, weather changes)</li>
-<li>Non-representative soil area (stones, cracks in collar seal)</li>
-</ul>
-<p><strong>For full derivation, see:</strong></p>
-<ul>
-<li>EGM-4 Operator&rsquo;s Manual, page 22-26</li>
-<li>SRC-1 Chamber Manual, pages 15-20</li>
-</ul>
+<p>The EGM-4 calculates soil respiration flux automatically, but understanding the underlying mathematics helps with interpreting results and troubleshooting anomalies.</p>
+<h4 id="closed-system-chamber-method">Closed-System Chamber Method<a hidden class="anchor" aria-hidden="true" href="#closed-system-chamber-method">#</a></h4>
+<p>When using the SRC-1 chamber, flux is calculated from the rate at which CO₂ accumulates inside the sealed volume. The fundamental equation is:</p>
+<p>\[F = \frac{dC}{dt} \times \frac{V}{A} \times \frac{P}{R \times T}\]</p>
+<p>In this equation, \(F\) represents the CO₂ flux in µmol m⁻² s⁻¹, \(\frac{dC}{dt}\) is the rate of CO₂ concentration change in ppm per second, \(V\) is the total system volume (chamber plus tubing) in milliliters, and \(A\) is the soil area covered by the chamber in square centimeters. The term \(\frac{P}{RT}\) converts the concentration change to molar units, where \(P\) is atmospheric pressure in Pascals, \(R\) is the gas constant (8.314 J mol⁻¹ K⁻¹), and \(T\) is air temperature in Kelvin.</p>
+<p>The EGM-4 reports flux in g CO₂ m⁻² hr⁻¹. The conversion from µmol m⁻² s⁻¹ involves multiplying by the molecular weight of CO₂ (44.01 g/mol), converting micromoles to moles (× 10⁻⁶), and converting seconds to hours (× 3600):</p>
+<p>\[F_{g/m²/hr} = F_{µmol/m²/s} \times 44.01 \times 10^{-6} \times 3600\]</p>
+<h4 id="linear-vs-dot-quadratic-fitting">Linear vs. Quadratic Fitting<a hidden class="anchor" aria-hidden="true" href="#linear-vs-dot-quadratic-fitting">#</a></h4>
+<p>The EGM-4 offers two methods for determining the rate of CO₂ change over time.</p>
+<p>Linear fitting assumes a constant flux rate throughout the measurement period. The instrument fits the data to the equation \(C(t) = C_0 + kt\), where the slope \(k\) equals \(\frac{dC}{dt}\). This approach works well for short measurements under two minutes.</p>
+<p>Quadratic fitting accounts for non-linear effects such as chamber leakage and feedback from rising CO₂ concentrations. The instrument fits a curve of the form \(C(t) = C_0 + kt + ct^2\), using the initial slope \(k\) for the flux calculation. This method is recommended for measurements longer than two minutes. The EGM-4 automatically selects quadratic fitting when the coefficient \(c\) exceeds 0.1 times \(k\); otherwise, it defaults to linear.</p>
+<h4 id="chamber-corrections">Chamber Corrections<a hidden class="anchor" aria-hidden="true" href="#chamber-corrections">#</a></h4>
+<p>For the SRC-1, the default chamber volume is 1171 ml with a soil contact area of 78.5 cm² (corresponding to the 10 cm diameter opening). Tubing typically adds 50–100 ml to the total volume. If you&rsquo;re using a custom chamber setup, the total volume is simply the chamber volume plus the tubing volume, where tubing volume can be calculated as \(V_{tubing} = \pi r^2 L\) with \(r\) being the internal radius and \(L\) the total length in centimeters.</p>
+<p>Temperature should ideally be measured inside the chamber using the RH/Temp sensor or an STP-1 probe, as the sample air temperature directly affects the flux calculation. The EGM-4 measures atmospheric pressure internally and applies corrections automatically. At higher elevations, pressure drops significantly—approximately 900 mb at 1000 m and 800 mb at 2000 m compared to 1013 mb at sea level—and this affects how many CO₂ molecules occupy a given volume.</p>
+<h4 id="worked-example">Worked Example<a hidden class="anchor" aria-hidden="true" href="#worked-example">#</a></h4>
+<p>Consider a measurement where CO₂ rose from 400 ppm to 450 ppm over 90 seconds, with a chamber volume of 1171 ml (1.171 × 10⁻³ m³), area of 78.5 cm² (7.85 × 10⁻³ m²), temperature of 20°C (293 K), and pressure of 101,300 Pa.</p>
+<p>First, calculate the rate of change: \(\frac{dC}{dt} = \frac{450 - 400}{90} = 0.556\) ppm/s, which equals 0.556 × 10⁻⁶ mol mol⁻¹ s⁻¹.</p>
+<p>Next, determine the molar density of air: \(\frac{P}{RT} = \frac{101300}{8.314 \times 293} = 41.58\) mol m⁻³.</p>
+<p>Calculate the volume-to-area ratio: \(\frac{V}{A} = \frac{1.171 \times 10^{-3}}{7.85 \times 10^{-3}} = 0.149\) m.</p>
+<p>Now compute the flux: \(F = (0.556 \times 10^{-6}) \times 0.149 \times 41.58 = 3.45\) µmol m⁻² s⁻¹.</p>
+<p>Finally, convert to standard units: \(F = 3.45 \times 44.01 \times 10^{-6} \times 3600 = 0.55\) g CO₂ m⁻² hr⁻¹.</p>
+<p>This result falls within the typical range for moderately active soil (0.1 to 2.0 g CO₂ m⁻² hr⁻¹), providing a useful sanity check.</p>
+<h4 id="sources-of-error">Sources of Error<a hidden class="anchor" aria-hidden="true" href="#sources-of-error">#</a></h4>
+<p>Measurement accuracy can be compromised by chamber leaks (which typically cause underestimation), temperature gradients inside the chamber (particularly when exposed to direct sunlight), pressure fluctuations from wind or weather changes, and non-representative soil coverage due to stones or gaps in the collar seal.</p>
+<p>For the complete mathematical derivation, consult pages 22–26 of the EGM-4 Operator&rsquo;s Manual and pages 15–20 of the SRC-1 Chamber Manual.</p>
 <h3 id="c-probe-types-reference--0-11">C: Probe Types Reference (0-11)<a hidden class="anchor" aria-hidden="true" href="#c-probe-types-reference--0-11">#</a></h3>
-<p>The EGM-4 recognizes different sensor types via code resistors in the 15-pin connector.</p>
+<p>The EGM-4 automatically identifies connected sensors by reading a code resistor on Pin 1 of the 15-pin connector. When you power on the device with a sensor attached, the startup screen displays &ldquo;PROBETYPE X&rdquo; where X is the detected type number from the table below:</p>
 <table>
   <thead>
       <tr>
@@ -1122,202 +1427,53 @@ The EGM-4 measures atmospheric pressure internally. At high elevations:</p>
       </tr>
   </tbody>
 </table>
-<p><strong>Sensor Conversions (from mV to real units):</strong></p>
-<p>When using Type 2/3/10 sensors:</p>
-<ul>
-<li>PAR: \(\text{PAR (µmol m⁻² s⁻¹)} = \text{mV} \times 3\)</li>
-<li>%RH: \(\text{RH (\%)} = \text{mV} / 10\)</li>
-<li>Temperature: \(\text{Temp (°C)} = \text{mV} / 20\)</li>
-</ul>
-<p><strong>Auto-Detection:</strong>
-When you connect a PP Systems sensor and power on the EGM-4, it reads the code resistor on Pin 1 of the connector and automatically sets the probe type. You&rsquo;ll see &ldquo;PROBETYPE X&rdquo; on the startup screen.</p>
-<p><strong>Manually Setting Probe Type:</strong>
-If using non-PP Systems sensors or for Type 0/7:</p>
-<ul>
-<li>Menu <code>2</code> (SET) → <code>1</code> (EGM)</li>
-<li>Select option <code>1</code> (stand-alone), <code>2</code> (with probe), or <code>3</code> (porometer)</li>
-</ul>
-<p><strong>Custom Sensors:</strong>
-You can connect custom sensors to the I/O ports. Each port accepts 0-1V input:</p>
-<ul>
-<li>A-E inputs appear as mV values (0-1000 mV) in data records</li>
-<li>Scale your sensor output to 0-1V range</li>
-<li>Apply conversion factors in post-processing</li>
-</ul>
+<p>For Type 2, 3, and 10 sensors, the raw millivolt readings can be converted to physical units using these relationships: PAR equals the millivolt reading multiplied by 3 (giving µmol m⁻² s⁻¹), relative humidity equals the millivolt reading divided by 10 (giving percent), and temperature equals the millivolt reading divided by 20 (giving °C).</p>
+<p>If you&rsquo;re using non-PP-Systems sensors or need to override auto-detection (for Type 0 or 7), you can manually set the probe type through Menu 2 (SET), then option 1 (EGM), where you select stand-alone mode, probe mode, or porometer mode.</p>
+<p>Custom sensors can be connected to the I/O ports, which accept 0–1V input signals. The readings appear as millivolt values (0–1000 mV) in the A through E fields of data records. When using custom sensors, ensure your output is scaled to the 0–1V range and apply your own conversion factors during post-processing.</p>
 <h3 id="d-water-vapor-and-temperature-corrections">D: Water Vapor &amp; Temperature Corrections<a hidden class="anchor" aria-hidden="true" href="#d-water-vapor-and-temperature-corrections">#</a></h3>
-<p>CO₂ measurements are affected by water vapor (dilution effect) and temperature. The EGM-4 applies corrections automatically, but understanding these helps troubleshoot anomalies.</p>
-<p><strong>Water Vapor Dilution:</strong></p>
-<p>Water vapor dilutes the mole fraction of CO₂ in air. Relationship:
-\[C_{dry} = \frac{C_{wet}}{1 - \frac{e}{P}}\]</p>
-<p>Where:</p>
-<ul>
-<li>\(C_{dry}\) = CO₂ mole fraction in dry air (ppm)</li>
-<li>\(C_{wet}\) = measured CO₂ in humid air (ppm)</li>
-<li>\(e\) = water vapor pressure (mb)</li>
-<li>\(P\) = total atmospheric pressure (mb)</li>
-</ul>
-<p><strong>Example:</strong></p>
-<ul>
-<li>Measured: 400 ppm CO₂ at 20 mb H₂O vapor, 1013 mb pressure</li>
-<li>Correction factor: \(1 - (20/1013) = 0.980\)</li>
-<li>Dry-air equivalent: \(400 / 0.980 = 408\) ppm</li>
-</ul>
-<p>The EGM-4 applies this correction when an RH/Temp sensor is connected. Without the sensor, no correction is applied.</p>
-<p><strong>Temperature Effects:</strong></p>
-<p>Temperature affects:</p>
-<ol>
-<li><strong>Gas density</strong>: More molecules per volume when cold</li>
-<li><strong>IRGA sensitivity</strong>: Detector response varies with temperature</li>
-<li><strong>Flux calculations</strong>: See Flux Calculations section</li>
-</ol>
-<p>The EGM-4 thermostatically controls the sample cell at 55°C to minimize temperature effects on the IRGA itself. However, sample temperature still matters for flux calculations.</p>
-<p><strong>Best Practices:</strong></p>
-<ul>
-<li>Always use RH/Temp sensor for accurate measurements</li>
-<li>Record temperature inside chamber (STP-1) for flux calculations</li>
-<li>In very humid conditions (&gt;90% RH), expect ~2-4% correction to CO₂ values</li>
-</ul>
+<p>CO₂ measurements are affected by both water vapor and temperature. The EGM-4 applies corrections automatically when appropriate sensors are connected, but understanding these effects helps in troubleshooting anomalous readings.</p>
+<p>Water vapor dilutes the mole fraction of CO₂ in air. The relationship between wet and dry CO₂ concentrations is:</p>
+<p>\[C_{dry} = \frac{C_{wet}}{1 - \frac{e}{P}}\]</p>
+<p>Here, \(C_{dry}\) is the CO₂ concentration in dry air (ppm), \(C_{wet}\) is the measured concentration in humid air, \(e\) is water vapor pressure in millibars, and \(P\) is total atmospheric pressure in millibars.</p>
+<p>As a practical example: if you measure 400 ppm CO₂ in air with 20 mb of water vapor at 1013 mb total pressure, the correction factor is \(1 - (20/1013) = 0.980\), giving a dry-air equivalent of \(400 / 0.980 = 408\) ppm. The EGM-4 applies this correction automatically when an RH/Temp sensor is connected; without the sensor, no correction is applied.</p>
+<p>Temperature affects CO₂ measurements in several ways. Colder air has higher gas density (more molecules per unit volume), detector sensitivity varies with temperature, and temperature is a direct input to flux calculations. To minimize temperature effects on the IRGA itself, the EGM-4 thermostatically maintains the sample cell at 55°C.</p>
+<p>For best results, always use an RH/Temp sensor for accurate measurements, record the temperature inside the chamber (using an STP-1 if available) for flux calculations, and expect 2–4% corrections to CO₂ values when humidity exceeds 90%.</p>
 <h3 id="e-chamber-volume-calculations">E: Chamber Volume Calculations<a hidden class="anchor" aria-hidden="true" href="#e-chamber-volume-calculations">#</a></h3>
-<p>Accurate flux measurements require knowing the total system volume (chamber + tubing).</p>
-<p><strong>SRC-1 Default:</strong></p>
-<ul>
-<li>Chamber volume: 1171 ml (manufacturer spec)</li>
-<li>Standard tubing: ~50-100 ml (depends on length)</li>
-<li>Total: ~1220-1270 ml</li>
-</ul>
-<p><strong>Calculating Custom Volumes:</strong></p>
-<p><strong>Chamber volume</strong> (for cylindrical chambers):
-\[V = \pi r^2 h\]</p>
-<ul>
-<li>\(r\) = radius (cm)</li>
-<li>\(h\) = height (cm)</li>
-<li>Volume in cm³ (= ml)</li>
-</ul>
-<p><strong>Tubing volume:</strong>
-\[V_{tube} = \pi r^2 L\]</p>
-<ul>
-<li>\(r\) = internal radius (cm)</li>
-<li>\(L\) = total length (cm)</li>
-</ul>
-<p><strong>Example:</strong></p>
-<ul>
-<li>1/8&quot; ID tubing = 3.175 mm ID = 0.15875 cm radius</li>
-<li>100 cm length</li>
-<li>\(V = \pi (0.15875)^2 (100) = 7.9\) ml</li>
-</ul>
-<p><strong>Area Calculation:</strong>
-\[A = \pi r^2\]</p>
-<p>For SRC-1 (10 cm diameter):
-\[A = \pi (5)^2 = 78.5 \text{ cm²}\]</p>
-<p><strong>Setting Custom Values in EGM-4:</strong></p>
-<ol>
-<li>Press <code>1</code> (REC) from Main Menu</li>
-<li>At settings screen, press <code>N</code> to modify</li>
-<li>Press <code>1</code> to change volume, <code>2</code> to change area</li>
-<li>Enter new values</li>
-<li>EGM-4 auto-updates V/A ratio used in calculations</li>
-</ol>
-<p><strong>Why V/A Ratio Matters:</strong>
-The \(\frac{V}{A}\) ratio determines how quickly CO₂ accumulates per unit flux:</p>
-<ul>
-<li>High V/A: Slower accumulation, longer measurement time needed</li>
-<li>Low V/A: Faster accumulation, shorter measurement time</li>
-</ul>
-<p>For soil respiration, typical V/A ≈ 15 cm (SRC-1 default is 14.9 cm).</p>
+<p>Accurate flux measurements depend on knowing the total system volume, which includes both the chamber and all connecting tubing. For the SRC-1, the manufacturer specifies a chamber volume of 1171 ml. Adding the standard tubing (typically 50–100 ml depending on length) gives a total system volume of roughly 1220–1270 ml.</p>
+<p>For cylindrical chambers, volume is calculated as \(V = \pi r^2 h\), where \(r\) is the radius and \(h\) is the height, both in centimeters, yielding volume in cubic centimeters (equivalent to milliliters). Tubing volume uses the same formula: \(V_{tube} = \pi r^2 L\), where \(L\) is the total tubing length.</p>
+<p>As an example, 1/8&quot; inner diameter tubing has an internal diameter of 3.175 mm, or a radius of 0.15875 cm. For 100 cm of this tubing, the volume is \(\pi \times (0.15875)^2 \times 100 = 7.9\) ml.</p>
+<p>The soil contact area is similarly calculated as \(A = \pi r^2\). For the SRC-1 with its 10 cm diameter opening, this gives \(A = \pi \times 5^2 = 78.5\) cm².</p>
+<p>To enter custom volume and area values in the EGM-4, press 1 (REC) from the Main Menu, then press N at the settings screen to modify values. Press 1 to change volume or 2 to change area, enter your new values, and the EGM-4 will automatically update the V/A ratio used in flux calculations.</p>
+<p>The volume-to-area ratio determines how quickly CO₂ accumulates for a given flux rate. A high V/A ratio means slower accumulation and longer measurement times, while a low V/A ratio results in faster accumulation. For soil respiration work, typical V/A ratios are around 15 cm; the SRC-1 default is 14.9 cm.</p>
 <h3 id="f-open-egm4-software-design-philosophy">F: open-egm4 Software Design Philosophy<a hidden class="anchor" aria-hidden="true" href="#f-open-egm4-software-design-philosophy">#</a></h3>
 <p>This section explains why open-egm4 was built as a terminal user interface (TUI) and how the software works internally.</p>
-<p><strong>Why a Terminal Interface?</strong></p>
-<p>Open-egm4 deliberately uses a text-based terminal interface instead of a graphical interface (GUI) for several important reasons:</p>
-<ol>
-<li>
-<p><strong>Cross-Platform Compatibility:</strong>
-The software runs identically on macOS, Linux, and Windows because it does not rely on platform-specific UI frameworks. This eliminates the &ldquo;it works on my machine&rdquo; inconsistencies that often arise when porting graphical applications between different operating systems.</p>
-</li>
-<li>
-<p><strong>Remote Access via SSH:</strong>
-Users can monitor field equipment from any location with an internet connection. Because terminal interfaces use minimal bandwidth—approximately 1 KB/s compared to over 100 KB/s for a standard GUI—the software remains responsive even over slow or unreliable network connections.</p>
-</li>
-<li>
-<p><strong>Lightweight and Fast:</strong>
-Open-egm4 is designed to be highly efficient, typically starting in less than one second and consuming only 10–20 MB of RAM. By avoiding the overhead of graphics rendering, the application remains fully functional on older or low-powered field hardware.</p>
-</li>
-<li>
-<p><strong>Scriptable and Automatable:</strong>
-The interface can be controlled via shell scripts, making it simple to integrate the EGM-4 into automated data collection pipelines or broader research workflows.</p>
-</li>
-<li>
-<p><strong>Reliability:</strong>
-It should be much more reliable than a GUI app. Maybe.</p>
-</li>
-<li>
-<p><strong>KISS:</strong>
-Keep it simple, stupid.</p>
-</li>
-</ol>
-<p><strong>Advantages Over Legacy Windows Software:</strong></p>
-<p>The official PP Systems software (Windows-only) has several limitations:</p>
-<ul>
-<li>Only runs on Windows</li>
-<li>Requires specific .NET framework versions</li>
-<li>No remote access capability</li>
-<li>Closed-source (can&rsquo;t fix bugs or add features)</li>
-<li>No longer actively maintained</li>
-</ul>
-<p>Open-egm4 addresses all of these:</p>
-<ul>
-<li>✓ Runs on any OS</li>
-<li>✓ Open source (MIT license)</li>
-<li>✓ Actively developed and maintained</li>
-<li>✓ Community can contribute features</li>
-<li>✓ Works over SSH for remote field sites</li>
-</ul>
+<h4 id="why-a-terminal-interface">Why a Terminal Interface?<a hidden class="anchor" aria-hidden="true" href="#why-a-terminal-interface">#</a></h4>
+<p>Open-egm4 deliberately uses a text-based terminal interface instead of a graphical interface for several important reasons.</p>
+<p>Cross-platform compatibility is a major advantage. The software runs identically on macOS, Linux, and Windows because it does not rely on platform-specific UI frameworks. This eliminates the &ldquo;it works on my machine&rdquo; inconsistencies that often arise when porting graphical applications between different operating systems.</p>
+<p>Remote access via SSH is trivial with a terminal application. Users can monitor field equipment from any location with an internet connection. Because terminal interfaces use minimal bandwidth—approximately 1 KB/s compared to over 100 KB/s for a standard GUI—the software remains responsive even over slow or unreliable network connections.</p>
+<p>The application is lightweight and fast, typically starting in less than one second and consuming only 10–20 MB of RAM. By avoiding the overhead of graphics rendering, the application remains fully functional on older or low-powered field hardware.</p>
+<p>A terminal interface is inherently scriptable and automatable. The application can be controlled via shell scripts, making it simple to integrate the EGM-4 into automated data collection pipelines or broader research workflows.</p>
+<p>There&rsquo;s also the matter of reliability—terminal applications <em>should</em> be more reliable than GUI apps. Maybe. And finally: KISS. Keep it simple, stupid.</p>
+<h4 id="advantages-over-legacy-windows-software">Advantages Over Legacy Windows Software<a hidden class="anchor" aria-hidden="true" href="#advantages-over-legacy-windows-software">#</a></h4>
+<p>The official PP Systems software is Windows-only and has several limitations. It requires specific .NET framework versions that may conflict with other software, offers no remote access capability, and is closed-source (so you can&rsquo;t fix bugs or add features). It also appears to no longer be actively maintained.</p>
+<p>Open-egm4 addresses all of these concerns. It runs on any operating system, is open source under the MIT license, and is actively developed and maintained. The community can contribute features, and it works seamlessly over SSH for remote field sites.</p>
 <p><strong>Architecture Overview:</strong></p>
-<p>Open-egm4 is built in Python with these components:</p>
-<ol>
-<li>
-<p><strong>Serial Handler</strong> (<code>serial_handler.py</code>):</p>
-<ul>
-<li>Manages connection to EGM-4 via pyserial library</li>
-<li>Parses incoming data stream using regex</li>
-<li>Handles reconnection on dropout</li>
-<li>Runs in separate thread to prevent blocking UI</li>
-</ul>
-</li>
-<li>
-<p><strong>Data Manager</strong> (<code>data_manager.py</code>):</p>
-<ul>
-<li>Stores measurements in memory during session</li>
-<li>Validates data (checks for anomalies)</li>
-<li>Timestamps each record</li>
-<li>Handles session management (start/stop/export)</li>
-</ul>
-</li>
-<li>
-<p><strong>Terminal UI</strong> (<code>tui.py</code>):</p>
-<ul>
-<li>Built with textual</li>
-<li>Real-time chart rendering using ASCII art</li>
-<li>Keyboard input handling</li>
-<li>Layout management (adaptive to terminal size)</li>
-</ul>
-</li>
-<li>
-<p><strong>CSV Exporter</strong> (<code>export.py</code>):</p>
-<ul>
-<li>Converts in-memory data to CSV format</li>
-<li>Adds headers with metadata (session info, device settings)</li>
-<li>Handles multiple sessions in one export</li>
-</ul>
-</li>
-</ol>
+<p>Open-egm4 is built in Python using the <a href="https://textual.textualize.io/">Textual</a> framework for terminal UI rendering.</p>
+<p>The core serial communication lives in <code>src/egm_interface.py</code>, which defines the <code>EGM4Serial</code> class. This class manages the connection to the EGM-4 via pyserial, parses the incoming 60-character fixed-width data records using position-based slicing, and dispatches parsed data to registered callbacks. The parser handles all probe types (0-11) and extracts fields like CO₂, temperature, humidity, and calculated flux depending on the connected sensor.</p>
+<p>Session persistence is handled by <code>src/database.py</code>, which uses SQLite to store readings across sessions. This allows users to close the app and resume later without losing data. The database stores each reading with its timestamp, plot number, channel values, and session metadata.</p>
+<p>The TUI itself is composed of screens and widgets in the <code>src/tui/</code> directory. The main application entry point is <code>src/tui/app.py</code>, which sets up the Textual app and manages screen transitions. Key screens include the connection screen (<code>screens/connect.py</code>), the main monitor screen (<code>screens/monitor.py</code>), the export wizard (<code>screens/export.py</code>), and the high-visibility &ldquo;big mode&rdquo; (<code>screens/big_mode.py</code>).</p>
+<p>The monitor screen orchestrates real-time display by wiring the serial handler to the chart widget (<code>widgets/co2_chart.py</code>), which renders data using <a href="https://github.com/piccolomo/plotext">plotext</a> for ASCII plotting. Statistics are calculated and displayed by <code>widgets/stats.py</code>, and the channel legend is managed by <code>widgets/legend.py</code>.</p>
+<p>Export functionality converts session data to CSV format, allowing users to filter by plot number and date range before saving.</p>
 <p><strong>Data Flow:</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>EGM-4 → Serial Cable → USB Adapter → pyserial → Serial Handler
-</span></span><span style="display:flex;"><span>                                                        ↓
-</span></span><span style="display:flex;"><span>                                                   Parser (regex)
-</span></span><span style="display:flex;"><span>                                                        ↓
-</span></span><span style="display:flex;"><span>                                                  Data Manager
-</span></span><span style="display:flex;"><span>                                                   ↙         ↘
-</span></span><span style="display:flex;"><span>                                           Terminal UI     CSV Export
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>EGM-4 → Serial Cable → USB Adapter → pyserial → EGM4Serial (egm_interface.py)
+</span></span><span style="display:flex;"><span>                                                         ↓
+</span></span><span style="display:flex;"><span>                                                    Parser (position-based slicing)
+</span></span><span style="display:flex;"><span>                                                         ↓
+</span></span><span style="display:flex;"><span>                                               MonitorScreen (monitor.py)
+</span></span><span style="display:flex;"><span>                                                ↙         ↓         ↘
+</span></span><span style="display:flex;"><span>                                          CO2Chart   StatsWidget   Database
+</span></span><span style="display:flex;"><span>                                                                      ↓
+</span></span><span style="display:flex;"><span>                                                               CSV Export
 </span></span></code></pre></div><p><em>Created in Doom Emacs 2.0.9, using org-mode 9.7.</em></p>
 <p><em>Written in January 2026.</em></p>
 <p>Created by Morgan Salisbury</p>
@@ -1348,18 +1504,21 @@ Keep it simple, stupid.</p>
             const id = marker.dataset.target.slice(1);
             const heading = document.getElementById(id);
             const title = marker.dataset.title;
+            const level = parseInt(marker.dataset.level);
             if (heading) {
-                headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title });
+                headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title, level: level });
             }
         });
 
         function updateActiveState() {
             const scrollPos = window.scrollY + 150;
             let current = headings[0];
+            let currentIndex = 0;
 
-            for (const heading of headings) {
-                if (heading.element.offsetTop <= scrollPos) {
-                    current = heading;
+            for (let i = 0; i < headings.length; i++) {
+                if (headings[i].element.offsetTop <= scrollPos) {
+                    current = headings[i];
+                    currentIndex = i;
                 }
             }
 
@@ -1369,12 +1528,33 @@ Keep it simple, stupid.</p>
             if (current) {
                 current.marker.classList.add('active');
                 if (current.link) current.link.classList.add('active');
-                if (currentLabel && current.title) {
-                    currentLabel.textContent = current.title;
+
+                if (currentLabel) {
+                    
+                    let parentTitle = null;
+                    let childTitle = current.title;
+
+                    if (current.level > 2) {
+                        
+                        for (let j = currentIndex - 1; j >= 0; j--) {
+                            if (headings[j].level === 2) {
+                                parentTitle = headings[j].title;
+                                break;
+                            }
+                        }
+                    }
+
+                    
+                    if (parentTitle) {
+                        currentLabel.innerHTML = `<span class="toc-parent-label">${parentTitle}</span><span class="toc-child-label">${childTitle}</span>`;
+                    } else {
+                        currentLabel.innerHTML = `<span class="toc-child-label">${childTitle}</span>`;
+                    }
+
                     
                     const markerRect = current.marker.getBoundingClientRect();
                     const sidebarRect = sidebar.getBoundingClientRect();
-                    currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - 10) + 'px';
+                    currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (parentTitle ? 18 : 10)) + 'px';
                 }
             }
         }
