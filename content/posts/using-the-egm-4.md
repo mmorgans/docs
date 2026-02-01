@@ -237,7 +237,7 @@ Open-egm4 will attempt to detect which port the EGM-4 is connected to and automa
 
 To select a port manually, use the arrow keys to navigate the list of ports and press `Enter` to confirm your selection. If you don't see your port listed, check the cable connection and hit `r` on your keyboard to refresh the list of ports. If you accidentally select the wrong port, hit `q` to quit and try again.
 
--   On macOS, the EGM-4 will likely appear as a port containing "usbserial" or "FTDI"
+-   On macOS and Linux, the EGM-4 will likely appear as a port containing "usbserial" or "FTDI"
 -   On Windows, the EGM-4 will likely appear as a "COM" port (COM3, COM4, etc.)
 
 Open-egm4 automatically saves data to its internal database. This allows you to restore from a previous session without having to re-dump data from the EGM. To do this, press `s` while on the connection screen. You'll see a list of saved sessions, and you can use the arrow keys to select one and press `Enter` to restore it. You do not need to have the EGM connected to the computer to restore a session. While the EGM is not connected, "Offline" will be displayed in the status panel.
@@ -247,13 +247,13 @@ Open-egm4 automatically saves data to its internal database. This allows you to 
 
 This is the main interface, where you'll spend most of your time. It consists of:
 
-**Left Panel - Graph:** This panel displays incoming data from the EGM, whether it be from a live measurement or a data dump. The axes will automatically rescale to fit the data. The units will also change depending on how you are viewing the data, so be sure to check the legend to understand what you're looking at.
+**Left Panel - Graph:** This panel displays incoming data from the EGM, whether it be from a live measurement or previously generated data. The axes will automatically rescale to fit the data. The units will also change depending on how you are viewing the data, so be sure to check the legend to understand what you're looking at.
 
 Directly below the graph are the available channels and graph controls. The available channels will change depending on what probe was connected when the the data was recorded. Press the number key associated with each channel to view that channel in the graph.
 
 Above the graph, you'll see information about what the graph is currently displaying, including the currently selected channel, the units of the y-axis, and the plot number.
 
-Press the `<` or `>` keys to cycle through different plots. This is useful to view measurements from a specific location, and to filter out data you aren't interested in viewing.
+Press the `<` or `>` keys to cycle through different plots. This is useful to view measurements from a specific location (i.e. a plot in the field), and to filter out data you aren't interested in viewing.
 
 Press `i` to toggle inspect mode on the graph. In this mode, a yellow `x` appears on the graph, and you can use the left and right arrow keys to move the cursor along the x-axis. The y-values for the currently selected channel at the cursor's position are displayed above the graph. Press `i` again to exit inspect mode.
 
@@ -297,7 +297,7 @@ To select specific dates to export, press `d` to open the date selection screen.
 You should see the number of data points to export update as you make your selections. Once you've selected the data you want to export, press `e` to export the data.
 
 **Output**
-.csv files are attempted to be saved to your Downloads directory. If this fails, the file will be saved in the same directory as open-egm4 was run in (likely your home directory).
+.csv files should be saved to your Downloads directory. If this fails, the file will be saved in the same directory as open-egm4 was run in (likely your home directory).
 
 
 #### Pausing (`p`) {#pausing--p}
@@ -314,10 +314,18 @@ Press `n` to add a timestamped note to the log. This will open a prompt where yo
 
 Press `c` to clear all data from the current session. You will be asked to confirm before the data is cleared.
 
+{{< alert2 Note >}}
+This does not clear data from the EGM's internal memory, only data that you have already dumped to the app. To clear data from the EGM's internal memory, see the initialize section.
+{{< /alert2 >}}
+
 
 ### Quitting (`q`) {#quitting--q}
 
-Press `q` to quit the app. All data from your session is automatically saved, and you can restore it the next time you open the app by pressing `s` while on the connection screen.
+Press `q` to quit the app. All data from your session are automatically saved (distinct from .csv files you may have exported), and you can restore it the next time you open the app by pressing `s` while on the connection screen.
+
+{{< alert2 Note >}}
+Open-egm4 automatically saves data to an internal database. To restore from a previous session, see [the connection screen section](#connection-screen).
+{{< /alert2 >}}
 
 
 ## Workflows {#workflows}
@@ -325,16 +333,16 @@ Press `q` to quit the app. All data from your session is automatically saved, an
 
 ### Workflow 1: Soil Respiration with SRC-1 Chamber {#workflow-1-soil-respiration-with-src-1-chamber}
 
-This is the most common application: measuring CO₂ flux from soil using the SRC-1 closed-chamber method.
+This is the most common application: measuring CO₂ efflux from soil using the SRC-1 closed-chamber method.
 
 **Equipment Needed:**
 
 -   EGM-4 with fully charged battery
 -   SRC-1 soil respiration chamber
--   Soil collars (pre-installed in field 24-48 hrs before measurements)
+-   Soil collars\*
 -   Optional: Laptop running open-egm4 for monitoring
 
-**Soil Collars**: Install the soil collars in the soil days\* before you plan to measure. A well-placed collar should be 3-5cm\*\* into the ground. Remove any above ground vegetation inside the collar after placing it.
+**Soil Collars**: Install the soil collars well before you plan to measure (this should be planned prior to doing field work). A well-placed collar should be installed 3-5cm deep into the soil surface. Remove any aboveground vegetation inside the collar.
 
 {{< alert2 Note >}}
 The above instructions depend almost _entirely_ on your situation. You might consider installing the soil collar weeks or months ahead of time. The depth of the collar needed to ensure a good measurement will depend on the soil type and the goals of your experiment.
@@ -361,23 +369,27 @@ The above instructions depend almost _entirely_ on your situation. You might con
 4.  **Set Plot Number (if needed):**
     -   Display shows "PLOT NO = X"
     -   Press `Y` to keep current plot number
-    -   Or enter new number (e.g., "01" for plot 1) and press `Y`
+    -   Or enter a new plot number (e.g., "01" for plot 1) and press `Y`
 
-5.  **Chamber Flush:**
+{{< alert2 Warning >}}
+If you use a plot number that has already been used, the EGM will overwrite the previous measurement, causing irreversible data loss.
+{{< /alert2 >}}
+
+1.  **Chamber Flush:**
     -   Display shows "CHAMBER FLUSHING - HOLD IN AIR"
     -   Hold chamber in air for ~15 seconds at arms length
 
-6.  **Deployment:**
+2.  **Deployment:**
     -   Display shows "PLACE ON SOIL - PRESS Y TO START"
     -   Place chamber on soil collar, using blue tac to ensure a good seal
     -   Press `Y` to start measurement
 
-7.  **Equilibration:**
+3.  **Equilibration:**
     -   Display shows "EQUILIBRATION - PLEASE WAIT"
     -   System equilibrates for ~5 seconds
     -   Then measurement begins automatically
 
-8.  **Measurement:**
+4.  **Measurement:**
     -   Display shows:
         ```text
                   C 395 H14.7 T22
@@ -393,7 +405,7 @@ The above instructions depend almost _entirely_ on your situation. You might con
     -   Press `Y` to save the measurement
     -   Press `N` to discard and retry
 
-9.  **Remove Chamber &amp; Continue:**
+5.  **Remove Chamber &amp; Continue:**
     -   Display shows "REMOVE FROM SOIL THEN PRESS Y KEY"
     -   Lift chamber from soil collar
     -   Press `Y` to prepare for next measurement
