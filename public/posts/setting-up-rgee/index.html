@@ -12,7 +12,7 @@ From the rgee github page: &ldquo;rgee is an R binding package for calling Googl
 This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven&rsquo;t tested it.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/setting-up-rgee/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.5052a313374e3b60f6e15a8ac3b2ec6e029b219f7f61898bbe8edb11372e7966.css" integrity="sha256-UFKjEzdOO2D24VqKw7LsbgKbIZ9/YYmLvo7bETcueWY=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2848bf1135132d476bbf8b7f50dc02f3efe20c69a9e3465b361f3509010e0ce5.css" integrity="sha256-KEi/ETUTLUdrv4t/UNwC8&#43;/iDGmp40ZbNh81CQEODOU=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -45,20 +45,19 @@ This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS 
 <meta name="color-scheme" content="light dark">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-    integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
-    integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Ber5Z/WIlCxlPlEMt3u5CHPU7mMFpoVx8a8KkHIQ"
-    crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body, {
-        delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false},
-            {left: '\\[', right: '\\]', display: true},
-            {left: '\\(', right: '\\)', display: false}
-        ]
-    });"></script>
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body id="top">
     <header class="header">
@@ -135,6 +134,38 @@ This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS 
                 </ul>
             </nav>
         </aside>
+
+        
+        <div class="toc-mobile-bar" id="toc-mobile-bar">
+            <button class="toc-mobile-toggle" id="toc-mobile-toggle">
+                <span class="toc-mobile-label">
+                    <span class="toc-mobile-parent" id="toc-mobile-parent"></span>
+                    <span class="toc-mobile-current" id="toc-mobile-current">Contents</span>
+                </span>
+                <svg class="toc-mobile-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6" />
+                </svg>
+            </button>
+            <nav class="toc-mobile-nav" id="toc-mobile-nav">
+                <ul><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#introduction">Introduction</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#prerequisites">Prerequisites</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#installation">Installation</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#setup">Setup</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#initializing">Initializing</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#examples">Examples</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#surface-water-occurrence">Surface water occurrence</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#may-28th-2019-tornado">May 28th 2019 Tornado</a>
+                        </li></ul>
+            </nav>
+        </div>
 
         <article class="post-single">
             <header class="post-header">
@@ -297,47 +328,138 @@ This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const sidebar = document.getElementById('toc-sidebar');
-        if (!sidebar) return;
+        const mobileBar = document.getElementById('toc-mobile-bar');
+        const mobileToggle = document.getElementById('toc-mobile-toggle');
+        const mobileNav = document.getElementById('toc-mobile-nav');
+        const mobileCurrent = document.getElementById('toc-mobile-current');
+        const mobileParent = document.getElementById('toc-mobile-parent');
 
-        const markers = sidebar.querySelectorAll('.toc-marker');
-        const tocNav = sidebar.querySelector('.toc-nav');
-        const tocLinks = sidebar.querySelectorAll('.toc-nav a');
+        if (!sidebar && !mobileBar) return;
+
+        const markers = sidebar ? sidebar.querySelectorAll('.toc-marker') : [];
+        const tocLinks = sidebar ? sidebar.querySelectorAll('.toc-nav a') : [];
         const currentLabel = document.getElementById('toc-current-label');
+        const mobileLinks = mobileBar ? mobileBar.querySelectorAll('.toc-mobile-item a') : [];
         const headings = [];
 
         
-        markers.forEach((marker, i) => {
-            const id = marker.dataset.target.slice(1);
-            const heading = document.getElementById(id);
-            const title = marker.dataset.title;
-            if (heading) {
-                headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title });
-            }
-        });
+        if (markers.length > 0) {
+            markers.forEach((marker, i) => {
+                const id = marker.dataset.target.slice(1);
+                const heading = document.getElementById(id);
+                const title = marker.dataset.title;
+                const level = parseInt(marker.dataset.level);
+                if (heading) {
+                    headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title, level: level });
+                }
+            });
+        } else if (mobileLinks.length > 0) {
+            mobileLinks.forEach((link, i) => {
+                const href = link.getAttribute('href');
+                const id = href.slice(1);
+                const heading = document.getElementById(id);
+                const title = link.textContent.trim();
+                const level = parseInt(link.closest('.toc-mobile-item').dataset.level);
+                if (heading) {
+                    headings.push({ element: heading, link: link, title: title, level: level });
+                }
+            });
+        }
+
+        
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function () {
+                mobileBar.classList.toggle('open');
+            });
+        }
+
+        
+        if (mobileNav) {
+            mobileNav.addEventListener('click', function (e) {
+                if (e.target.tagName === 'A') {
+                    mobileBar.classList.remove('open');
+                }
+            });
+        }
 
         function updateActiveState() {
             const scrollPos = window.scrollY + 150;
             let current = headings[0];
+            let currentIndex = 0;
 
-            for (const heading of headings) {
-                if (heading.element.offsetTop <= scrollPos) {
-                    current = heading;
+            for (let i = 0; i < headings.length; i++) {
+                if (headings[i].element.offsetTop <= scrollPos) {
+                    current = headings[i];
+                    currentIndex = i;
                 }
             }
 
-            markers.forEach(m => m.classList.remove('active'));
-            tocLinks.forEach(l => l.classList.remove('active'));
+            
+            if (sidebar) {
+                markers.forEach(m => m.classList.remove('active'));
+                tocLinks.forEach(l => l.classList.remove('active'));
 
-            if (current) {
-                current.marker.classList.add('active');
-                if (current.link) current.link.classList.add('active');
-                if (currentLabel && current.title) {
-                    currentLabel.textContent = current.title;
-                    
-                    const markerRect = current.marker.getBoundingClientRect();
-                    const sidebarRect = sidebar.getBoundingClientRect();
-                    currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - 10) + 'px';
+                if (current) {
+                    if (current.marker) current.marker.classList.add('active');
+                    if (current.link) current.link.classList.add('active');
+
+                    if (currentLabel) {
+                        
+                        let breadcrumbs = [];
+                        let targetLevel = current.level;
+
+                        
+                        for (let j = currentIndex - 1; j >= 0; j--) {
+                            if (headings[j].level < targetLevel) {
+                                breadcrumbs.unshift(headings[j].title);
+                                targetLevel = headings[j].level;
+                            }
+                            if (targetLevel <= 2) break;
+                        }
+
+                        
+                        let html = '';
+                        if (breadcrumbs.length > 0) {
+                            html += `<span class="toc-parent-label">${breadcrumbs.join(' › ')}</span>`;
+                        }
+                        html += `<span class="toc-child-label">${current.title}</span>`;
+                        currentLabel.innerHTML = html;
+
+                        const markerRect = current.marker.getBoundingClientRect();
+                        const sidebarRect = sidebar.getBoundingClientRect();
+                        currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (breadcrumbs.length > 0 ? 18 : 10)) + 'px';
+                    }
                 }
+            }
+
+            
+            if (mobileBar && current) {
+                
+                if (scrollPos > 200) {
+                    mobileBar.classList.add('visible');
+                } else {
+                    mobileBar.classList.remove('visible');
+                    mobileBar.classList.remove('open');
+                }
+
+                
+                let breadcrumbs = [];
+                let targetLevel = current.level;
+                for (let j = currentIndex - 1; j >= 0; j--) {
+                    if (headings[j].level < targetLevel) {
+                        breadcrumbs.unshift(headings[j].title);
+                        targetLevel = headings[j].level;
+                    }
+                    if (targetLevel <= 2) break;
+                }
+
+                if (mobileCurrent) mobileCurrent.textContent = current.title;
+                if (mobileParent) mobileParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
+
+                
+                mobileLinks.forEach(l => l.classList.remove('active'));
+                const activeLink = mobileBar.querySelector(`a[href="#${current.element.id}"]`);
+                if (activeLink) activeLink.classList.add('active');
             }
         }
 

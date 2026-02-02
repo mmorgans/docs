@@ -1132,7 +1132,7 @@ CLOSED: [2026-02-01 Sun 15:25]
 #+DATE: 2026-01-30
 #+attr_shortcode: Warning
 #+begin_alert2
-*Backup your data regularly.*  The EGM-4's internal memory is limited to 9999 records and 99 plots. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
+*Backup your data regularly.*  The EGM-4's internal memory is limited to 1,500 records across up to 99 plots. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
 #+end_alert2
 
 #+attr_shortcode: Warning
@@ -1460,23 +1460,33 @@ The above instructions depend almost /entirely/ on your situation. You might con
    - Connect the unlabeled gas tube to the gas out port of the EGM-4
 
 2. *Startup & Warmup (10-15 minutes):*
-   - Power on EGM-4
+   - Power on the EGM
    - Wait for warm-up message to complete: the EGM must reach an internal temperature of 55°C to be able to take readings
 
 3. *Enter Measurement Mode:*
-   - Press ~1~ (REC) from main menu
-   - EGM-4 displays measurement settings
+   - Press ~1~ (REC) from the main menu
+   - The EGM will display measurement settings
    - Default: DT=120 seconds (measurement duration), DC=50 ppm (max CO₂ change)
-   - Press ~N~ to go back and change settings, and ~Y~ to confirm settings
+   - Press ~N~ to change settings, or ~Y~ to confirm and continue
+
+4. *Select Fitting Method:*
+   - After confirming settings, the EGM will display ~1LINEAR 2QUAD?~
+   - Press ~1~ for *Linear Fit*: Best for short measurements (under 2 minutes) or low-flux soils
+   - Press ~2~ for *Quadratic Fit*: Better for longer measurements or high-flux soils where CO₂ buildup may cause the flux rate to level off
 
 #+attr_shortcode: Note
 #+begin_alert2
-You should think carefully about the DT value that you set for a given measurement. If the DT value is too large the rate at which CO₂ accumulates in the chamber will decline, and your estimate of the efflux rate will be less accurate. 
+Linear fitting assumes a constant flux rate throughout the measurement. Quadratic fitting accounts for the natural slowdown that occurs as CO₂ builds up in the chamber. If you're unsure, quadratic is generally safer for measurements over 2 minutes. See [[*B: Flux Calculation Methods][Appendix B]] for the math behind each method.
 #+end_alert2
 
-4. *Set Plot Number (if needed):*
-   - Display shows "PLOT NO = X"
-   - Press ~Y~ to keep current plot number
+#+attr_shortcode: Note
+#+begin_alert2
+You should think carefully about the DT value that you set for a given measurement, especially if you selected a linear fit. If the DT value is too large the rate at which CO₂ accumulates in the chamber will decline, and your estimate of the efflux rate will be less accurate.
+#+end_alert2
+
+5. *Set Plot Number:*
+   - The EGM will display "PLOT NO = X"
+   - Press ~Y~ to keep the current plot number
    - Or enter a new plot number (e.g., "01" for plot 1) and press ~Y~
 
 #+attr_shortcode: Warning
@@ -1484,22 +1494,22 @@ You should think carefully about the DT value that you set for a given measureme
 If you use a plot number that has already been used, the EGM will overwrite the previous measurement, causing irreversible data loss.
 #+end_alert2
 
-5. *Chamber Flush:*
-   - This happens automatically. The display will show "CHAMBER FLUSHING - HOLD IN AIR"
+6. *Chamber Flush:*
+   - This happens automatically. The EGM will display "CHAMBER FLUSHING - HOLD IN AIR"
    - Hold the chamber in the air for ~15 seconds at arms length
 
-6. *Deployment:*
-   - Display shows "PLACE ON SOIL - PRESS Y TO START"
-   - Place the chamber on the soil collar, using blue tac to ensure a good seal
+7. *Deployment:*
+   - The EGM will display "PLACE ON SOIL - PRESS Y TO START"
+   - Place the chamber on the soil collar, using Blu Tack on the rim of the chamber to ensure a good seal
    - Press ~Y~ to start measurement
 
-7. *Equilibration:*
-   - Display shows "EQUILIBRATION - PLEASE WAIT"
-   - System equilibrates for ~5 seconds
+8. *Equilibration:*
+   - The EGM will display "EQUILIBRATION - PLEASE WAIT"
+   - The system will equilibrate for ~5 seconds
    - Then measurement begins automatically
 
-8. *Measurement:*
-   - Display shows:
+9. *Measurement:*
+   - The EGM will display:
      #+BEGIN_EXAMPLE
      C 420 H14.7 T22
      A02.11 Q0000 110
@@ -1514,10 +1524,10 @@ If you use a plot number that has already been used, the EGM will overwrite the 
    - Press ~Y~ to save the measurement
    - Press ~N~ to discard and retry
 
-9. *Remove Chamber & Continue:*
-    - Display shows "REMOVE FROM SOIL THEN PRESS Y KEY"
+10. *Remove Chamber & Continue:*
+    - The EGM will display "REMOVE FROM SOIL THEN PRESS Y KEY"
     - Lift chamber from soil collar
-    - Press ~Y~ to prepare for next measurement
+    - Press ~Y~ to prepare for the next measurement
 
 #+attr_shortcode: Caution
 #+begin_alert2
@@ -1527,7 +1537,7 @@ The plot number will *not* auto-increment. You must manually enter the plot numb
 *Data Viewing & Storage:*
   Though not necessary, you can have your computer connected to the EGM while you are taking soil repisration measurements. This allows you to view the incoming the data in real time, using open-egm4, and see it graphed. This can be helpful for understanding how long it takes your soil system to produce enough CO₂ to lessen the diffusion gradient driving respiration fluxes into the chamber.
 
-  Regardless, because you desginated a plot number before you started the measurement, the EGM will store the data in its internal memory. The EGM stores up to 999 records, and will start overwriting old records if full. See  [[Exporting data][instructions on how to export data from the EGM]].
+  Regardless, because you designated a plot number before you started the measurement, the EGM will store the data in its internal memory. The EGM stores up to 1,500 records, and will start overwriting old records if full. See  [[Exporting data][instructions on how to export data from the EGM]].
 
 
 To transfer stored records from field plots on the EGM-4 to your computer, do the following: 
@@ -1783,66 +1793,72 @@ For CFX-1/CPY-3, column G contains a flow multiplier (1 or 10) that should be ap
 Here's a Python function that parses a raw 61-character record:
 
 #+BEGIN_SRC python
-def parse_egm4_record(raw):
-    """Parse EGM-4 61-character fixed-width record (1 letter + 60 digits).
+Args:
+    raw (str): The raw serial string (e.g., 'R00000...')
     
-    Example input: 'R000002180313170042900000000000000000000000000400000000096508'
-    """
-    return {
-        'mode': raw[0],              # 1 char: M or R
-        'plot': int(raw[1:3]),       # 2 chars: 00-99
-        'record_num': int(raw[3:7]), # 4 chars: 0001-9999
-        'day': int(raw[7:9]),        # 2 chars
-        'month': int(raw[9:11]),     # 2 chars
-        'hour': int(raw[11:13]),     # 2 chars
-        'minute': int(raw[13:15]),   # 2 chars
-        'co2_ppm': int(raw[15:19]),  # 4 chars
-        'h2o_mb': int(raw[19:23]),   # 4 chars
-        'rht_temp': float(raw[23:28]) / 10,  # 5 chars (XXX.X format)
-        'sensor_a': int(raw[28:32]), # 4 chars
-        'sensor_b': int(raw[32:36]), # 4 chars
-        'sensor_c': int(raw[36:40]), # 4 chars
-        'sensor_d': int(raw[40:44]), # 4 chars
-        'sensor_e': int(raw[44:48]), # 4 chars
-        'sensor_f': int(raw[48:52]), # 4 chars
-        'sensor_g': int(raw[52:54]), # 2 chars
-        'sensor_h': int(raw[54:56]), # 2 chars
-        'pressure_mb': int(raw[56:59]),  # 3 chars
-        'probe_type': int(raw[59:61])    # 2 chars (types 0-11)
-    }
+Returns:
+    dict: Key-value pairs of parsed sensor data.
+"""
+# Ensure the string is the expected length after stripping newlines
+clean = raw.strip()
+if len(clean) != 61:
+    raise ValueError(f"Invalid record length: {len(clean)} characters")
+
+return {
+    'mode': clean[0],             # M (Real-time measurement) or R (Stored record)
+    'plot': int(clean[1:3]),      # Plot Number
+    'record_num': int(clean[3:7]),
+    'timestamp': {
+        'day': int(clean[7:9]),
+        'month': int(clean[9:11]),
+        'hour': int(clean[11:13]),
+        'minute': int(clean[13:15]),
+    },
+    'co2_ppm': int(clean[15:19]),
+    'h2o_mb': int(clean[19:23]),
+    'temperature_c': float(clean[23:28]) / 10.0, # Fixed point div by 10
+    # ... (Sensors A-H mapped as integer counts) ...
+    'pressure_mb': int(clean[56:59]),
+    'probe_type': int(clean[59:61])
+}
+""""
 #+END_SRC
 
 Beyond data records, the EGM-4 also sends status messages during startup and operation. A boot message takes the form ~B,EGM4,<serial>,<firmware>~ and provides the device's serial number and firmware version. During warmup, you'll see ~W,TT~ messages where TT indicates the current cell temperature. The instrument sends ~I,NN~ during initialization and ~Z,NN~ during zeroing, where NN is a countdown counter. Diagnostic messages beginning with ~D,~ contain internal state information documented in the manual on page 38.
 
 *** B: Flux Calculation Methods
 
-The EGM-4 calculates soil respiration flux automatically, but understanding the underlying mathematics helps with interpreting results and troubleshooting anomalies.
-
-**** Closed-System Chamber Method
-
-When using the SRC-1 chamber, flux is calculated from the rate at which CO₂ accumulates inside the sealed volume. The fundamental equation is:
+The EGM-4 calculates soil respiration flux by monitoring the rate of CO₂ accumulation inside the closed SRC-1 chamber. The fundamental equation derived from the Ideal Gas Law is:
 
 $$F = \frac{dC}{dt} \times \frac{V}{A} \times \frac{P}{R \times T}$$
 
-In this equation, $F$ represents the CO₂ flux in µmol m⁻² s⁻¹, $\frac{dC}{dt}$ is the rate of CO₂ concentration change in ppm per second, $V$ is the total system volume (chamber plus tubing) in milliliters, and $A$ is the soil area covered by the chamber in square centimeters. The term $\frac{P}{RT}$ converts the concentration change to molar units, where $P$ is atmospheric pressure in Pascals, $R$ is the gas constant (8.314 J mol⁻¹ K⁻¹), and $T$ is air temperature in Kelvin.
+Where:
+- $F$ is the CO₂ flux in g CO₂ m⁻² hr⁻¹.
+- $\frac{dC}{dt}$ is the rate of change in CO₂ concentration (ppm s⁻¹).
+- $V$ is the total system volume (chamber + tubing).
+- $A$ is the soil surface area enclosed by the chamber.
+- $\frac{P}{RT}$ converts the concetration change to molar units.
 
-The EGM-4 reports flux in g CO₂ m⁻² hr⁻¹. The conversion from µmol m⁻² s⁻¹ involves multiplying by the molecular weight of CO₂ (44.01 g/mol), converting micromoles to moles (× 10⁻⁶), and converting seconds to hours (× 3600):
+**** Linear vs. Quadratic
 
-$$F_{g/m²/hr} = F_{µmol/m²/s} \times 44.01 \times 10^{-6} \times 3600$$
+When you start a measurement using the SRC-1, you'll be prompted to select the fitting method: ~1LINEAR 2QUAD?~. This selection determines how the EGM calculates the slope ($\frac{dC}{dt}$) from the raw concentration data.
 
-**** Linear vs. Quadratic Fitting
+*1. Linear Fit (~1~):* This method assumes that the accumulation is a straight line ($C = C_0 + kt$). You should choose it for short measurement periods, typically under 2 minutes, or low-flux soils.
 
-The EGM-4 offers two methods for determining the rate of CO₂ change over time. 
+*2. Quadratic Fit (~2~):* As CO₂ accumulates in the chamber, the concentration gradient decreases, causing the flux rate to slow down or level off. This method accounts for this by fitting a curve to the data ($C = C_0 + kt + ct^2$).
 
-Linear fitting assumes a constant flux rate throughout the measurement period. The instrument fits the data to the equation $C(t) = C_0 + kt$, where the slope $k$ equals $\frac{dC}{dt}$. This approach works well for short measurements under two minutes.
-
-Quadratic fitting accounts for non-linear effects such as chamber leakage and feedback from rising CO₂ concentrations. The instrument fits a curve of the form $C(t) = C_0 + kt + ct^2$, using the initial slope $k$ for the flux calculation. This method is recommended for measurements longer than two minutes. The EGM-4 automatically selects quadratic fitting when the coefficient $c$ exceeds 0.1 times $k$; otherwise, it defaults to linear.
+#+attr_shortcode: Warning
+#+begin_alert2
+If you select Quadratic fit and the curvature is excessive (specifically, if the quadratic term $ct$ exceeds 20% of the linear term $b$), the EGM will yell ~NON LINEAR FIT~. This indicates a significant leak or chamber saturation.
+#+end_alert2
 
 **** Chamber Corrections
 
-For the SRC-1, the default chamber volume is 1171 ml with a soil contact area of 78.5 cm² (corresponding to the 10 cm diameter opening). Tubing typically adds 50–100 ml to the total volume. If you're using a custom chamber setup, the total volume is simply the chamber volume plus the tubing volume, where tubing volume can be calculated as $V_{tubing} = \pi r^2 L$ with $r$ being the internal radius and $L$ the total length in centimeters.
+For the SRC-1, the default chamber volume is 1171 ml with a soil contact area of 78.5 cm² (corresponding to the 10 cm diameter opening). Tubing typically adds 50–100 ml to the total volume. If you're using a custom chamber setup, calculate the total volume as the chamber volume plus the tubing volume, where tubing volume can be calculated as $V_{tubing} = \pi r^2 L$ with $r$ being the internal radius and $L$ the total length in centimeters.
 
-Temperature should ideally be measured inside the chamber using the RH/Temp sensor or an STP-1 probe, as the sample air temperature directly affects the flux calculation. The EGM-4 measures atmospheric pressure internally and applies corrections automatically. At higher elevations, pressure drops significantly—approximately 900 mb at 1000 m and 800 mb at 2000 m compared to 1013 mb at sea level—and this affects how many CO₂ molecules occupy a given volume.
+Temperature should really be measured inside the chamber using the RH/Temp sensor or an STP-1 probe, because the sample air temperature directly affects the flux calculation. 
+
+The EGM-4 measures atmospheric pressure internally and applies corrections automatically. At higher elevations, pressure drops significantly: approximately 900 mb at 1000 m and 800 mb at 2000 m compared to 1013 mb at sea level. This affects how many CO₂ molecules occupy a given volume.
 
 **** Worked Example
 
@@ -1892,9 +1908,9 @@ The temperature corrections cancel, and the pressure effect is small. When calib
 
 $$R = b \times \frac{P_{av}}{1000} \times \frac{44.01}{22.41} \times \frac{V}{A}$$
 
-#+attr_shortcode: caution
+#+attr_shortcode: Note
 #+begin_alert2
-Measurement accuracy can be compromised by chamber leaks (which typically cause underestimation), temperature gradients inside the chamber (particularly when exposed to direct sunlight), pressure fluctuations from wind or weather changes, and non-representative soil coverage due to stones or gaps in the collar seal. Make sure your blue tac is firmly pressed into place.
+Measurement accuracy can be compromised by chamber leaks (which typically cause underestimation), temperature gradients inside the chamber (like being exposed to direct sunlight), pressure fluctuations from wind or weather changes, and non-representative soil coverage due gaps in the collar seal. Make sure your Blue Tack is firmly pressed into place and isn't leaving any holes.
 #+end_alert2
 
 
@@ -1975,11 +1991,11 @@ Open-egm4 addresses all of these concerns. It runs on any operating system, is o
 
 Open-egm4 is built in Python using the [[https://textual.textualize.io/][Textual]] framework for terminal UI rendering.
 
-The core serial communication lives in ~src/egm_interface.py~, which defines the ~EGM4Serial~ class. This class manages the connection to the EGM-4 via pyserial, parses the incoming 60-character fixed-width data records using position-based slicing, and dispatches parsed data to registered callbacks. The parser handles all probe types (0-11) and extracts fields like CO₂, temperature, humidity, and calculated flux depending on the connected sensor.
+The core serial communication lives in ~src/egm_interface.py~, which defines the ~EGM4Serial~ class. This class manages the connection to the EGM-4 via pyserial, parses the incoming 61-character fixed-width data records using position-based slicing, and dispatches parsed data to registered callbacks. The parser handles all probe types (0-11) and extracts fields like CO₂, temperature, humidity, and calculated flux depending on the connected sensor.
 
 Session persistence is handled by ~src/database.py~, which uses SQLite to store readings across sessions. This allows users to close the app and resume later without losing data. The database stores each reading with its timestamp, plot number, channel values, and session metadata.
 
-The TUI itself is composed of screens and widgets in the ~src/tui/~ directory. The main application entry point is ~src/tui/app.py~, which sets up the Textual app and manages screen transitions. Key screens include the connection screen (~screens/connect.py~), the main monitor screen (~screens/monitor.py~), the export wizard (~screens/export.py~), and the high-visibility "big mode" (~screens/big_mode.py~).
+The TUI itself is composed of screens and widgets in the ~src/tui/~ directory. The main application entry point is ~src/tui/app.py~, which sets up the Textual app and manages screen transitions. Key screens include the connection screen (~screens/connect.py~), the main monitor screen (~screens/monitor.py~), the export wizard (~screens/export.py~), and big mode (~screens/big_mode.py~).
 
 The monitor screen orchestrates real-time display by wiring the serial handler to the chart widget (~widgets/co2_chart.py~), which renders data using [[https://github.com/piccolomo/plotext][plotext]] for ASCII plotting. Statistics are calculated and displayed by ~widgets/stats.py~, and the channel legend is managed by ~widgets/legend.py~.
 
@@ -1987,15 +2003,25 @@ Export functionality converts session data to CSV format, allowing users to filt
 
 *Data Flow:*
 #+BEGIN_EXAMPLE
-EGM-4 → Serial Cable → USB Adapter → pyserial → EGM4Serial (egm_interface.py)
-                                                         ↓
-                                                    Parser (position-based slicing)
-                                                         ↓
-                                               MonitorScreen (monitor.py)
-                                                ↙         ↓         ↘
-                                          CO2Chart   StatsWidget   Database
-                                                                      ↓
-                                                               CSV Export
++----------+     +------------+     +------------------+
+|  EGM-4   | --> | EGM4Serial | --> |     Parser       |
++----------+     +------------+     +------------------+
+                                            |
+                                      (Parsed Dict)
+                                            v
+                              +-------------------------+
+                              |  Textual Event Loop     |
+                              +-------------------------+
+                                    /           \
+                                   v             v
+                      +------------+         +-----------------+
+                      |  Database  |         | MonitorScreen   |
+                      +------------+         +-----------------+
+                            |                  /      |      \
+                            v               CO2    Stats   Legend
+                      +------------+       Chart
+                      | SQLite DB  |
+                      +------------+
 #+END_EXAMPLE
 
 /Created in Doom Emacs 2.0.9, using org-mode 9.7./
