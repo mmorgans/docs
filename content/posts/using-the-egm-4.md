@@ -66,9 +66,9 @@ This is the easiest method. A script handles everything: installing Python depen
 **Windows:**
 
 1.  Click the Start Menu (Windows logo)
-2.  Type "cmd" or "PowerShell"
+2.  Type "PowerShell"
 3.  Press Enter
-4.  A window appears with text—this is your command prompt (command prompt is exclusive to Windows; it is _a_ terminal. It has also been around since the 80s: PowerShell is Microsoft's attempt at an updated terminal for Windows.)
+4.  A window appears with text—this is your terminal (command prompt is also a terminal, but it is exclusive to Windows; it has also been around since the 80s: PowerShell is Microsoft's attempt at an updated terminal for Windows.)
 
 **Linux:**
 You already know how to open a terminal.
@@ -86,14 +86,21 @@ You already know how to open a terminal.
 
 In your terminal window, copy and paste this line as written:
 
+**macOS / Linux:**
+
 ```bash
 curl -sSL https://raw.githubusercontent.com/mmorgans/open-egm4/main/install.sh | bash
+```
+
+**Windows (PowerShell):**
+
+```powershell
+irm https://raw.githubusercontent.com/mmorgans/open-egm4/main/install.ps1 | iex
 ```
 
 **How to Paste in Terminal:**
 
 -   **macOS**: Press `Cmd + V` (normal paste works)
--   **Windows (cmd)**: Right-click in the window, select "Paste"
 -   **Windows (PowerShell)**: Right-click to paste, OR `Ctrl + Shift + V`
 -   **Linux**: `Ctrl + Shift + V` (not `Ctrl + V`!)
 
