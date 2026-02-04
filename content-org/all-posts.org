@@ -1663,23 +1663,43 @@ Wash your hands after handling soda lime. It's caustic.
 #+end_alert2
 
 *** Replacing the Internal Battery
-The internal battery will need to be replaced after a few years of use. To do this, unscrew the 
+The internal battery will need to be replaced after a few years of use. If you are unable to get more than 2 hours out of a single charge, the internal battery needs to be replaced.
 
-flip the egm on its back
-
-4 screws
-
-flip the egm back over, carefully so it doesn't fall out of the case
-
-remove the outer cover
-
-remove the two screws on the back cover, and, leaning the back cover away from the EGM, carefully remove it. 
-
-fix this section
+1. *Remove the fuse*
+  - On the back cover, slightly twist to remove the 1A fuse, and set it aside
+2. *Remove the main cover*
+  - Flip the EGM on it's back
+  - Remove the 4 screws with a #1 Phillips screwdriver
+  - Carefully lift the EGM out of the cover by lifting the front and rear top edges
+3. *Remove the back cover*
+  - On the back cover, remove the two screws on the left and right edge with a #1 Phillips screwdriver
+  - Carefully lift the back cover away from the EGM by lowering the top of the cover, and leaning it away from the EGM
+  - You'll need to tilt the rear cover until it's perpendicular to the EGM to remove it
+4. *Remove the front cover*
+  - Using a 5.0mm socket, remove the two nuts on the left and right edges of the front cover
+  - Carefully lean the front cover away from the EGM, being sure to not stress the ribbons connecting it to the motherboard
+  - The only reason to remove the front cover is to assist in removing the old internal battery, by pushing on it through the hole in the battery enclosure
+5. *Remove the internal battery*
+  - Disconnect the battery from the two leads by lightly pulling them away from the battery
+  - Push on the battery from the hole in the enclosure, through the front panel, and out of the case
+6. *Install the new battery*
+  - Push the new battery into the enclosure, ensuring its seated properly
+  - Connect the battery to the two leads by lightly pushing onto the contacts
+7. *Reassemble the front cover*
+  - Carefully lean the front cover back into place, being sure to not stress the ribbons connecting it to the motherboard
+  - Using a 5.0mm socket, replace the two nuts on the left and right edges of the front cover
+8. *Reassemble the back cover*
+  - Carefully slide the back cover back into place, being sure to not stress the ribbons connecting it to the motherboard
+  - On the back cover, replace the two screws on the left and right edge with a #1 Phillips screwdriver
+9. *Reassemble the main cover*
+  - Holding the EGM in the air upside down, position the main cover underneath it, and carefully lower it into place
+  - Replace the 4 screws with a #1 Phillips screwdriver
+10. *Reassemble the fuse*
+  - On the back cover, slightly push and twist to replace the 1A fuse
 
 *** Replacing internal tubing
 
-Over time, the internal gas tubing will become aged and leak. You'll need to replace it with 1/8" tubing, being careful not to create kinks or bends in the tubing. If you need 90 degree bends, some are availabe at McMaster-Carr (item number 5463K42).
+Over time, the internal gas tubing will become aged and leak. You'll need to replace it with 1/8" tubing, being careful not to create kinks or bends in the tubing. If you need 90 degree bends, some are available at McMaster-Carr (item number 5463K42).
 
 *** EGM-4 error codes
 

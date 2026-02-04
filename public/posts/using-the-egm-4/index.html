@@ -361,7 +361,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                 <h1 class="post-title entry-hint-parent">
                     Using the EGM-4 &amp; open-egm4 software
                 </h1>
-                <div class="post-meta"><span title='2026-02-01 15:25:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>37 min</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2026-02-01 15:25:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>39 min</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-egm-4.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
@@ -415,9 +415,9 @@ A terminal (also called &ldquo;command line&rdquo; or &ldquo;shell&rdquo;) is a 
 <p><strong>Windows:</strong></p>
 <ol>
 <li>Click the Start Menu (Windows logo)</li>
-<li>Type &ldquo;cmd&rdquo; or &ldquo;PowerShell&rdquo;</li>
+<li>Type &ldquo;PowerShell&rdquo;</li>
 <li>Press Enter</li>
-<li>A window appears with text—this is your command prompt (command prompt is exclusive to Windows; it is <em>a</em> terminal. It has also been around since the 80s: PowerShell is Microsoft&rsquo;s attempt at an updated terminal for Windows.)</li>
+<li>A window appears with text—this is your terminal (command prompt is also a terminal, but it is exclusive to Windows; it has also been around since the 80s: PowerShell is Microsoft&rsquo;s attempt at an updated terminal for Windows.)</li>
 </ol>
 <p><strong>Linux:</strong>
 You already know how to open a terminal.</p>
@@ -429,11 +429,13 @@ You already know how to open a terminal.</p>
   <strong>&hellip;comes great responsibility.</strong> You should never copy and paste commands into your terminal from sources you do not trust. A malicious command could delete files, install malware, or send your data to an attacker. While <strong>I</strong> wrote this script, you are ultimately trusting <em>me</em> not to do something harmful. You can (and really should) view the install script source before running it.
 </div>
 <p>In your terminal window, copy and paste this line as written:</p>
+<p><strong>macOS / Linux:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sSL https://raw.githubusercontent.com/mmorgans/open-egm4/main/install.sh | bash
+</span></span></code></pre></div><p><strong>Windows (PowerShell):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>irm https<span style="color:#960050;background-color:#1e0010">:</span>//raw.githubusercontent.com/mmorgans/open-egm4/main/install.ps1 | iex
 </span></span></code></pre></div><p><strong>How to Paste in Terminal:</strong></p>
 <ul>
 <li><strong>macOS</strong>: Press <code>Cmd + V</code> (normal paste works)</li>
-<li><strong>Windows (cmd)</strong>: Right-click in the window, select &ldquo;Paste&rdquo;</li>
 <li><strong>Windows (PowerShell)</strong>: Right-click to paste, OR <code>Ctrl + Shift + V</code></li>
 <li><strong>Linux</strong>: <code>Ctrl + Shift + V</code> (not <code>Ctrl + V</code>!)</li>
 </ul>
@@ -914,15 +916,72 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
   Wash your hands after handling soda lime. It&rsquo;s caustic.
 </div>
 <h3 id="replacing-the-internal-battery">Replacing the Internal Battery<a hidden class="anchor" aria-hidden="true" href="#replacing-the-internal-battery">#</a></h3>
-<p>The internal battery will need to be replaced after a few years of use. To do this, unscrew the</p>
-<p>flip the egm on its back</p>
-<p>4 screws</p>
-<p>flip the egm back over, carefully so it doesn&rsquo;t fall out of the case</p>
-<p>remove the outer cover</p>
-<p>remove the two screws on the back cover, and, leaning the back cover away from the EGM, carefully remove it.</p>
-<p>fix this section</p>
+<p>The internal battery will need to be replaced after a few years of use. If you are unable to get more than 2 hours out of a single charge, the internal battery needs to be replaced.</p>
+<ol>
+<li><strong>Remove the fuse</strong>
+<ul>
+<li>On the back cover, slightly twist to remove the 1A fuse, and set it aside</li>
+</ul>
+</li>
+<li><strong>Remove the main cover</strong>
+<ul>
+<li>Flip the EGM on it&rsquo;s back</li>
+<li>Remove the 4 screws with a #1 Phillips screwdriver</li>
+<li>Carefully lift the EGM out of the cover by lifting the front and rear top edges</li>
+</ul>
+</li>
+<li><strong>Remove the back cover</strong>
+<ul>
+<li>On the back cover, remove the two screws on the left and right edge with a #1 Phillips screwdriver</li>
+<li>Carefully lift the back cover away from the EGM by lowering the top of the cover, and leaning it away from the EGM</li>
+<li>You&rsquo;ll need to tilt the rear cover until it&rsquo;s perpendicular to the EGM to remove it</li>
+</ul>
+</li>
+<li><strong>Remove the front cover</strong>
+<ul>
+<li>Using a 5.0mm socket, remove the two nuts on the left and right edges of the front cover</li>
+<li>Carefully lean the front cover away from the EGM, being sure to not stress the ribbons connecting it to the motherboard</li>
+<li>The only reason to remove the front cover is to assist in removing the old internal battery, by pushing on it through the hole in the battery enclosure</li>
+</ul>
+</li>
+<li><strong>Remove the internal battery</strong>
+<ul>
+<li>Disconnect the battery from the two leads by lightly pulling them away from the battery</li>
+<li>Push on the battery from the hole in the enclosure, through the front panel, and out of the case</li>
+</ul>
+</li>
+<li><strong>Install the new battery</strong>
+<ul>
+<li>Push the new battery into the enclosure, ensuring its seated properly</li>
+<li>Connect the battery to the two leads by lightly pushing onto the contacts</li>
+</ul>
+</li>
+<li><strong>Reassemble the front cover</strong>
+<ul>
+<li>Carefully lean the front cover back into place, being sure to not stress the ribbons connecting it to the motherboard</li>
+<li>Using a 5.0mm socket, replace the two nuts on the left and right edges of the front cover</li>
+</ul>
+</li>
+<li><strong>Reassemble the back cover</strong>
+<ul>
+<li>Carefully slide the back cover back into place, being sure to not stress the ribbons connecting it to the motherboard</li>
+<li>On the back cover, replace the two screws on the left and right edge with a #1 Phillips screwdriver</li>
+</ul>
+</li>
+<li><strong>Reassemble the main cover</strong>
+<ul>
+<li>Holding the EGM in the air upside down, position the main cover underneath it, and carefully lower it into place</li>
+<li>Replace the 4 screws with a #1 Phillips screwdriver</li>
+</ul>
+</li>
+<li><strong>Reassemble the fuse</strong>
+<ul>
+<li>On the back cover, slightly push and twist to replace the 1A fuse</li>
+</ul>
+</li>
+</ol>
 <h3 id="replacing-internal-tubing">Replacing internal tubing<a hidden class="anchor" aria-hidden="true" href="#replacing-internal-tubing">#</a></h3>
-<p>Over time, the internal gas tubing will become aged and leak. You&rsquo;ll need to replace it with 1/8&quot; tubing, being careful not to create kinks or bends in the tubing. If you need 90 degree bends, some are availabe at McMaster-Carr (item number 5463K42).</p>
+<p>Over time, the internal gas tubing will become aged and leak. You&rsquo;ll need to replace it with 1/8&quot; tubing, being careful not to create kinks or bends in the tubing. If you need 90 degree bends, some are available at McMaster-Carr (item number 5463K42).</p>
 <h3 id="egm-4-error-codes">EGM-4 error codes<a hidden class="anchor" aria-hidden="true" href="#egm-4-error-codes">#</a></h3>
 <p>The EGM-4 displays numbered error codes when problems occur:</p>
 <p><strong>Error 01: Zero Too Low</strong></p>
