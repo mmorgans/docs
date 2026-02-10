@@ -1223,6 +1223,11 @@ irm https://raw.githubusercontent.com/mmorgans/open-egm4/main/install.ps1 | iex
 
 Press ~Enter~ to run the command.
 
+#+attr_shortcode: Note
+#+begin_alert2
+Running the installation script when open-egm4 is already installed allows you to update, repair, or uninstall the software.
+#+end_alert2
+
 **** Step 3: What You'll See During Installation
 
 After pressing Enter, text will start scrolling down the screen. You'll see messages like:
@@ -1277,7 +1282,10 @@ open-egm4
    - If it doesn't, select the port manually using the arrow keys, and hit Enter to confirm your choice. If you don't see your port listed, check the cable connection and hit ~r~ on your keyboard to refresh the list of ports.
    - On macOS, look for ports containing "usbserial" or "FTDI"
    - On Windows, look for "COM" ports (COM3, COM4, etc.)
-
+#+attr_shortcode: Note
+#+begin_alert2
+Windows lacks default braille support, so ~open-egm4~ automatically uses lower-detail symbols if running on Windows. If you install a compatible font, launch open-egm4 with the  ~--force-unicode~ flag to enable high-detail braille graphs. You can see which platform and graphics mode open-egm4 is using on the splash screen.
+#+end_alert2
 2. *Verify Connection:*
    - The EGM screams out data over the serial connection, but it's incapable of receiving any data back. Therefore, you'll have no way of knowing if you're actually connected to the EGM unless you dump some data to your computer.
    - Details on how to collect data are [[Exporting data][in the workflow section]], but for now you can verify that the software was installed correctly by dumping existing data from the EGM to your computer, assuming that there is pre-existing data on the EGM.
@@ -1617,14 +1625,13 @@ Ensure that water does not enter the EGM when injecting a sample. If water enter
 
 6. *Record Value:*
    - The CO₂ reading will change as your sample fills the cell
-   - Wait several seconds until you see the highest CO₂ reading on the display
+   - The intial highest CO₂ reading you see will be */higher/* (and therefore inaccurate) than the true CO₂ concentration of your sample
+   - Wait a few seconds to see where the CO₂ reading plateaus, and then record it
    - Make note of it, and the sample name
    - Ideally, you will have a prepared list of your sample names next to which you will write the CO₂ reading
 
 7. *Flush Between Samples:*
-   - Return to the main menu by pressing ~N~
-   - Turn the pump back on by pressing ~2SET~, ~3PMP~, ~N~ to change, and ~Y~ to confirm
-   - Once the pump is back on, wait at least 1 minute before shutting the pump back off and running another sample
+   - Inject some ambient air into the EGM to flush the cell in between samples
 
 8. *Data Downloading:*
    - Because it is not possible to designate a plot number on the EGM itself when running static samples, you will need to manually record the data.

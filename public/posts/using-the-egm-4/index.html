@@ -440,6 +440,9 @@ You already know how to open a terminal.</p>
 <li><strong>Linux</strong>: <code>Ctrl + Shift + V</code> (not <code>Ctrl + V</code>!)</li>
 </ul>
 <p>Press <code>Enter</code> to run the command.</p>
+<div class="alert alert-Note">
+  Running the installation script when open-egm4 is already installed allows you to update, repair, or uninstall the software.
+</div>
 <h4 id="step-3-what-you-ll-see-during-installation">Step 3: What You&rsquo;ll See During Installation<a hidden class="anchor" aria-hidden="true" href="#step-3-what-you-ll-see-during-installation">#</a></h4>
 <p>After pressing Enter, text will start scrolling down the screen. You&rsquo;ll see messages like:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>[INFO] Checking prerequisites...
@@ -480,8 +483,7 @@ You already know how to open a terminal.</p>
 <p>On your computer, in the terminal, run</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>open-egm4
 </span></span></code></pre></div><ol>
-<li>
-<p><strong>Select Serial Port:</strong></p>
+<li><strong>Select Serial Port:</strong>
 <ul>
 <li>The software will list available serial ports (e.g., <code>/dev/tty.usbserial</code>, <code>COM3</code>)</li>
 <li>It will also attempt to guess at which one the EGM is connected to and automatically connect to it</li>
@@ -490,6 +492,11 @@ You already know how to open a terminal.</p>
 <li>On Windows, look for &ldquo;COM&rdquo; ports (COM3, COM4, etc.)</li>
 </ul>
 </li>
+</ol>
+<div class="alert alert-Note">
+  Windows lacks default braille support, so <code>open-egm4</code> automatically uses lower-detail symbols if running on Windows. If you install a compatible font, launch open-egm4 with the  <code>--force-unicode</code> flag to enable high-detail braille graphs. You can see which platform and graphics mode open-egm4 is using on the splash screen.
+</div>
+<ol>
 <li>
 <p><strong>Verify Connection:</strong></p>
 <ul>
@@ -871,7 +878,8 @@ Though not necessary, you can have your computer connected to the EGM while you 
 <p><strong>Record Value:</strong></p>
 <ul>
 <li>The CO₂ reading will change as your sample fills the cell</li>
-<li>Wait several seconds until you see the highest CO₂ reading on the display</li>
+<li>The intial highest CO₂ reading you see will be <strong><em>higher</em></strong> (and therefore inaccurate) than the true CO₂ concentration of your sample</li>
+<li>Wait a few seconds to see where the CO₂ reading plateaus, and then record it</li>
 <li>Make note of it, and the sample name</li>
 <li>Ideally, you will have a prepared list of your sample names next to which you will write the CO₂ reading</li>
 </ul>
@@ -879,9 +887,7 @@ Though not necessary, you can have your computer connected to the EGM while you 
 <li>
 <p><strong>Flush Between Samples:</strong></p>
 <ul>
-<li>Return to the main menu by pressing <code>N</code></li>
-<li>Turn the pump back on by pressing <code>2SET</code>, <code>3PMP</code>, <code>N</code> to change, and <code>Y</code> to confirm</li>
-<li>Once the pump is back on, wait at least 1 minute before shutting the pump back off and running another sample</li>
+<li>Inject some ambient air into the EGM to flush the cell in between samples</li>
 </ul>
 </li>
 <li>
