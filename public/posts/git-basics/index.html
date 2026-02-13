@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="dark">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Git basics | morgan docs</title>
 <meta name="keywords" content="">
 <meta name="description" content="Introduction to Git and GitHub
@@ -18,16 +18,16 @@ Git allows you to send and receive files from your computer to a server, making 
 Concepts
 Commits: Think of a commit as taking a snapshot of your project. Every time you make a commit, you are saving a record of what your project looks like at that moment in time. This allows you to track changes over time and gives you a perfect history of your entire project.">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/git-basics/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.2848bf1135132d476bbf8b7f50dc02f3efe20c69a9e3465b361f3509010e0ce5.css" integrity="sha256-KEi/ETUTLUdrv4t/UNwC8&#43;/iDGmp40ZbNh81CQEODOU=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="canonical" href="https://docs.mor-gan.com/posts/git-basics/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.dc9d8bc0b516382c12a77323c16a97d5f0e9be0bff6b463a8acbfbd83f95dcee.css" integrity="sha256-3J2LwLUWOCwSp3MjwWqX1fDpvgv/a0Y6isv72D&#43;V3O4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://docs.mor-gan.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://docs.mor-gan.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://docs.mor-gan.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://docs.mor-gan.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://docs.mor-gan.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/git-basics/">
+<link rel="alternate" hreflang="en" href="https://docs.mor-gan.com/posts/git-basics/">
 <noscript>
     <style>
         #theme-toggle,
@@ -64,13 +64,85 @@ Commits: Think of a commit as taking a snapshot of your project. Every time you 
         }
     };
 </script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><meta property="og:url" content="https://docs.mor-gan.com/posts/git-basics/">
+  <meta property="og:site_name" content="morgan docs">
+  <meta property="og:title" content="Git basics">
+  <meta property="og:description" content="Introduction to Git and GitHub It’s easiest to think of Git (and other forms of source control) like a time machine.
+When you make changes to your project, it’s easy to see what has changed. You have a perfect history of everything that’s ever happened in your project, and can always revert to any point in that history. Git allows you to work with other people on the same project, while guaranteeing that you won’t mess up each other’s work. Git allows you to send and receive files from your computer to a server, making it easy to put your projects online. Concepts Commits: Think of a commit as taking a snapshot of your project. Every time you make a commit, you are saving a record of what your project looks like at that moment in time. This allows you to track changes over time and gives you a perfect history of your entire project.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-08-21T11:00:00-05:00">
+    <meta property="article:modified_time" content="2024-08-21T11:00:00-05:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git basics">
+<meta name="twitter:description" content="Introduction to Git and GitHub
+It&rsquo;s easiest to think of Git (and other forms of source control) like a time machine.
+
+When you make changes to your project, it&rsquo;s easy to see what has changed.
+You have a perfect history of everything that&rsquo;s ever happened in your project, and can always revert to any point in that history.
+Git allows you to work with other people on the same project, while guaranteeing that you won&rsquo;t mess up each other&rsquo;s work.
+Git allows you to send and receive files from your computer to a server, making it easy to put your projects online.
+
+Concepts
+Commits: Think of a commit as taking a snapshot of your project. Every time you make a commit, you are saving a record of what your project looks like at that moment in time. This allows you to track changes over time and gives you a perfect history of your entire project.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://docs.mor-gan.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Git basics",
+      "item": "https://docs.mor-gan.com/posts/git-basics/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Git basics",
+  "name": "Git basics",
+  "description": "Introduction to Git and GitHub It\u0026rsquo;s easiest to think of Git (and other forms of source control) like a time machine.\nWhen you make changes to your project, it\u0026rsquo;s easy to see what has changed. You have a perfect history of everything that\u0026rsquo;s ever happened in your project, and can always revert to any point in that history. Git allows you to work with other people on the same project, while guaranteeing that you won\u0026rsquo;t mess up each other\u0026rsquo;s work. Git allows you to send and receive files from your computer to a server, making it easy to put your projects online. Concepts Commits: Think of a commit as taking a snapshot of your project. Every time you make a commit, you are saving a record of what your project looks like at that moment in time. This allows you to track changes over time and gives you a perfect history of your entire project.\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Introduction to Git and GitHub It’s easiest to think of Git (and other forms of source control) like a time machine.\nWhen you make changes to your project, it’s easy to see what has changed. You have a perfect history of everything that’s ever happened in your project, and can always revert to any point in that history. Git allows you to work with other people on the same project, while guaranteeing that you won’t mess up each other’s work. Git allows you to send and receive files from your computer to a server, making it easy to put your projects online. Concepts Commits: Think of a commit as taking a snapshot of your project. Every time you make a commit, you are saving a record of what your project looks like at that moment in time. This allows you to track changes over time and gives you a perfect history of your entire project.\nRepositories: Where your project lives. It’s like a folder that stores all of your code and the entire history of your project. Repositories can live on your local machine or be hosted online via platforms like GitHub.\nStaging Area: The staging area is like a holding ground where you prepare changes before making a commit. Think of it as packing a suitcase for a trip. When you lay everything out on your bed, thinking about what you want to bring with you, you can still move around, remove, and add items. The bed would be the staging area, and “committing” would be closing and locking your suitcase.\nHow GitHub Works GitHub stores your Git repository online. While Git is entirely local (everything is stored on your computer), GitHub hosts your repository online so that you can share it and collaborate with other people.\nBranches and Pull Requests In Git, branches allow you to work on different versions of your project simultaneously. For example, if you are working on a major feature but you don’t want to disrupt the rest of the project, a branch would allow you to create an alternate timeline where you can make changes without affecting the main project.\nPull Requests are used when working with other people to propose changes. If someone has code that they want to contribute to the project, they create a pull request to merge their work. This allows other team members to review the code before it’s integrated.\nGlossary Core Git Terms:\nRepository (Repo): A project’s directory or storage space where your project’s files and their revision history are stored. Commit: A snapshot of your project at a specific point in time. Each commit has a message and stores changes made to the code. Branch: A separate line of development within the same repository. You can think of branches as different versions of your project that diverge from the main version (typically called main or master). Clone: The process of creating a local copy of a repository from a remote server (such as GitHub). Fork: A personal copy of someone else’s repository, typically used to suggest changes or to start independent development. Pull Request (PR): A GitHub-specific feature. It allows developers to request that their code changes be merged into the main repository. It often involves code review before merging. Merge: The process of combining changes from different branches into one. It typically happens after a pull request is approved. Rebase: Similar to merging but instead of combining the changes from different branches, it rewrites the commit history by applying your changes on top of another branch. Useful for keeping a cleaner commit history. Remote: A version of your project hosted on a remote server (such as GitHub, GitLab, or Bitbucket). The remote is usually referred to as origin. Fetch: Retrieves the latest changes from the remote repository without applying them to your local repository. Pull: Retrieves the latest changes from the remote repository and applies them to your current branch. Push: Sends your committed changes to a remote repository (e.g., GitHub) so others can access them. HEAD: The current snapshot or commit that your working directory is based on. It’s typically the latest commit on the active branch. Staging Area: A place where you prepare changes before committing them. Think of it as a holding area where you decide what will go into your next commit. Index: Another name for the staging area. Checkout: The process of moving between different branches or commits in a repository. You are switching your working directory to match a particular branch or commit. Conflict: Occurs when Git is unable to automatically resolve differences between two commits (such as during a merge) because the same line of code was changed differently in both branches. Cherry-pick: Selectively applying changes from one commit in another branch without merging the entire branch. ",
+  "wordCount" : "799",
+  "inLanguage": "en",
+  "datePublished": "2024-08-21T11:00:00-05:00",
+  "dateModified": "2024-08-21T11:00:00-05:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://docs.mor-gan.com/posts/git-basics/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "morgan docs",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://docs.mor-gan.com/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <a href="https://docs.mor-gan.com/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -96,7 +168,7 @@ Commits: Think of a commit as taking a snapshot of your project. Every time you 
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/search/" title="search (Alt &#43; /)" accesskey=/>
+                <a href="https://docs.mor-gan.com/search/" title="search (Alt &#43; /)" accesskey=/>
                     <span>search</span>
                 </a>
             </li>
@@ -159,7 +231,7 @@ Commits: Think of a commit as taking a snapshot of your project. Every time you 
 
         <article class="post-single">
             <header class="post-header">
-                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <div class="breadcrumbs"><a href="https://docs.mor-gan.com/">Home</a>&nbsp;»&nbsp;<a href="https://docs.mor-gan.com/posts/">Posts</a></div>
                 <h1 class="post-title entry-hint-parent">
                     Git basics
                 </h1>

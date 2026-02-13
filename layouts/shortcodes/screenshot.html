@@ -1,0 +1,31 @@
+{{- $src := .Get "src" -}}
+{{- if not $src -}}
+  {{- errorf "screenshot shortcode requires a src parameter: %s" .Position -}}
+{{- end -}}
+
+{{- $alt := .Get "alt" | default "" -}}
+{{- $caption := .Get "caption" -}}
+{{- $class := .Get "class" | default "" -}}
+{{- $width := .Get "width" -}}
+{{- $rawLink := printf "%v" (.Get "link" | default "true") -}}
+{{- $link := ne (lower $rawLink) "false" -}}
+{{- $isRemote := or (hasPrefix $src "http://") (hasPrefix $src "https://") -}}
+
+{{- $srcPath := strings.TrimPrefix "/" $src -}}
+{{- $srcURL := cond $isRemote $src (printf "/%s" $srcPath) -}}
+{{- $ext := lower (path.Ext $srcPath) -}}
+{{- $basePath := strings.TrimSuffix $ext $srcPath -}}
+{{- $webpPath := printf "%s.webp" $basePath -}}
+{{- $webpURL := printf "/%s" $webpPath -}}
+{{- $webpFile := printf "static/%s" $webpPath -}}
+{{- $hasWebp := and (not $isRemote) (ne $ext ".webp") (fileExists $webpFile) -}}
+
+<figure class="doc-screenshot{{ with $class }} {{ . }}{{ end }}">
+  {{- if $link -}}<a class="doc-screenshot-link" href="{{ $srcURL }}" target="_blank" rel="noopener noreferrer">{{- end -}}
+  <picture>
+    {{- if $hasWebp -}}<source srcset="{{ $webpURL }}" type="image/webp">{{- end -}}
+    <img src="{{ $srcURL }}" alt="{{ $alt }}" loading="lazy" decoding="async"{{ with $width }} width="{{ . }}"{{ end }}>
+  </picture>
+  {{- if $link -}}</a>{{- end -}}
+  {{- with $caption -}}<figcaption>{{ . | markdownify }}</figcaption>{{- end -}}
+</figure>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="dark">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Exporting data to a CSV with rgee | morgan docs</title>
 <meta name="keywords" content="rgee">
 <meta name="description" content="Introduction
@@ -57,16 +57,16 @@ ndvi_df &lt;- do.call(rbind, lapply(ndvi_list, function(x) data.frame(
 write.csv(ndvi_df, &#34;ndvi_values_hello.csv&#34;, row.names = FALSE)
 ">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.2848bf1135132d476bbf8b7f50dc02f3efe20c69a9e3465b361f3509010e0ce5.css" integrity="sha256-KEi/ETUTLUdrv4t/UNwC8&#43;/iDGmp40ZbNh81CQEODOU=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="canonical" href="https://docs.mor-gan.com/posts/exporting-data-to-a-csv-with-rgee/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.dc9d8bc0b516382c12a77323c16a97d5f0e9be0bff6b463a8acbfbd83f95dcee.css" integrity="sha256-3J2LwLUWOCwSp3MjwWqX1fDpvgv/a0Y6isv72D&#43;V3O4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://docs.mor-gan.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://docs.mor-gan.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://docs.mor-gan.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://docs.mor-gan.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://docs.mor-gan.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/">
+<link rel="alternate" hreflang="en" href="https://docs.mor-gan.com/posts/exporting-data-to-a-csv-with-rgee/">
 <noscript>
     <style>
         #theme-toggle,
@@ -103,13 +103,126 @@ write.csv(ndvi_df, &#34;ndvi_values_hello.csv&#34;, row.names = FALSE)
         }
     };
 </script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><meta property="og:url" content="https://docs.mor-gan.com/posts/exporting-data-to-a-csv-with-rgee/">
+  <meta property="og:site_name" content="morgan docs">
+  <meta property="og:title" content="Exporting data to a CSV with rgee">
+  <meta property="og:description" content="Introduction In general, exporting data to a .csv with rgee is pretty easy. The general gist of the process is:
+Define the area or points you are interested in Filter data Convert the results to a list, and Export to a csv. Example Make sure to load and initialize rgee first!
+# Define an AOI over Kansas aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Define sample points in the area points &lt;- ee$FeatureCollection(c( ee$Feature(ee$Geometry$Point(-98.5795, 39.8283), list(label = &#34;1&#34;)), ee$Feature(ee$Geometry$Point(-97.5795, 38.8283), list(label = &#34;2&#34;)), ee$Feature(ee$Geometry$Point(-96.5795, 37.8283), list(label = &#34;3&#34;)) )) # Grab an image from Sentinal 2 and calculate NDVI s2_collection &lt;- ee$ImageCollection(&#34;COPERNICUS/S2&#34;)$ filterDate(&#39;2020-06-01&#39;, &#39;2020-06-30&#39;)$ filterBounds(aoi)$ map(function(image) { ndvi &lt;- image$normalizedDifference(c(&#34;B8&#34;, &#34;B4&#34;))$rename(&#34;NDVI&#34;) return(image$addBands(ndvi)) }) ndvi_image &lt;- s2_collection$select(&#34;NDVI&#34;)$mean()$clip(aoi) # Grab NDVI values at the sample points ndvi_values &lt;- ndvi_image$reduceRegions( collection = points, reducer = ee$Reducer$mean(), scale = 30 ) # Convert the result to a list and then to a data frame ndvi_list &lt;- ndvi_values$getInfo()$features ndvi_df &lt;- do.call(rbind, lapply(ndvi_list, function(x) data.frame( label = x$properties$label, NDVI = x$properties$mean, lon = x$geometry$coordinates[1], lat = x$geometry$coordinates[2] ))) # Save the data frame as a CSV write.csv(ndvi_df, &#34;ndvi_values_hello.csv&#34;, row.names = FALSE) ">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-08-13T11:37:00-05:00">
+    <meta property="article:modified_time" content="2024-08-13T11:37:00-05:00">
+    <meta property="article:tag" content="Rgee">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Exporting data to a CSV with rgee">
+<meta name="twitter:description" content="Introduction
+In general, exporting data to a .csv with rgee is pretty easy. The general gist of the process is:
+
+Define the area or points you are interested in
+Filter data
+Convert the results to a list, and
+Export to a csv.
+
+Example
+Make sure to load and initialize rgee first!
+# Define an AOI over Kansas
+aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0))
+
+# Define sample points in the area
+points &lt;- ee$FeatureCollection(c(
+  ee$Feature(ee$Geometry$Point(-98.5795, 39.8283), list(label = &#34;1&#34;)),
+  ee$Feature(ee$Geometry$Point(-97.5795, 38.8283), list(label = &#34;2&#34;)),
+  ee$Feature(ee$Geometry$Point(-96.5795, 37.8283), list(label = &#34;3&#34;))
+))
+
+# Grab an image from Sentinal 2 and calculate NDVI
+s2_collection &lt;- ee$ImageCollection(&#34;COPERNICUS/S2&#34;)$
+  filterDate(&#39;2020-06-01&#39;, &#39;2020-06-30&#39;)$
+  filterBounds(aoi)$
+  map(function(image) {
+    ndvi &lt;- image$normalizedDifference(c(&#34;B8&#34;, &#34;B4&#34;))$rename(&#34;NDVI&#34;)
+    return(image$addBands(ndvi))
+  })
+ndvi_image &lt;- s2_collection$select(&#34;NDVI&#34;)$mean()$clip(aoi)
+
+# Grab NDVI values at the sample points
+ndvi_values &lt;- ndvi_image$reduceRegions(
+  collection = points,
+  reducer = ee$Reducer$mean(),
+  scale = 30
+)
+
+# Convert the result to a list and then to a data frame
+ndvi_list &lt;- ndvi_values$getInfo()$features
+ndvi_df &lt;- do.call(rbind, lapply(ndvi_list, function(x) data.frame(
+  label = x$properties$label,
+  NDVI = x$properties$mean,
+  lon = x$geometry$coordinates[1],
+  lat = x$geometry$coordinates[2]
+)))
+
+# Save the data frame as a CSV
+write.csv(ndvi_df, &#34;ndvi_values_hello.csv&#34;, row.names = FALSE)
+">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://docs.mor-gan.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Exporting data to a CSV with rgee",
+      "item": "https://docs.mor-gan.com/posts/exporting-data-to-a-csv-with-rgee/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Exporting data to a CSV with rgee",
+  "name": "Exporting data to a CSV with rgee",
+  "description": "Introduction In general, exporting data to a .csv with rgee is pretty easy. The general gist of the process is:\nDefine the area or points you are interested in Filter data Convert the results to a list, and Export to a csv. Example Make sure to load and initialize rgee first!\n# Define an AOI over Kansas aoi \u0026lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Define sample points in the area points \u0026lt;- ee$FeatureCollection(c( ee$Feature(ee$Geometry$Point(-98.5795, 39.8283), list(label = \u0026#34;1\u0026#34;)), ee$Feature(ee$Geometry$Point(-97.5795, 38.8283), list(label = \u0026#34;2\u0026#34;)), ee$Feature(ee$Geometry$Point(-96.5795, 37.8283), list(label = \u0026#34;3\u0026#34;)) )) # Grab an image from Sentinal 2 and calculate NDVI s2_collection \u0026lt;- ee$ImageCollection(\u0026#34;COPERNICUS/S2\u0026#34;)$ filterDate(\u0026#39;2020-06-01\u0026#39;, \u0026#39;2020-06-30\u0026#39;)$ filterBounds(aoi)$ map(function(image) { ndvi \u0026lt;- image$normalizedDifference(c(\u0026#34;B8\u0026#34;, \u0026#34;B4\u0026#34;))$rename(\u0026#34;NDVI\u0026#34;) return(image$addBands(ndvi)) }) ndvi_image \u0026lt;- s2_collection$select(\u0026#34;NDVI\u0026#34;)$mean()$clip(aoi) # Grab NDVI values at the sample points ndvi_values \u0026lt;- ndvi_image$reduceRegions( collection = points, reducer = ee$Reducer$mean(), scale = 30 ) # Convert the result to a list and then to a data frame ndvi_list \u0026lt;- ndvi_values$getInfo()$features ndvi_df \u0026lt;- do.call(rbind, lapply(ndvi_list, function(x) data.frame( label = x$properties$label, NDVI = x$properties$mean, lon = x$geometry$coordinates[1], lat = x$geometry$coordinates[2] ))) # Save the data frame as a CSV write.csv(ndvi_df, \u0026#34;ndvi_values_hello.csv\u0026#34;, row.names = FALSE) ",
+  "keywords": [
+    "rgee"
+  ],
+  "articleBody": "Introduction In general, exporting data to a .csv with rgee is pretty easy. The general gist of the process is:\nDefine the area or points you are interested in Filter data Convert the results to a list, and Export to a csv. Example Make sure to load and initialize rgee first!\n# Define an AOI over Kansas aoi \u003c- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Define sample points in the area points \u003c- ee$FeatureCollection(c( ee$Feature(ee$Geometry$Point(-98.5795, 39.8283), list(label = \"1\")), ee$Feature(ee$Geometry$Point(-97.5795, 38.8283), list(label = \"2\")), ee$Feature(ee$Geometry$Point(-96.5795, 37.8283), list(label = \"3\")) )) # Grab an image from Sentinal 2 and calculate NDVI s2_collection \u003c- ee$ImageCollection(\"COPERNICUS/S2\")$ filterDate('2020-06-01', '2020-06-30')$ filterBounds(aoi)$ map(function(image) { ndvi \u003c- image$normalizedDifference(c(\"B8\", \"B4\"))$rename(\"NDVI\") return(image$addBands(ndvi)) }) ndvi_image \u003c- s2_collection$select(\"NDVI\")$mean()$clip(aoi) # Grab NDVI values at the sample points ndvi_values \u003c- ndvi_image$reduceRegions( collection = points, reducer = ee$Reducer$mean(), scale = 30 ) # Convert the result to a list and then to a data frame ndvi_list \u003c- ndvi_values$getInfo()$features ndvi_df \u003c- do.call(rbind, lapply(ndvi_list, function(x) data.frame( label = x$properties$label, NDVI = x$properties$mean, lon = x$geometry$coordinates[1], lat = x$geometry$coordinates[2] ))) # Save the data frame as a CSV write.csv(ndvi_df, \"ndvi_values_hello.csv\", row.names = FALSE) ",
+  "wordCount" : "185",
+  "inLanguage": "en",
+  "datePublished": "2024-08-13T11:37:00-05:00",
+  "dateModified": "2024-08-13T11:37:00-05:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://docs.mor-gan.com/posts/exporting-data-to-a-csv-with-rgee/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "morgan docs",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://docs.mor-gan.com/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <a href="https://docs.mor-gan.com/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -135,7 +248,7 @@ write.csv(ndvi_df, &#34;ndvi_values_hello.csv&#34;, row.names = FALSE)
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/search/" title="search (Alt &#43; /)" accesskey=/>
+                <a href="https://docs.mor-gan.com/search/" title="search (Alt &#43; /)" accesskey=/>
                     <span>search</span>
                 </a>
             </li>
@@ -183,7 +296,7 @@ write.csv(ndvi_df, &#34;ndvi_values_hello.csv&#34;, row.names = FALSE)
 
         <article class="post-single">
             <header class="post-header">
-                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <div class="breadcrumbs"><a href="https://docs.mor-gan.com/">Home</a>&nbsp;»&nbsp;<a href="https://docs.mor-gan.com/posts/">Posts</a></div>
                 <h1 class="post-title entry-hint-parent">
                     Exporting data to a CSV with rgee
                 </h1>
@@ -247,7 +360,7 @@ write.csv(ndvi_df, &#34;ndvi_values_hello.csv&#34;, row.names = FALSE)
 
             <footer class="post-footer">
                 <ul class="post-tags">
-                    <li><a href="http://localhost:1313/tags/rgee/">Rgee</a></li>
+                    <li><a href="https://docs.mor-gan.com/tags/rgee/">Rgee</a></li>
                 </ul>
             </footer>
         </article>

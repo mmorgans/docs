@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="dark">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Creating a .kml file from a Google Earth project | morgan docs</title>
 <meta name="keywords" content="">
 <meta name="description" content="Introduction
@@ -49,16 +49,16 @@ If you don&rsquo;t know what to use, select .kml.
 
 ">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/creating-a-kml-from-a-project/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.2848bf1135132d476bbf8b7f50dc02f3efe20c69a9e3465b361f3509010e0ce5.css" integrity="sha256-KEi/ETUTLUdrv4t/UNwC8&#43;/iDGmp40ZbNh81CQEODOU=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="canonical" href="https://docs.mor-gan.com/posts/creating-a-kml-from-a-project/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.dc9d8bc0b516382c12a77323c16a97d5f0e9be0bff6b463a8acbfbd83f95dcee.css" integrity="sha256-3J2LwLUWOCwSp3MjwWqX1fDpvgv/a0Y6isv72D&#43;V3O4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://docs.mor-gan.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://docs.mor-gan.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://docs.mor-gan.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://docs.mor-gan.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://docs.mor-gan.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/creating-a-kml-from-a-project/">
+<link rel="alternate" hreflang="en" href="https://docs.mor-gan.com/posts/creating-a-kml-from-a-project/">
 <noscript>
     <style>
         #theme-toggle,
@@ -95,13 +95,118 @@ If you don&rsquo;t know what to use, select .kml.
         }
     };
 </script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><meta property="og:url" content="https://docs.mor-gan.com/posts/creating-a-kml-from-a-project/">
+  <meta property="og:site_name" content="morgan docs">
+  <meta property="og:title" content="Creating a .kml file from a Google Earth project">
+  <meta property="og:description" content="Introduction “Keyhole Markup Language”
+.kml files are useful for a number of reasons, namely storing pins, locations, polygons, images, and other GIS info. One of the easiest ways to make them is with Google Earth.
+You can approach this in a couple of ways. Both the Earth website and the Google Earth Pro desktop app are usable.
+Google Earth Web Open Google Earth in a browser. Open the left hand side bar. It’s a little arrow in the middle of the left edge. Click the “&#43; New” button, select “Local KML file”, and click “Create”. You should see a new section, “Local KML files”, and your new project, “Untitled”. You can rename the project by clicking on the kebab menu while hovering on it, and clicking “Rename”. Click on the project to select it. To add a location to the project, navigate to it, and then click the “Save to project” button that appears in the card. Alternatively, you can use the pin / placemark tool (first on the left in the toolbar) and it will be automatically added to the selected project. You can rename the pin / placemark by either doing so when you initially place it, or by using the kebab menu in the project menu. Once you are done adding to your project, you can export by clicking the kebab menu on it, and then selecting “Export as KML file”. Google Earth Pro Open Google Earth Pro. Create a folder under Add &gt; Folder. This is your project, so name it accordingly. Create placemarks with the placemark tool. They should be automatically placed into the new folder. You can drag other objects inside of the folder to add them to the project. Once you are done with the project, export it by right clicking on the folder and selecting “Save place as..” There are two options to save: a .kml and .kmz. If you don’t know what to use, select .kml. .kmz files are used to compress larger projects, typically ones that include images, but have some compatability issues. ">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-08-15T12:39:00-05:00">
+    <meta property="article:modified_time" content="2024-08-15T12:39:00-05:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Creating a .kml file from a Google Earth project">
+<meta name="twitter:description" content="Introduction
+&ldquo;Keyhole Markup Language&rdquo;
+.kml files are useful for a number of reasons, namely storing pins, locations, polygons, images, and other GIS info. One of the easiest ways to make them is with Google Earth.
+You can approach this in a couple of ways. Both the Earth website and the Google Earth Pro desktop app are usable.
+Google Earth Web
+
+Open Google Earth in a browser.
+Open the left hand side bar. It&rsquo;s a little arrow in the middle of the left edge.
+Click the &ldquo;&#43; New&rdquo; button, select &ldquo;Local KML file&rdquo;, and click &ldquo;Create&rdquo;.
+You should see a new section, &ldquo;Local KML files&rdquo;, and your new project, &ldquo;Untitled&rdquo;.
+
+You can rename the project by clicking on the kebab menu while hovering on it, and clicking &ldquo;Rename&rdquo;.
+
+
+Click on the project to select it.
+To add a location to the project, navigate to it, and then click the &ldquo;Save to project&rdquo; button that appears in the card.
+
+Alternatively, you can use the pin / placemark tool (first on the left in the toolbar) and it will be automatically added to the selected project.
+You can rename the pin / placemark by either doing so when you initially place it, or by using the kebab menu in the project menu.
+
+
+Once you are done adding to your project, you can export by clicking the kebab menu on it, and then selecting &ldquo;Export as KML file&rdquo;.
+
+Google Earth Pro
+
+Open Google Earth Pro.
+Create a folder under Add &gt; Folder. This is your project, so name it accordingly.
+Create placemarks with the placemark tool.
+
+They should be automatically placed into the new folder.
+You can drag other objects inside of the folder to add them to the project.
+
+
+Once you are done with the project, export it by right clicking on the folder and selecting &ldquo;Save place as..&rdquo;
+
+There are two options to save: a .kml and .kmz.
+If you don&rsquo;t know what to use, select .kml.
+.kmz files are used to compress larger projects, typically ones that include images, but have some compatability issues.
+
+
+">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://docs.mor-gan.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Creating a .kml file from a Google Earth project",
+      "item": "https://docs.mor-gan.com/posts/creating-a-kml-from-a-project/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Creating a .kml file from a Google Earth project",
+  "name": "Creating a .kml file from a Google Earth project",
+  "description": "Introduction \u0026ldquo;Keyhole Markup Language\u0026rdquo;\n.kml files are useful for a number of reasons, namely storing pins, locations, polygons, images, and other GIS info. One of the easiest ways to make them is with Google Earth.\nYou can approach this in a couple of ways. Both the Earth website and the Google Earth Pro desktop app are usable.\nGoogle Earth Web Open Google Earth in a browser. Open the left hand side bar. It\u0026rsquo;s a little arrow in the middle of the left edge. Click the \u0026ldquo;+ New\u0026rdquo; button, select \u0026ldquo;Local KML file\u0026rdquo;, and click \u0026ldquo;Create\u0026rdquo;. You should see a new section, \u0026ldquo;Local KML files\u0026rdquo;, and your new project, \u0026ldquo;Untitled\u0026rdquo;. You can rename the project by clicking on the kebab menu while hovering on it, and clicking \u0026ldquo;Rename\u0026rdquo;. Click on the project to select it. To add a location to the project, navigate to it, and then click the \u0026ldquo;Save to project\u0026rdquo; button that appears in the card. Alternatively, you can use the pin / placemark tool (first on the left in the toolbar) and it will be automatically added to the selected project. You can rename the pin / placemark by either doing so when you initially place it, or by using the kebab menu in the project menu. Once you are done adding to your project, you can export by clicking the kebab menu on it, and then selecting \u0026ldquo;Export as KML file\u0026rdquo;. Google Earth Pro Open Google Earth Pro. Create a folder under Add \u0026gt; Folder. This is your project, so name it accordingly. Create placemarks with the placemark tool. They should be automatically placed into the new folder. You can drag other objects inside of the folder to add them to the project. Once you are done with the project, export it by right clicking on the folder and selecting \u0026ldquo;Save place as..\u0026rdquo; There are two options to save: a .kml and .kmz. If you don\u0026rsquo;t know what to use, select .kml. .kmz files are used to compress larger projects, typically ones that include images, but have some compatability issues. ",
+  "keywords": [
+    
+  ],
+  "articleBody": "Introduction “Keyhole Markup Language”\n.kml files are useful for a number of reasons, namely storing pins, locations, polygons, images, and other GIS info. One of the easiest ways to make them is with Google Earth.\nYou can approach this in a couple of ways. Both the Earth website and the Google Earth Pro desktop app are usable.\nGoogle Earth Web Open Google Earth in a browser. Open the left hand side bar. It’s a little arrow in the middle of the left edge. Click the “+ New” button, select “Local KML file”, and click “Create”. You should see a new section, “Local KML files”, and your new project, “Untitled”. You can rename the project by clicking on the kebab menu while hovering on it, and clicking “Rename”. Click on the project to select it. To add a location to the project, navigate to it, and then click the “Save to project” button that appears in the card. Alternatively, you can use the pin / placemark tool (first on the left in the toolbar) and it will be automatically added to the selected project. You can rename the pin / placemark by either doing so when you initially place it, or by using the kebab menu in the project menu. Once you are done adding to your project, you can export by clicking the kebab menu on it, and then selecting “Export as KML file”. Google Earth Pro Open Google Earth Pro. Create a folder under Add \u003e Folder. This is your project, so name it accordingly. Create placemarks with the placemark tool. They should be automatically placed into the new folder. You can drag other objects inside of the folder to add them to the project. Once you are done with the project, export it by right clicking on the folder and selecting “Save place as..” There are two options to save: a .kml and .kmz. If you don’t know what to use, select .kml. .kmz files are used to compress larger projects, typically ones that include images, but have some compatability issues. ",
+  "wordCount" : "343",
+  "inLanguage": "en",
+  "datePublished": "2024-08-15T12:39:00-05:00",
+  "dateModified": "2024-08-15T12:39:00-05:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://docs.mor-gan.com/posts/creating-a-kml-from-a-project/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "morgan docs",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://docs.mor-gan.com/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <a href="https://docs.mor-gan.com/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -127,7 +232,7 @@ If you don&rsquo;t know what to use, select .kml.
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/search/" title="search (Alt &#43; /)" accesskey=/>
+                <a href="https://docs.mor-gan.com/search/" title="search (Alt &#43; /)" accesskey=/>
                     <span>search</span>
                 </a>
             </li>
@@ -180,7 +285,7 @@ If you don&rsquo;t know what to use, select .kml.
 
         <article class="post-single">
             <header class="post-header">
-                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <div class="breadcrumbs"><a href="https://docs.mor-gan.com/">Home</a>&nbsp;»&nbsp;<a href="https://docs.mor-gan.com/posts/">Posts</a></div>
                 <h1 class="post-title entry-hint-parent">
                     Creating a .kml file from a Google Earth project
                 </h1>

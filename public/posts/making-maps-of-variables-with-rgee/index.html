@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="dark">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Making maps of variables with rgee | morgan docs</title>
 <meta name="keywords" content="rgee">
 <meta name="description" content="Introduction
@@ -77,16 +77,16 @@ aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0))
 Load and Filter Sentinel-2 Data
 Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/making-maps-of-variables-with-rgee/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.2848bf1135132d476bbf8b7f50dc02f3efe20c69a9e3465b361f3509010e0ce5.css" integrity="sha256-KEi/ETUTLUdrv4t/UNwC8&#43;/iDGmp40ZbNh81CQEODOU=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="canonical" href="https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.dc9d8bc0b516382c12a77323c16a97d5f0e9be0bff6b463a8acbfbd83f95dcee.css" integrity="sha256-3J2LwLUWOCwSp3MjwWqX1fDpvgv/a0Y6isv72D&#43;V3O4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://docs.mor-gan.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://docs.mor-gan.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://docs.mor-gan.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://docs.mor-gan.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://docs.mor-gan.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/making-maps-of-variables-with-rgee/">
+<link rel="alternate" hreflang="en" href="https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/">
 <noscript>
     <style>
         #theme-toggle,
@@ -123,13 +123,147 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
         }
     };
 </script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><meta property="og:url" content="https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/">
+  <meta property="og:site_name" content="morgan docs">
+  <meta property="og:title" content="Making maps of variables with rgee">
+  <meta property="og:description" content="Introduction Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.
+Dividing EVI by Precipitation In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.
+Load and initialize rgee first!
+library(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Load the Sentinel-2 image collection and calculate EVI s2_collection &lt;- ee$ImageCollection(&#34;COPERNICUS/S2&#34;)$ filterDate(&#39;2020-06-01&#39;, &#39;2020-08-31&#39;)$ filterBounds(aoi)$ map(function(image) { evi &lt;- image$expression( &#39;2.5 * ((NIR - RED) / (NIR &#43; 6 * RED - 7.5 * BLUE &#43; 1))&#39;, list(&#39;NIR&#39; = image$select(&#34;B8&#34;), &#39;RED&#39; = image$select(&#34;B4&#34;), &#39;BLUE&#39; = image$select(&#34;B2&#34;)) )$rename(&#34;EVI&#34;) return(image$addBands(evi)) }) evi_image &lt;- s2_collection$select(&#34;EVI&#34;)$mean()$clip(aoi) # Visualize EVI to ensure it&#39;s calculated correctly evi_viz &lt;- list( min = -1, max = 1, palette = c(&#34;brown&#34;, &#34;yellow&#34;, &#34;green&#34;) ) Map$setCenter(-98.35, 38.5, 6) Map$addLayer(evi_image, evi_viz, &#34;EVI&#34;) # Load the TerraClimate PPT (precipitation) dataset ppt_dataset &lt;- ee$ImageCollection(&#34;IDAHO_EPSCOR/TERRACLIMATE&#34;)$ filterDate(&#39;2020-01-01&#39;, &#39;2020-12-31&#39;)$ select(&#34;pr&#34;)$ mean()$ clip(aoi) # Visualize PPT to ensure it&#39;s loaded correctly ppt_viz &lt;- list( min = 0, max = 2000, palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;green&#34;) ) Map$addLayer(ppt_dataset, ppt_viz, &#34;Precipitation&#34;) # Ensure the datasets align perfectly for each pixel evi_resampled &lt;- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000) ppt_resampled &lt;- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000) # Divide EVI by PPT evi_ppt_ratio &lt;- evi_resampled$divide(ppt_resampled) # Define visualization parameters for the ratio evi_ppt_viz &lt;- list( min = 0, max = 0.1, palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;red&#34;) ) # Add the EVI/PPT ratio layer Map$addLayer(evi_ppt_ratio, evi_ppt_viz, &#34;EVI/PPT Ratio&#34;) Breakdown Define the AOI, the state of Kansas. aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) Load and Filter Sentinel-2 Data Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-08-13T11:37:00-05:00">
+    <meta property="article:modified_time" content="2024-08-13T11:37:00-05:00">
+    <meta property="article:tag" content="Rgee">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Making maps of variables with rgee">
+<meta name="twitter:description" content="Introduction
+Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.
+Dividing EVI by Precipitation
+In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.
+Load and initialize rgee first!
+library(rgee)
+ee_Initialize()
+
+# Define an area of interest (AOI) over Kansas
+aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0))
+
+# Load the Sentinel-2 image collection and calculate EVI
+s2_collection &lt;- ee$ImageCollection(&#34;COPERNICUS/S2&#34;)$
+  filterDate(&#39;2020-06-01&#39;, &#39;2020-08-31&#39;)$
+  filterBounds(aoi)$
+  map(function(image) {
+    evi &lt;- image$expression(
+      &#39;2.5 * ((NIR - RED) / (NIR &#43; 6 * RED - 7.5 * BLUE &#43; 1))&#39;,
+      list(&#39;NIR&#39; = image$select(&#34;B8&#34;), &#39;RED&#39; = image$select(&#34;B4&#34;), &#39;BLUE&#39; = image$select(&#34;B2&#34;))
+    )$rename(&#34;EVI&#34;)
+    return(image$addBands(evi))
+  })
+evi_image &lt;- s2_collection$select(&#34;EVI&#34;)$mean()$clip(aoi)
+
+# Visualize EVI to ensure it&#39;s calculated correctly
+evi_viz &lt;- list(
+  min = -1,
+  max = 1,
+  palette = c(&#34;brown&#34;, &#34;yellow&#34;, &#34;green&#34;)
+)
+Map$setCenter(-98.35, 38.5, 6)
+Map$addLayer(evi_image, evi_viz, &#34;EVI&#34;)
+
+# Load the TerraClimate PPT (precipitation) dataset
+ppt_dataset &lt;- ee$ImageCollection(&#34;IDAHO_EPSCOR/TERRACLIMATE&#34;)$
+  filterDate(&#39;2020-01-01&#39;, &#39;2020-12-31&#39;)$
+  select(&#34;pr&#34;)$
+  mean()$
+  clip(aoi)
+
+# Visualize PPT to ensure it&#39;s loaded correctly
+ppt_viz &lt;- list(
+  min = 0,
+  max = 2000,
+  palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;green&#34;)
+)
+Map$addLayer(ppt_dataset, ppt_viz, &#34;Precipitation&#34;)
+
+# Ensure the datasets align perfectly for each pixel
+evi_resampled &lt;- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000)
+ppt_resampled &lt;- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000)
+
+# Divide EVI by PPT
+evi_ppt_ratio &lt;- evi_resampled$divide(ppt_resampled)
+
+# Define visualization parameters for the ratio
+evi_ppt_viz &lt;- list(
+  min = 0,
+  max = 0.1,
+  palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;red&#34;)
+)
+
+# Add the EVI/PPT ratio layer
+Map$addLayer(evi_ppt_ratio, evi_ppt_viz, &#34;EVI/PPT Ratio&#34;)
+Breakdown
+Define the AOI, the state of Kansas.
+aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0))
+Load and Filter Sentinel-2 Data
+Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://docs.mor-gan.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Making maps of variables with rgee",
+      "item": "https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Making maps of variables with rgee",
+  "name": "Making maps of variables with rgee",
+  "description": "Introduction Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.\nDividing EVI by Precipitation In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.\nLoad and initialize rgee first!\nlibrary(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi \u0026lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Load the Sentinel-2 image collection and calculate EVI s2_collection \u0026lt;- ee$ImageCollection(\u0026#34;COPERNICUS/S2\u0026#34;)$ filterDate(\u0026#39;2020-06-01\u0026#39;, \u0026#39;2020-08-31\u0026#39;)$ filterBounds(aoi)$ map(function(image) { evi \u0026lt;- image$expression( \u0026#39;2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))\u0026#39;, list(\u0026#39;NIR\u0026#39; = image$select(\u0026#34;B8\u0026#34;), \u0026#39;RED\u0026#39; = image$select(\u0026#34;B4\u0026#34;), \u0026#39;BLUE\u0026#39; = image$select(\u0026#34;B2\u0026#34;)) )$rename(\u0026#34;EVI\u0026#34;) return(image$addBands(evi)) }) evi_image \u0026lt;- s2_collection$select(\u0026#34;EVI\u0026#34;)$mean()$clip(aoi) # Visualize EVI to ensure it\u0026#39;s calculated correctly evi_viz \u0026lt;- list( min = -1, max = 1, palette = c(\u0026#34;brown\u0026#34;, \u0026#34;yellow\u0026#34;, \u0026#34;green\u0026#34;) ) Map$setCenter(-98.35, 38.5, 6) Map$addLayer(evi_image, evi_viz, \u0026#34;EVI\u0026#34;) # Load the TerraClimate PPT (precipitation) dataset ppt_dataset \u0026lt;- ee$ImageCollection(\u0026#34;IDAHO_EPSCOR/TERRACLIMATE\u0026#34;)$ filterDate(\u0026#39;2020-01-01\u0026#39;, \u0026#39;2020-12-31\u0026#39;)$ select(\u0026#34;pr\u0026#34;)$ mean()$ clip(aoi) # Visualize PPT to ensure it\u0026#39;s loaded correctly ppt_viz \u0026lt;- list( min = 0, max = 2000, palette = c(\u0026#34;blue\u0026#34;, \u0026#34;white\u0026#34;, \u0026#34;green\u0026#34;) ) Map$addLayer(ppt_dataset, ppt_viz, \u0026#34;Precipitation\u0026#34;) # Ensure the datasets align perfectly for each pixel evi_resampled \u0026lt;- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000) ppt_resampled \u0026lt;- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000) # Divide EVI by PPT evi_ppt_ratio \u0026lt;- evi_resampled$divide(ppt_resampled) # Define visualization parameters for the ratio evi_ppt_viz \u0026lt;- list( min = 0, max = 0.1, palette = c(\u0026#34;blue\u0026#34;, \u0026#34;white\u0026#34;, \u0026#34;red\u0026#34;) ) # Add the EVI/PPT ratio layer Map$addLayer(evi_ppt_ratio, evi_ppt_viz, \u0026#34;EVI/PPT Ratio\u0026#34;) Breakdown Define the AOI, the state of Kansas. aoi \u0026lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) Load and Filter Sentinel-2 Data Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.\n",
+  "keywords": [
+    "rgee"
+  ],
+  "articleBody": "Introduction Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.\nDividing EVI by Precipitation In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.\nLoad and initialize rgee first!\nlibrary(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi \u003c- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Load the Sentinel-2 image collection and calculate EVI s2_collection \u003c- ee$ImageCollection(\"COPERNICUS/S2\")$ filterDate('2020-06-01', '2020-08-31')$ filterBounds(aoi)$ map(function(image) { evi \u003c- image$expression( '2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))', list('NIR' = image$select(\"B8\"), 'RED' = image$select(\"B4\"), 'BLUE' = image$select(\"B2\")) )$rename(\"EVI\") return(image$addBands(evi)) }) evi_image \u003c- s2_collection$select(\"EVI\")$mean()$clip(aoi) # Visualize EVI to ensure it's calculated correctly evi_viz \u003c- list( min = -1, max = 1, palette = c(\"brown\", \"yellow\", \"green\") ) Map$setCenter(-98.35, 38.5, 6) Map$addLayer(evi_image, evi_viz, \"EVI\") # Load the TerraClimate PPT (precipitation) dataset ppt_dataset \u003c- ee$ImageCollection(\"IDAHO_EPSCOR/TERRACLIMATE\")$ filterDate('2020-01-01', '2020-12-31')$ select(\"pr\")$ mean()$ clip(aoi) # Visualize PPT to ensure it's loaded correctly ppt_viz \u003c- list( min = 0, max = 2000, palette = c(\"blue\", \"white\", \"green\") ) Map$addLayer(ppt_dataset, ppt_viz, \"Precipitation\") # Ensure the datasets align perfectly for each pixel evi_resampled \u003c- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000) ppt_resampled \u003c- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000) # Divide EVI by PPT evi_ppt_ratio \u003c- evi_resampled$divide(ppt_resampled) # Define visualization parameters for the ratio evi_ppt_viz \u003c- list( min = 0, max = 0.1, palette = c(\"blue\", \"white\", \"red\") ) # Add the EVI/PPT ratio layer Map$addLayer(evi_ppt_ratio, evi_ppt_viz, \"EVI/PPT Ratio\") Breakdown Define the AOI, the state of Kansas. aoi \u003c- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) Load and Filter Sentinel-2 Data Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.\ns2_collection \u003c- ee$ImageCollection(\"COPERNICUS/S2\")$ filterDate('2020-06-01', '2020-08-31')$ filterBounds(aoi)$ map(function(image) { evi \u003c- image$expression( '2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))', list('NIR' = image$select(\"B8\"), 'RED' = image$select(\"B4\"), 'BLUE' = image$select(\"B2\")) )$rename(\"EVI\") return(image$addBands(evi)) }) evi_image \u003c- s2_collection$select(\"EVI\")$mean()$clip(aoi) First mapping of EVI This is to make sure the current values are correct and being visualized correctly. I had a lot of trouble with this example in particular, so I am redundantly checking work as we go.\nevi_viz \u003c- list( min = -1, max = 1, palette = c(\"brown\", \"yellow\", \"green\") ) Map$setCenter(-98.35, 38.5, 6) Map$addLayer(evi_image, evi_viz, \"EVI\") Loading precip data We load precip data from TerraClimate, filter it for the year 2020, average values, and clip them.\nppt_dataset \u003c- ee$ImageCollection(\"IDAHO_EPSCOR/TERRACLIMATE\")$ filterDate('2020-01-01', '2020-12-31')$ select(\"pr\")$ mean()$ clip(aoi) Visualize PPT to make sure it’s correct Again, I am visualizing the precipitation data to make sure it looks correct.\nppt_viz \u003c- list( min = 0, max = 2000, palette = c(\"blue\", \"white\", \"green\") ) Map$addLayer(ppt_dataset, ppt_viz, \"Precipitation\") Make sure data is aligned Before actually performing any operations on the data, making sure that both datasets are aligned correctly is important. Here I’m reprojecting both sets to the same scale and resolution.\nevi_resampled \u003c- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000) ppt_resampled \u003c- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000) Transform the data Dividing the EVI by the precip to calculate the ratio.\nevi_ppt_ratio \u003c- evi_resampled$divide(ppt_resampled) Define viz params for mapping the new ratio evi_ppt_viz \u003c- list( min = 0, max = 0.1, palette = c(\"blue\", \"white\", \"red\") ) Map$addLayer(evi_ppt_ratio, evi_ppt_viz, \"EVI/PPT Ratio\") ",
+  "wordCount" : "585",
+  "inLanguage": "en",
+  "datePublished": "2024-08-13T11:37:00-05:00",
+  "dateModified": "2024-08-13T11:37:00-05:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "morgan docs",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://docs.mor-gan.com/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <a href="https://docs.mor-gan.com/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -155,7 +289,7 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/search/" title="search (Alt &#43; /)" accesskey=/>
+                <a href="https://docs.mor-gan.com/search/" title="search (Alt &#43; /)" accesskey=/>
                     <span>search</span>
                 </a>
             </li>
@@ -252,7 +386,7 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
 
         <article class="post-single">
             <header class="post-header">
-                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <div class="breadcrumbs"><a href="https://docs.mor-gan.com/">Home</a>&nbsp;»&nbsp;<a href="https://docs.mor-gan.com/posts/">Posts</a></div>
                 <h1 class="post-title entry-hint-parent">
                     Making maps of variables with rgee
                 </h1>
@@ -386,7 +520,7 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
 
             <footer class="post-footer">
                 <ul class="post-tags">
-                    <li><a href="http://localhost:1313/tags/rgee/">Rgee</a></li>
+                    <li><a href="https://docs.mor-gan.com/tags/rgee/">Rgee</a></li>
                 </ul>
             </footer>
         </article>

@@ -2,18 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Rgee on morgan docs</title>
-    <link>http://localhost:1313/tags/rgee/</link>
+    <link>https://docs.mor-gan.com/tags/rgee/</link>
     <description>Recent content in Rgee on morgan docs</description>
     <generator>Hugo -- 0.148.2</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 15 Aug 2024 12:39:00 -0500</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/rgee/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.mor-gan.com/tags/rgee/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mapping DI and EP with rgee</title>
-      <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
+      <link>https://docs.mor-gan.com/posts/mapping-di-and-ep-with-rgee/</link>
       <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
-      <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
-      <description>&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/rgee_global.png&#34;&gt;
+      <guid>https://docs.mor-gan.com/posts/mapping-di-and-ep-with-rgee/</guid>
+      <description>&lt;p&gt;&lt;picture&gt;
+  &lt;source srcset=&#34;https://docs.mor-gan.com/images/rgee_global.webp&#34; type=&#34;image/webp&#34;&gt;
+  &lt;img decoding=&#34;async&#34; loading=&#34;lazy&#34; src=&#34;https://docs.mor-gan.com/images/rgee_global.png&#34;&gt;
+&lt;/picture&gt;
 Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.&lt;/p&gt;
 &lt;p&gt;Note 2: JS version had the same issues and created more problems. Nevermind!&lt;/p&gt;
 &lt;h2 id=&#34;rgee-version&#34;&gt;Rgee version&lt;/h2&gt;
@@ -22,9 +25,9 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
     </item>
     <item>
       <title>Exporting data to a CSV with rgee</title>
-      <link>http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/</link>
+      <link>https://docs.mor-gan.com/posts/exporting-data-to-a-csv-with-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
-      <guid>http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/</guid>
+      <guid>https://docs.mor-gan.com/posts/exporting-data-to-a-csv-with-rgee/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;In general, exporting data to a .csv with rgee is pretty easy. The general gist of the process is:&lt;/p&gt;
 &lt;ul&gt;
@@ -77,9 +80,9 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
     </item>
     <item>
       <title>Getting data from AppEEARS and NOAA</title>
-      <link>http://localhost:1313/posts/getting-data-from-appeears-and-noaa/</link>
+      <link>https://docs.mor-gan.com/posts/getting-data-from-appeears-and-noaa/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
-      <guid>http://localhost:1313/posts/getting-data-from-appeears-and-noaa/</guid>
+      <guid>https://docs.mor-gan.com/posts/getting-data-from-appeears-and-noaa/</guid>
       <description>&lt;h2 id=&#34;data-types--link-to-method-of-gathering&#34;&gt;Data types (link to method of gathering)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#mat&#34;&gt;MAT (Mean Annual Temperature)&lt;/a&gt;
@@ -124,9 +127,9 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
     </item>
     <item>
       <title>Making maps of variables with rgee</title>
-      <link>http://localhost:1313/posts/making-maps-of-variables-with-rgee/</link>
+      <link>https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
-      <guid>http://localhost:1313/posts/making-maps-of-variables-with-rgee/</guid>
+      <guid>https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.&lt;/p&gt;
 &lt;h3 id=&#34;dividing-evi-by-precipitation&#34;&gt;Dividing EVI by Precipitation&lt;/h3&gt;
@@ -199,18 +202,18 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
     </item>
     <item>
       <title>Setting up rgee</title>
-      <link>http://localhost:1313/posts/setting-up-rgee/</link>
+      <link>https://docs.mor-gan.com/posts/setting-up-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
-      <guid>http://localhost:1313/posts/setting-up-rgee/</guid>
+      <guid>https://docs.mor-gan.com/posts/setting-up-rgee/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;From the &lt;a href=&#34;https://github.com/r-spatial/rgee&#34;&gt;rgee github page&lt;/a&gt;: &amp;ldquo;rgee is an R binding package for calling Google Earth Engine API from within R. Various functions are implemented to simplify the connection with the R spatial ecosystem.&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven&amp;rsquo;t tested it.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Using variables in rgee</title>
-      <link>http://localhost:1313/posts/using-variables-in-rgee/</link>
+      <link>https://docs.mor-gan.com/posts/using-variables-in-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
-      <guid>http://localhost:1313/posts/using-variables-in-rgee/</guid>
+      <guid>https://docs.mor-gan.com/posts/using-variables-in-rgee/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.&lt;/p&gt;
 &lt;h2 id=&#34;calling-variables&#34;&gt;Calling variables&lt;/h2&gt;

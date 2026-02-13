@@ -1353,6 +1353,9 @@ Launch the software by running ~open-egm4~ in your terminal.
 
 When you launch the software, you'll see the connection screen, with a list of ports. 
 
+#+CAPTION: open-egm4 connection screen with detected serial ports
+[[/images/egm4/connect-screen.png]]
+
 Open-egm4 will attempt to detect which port the EGM-4 is connected to and automatically connect to it after 5 seconds. Use the arrow keys to cancel this countdown and select a port manually. 
 
 To select a port manually, use the arrow keys to navigate the list of ports and press ~Enter~ to confirm your selection. If you don't see your port listed, check the cable connection and hit ~r~ on your keyboard to refresh the list of ports. If you accidentally select the wrong port, hit ~q~ to quit and try again.
@@ -1365,6 +1368,9 @@ Open-egm4 automatically saves data to its internal database. This allows you to 
 *** Main interface
 
 This is the main interface, where you'll spend most of your time. It consists of: 
+
+#+CAPTION: open-egm4 main interface (graph, status, and log panels)
+[[/images/egm4/main-interface.png]]
 
 *Left Panel - Graph:* This panel displays incoming data from the EGM, whether it be from a live measurement or previously generated data. The axes will automatically rescale to fit the data. The units will also change depending on how you are viewing the data, so be sure to check the legend to understand what you're looking at.
 
@@ -1402,6 +1408,9 @@ Press ~i~ to toggle inspect mode on the graph. In this mode, a yellow ~x~ appear
 **** Exporting data
 
 Press ~e~ to open the export screen. This allows you to filter and export your data.
+
+#+CAPTION: open-egm4 export screen after selecting data filters
+[[/images/egm4/exporting.png]]
 
 At the top of the export screen, you'll see the number of data currently selected to export. Initially, this will be all of the data currently in the app.
 
@@ -1615,30 +1624,38 @@ Ensure that water does not enter the EGM when injecting a sample. If water enter
    - The EGM will show the current CO₂ concentration
    - Observe the baseline CO₂ concentration on your computer over time
 
-4. *Collect Sample:*
-   - Draw sample into syringe, at least 5 ml is required for a stable reading.
+4. *Enable guided static workflow in open-egm4:*
+   - Press ~m~ on the monitor screen to enable Static Sampling mode
+   - The stats panel should show ~STATIC SAMPLING~ and ~STEP 1: INJECT SAMPLE (N)~
+   - Press ~x~ at any time to reset the cycle back to Step 1
 
-5. *Inject Sample:*
+5. *Inject sample and acknowledge Step 1:*
+   - Draw sample into syringe (at least 5 ml is recommended for a stable reading)
    - Locate the gas out port on top of EGM and ensure that the female luer-lock adapter is securely connected
    - Attach the luer-lock syringe to the gas out port and inject sample
-   - Watch CO₂ reading on display
+   - Press ~n~ immediately after injection to acknowledge Step 1 and start peak tracking
 
-6. *Record Value:*
-   - The CO₂ reading will change as your sample fills the cell
-   - The intial highest CO₂ reading you see will be */higher/* (and therefore inaccurate) than the true CO₂ concentration of your sample
-   - Wait a few seconds to see where the CO₂ reading plateaus, and then record it
-   - Make note of it, and the sample name
-   - Ideally, you will have a prepared list of your sample names next to which you will write the CO₂ reading
+6. *Capture settled value (Step 2):*
+   - Watch the concentration spike and then settle
+   - Press ~n~ when the value has stabilized to capture the sample
+   - Enter an optional sample label when prompted (leave blank for auto labels like "Sample 1")
+   - open-egm4 saves both:
+     - the settled concentration (~sample_ppm~)
+     - the highest concentration seen after injection (~sample_peak_ppm~)
 
-7. *Flush Between Samples:*
-   - Inject some ambient air into the EGM to flush the cell in between samples
+7. *Flush and reset (Step 3):*
+   - Inject ambient air into the EGM to flush the cell between samples
+   - Press ~n~ to confirm flush and automatically return to Step 1 for the next sample
 
-8. *Data Downloading:*
-   - Because it is not possible to designate a plot number on the EGM itself when running static samples, you will need to manually record the data.
-   - You can download a .csv file, but unlike downloading data that was recorded to the internal memory of the EGM, data from static samples are stored /only/ in the open-egm4 app on your computer.
-   - The .csv you /could/ download would not include plot numbers or sample names, and would have a record (i.e., a row of data) for each second that the EGM was recording in that session.
-   - If you nonetheless wish to download your session's .csv, you can do so by pressing ~e~ to open the export menu, and then again pressing ~e~ to export the data.
-   - The only way to know which CO₂ reading corresponds to which sample is to write it down as you go.
+8. *Data downloading and sample metadata:*
+   - Static sample events are stored /only/ in the open-egm4 session on your computer
+   - Export with ~e~ (open export screen), then ~e~ again to write CSV
+   - CSV exports now include ~type=SAMPLE~ rows with:
+     - ~sample_id~
+     - ~sample_label~
+     - ~sample_ppm~ (settled value)
+     - ~sample_peak_ppm~ (post-injection peak)
+   - The CSV will still include normal second-by-second measurement rows for the full session
 
 *Auto-Zero Warnings in Static Mode:*
 The EGM-4 will still perform automatic zeros even with pump off. You'll see warnings:

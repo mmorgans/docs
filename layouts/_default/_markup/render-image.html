@@ -1,0 +1,47 @@
+{{- $u := urls.Parse .Destination -}}
+{{- $src := $u.String -}}
+
+{{- if not $u.IsAbs -}}
+  {{- $path := strings.TrimPrefix "./" $u.Path -}}
+  {{- with or (.PageInner.Resources.Get $path) (resources.Get $path) -}}
+    {{- $src = .RelPermalink -}}
+    {{- with $u.RawQuery -}}
+      {{- $src = printf "%s?%s" $src . -}}
+    {{- end -}}
+    {{- with $u.Fragment -}}
+      {{- $src = printf "%s#%s" $src . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $attributes := merge .Attributes (dict "alt" .Text "src" $src "title" (.Title | transform.HTMLEscape) "loading" "lazy" "decoding" "async") -}}
+
+{{- $renderPath := $u.Path -}}
+{{- if and (not $u.IsAbs) (hasPrefix $renderPath "/") -}}
+  {{- $renderPath = strings.TrimPrefix "/" $renderPath -}}
+{{- end -}}
+{{- $ext := lower (path.Ext $renderPath) -}}
+{{- $basePath := strings.TrimSuffix $ext $renderPath -}}
+{{- $webpPath := printf "%s.webp" $basePath -}}
+{{- $webpFile := printf "static/%s" $webpPath -}}
+{{- $hasWebp := and (not $u.IsAbs) (or (eq $ext ".png") (eq $ext ".jpg") (eq $ext ".jpeg")) (fileExists $webpFile) -}}
+
+{{- if $hasWebp -}}
+<picture>
+  <source srcset="/{{ $webpPath }}" type="image/webp">
+  <img
+    {{- range $k, $v := $attributes -}}
+      {{- if $v -}}
+        {{- printf " %s=%q" $k $v | safeHTMLAttr -}}
+      {{- end -}}
+    {{- end -}}>
+</picture>
+{{- else -}}
+<img
+  {{- range $k, $v := $attributes -}}
+    {{- if $v -}}
+      {{- printf " %s=%q" $k $v | safeHTMLAttr -}}
+    {{- end -}}
+  {{- end -}}>
+{{- end -}}
+{{- /**/ -}}

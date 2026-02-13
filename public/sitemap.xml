@@ -2,61 +2,59 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://docs.mor-gan.com/</loc>
     <lastmod>2026-02-01T15:25:00-06:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
+    <loc>https://docs.mor-gan.com/posts/</loc>
     <lastmod>2026-02-01T15:25:00-06:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/using-the-egm-4/</loc>
+    <loc>https://docs.mor-gan.com/posts/using-the-egm-4/</loc>
     <lastmod>2026-02-01T15:25:00-06:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/creating-animations-of-soil-cores/</loc>
+    <loc>https://docs.mor-gan.com/posts/creating-animations-of-soil-cores/</loc>
     <lastmod>2024-11-20T13:53:00-06:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/analyzing-soil-with-xrf/</loc>
+    <loc>https://docs.mor-gan.com/posts/analyzing-soil-with-xrf/</loc>
     <lastmod>2024-10-21T08:56:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/git-basics/</loc>
+    <loc>https://docs.mor-gan.com/posts/git-basics/</loc>
     <lastmod>2024-08-21T11:00:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/creating-a-kml-from-a-project/</loc>
+    <loc>https://docs.mor-gan.com/posts/creating-a-kml-from-a-project/</loc>
     <lastmod>2024-08-15T12:39:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</loc>
+    <loc>https://docs.mor-gan.com/posts/mapping-di-and-ep-with-rgee/</loc>
     <lastmod>2024-08-15T12:39:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/maps/</loc>
+    <loc>https://docs.mor-gan.com/tags/maps/</loc>
     <lastmod>2024-08-15T12:39:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/rgee/</loc>
+    <loc>https://docs.mor-gan.com/tags/rgee/</loc>
     <lastmod>2024-08-15T12:39:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://docs.mor-gan.com/tags/</loc>
     <lastmod>2024-08-15T12:39:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/</loc>
+    <loc>https://docs.mor-gan.com/posts/exporting-data-to-a-csv-with-rgee/</loc>
     <lastmod>2024-08-13T11:37:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/getting-data-from-appeears-and-noaa/</loc>
+    <loc>https://docs.mor-gan.com/posts/getting-data-from-appeears-and-noaa/</loc>
     <lastmod>2024-08-13T11:37:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/making-maps-of-variables-with-rgee/</loc>
+    <loc>https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/</loc>
     <lastmod>2024-08-13T11:37:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/r/</loc>
+    <loc>https://docs.mor-gan.com/tags/r/</loc>
     <lastmod>2024-08-13T11:37:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/setting-up-rgee/</loc>
+    <loc>https://docs.mor-gan.com/posts/setting-up-rgee/</loc>
     <lastmod>2024-08-13T11:37:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/using-variables-in-rgee/</loc>
+    <loc>https://docs.mor-gan.com/posts/using-variables-in-rgee/</loc>
     <lastmod>2024-08-13T11:37:00-05:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/creating-this-website/</loc>
+    <loc>https://docs.mor-gan.com/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
-  </url><url>
-    <loc>http://localhost:1313/search/</loc>
+    <loc>https://docs.mor-gan.com/search/</loc>
   </url>
 </urlset>
