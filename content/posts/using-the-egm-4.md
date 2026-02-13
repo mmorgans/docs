@@ -156,6 +156,16 @@ Once software is installed, connect the EGM to a computer:
     -   Connect the USB-to-serial adapter to your computer
     -   Power on the EGM with the switch on the back
 
+{{< alert2 Note >}}
+When the EGM-4 boots, pay attention to the startup screen values. For example:
+
+`C 2000 5V=2000`
+
+`Probetype 8 R248`
+
+This is useful because it tells you how that specific instrument is calibrated. In this example, `C 2000` indicates the analyzer is calibrated to a 2000 ppm range.
+{{< /alert2 >}}
+
 2.  **Launch the Software:**
 
 On your computer, in the terminal, run
