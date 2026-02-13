@@ -1434,6 +1434,21 @@ Press ~p~ to pause the data stream. While paused, the chart will stop updating w
 
 Press ~n~ to add a timestamped note to the log. This will open a prompt where you can type a note. Press ~Enter~ to save the note, or ~Esc~ to cancel.
 
+**** Static sampling mode (~m~, ~n~, ~x~)
+
+Static sampling mode guides syringe-injection sampling directly from the monitor screen.
+
+- Press ~m~ to toggle static sampling mode on or off.
+- When enabled, the stats panel shows ~STATIC SAMPLING~ and the current step prompt.
+- Press ~n~ to advance the guided cycle:
+  - ~STEP 1: INJECT SAMPLE (N)~
+  - ~STEP 2: WAIT TO SETTLE, CAPTURE (N)~
+  - ~STEP 3: INJECT AMBIENT AIR (N)~
+- During Step 2, pressing ~n~ opens a label prompt for the sample. You can leave it blank to auto-name the sample.
+- open-egm4 records both the settled concentration and the post-injection peak concentration for each captured sample.
+- Press ~x~ at any time to reset the cycle back to Step 1.
+- Exported CSV files include static sample rows (~type=SAMPLE~) with ~sample_id~, ~sample_label~, ~sample_ppm~, and ~sample_peak_ppm~.
+
 **** Clearing data (~c~)
 
 Press ~c~ to clear all data from the current session. You will be asked to confirm before the data is cleared.
