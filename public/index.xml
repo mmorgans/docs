@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>morgan docs</title>
-    <link>https://docs.mor-gan.com/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on morgan docs</description>
     <generator>Hugo -- 0.148.2</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 01 Feb 2026 15:25:00 -0600</lastBuildDate>
-    <atom:link href="https://docs.mor-gan.com/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using the EGM-4 &amp; open-egm4 software</title>
-      <link>https://docs.mor-gan.com/posts/using-the-egm-4/</link>
+      <link>http://localhost:1313/posts/using-the-egm-4/</link>
       <pubDate>Sun, 01 Feb 2026 15:25:00 -0600</pubDate>
-      <guid>https://docs.mor-gan.com/posts/using-the-egm-4/</guid>
+      <guid>http://localhost:1313/posts/using-the-egm-4/</guid>
       <description>&lt;div class=&#34;alert alert-Warning&#34;&gt;
   &lt;strong&gt;Backup your data regularly.&lt;/strong&gt;  The EGM-4&amp;rsquo;s internal memory is limited to 1,500 records across up to 99 plots. Failing to dump data regularly will result in data loss when this buffer fills. When memory is full, the oldest records are overwritten.
 &lt;/div&gt;
@@ -27,9 +27,9 @@
     </item>
     <item>
       <title>Creating animations of soil cores out of CT scans</title>
-      <link>https://docs.mor-gan.com/posts/creating-animations-of-soil-cores/</link>
+      <link>http://localhost:1313/posts/creating-animations-of-soil-cores/</link>
       <pubDate>Wed, 20 Nov 2024 13:53:00 -0600</pubDate>
-      <guid>https://docs.mor-gan.com/posts/creating-animations-of-soil-cores/</guid>
+      <guid>http://localhost:1313/posts/creating-animations-of-soil-cores/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.&lt;/p&gt;
 &lt;p&gt;We&amp;rsquo;re getting our files from the Environmental Molecular Sciences Laboratory at the Pacific Northwest National Laboratory, who have scanned the soil cores with a Nikon XTH CT scanner.&lt;/p&gt;
@@ -69,9 +69,9 @@
     </item>
     <item>
       <title>Analyzing soil with a XRF</title>
-      <link>https://docs.mor-gan.com/posts/analyzing-soil-with-xrf/</link>
+      <link>http://localhost:1313/posts/analyzing-soil-with-xrf/</link>
       <pubDate>Mon, 21 Oct 2024 08:56:00 -0500</pubDate>
-      <guid>https://docs.mor-gan.com/posts/analyzing-soil-with-xrf/</guid>
+      <guid>http://localhost:1313/posts/analyzing-soil-with-xrf/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Warning&lt;/strong&gt;: The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.&lt;/p&gt;
 &lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;This article assumes you already are in possession of pucks of finely ground soil.&lt;/p&gt;
@@ -99,9 +99,9 @@
     </item>
     <item>
       <title>Git basics</title>
-      <link>https://docs.mor-gan.com/posts/git-basics/</link>
+      <link>http://localhost:1313/posts/git-basics/</link>
       <pubDate>Wed, 21 Aug 2024 11:00:00 -0500</pubDate>
-      <guid>https://docs.mor-gan.com/posts/git-basics/</guid>
+      <guid>http://localhost:1313/posts/git-basics/</guid>
       <description>&lt;h2 id=&#34;introduction-to-git-and-github&#34;&gt;Introduction to Git and GitHub&lt;/h2&gt;
 &lt;p&gt;It&amp;rsquo;s easiest to think of Git (and other forms of source control) like a time machine.&lt;/p&gt;
 &lt;ul&gt;
@@ -115,9 +115,9 @@
     </item>
     <item>
       <title>Creating a .kml file from a Google Earth project</title>
-      <link>https://docs.mor-gan.com/posts/creating-a-kml-from-a-project/</link>
+      <link>http://localhost:1313/posts/creating-a-kml-from-a-project/</link>
       <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
-      <guid>https://docs.mor-gan.com/posts/creating-a-kml-from-a-project/</guid>
+      <guid>http://localhost:1313/posts/creating-a-kml-from-a-project/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;&amp;ldquo;Keyhole Markup Language&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;.kml files are useful for a number of reasons, namely storing pins, locations, polygons, images, and other GIS info. One of the easiest ways to make them is with Google Earth.&lt;/p&gt;
@@ -162,12 +162,12 @@
     </item>
     <item>
       <title>Mapping DI and EP with rgee</title>
-      <link>https://docs.mor-gan.com/posts/mapping-di-and-ep-with-rgee/</link>
+      <link>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</link>
       <pubDate>Thu, 15 Aug 2024 12:39:00 -0500</pubDate>
-      <guid>https://docs.mor-gan.com/posts/mapping-di-and-ep-with-rgee/</guid>
+      <guid>http://localhost:1313/posts/mapping-di-and-ep-with-rgee/</guid>
       <description>&lt;p&gt;&lt;picture&gt;
-  &lt;source srcset=&#34;https://docs.mor-gan.com/images/rgee_global.webp&#34; type=&#34;image/webp&#34;&gt;
-  &lt;img decoding=&#34;async&#34; loading=&#34;lazy&#34; src=&#34;https://docs.mor-gan.com/images/rgee_global.png&#34;&gt;
+  &lt;source srcset=&#34;http://localhost:1313/images/rgee_global.webp&#34; type=&#34;image/webp&#34;&gt;
+  &lt;img decoding=&#34;async&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/rgee_global.png&#34;&gt;
 &lt;/picture&gt;
 Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.&lt;/p&gt;
 &lt;p&gt;Note 2: JS version had the same issues and created more problems. Nevermind!&lt;/p&gt;
@@ -177,9 +177,9 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
     </item>
     <item>
       <title>Exporting data to a CSV with rgee</title>
-      <link>https://docs.mor-gan.com/posts/exporting-data-to-a-csv-with-rgee/</link>
+      <link>http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
-      <guid>https://docs.mor-gan.com/posts/exporting-data-to-a-csv-with-rgee/</guid>
+      <guid>http://localhost:1313/posts/exporting-data-to-a-csv-with-rgee/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;In general, exporting data to a .csv with rgee is pretty easy. The general gist of the process is:&lt;/p&gt;
 &lt;ul&gt;
@@ -232,9 +232,9 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
     </item>
     <item>
       <title>Getting data from AppEEARS and NOAA</title>
-      <link>https://docs.mor-gan.com/posts/getting-data-from-appeears-and-noaa/</link>
+      <link>http://localhost:1313/posts/getting-data-from-appeears-and-noaa/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
-      <guid>https://docs.mor-gan.com/posts/getting-data-from-appeears-and-noaa/</guid>
+      <guid>http://localhost:1313/posts/getting-data-from-appeears-and-noaa/</guid>
       <description>&lt;h2 id=&#34;data-types--link-to-method-of-gathering&#34;&gt;Data types (link to method of gathering)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#mat&#34;&gt;MAT (Mean Annual Temperature)&lt;/a&gt;
@@ -279,9 +279,9 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
     </item>
     <item>
       <title>Making maps of variables with rgee</title>
-      <link>https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/</link>
+      <link>http://localhost:1313/posts/making-maps-of-variables-with-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
-      <guid>https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/</guid>
+      <guid>http://localhost:1313/posts/making-maps-of-variables-with-rgee/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.&lt;/p&gt;
 &lt;h3 id=&#34;dividing-evi-by-precipitation&#34;&gt;Dividing EVI by Precipitation&lt;/h3&gt;
@@ -354,18 +354,18 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
     </item>
     <item>
       <title>Setting up rgee</title>
-      <link>https://docs.mor-gan.com/posts/setting-up-rgee/</link>
+      <link>http://localhost:1313/posts/setting-up-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
-      <guid>https://docs.mor-gan.com/posts/setting-up-rgee/</guid>
+      <guid>http://localhost:1313/posts/setting-up-rgee/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;From the &lt;a href=&#34;https://github.com/r-spatial/rgee&#34;&gt;rgee github page&lt;/a&gt;: &amp;ldquo;rgee is an R binding package for calling Google Earth Engine API from within R. Various functions are implemented to simplify the connection with the R spatial ecosystem.&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;This guide assumes use of RStudio on a Mac, but I personally use Emacs with ESS and found it to work wonderfully. Any Unix based system should work similarly. Windows should theoretically work by following the below, but more work might be required and I haven&amp;rsquo;t tested it.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Using variables in rgee</title>
-      <link>https://docs.mor-gan.com/posts/using-variables-in-rgee/</link>
+      <link>http://localhost:1313/posts/using-variables-in-rgee/</link>
       <pubDate>Tue, 13 Aug 2024 11:37:00 -0500</pubDate>
-      <guid>https://docs.mor-gan.com/posts/using-variables-in-rgee/</guid>
+      <guid>http://localhost:1313/posts/using-variables-in-rgee/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;Google Earth Engine provides access to a bunch of geospatial datasets including satellite imagery, climate data and land cover classifications. These datasets, known as variables, are used to perform geospatial analyses.&lt;/p&gt;
 &lt;h2 id=&#34;calling-variables&#34;&gt;Calling variables&lt;/h2&gt;
@@ -373,6 +373,17 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
 &lt;p&gt;Define an area that you want to visualize. The easiest way of doing this is to define a rectangle with coordinates.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-R&#34; data-lang=&#34;R&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;aoi &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; ee&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;Geometry&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Rectangle&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-120.4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;34.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;-119.4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;35.5&lt;/span&gt;))
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this example, I&amp;rsquo;ll use the MODIS land cover datasets.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/posts/creating-this-website/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/creating-this-website/</guid>
+      <description>&lt;h2 id=&#34;writing-and-formatting&#34;&gt;Writing and formatting&lt;/h2&gt;
+&lt;p&gt;All posts are written in Emacs 29.4 in Org mode.&lt;/p&gt;
+&lt;h2 id=&#34;publishing&#34;&gt;Publishing&lt;/h2&gt;
+&lt;p&gt;Posts are published to markdown using ox-hugo, and pushed to GitHub using Magit. Hugo is used as a framework for the website, with a modified version of the papermod theme. I use Cloudflare for the majority of domain work. Cloudflare pages is used for building the site.&lt;/p&gt;
+&lt;p&gt;Written in Emacs 29.4, using Doom 2.0.9, in Org mode 9.7. Published to markdown using ox-hugo, and pushed to GitHub using Magit. Hugo is used as the website framework with a modified version of the papermod theme. Cloudflare is used for domain management, and Cloudflare pages builds the site.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

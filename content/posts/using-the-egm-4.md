@@ -166,7 +166,7 @@ When the EGM-4 boots, pay attention to the startup screen values. For example:
 This is useful because it tells you how that specific instrument is calibrated. In this example, `C 2000` indicates the analyzer is calibrated to a 2000 ppm range.
 {{< /alert2 >}}
 
-2.  **Launch the Software:**
+1.  **Launch the Software:**
 
 On your computer, in the terminal, run
 
@@ -231,12 +231,12 @@ The EGM-4 uses a 12V 2.0Ah sealed lead-acid battery. It should last around 4 hou
 At low temperatures, you should hold the EGM inside your jacket, maintaining skin-to-skin contact. This will increase the battery life by a few minutes, and will psychologically bond you with the device.
 {{< /alert2 >}}
 
-**Charging:** The manual purports that the battery takes 12 hours to charge fully. _I_ think that's a made up number, and in my testing it's ready for action after around 2 hours. Your mileage may vary.
+**Charging:** The manual indicates that the battery takes 12 hours to charge fully. _I_ think that's a made up number, and in my testing it's ready for action after around 2 hours. Your mileage may vary.
 
 If you are planning on storing the EGM long term, charge the battery beforehand to avoid damaging it.
 
 {{< alert2 Warning >}}
-The EGM's internal clock loses time when the battery dies. After replacing or fully recharging the battery, make sure the date/time settings are correct before taking measurements. This is critical for ensuring that your data is properly timestamped.
+The EGM's internal clock loses time when the battery dies. After replacing or fully recharging the battery, make sure the date/time settings are correct before taking measurements. This is critical for ensuring that your data are properly timestamped.
 {{< /alert2 >}}
 
 **Replacement:** To replace the battery, see [the troubleshooting section](#troubleshooting-and-maintenance).
@@ -258,7 +258,7 @@ Launch the software by running `open-egm4` in your terminal.
 
 When you launch the software, you'll see the connection screen, with a list of ports.
 
-![open-egm4 connection screen with detected serial ports](/images/egm4/connect-screen.png)
+{{< figure src="/images/egm4/connect-screen.png" caption="<span class=\"figure-number\">Figure 1: </span>open-egm4 connection screen with detected serial ports" >}}
 
 Open-egm4 will attempt to detect which port the EGM-4 is connected to and automatically connect to it after 5 seconds. Use the arrow keys to cancel this countdown and select a port manually.
 
@@ -274,11 +274,11 @@ Open-egm4 automatically saves data to its internal database. This allows you to 
 
 This is the main interface, where you'll spend most of your time. It consists of:
 
-![open-egm4 main interface (graph, status, and log panels)](/images/egm4/main-interface.png)
+{{< figure src="/images/egm4/main-interface.png" caption="<span class=\"figure-number\">Figure 2: </span>open-egm4 main interface (graph, status, and log panels)" >}}
 
 **Left Panel - Graph:** This panel displays incoming data from the EGM, whether it be from a live measurement or previously generated data. The axes will automatically rescale to fit the data. The units will also change depending on how you are viewing the data, so be sure to check the legend to understand what you're looking at.
 
-Directly below the graph are the available channels and graph controls. The available channels will change depending on what probe was connected when the the data was recorded. Press the number key associated with each channel to view that channel in the graph.
+Directly below the graph are the available channels and graph controls. The available channels will change depending on what probe was connected when the data were recorded. Press the number key associated with each channel to view that channel in the graph.
 
 Above the graph, you'll see information about what the graph is currently displaying, including the currently selected channel, the units of the y-axis, and the plot number.
 
@@ -314,7 +314,7 @@ Press `i` to toggle inspect mode on the graph. In this mode, a yellow `x` appear
 
 Press `e` to open the export screen. This allows you to filter and export your data.
 
-![open-egm4 export screen after selecting data filters](/images/egm4/exporting.png)
+{{< figure src="/images/egm4/exporting.png" caption="<span class=\"figure-number\">Figure 3: </span>open-egm4 export screen after selecting data filters" >}}
 
 At the top of the export screen, you'll see the number of data currently selected to export. Initially, this will be all of the data currently in the app.
 
@@ -339,6 +339,7 @@ Press `p` to pause the data stream. While paused, the chart will stop updating w
 #### Adding notes (`n`) {#adding-notes--n}
 
 Press `n` to add a timestamped note to the log. This will open a prompt where you can type a note. Press `Enter` to save the note, or `Esc` to cancel.
+
 
 #### Static sampling mode (`m`, `n`, `x`) {#static-sampling-mode--m-n-x}
 
@@ -422,6 +423,8 @@ Linear fitting assumes a constant flux rate throughout the measurement. Quadrati
 
 {{< alert2 Note >}}
 You should think carefully about the DT value that you set for a given measurement, especially if you selected a linear fit. If the DT value is too large the rate at which CO₂ accumulates in the chamber will decline, and your estimate of the efflux rate will be less accurate.
+
+You should also think carefully about the DC value. If you are working with an especially warm, moist, C-rich soil, the default value of 50 ppm may be too low. Trial and error and examining your CO₂ increases over time can guide your decisions about this.
 {{< /alert2 >}}
 
 1.  **Set Plot Number:**
@@ -553,12 +556,17 @@ Ensure that water does not enter the EGM when injecting a sample. If water enter
     -   Press `n` immediately after injection to acknowledge Step 1 and start peak tracking
 
 6.  **Capture settled value (Step 2):**
+
     -   Watch the concentration spike and then settle
     -   Press `n` when the value has stabilized to capture the sample
     -   Enter an optional sample label when prompted (leave blank for auto labels like "Sample 1")
     -   open-egm4 saves both:
         -   the settled concentration (`sample_ppm`)
         -   the highest concentration seen after injection (`sample_peak_ppm`)
+
+    {{< alert2 Note >}}
+    Note that the dead-air volume inside the luer lock and the EGM-4's tubing can alter the data. Note also that the pressure with which you inject the sample matters; that pressure forces the volume to the IRGA and generates a high peak because of the density of the air volume you have injected (therefore, keeping the pressure of injection constant is ideal). The subsequent 'settled' concentration reflects the value more accurately than the higher, initial peak. We rely on repeatedly injected standards throughout your set of syringe samples to ensure accurate measurements.
+    {{< /alert2 >}}
 
 7.  **Flush and reset (Step 3):**
     -   Inject ambient air into the EGM to flush the cell between samples
@@ -568,11 +576,15 @@ Ensure that water does not enter the EGM when injecting a sample. If water enter
     -   Static sample events are stored _only_ in the open-egm4 session on your computer
     -   Export with `e` (open export screen), then `e` again to write CSV
     -   CSV exports now include `type=SAMPLE` rows with:
-        -   `sample_id`
-        -   `sample_label`
+        -   `sample_id`: An auto-incrementing integer (1, 2, 3...) assigned by the software to keep track of sample order.
+        -   `sample_label`: The custom name you gave the sample (e.g., "T1-P1").
         -   `sample_ppm` (settled value)
         -   `sample_peak_ppm` (post-injection peak)
     -   The CSV will still include normal second-by-second measurement rows for the full session
+
+9.  **Inject Standards Regularly:**
+    -   You should inject standards of known CO₂ concentration throughout your sampling run.
+    -   This allows you to relate the relationship between known standard values and IRGA-estimated values to the user's sample values, correcting for any drift or offset in the instrument.
 
 **Auto-Zero Warnings in Static Mode:**
 The EGM-4 will still perform automatic zeros even with pump off. You'll see warnings:
@@ -582,8 +594,8 @@ The EGM-4 will still perform automatic zeros even with pump off. You'll see warn
 
 When zero begins, the pump turns on for ~15 seconds, then turns off again. This ensures an accurate baseline by passing air scrubbed of CO₂ by the soda lime to the IRGA, and setting its CO₂ concentration to 0 ppm.
 
-{{< alert2 Caution >}}
-Don't forget to re-enable the pump after you have run all of your samples.
+{{< alert2 Warning >}}
+Don't forget to re-enable the pump after you have run all of your samples. This is **critical** for subsequent users and the health of the instrument.
 {{< /alert2 >}}
 
 
@@ -1018,4 +1030,4 @@ _Created in Doom Emacs 2.0.9, using org-mode 9.7._
 
 _Written in January 2026._
 
-Created by Morgan Salisbury 😊🐇⛵️🏔️❤️
+Created by Morgan Salisbury 🏔️
