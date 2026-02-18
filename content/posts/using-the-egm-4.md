@@ -392,7 +392,11 @@ This is the most common application: measuring CO₂ efflux from soil using the 
 **Soil Collars**: Install the soil collars well before you plan to measure (this should be planned prior to doing field work). A well-placed collar should be installed 3-5cm deep into the soil surface. Remove any aboveground vegetation inside the collar.
 
 {{< alert2 Note >}}
-The above instructions depend almost _entirely_ on your situation. You might consider installing the soil collar weeks or months ahead of time. The depth of the collar needed to ensure a good measurement will depend on the soil type and the goals of your experiment.
+The above instructions depend almost _entirely_ on your situation. You might consider installing the soil collar weeks or months ahead of time. The depth of the collar needed to ensure a good measurement will depend on the soil type.
+{{< /alert2 >}}
+
+{{< alert2 Warning >}}
+It is important to know the volume of the collar that is above the soil surface, as this adds to the total system volume! Flux calculations depend heavily on accurate volume measurements. See [Appendix E](#e-chamber-volume-calculations) for details on how to calculate this.
 {{< /alert2 >}}
 
 **Field Procedure:**
@@ -1028,6 +1032,6 @@ Export functionality converts session data to CSV format, allowing users to filt
 
 _Created in Doom Emacs 2.0.9, using org-mode 9.7._
 
-_Written in January 2026._
+_Written in January 2026, largely in Anschutz Library and Higuchi Hall._
 
 Created by Morgan Salisbury 🏔️
