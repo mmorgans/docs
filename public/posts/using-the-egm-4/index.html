@@ -730,7 +730,10 @@ To export only a subset of that data, use the <code>p</code> and <code>d</code> 
 </ul>
 <p><strong>Soil Collars</strong>: Install the soil collars well before you plan to measure (this should be planned prior to doing field work). A well-placed collar should be installed 3-5cm deep into the soil surface. Remove any aboveground vegetation inside the collar.</p>
 <div class="alert alert-Note">
-  The above instructions depend almost <em>entirely</em> on your situation. You might consider installing the soil collar weeks or months ahead of time. The depth of the collar needed to ensure a good measurement will depend on the soil type and the goals of your experiment.
+  The above instructions depend almost <em>entirely</em> on your situation. You might consider installing the soil collar weeks or months ahead of time. The depth of the collar needed to ensure a good measurement will depend on the soil type.
+</div>
+<div class="alert alert-Warning">
+  It is important to know the volume of the collar that is above the soil surface, as this adds to the total system volume! Flux calculations depend heavily on accurate volume measurements. See <a href="#e-chamber-volume-calculations">Appendix E</a> for details on how to calculate this.
 </div>
 <p><strong>Field Procedure:</strong></p>
 <ol>
@@ -842,7 +845,7 @@ To export only a subset of that data, use the <code>p</code> and <code>d</code> 
   The plot number will <strong>not</strong> auto-increment. You must manually enter the plot number for each measurement. Note that the EGM will happily overwrite the previous measurement if you don&rsquo;t change the plot number between measurements!
 </div>
 <p><strong>Data Viewing &amp; Storage:</strong>
-Though not necessary, you can have your computer connected to the EGM while you are taking soil repisration measurements. This allows you to view the incoming the data in real time, using open-egm4, and see it graphed. This can be helpful for understanding how long it takes your soil system to produce enough CO₂ to lessen the diffusion gradient driving respiration fluxes into the chamber.</p>
+Though not necessary, you can have your computer connected to the EGM while you are taking soil respiration measurements. This allows you to view the incoming the data in real time, using open-egm4, and see it graphed. This can be helpful for understanding how long it takes your soil system to produce enough CO₂ to lessen the diffusion gradient driving respiration fluxes into the chamber.</p>
 <p>Regardless, because you designated a plot number before you started the measurement, the EGM will store the data in its internal memory. The EGM stores up to 1,500 records, and will start overwriting old records if full. See  <a href="#exporting-data">instructions on how to export data from the EGM</a>.</p>
 <p>To transfer stored records from field plots on the EGM-4 to your computer, do the following:</p>
 <ol>
@@ -941,12 +944,12 @@ Though not necessary, you can have your computer connected to the EGM while you 
 </ul>
 </li>
 </ul>
-<div class="alert alert-Note">
-  <pre><code>Note that the dead-air volume inside the luer lock and the EGM-4's tubing can alter the data. Note also that the pressure with which you inject the sample matters; that pressure forces the volume to the IRGA and generates a high peak because of the density of the air volume you have injected (therefore, keeping the pressure of injection constant is ideal). The subsequent 'settled' concentration reflects the value more accurately than the higher, initial peak. We rely on repeatedly injected standards throughout your set of syringe samples to ensure accurate measurements.
-</code></pre>
-
-</div>
 </li>
+</ol>
+<div class="alert alert-Note">
+  Note that the dead-air volume inside the luer lock and the EGM-4&rsquo;s tubing can alter the data. Note also that the pressure with which you inject the sample matters; that pressure forces the volume to the IRGA and generates a high peak because of the density of the air volume you have injected (therefore, keeping the pressure of injection constant is ideal). The subsequent &lsquo;settled&rsquo; concentration reflects the value more accurately than the higher, initial peak. We rely on repeatedly injected standards throughout your set of syringe samples to ensure accurate measurements.
+</div>
+<ol>
 <li>
 <p><strong>Flush and reset (Step 3):</strong></p>
 <ul>
@@ -1656,7 +1659,7 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
 </span></span><span style="display:flex;"><span>                      | SQLite DB  |
 </span></span><span style="display:flex;"><span>                      +------------+
 </span></span></code></pre></div><p><em>Created in Doom Emacs 2.0.9, using org-mode 9.7.</em></p>
-<p><em>Written in January 2026.</em></p>
+<p><em>Written in January 2026, largely in Anschutz Library and Higuchi Hall.</em></p>
 <p>Created by Morgan Salisbury 🏔️</p>
 
 

@@ -480,7 +480,7 @@ The plot number will **not** auto-increment. You must manually enter the plot nu
 {{< /alert2 >}}
 
 **Data Viewing &amp; Storage:**
-  Though not necessary, you can have your computer connected to the EGM while you are taking soil repisration measurements. This allows you to view the incoming the data in real time, using open-egm4, and see it graphed. This can be helpful for understanding how long it takes your soil system to produce enough CO₂ to lessen the diffusion gradient driving respiration fluxes into the chamber.
+  Though not necessary, you can have your computer connected to the EGM while you are taking soil respiration measurements. This allows you to view the incoming the data in real time, using open-egm4, and see it graphed. This can be helpful for understanding how long it takes your soil system to produce enough CO₂ to lessen the diffusion gradient driving respiration fluxes into the chamber.
 
 Regardless, because you designated a plot number before you started the measurement, the EGM will store the data in its internal memory. The EGM stores up to 1,500 records, and will start overwriting old records if full. See  [instructions on how to export data from the EGM](#exporting-data).
 
@@ -560,7 +560,6 @@ Ensure that water does not enter the EGM when injecting a sample. If water enter
     -   Press `n` immediately after injection to acknowledge Step 1 and start peak tracking
 
 6.  **Capture settled value (Step 2):**
-
     -   Watch the concentration spike and then settle
     -   Press `n` when the value has stabilized to capture the sample
     -   Enter an optional sample label when prompted (leave blank for auto labels like "Sample 1")
@@ -568,15 +567,15 @@ Ensure that water does not enter the EGM when injecting a sample. If water enter
         -   the settled concentration (`sample_ppm`)
         -   the highest concentration seen after injection (`sample_peak_ppm`)
 
-    {{< alert2 Note >}}
-    Note that the dead-air volume inside the luer lock and the EGM-4's tubing can alter the data. Note also that the pressure with which you inject the sample matters; that pressure forces the volume to the IRGA and generates a high peak because of the density of the air volume you have injected (therefore, keeping the pressure of injection constant is ideal). The subsequent 'settled' concentration reflects the value more accurately than the higher, initial peak. We rely on repeatedly injected standards throughout your set of syringe samples to ensure accurate measurements.
-    {{< /alert2 >}}
+{{< alert2 Note >}}
+Note that the dead-air volume inside the luer lock and the EGM-4's tubing can alter the data. Note also that the pressure with which you inject the sample matters; that pressure forces the volume to the IRGA and generates a high peak because of the density of the air volume you have injected (therefore, keeping the pressure of injection constant is ideal). The subsequent 'settled' concentration reflects the value more accurately than the higher, initial peak. We rely on repeatedly injected standards throughout your set of syringe samples to ensure accurate measurements.
+{{< /alert2 >}}
 
-7.  **Flush and reset (Step 3):**
+1.  **Flush and reset (Step 3):**
     -   Inject ambient air into the EGM to flush the cell between samples
     -   Press `n` to confirm flush and automatically return to Step 1 for the next sample
 
-8.  **Data downloading and sample metadata:**
+2.  **Data downloading and sample metadata:**
     -   Static sample events are stored _only_ in the open-egm4 session on your computer
     -   Export with `e` (open export screen), then `e` again to write CSV
     -   CSV exports now include `type=SAMPLE` rows with:
@@ -586,7 +585,7 @@ Ensure that water does not enter the EGM when injecting a sample. If water enter
         -   `sample_peak_ppm` (post-injection peak)
     -   The CSV will still include normal second-by-second measurement rows for the full session
 
-9.  **Inject Standards Regularly:**
+3.  **Inject Standards Regularly:**
     -   You should inject standards of known CO₂ concentration throughout your sampling run.
     -   This allows you to relate the relationship between known standard values and IRGA-estimated values to the user's sample values, correcting for any drift or offset in the instrument.
 

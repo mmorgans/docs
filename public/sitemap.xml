@@ -3,13 +3,19 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2026-02-01T15:25:00-06:00</lastmod>
+    <lastmod>2026-03-04T12:00:00-06:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2026-02-01T15:25:00-06:00</lastmod>
+    <lastmod>2026-03-04T12:00:00-06:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/using-the-picarro-g2201i-with-ssim2/</loc>
+    <lastmod>2026-03-04T12:00:00-06:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/using-the-egm-4/</loc>
     <lastmod>2026-02-01T15:25:00-06:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/creating-this-website/</loc>
+    <lastmod>2026-01-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/creating-animations-of-soil-cores/</loc>
     <lastmod>2024-11-20T13:53:00-06:00</lastmod>
@@ -52,8 +58,6 @@
   </url><url>
     <loc>http://localhost:1313/posts/using-variables-in-rgee/</loc>
     <lastmod>2024-08-13T11:37:00-05:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/creating-this-website/</loc>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
   </url><url>

@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="dark">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Using the Picarro G2201-i with SSIM2 module | morgan docs</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+  This instrument is expensive. The Picarro G2201-i analyzer costs approximately $100,000. The SSIM2 module adds another $15,000-20,000. Handle with care, follow all procedures precisely, and never force connections or ignore error messages.
+
+
+  Leaks will ruin your data. All gas connections must be leak-free. A tiny leak can contaminate samples with ambient air, rendering isotopic measurements meaningless. Always use proper Swagelok fittings and check connections carefully.
+
+
+  The vacuum pump must ALWAYS be running when the analyzer is powered on. The Picarro&rsquo;s internal cavity operates at reduced pressure. If the vacuum pump is off while the analyzer is on, pressure will build up inside the cavity, potentially damaging sensitive optical components. This is not optional—treat the vacuum pump as part of the analyzer&rsquo;s power system.
+
+Introduction
+The Picarro G2201-i is a high-precision isotopic analyzer that measures both CO₂ and CH₄ concentrations along with their stable carbon isotope ratios (δ¹³C-CO₂ and δ¹³C-CH₄). The instrument uses Cavity Ring-Down Spectroscopy (CRDS), a laser-based technique that provides part-per-billion sensitivity and exceptional isotopic precision.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/using-the-picarro-g2201i-with-ssim2/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.dc9d8bc0b516382c12a77323c16a97d5f0e9be0bff6b463a8acbfbd83f95dcee.css" integrity="sha256-3J2LwLUWOCwSp3MjwWqX1fDpvgv/a0Y6isv72D&#43;V3O4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/using-the-picarro-g2201i-with-ssim2/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+
+
+<meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A1D1B" media="(prefers-color-scheme: dark)">
+
+
+<meta name="color-scheme" content="light dark">
+
+
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/search/" title="search (Alt &#43; /)" accesskey=/>
+                    <span>search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<div class="post-wrapper">
+        <aside class="toc-sidebar" id="toc-sidebar">
+            <div class="toc-progress"><div class="toc-marker" data-target="#introduction" data-level="2"
+                        data-title="Introduction"></div><div class="toc-marker" data-target="#before-you-begin-analyzer-boot-issues" data-level="2"
+                        data-title="Before You Begin: Analyzer Boot Issues"></div><div class="toc-marker" data-target="#what-the-system-measures" data-level="2"
+                        data-title="What the System Measures"></div><div class="toc-marker" data-target="#pre-installation-requirements" data-level="2"
+                        data-title="Pre-Installation Requirements"></div><div class="toc-marker" data-target="#system-architecture" data-level="2"
+                        data-title="System Architecture"></div><div class="toc-marker" data-target="#hardware-setup" data-level="2"
+                        data-title="Hardware Setup"></div><div class="toc-marker" data-target="#ssim2-physical-connections" data-level="3"
+                        data-title="SSIM2 Physical Connections"></div><div class="toc-marker" data-target="#software-setup" data-level="3"
+                        data-title="Software Setup"></div><div class="toc-marker" data-target="#disabling-the-valve-sequencer" data-level="4"
+                        data-title="Disabling the Valve Sequencer"></div><div class="toc-marker" data-target="#installing-the-ssim-coordinator" data-level="4"
+                        data-title="Installing the SSIM Coordinator"></div><div class="toc-marker" data-target="#running-the-ready-test" data-level="4"
+                        data-title="Running the Ready Test"></div><div class="toc-marker" data-target="#operating-the-ssim2" data-level="2"
+                        data-title="Operating the SSIM2"></div><div class="toc-marker" data-target="#launching-the-coordinator" data-level="3"
+                        data-title="Launching the Coordinator"></div><div class="toc-marker" data-target="#configuring-measurement-parameters" data-level="3"
+                        data-title="Configuring Measurement Parameters"></div><div class="toc-marker" data-target="#measurement-workflow" data-level="3"
+                        data-title="Measurement Workflow"></div><div class="toc-marker" data-target="#step-1-purge-and-evacuate" data-level="4"
+                        data-title="Step 1: Purge and Evacuate"></div><div class="toc-marker" data-target="#step-2-attach-sample" data-level="4"
+                        data-title="Step 2: Attach Sample"></div><div class="toc-marker" data-target="#step-3-sample-loading" data-level="4"
+                        data-title="Step 3: Sample Loading"></div><div class="toc-marker" data-target="#step-4-measurement" data-level="4"
+                        data-title="Step 4: Measurement"></div><div class="toc-marker" data-target="#step-5-standard-measurement" data-level="4"
+                        data-title="Step 5: Standard Measurement"></div><div class="toc-marker" data-target="#step-6-next-sample" data-level="4"
+                        data-title="Step 6: Next Sample"></div><div class="toc-marker" data-target="#data-output-and-analysis" data-level="2"
+                        data-title="Data Output and Analysis"></div><div class="toc-marker" data-target="#data-file-location" data-level="3"
+                        data-title="Data File Location"></div><div class="toc-marker" data-target="#data-file-structure" data-level="3"
+                        data-title="Data File Structure"></div><div class="toc-marker" data-target="#processing-the-data" data-level="3"
+                        data-title="Processing the Data"></div><div class="toc-marker" data-target="#sample-preparation-best-practices" data-level="2"
+                        data-title="Sample Preparation Best Practices"></div><div class="toc-marker" data-target="#collecting-field-samples" data-level="3"
+                        data-title="Collecting Field Samples"></div><div class="toc-marker" data-target="#sample-volume-requirements" data-level="3"
+                        data-title="Sample Volume Requirements"></div><div class="toc-marker" data-target="#diluting-high-concentration-samples" data-level="3"
+                        data-title="Diluting High-Concentration Samples"></div><div class="toc-marker" data-target="#troubleshooting-and-maintenance" data-level="2"
+                        data-title="Troubleshooting and Maintenance"></div><div class="toc-marker" data-target="#common-issues" data-level="3"
+                        data-title="Common Issues"></div><div class="toc-marker" data-target="#pressure-high-or-pressure-low-warnings--normal" data-level="4"
+                        data-title="&ldquo;Pressure High&rdquo; or &ldquo;Pressure Low&rdquo; Warnings (Normal)"></div><div class="toc-marker" data-target="#sample-reads-as-ambient-air--420-ppm-co-δ-c-8" data-level="4"
+                        data-title="Sample Reads as Ambient Air (~420 ppm CO₂, δ¹³C ≈ -8‰)"></div><div class="toc-marker" data-target="#high-variability-across-replicates--sd-0-dot-5" data-level="4"
+                        data-title="High Variability Across Replicates (SD &gt; 0.5‰)"></div><div class="toc-marker" data-target="#values-don-t-stabilize--co-continues-drifting" data-level="4"
+                        data-title="Values Don&rsquo;t Stabilize (CO₂ Continues Drifting)"></div><div class="toc-marker" data-target="#ssim-pressure-won-t-drop-below-50-torr-during-evacuation" data-level="4"
+                        data-title="SSIM Pressure Won&rsquo;t Drop Below 50 Torr During Evacuation"></div><div class="toc-marker" data-target="#error-could-not-find-valve-in-coordinator-window" data-level="4"
+                        data-title="&ldquo;Error: Could Not Find Valve&rdquo; in Coordinator Window"></div><div class="toc-marker" data-target="#replacing-the-vacuum-pump" data-level="3"
+                        data-title="Replacing the Vacuum Pump"></div><div class="toc-marker" data-target="#cleaning-the-ssim-sample-chamber" data-level="3"
+                        data-title="Cleaning the SSIM Sample Chamber"></div><div class="toc-marker" data-target="#annual-maintenance" data-level="3"
+                        data-title="Annual Maintenance"></div><div class="toc-marker" data-target="#understanding-isotopic-data" data-level="2"
+                        data-title="Understanding Isotopic Data"></div><div class="toc-marker" data-target="#what-do-the-numbers-mean" data-level="3"
+                        data-title="What Do the Numbers Mean?"></div><div class="toc-marker" data-target="#typical-values" data-level="3"
+                        data-title="Typical Values"></div><div class="toc-marker" data-target="#keeling-plot-analysis" data-level="3"
+                        data-title="Keeling Plot Analysis"></div><div class="toc-marker" data-target="#safety-notes" data-level="2"
+                        data-title="Safety Notes"></div><div class="toc-marker" data-target="#appendix-gas-cylinder-specifications" data-level="2"
+                        data-title="Appendix: Gas Cylinder Specifications"></div><div class="toc-marker" data-target="#zero-air" data-level="3"
+                        data-title="Zero Air"></div><div class="toc-marker" data-target="#calibration-gas" data-level="3"
+                        data-title="Calibration Gas"></div><div class="toc-marker" data-target="#appendix-software-files-and-paths" data-level="2"
+                        data-title="Appendix: Software Files and Paths"></div><div class="toc-marker" data-target="#key-directories" data-level="3"
+                        data-title="Key Directories"></div><div class="toc-marker" data-target="#editing-reference-gases" data-level="3"
+                        data-title="Editing Reference Gases"></div><div class="toc-marker" data-target="#conclusion" data-level="2"
+                        data-title="Conclusion"></div></div>
+            <div class="toc-current-label" id="toc-current-label"></div>
+            <nav class="toc-nav" id="toc-nav">
+                <div class="toc-title">Contents</div><ul>
+                    <li>
+                        <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                    <li>
+                        <a href="#before-you-begin-analyzer-boot-issues" aria-label="Before You Begin: Analyzer Boot Issues">Before You Begin: Analyzer Boot Issues</a></li>
+                    <li>
+                        <a href="#what-the-system-measures" aria-label="What the System Measures">What the System Measures</a></li>
+                    <li>
+                        <a href="#pre-installation-requirements" aria-label="Pre-Installation Requirements">Pre-Installation Requirements</a></li>
+                    <li>
+                        <a href="#system-architecture" aria-label="System Architecture">System Architecture</a></li>
+                    <li>
+                        <a href="#hardware-setup" aria-label="Hardware Setup">Hardware Setup</a><ul>
+                    <li>
+                        <a href="#ssim2-physical-connections" aria-label="SSIM2 Physical Connections">SSIM2 Physical Connections</a></li>
+                    <li>
+                        <a href="#software-setup" aria-label="Software Setup">Software Setup</a><ul>
+                    <li>
+                        <a href="#disabling-the-valve-sequencer" aria-label="Disabling the Valve Sequencer">Disabling the Valve Sequencer</a></li>
+                    <li>
+                        <a href="#installing-the-ssim-coordinator" aria-label="Installing the SSIM Coordinator">Installing the SSIM Coordinator</a></li>
+                    <li>
+                        <a href="#running-the-ready-test" aria-label="Running the Ready Test">Running the Ready Test</a></li></ul>
+                    </li></ul>
+                    </li>
+                    <li>
+                        <a href="#operating-the-ssim2" aria-label="Operating the SSIM2">Operating the SSIM2</a><ul>
+                    <li>
+                        <a href="#launching-the-coordinator" aria-label="Launching the Coordinator">Launching the Coordinator</a></li>
+                    <li>
+                        <a href="#configuring-measurement-parameters" aria-label="Configuring Measurement Parameters">Configuring Measurement Parameters</a></li>
+                    <li>
+                        <a href="#measurement-workflow" aria-label="Measurement Workflow">Measurement Workflow</a><ul>
+                    <li>
+                        <a href="#step-1-purge-and-evacuate" aria-label="Step 1: Purge and Evacuate">Step 1: Purge and Evacuate</a></li>
+                    <li>
+                        <a href="#step-2-attach-sample" aria-label="Step 2: Attach Sample">Step 2: Attach Sample</a></li>
+                    <li>
+                        <a href="#step-3-sample-loading" aria-label="Step 3: Sample Loading">Step 3: Sample Loading</a></li>
+                    <li>
+                        <a href="#step-4-measurement" aria-label="Step 4: Measurement">Step 4: Measurement</a></li>
+                    <li>
+                        <a href="#step-5-standard-measurement" aria-label="Step 5: Standard Measurement">Step 5: Standard Measurement</a></li>
+                    <li>
+                        <a href="#step-6-next-sample" aria-label="Step 6: Next Sample">Step 6: Next Sample</a></li></ul>
+                    </li></ul>
+                    </li>
+                    <li>
+                        <a href="#data-output-and-analysis" aria-label="Data Output and Analysis">Data Output and Analysis</a><ul>
+                    <li>
+                        <a href="#data-file-location" aria-label="Data File Location">Data File Location</a></li>
+                    <li>
+                        <a href="#data-file-structure" aria-label="Data File Structure">Data File Structure</a></li>
+                    <li>
+                        <a href="#processing-the-data" aria-label="Processing the Data">Processing the Data</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#sample-preparation-best-practices" aria-label="Sample Preparation Best Practices">Sample Preparation Best Practices</a><ul>
+                    <li>
+                        <a href="#collecting-field-samples" aria-label="Collecting Field Samples">Collecting Field Samples</a></li>
+                    <li>
+                        <a href="#sample-volume-requirements" aria-label="Sample Volume Requirements">Sample Volume Requirements</a></li>
+                    <li>
+                        <a href="#diluting-high-concentration-samples" aria-label="Diluting High-Concentration Samples">Diluting High-Concentration Samples</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#troubleshooting-and-maintenance" aria-label="Troubleshooting and Maintenance">Troubleshooting and Maintenance</a><ul>
+                    <li>
+                        <a href="#common-issues" aria-label="Common Issues">Common Issues</a><ul>
+                    <li>
+                        <a href="#pressure-high-or-pressure-low-warnings--normal" aria-label="&ldquo;Pressure High&rdquo; or &ldquo;Pressure Low&rdquo; Warnings (Normal)">&ldquo;Pressure High&rdquo; or &ldquo;Pressure Low&rdquo; Warnings (Normal)</a></li>
+                    <li>
+                        <a href="#sample-reads-as-ambient-air--420-ppm-co-%ce%b4-c-8" aria-label="Sample Reads as Ambient Air (~420 ppm CO₂, δ¹³C ≈ -8‰)">Sample Reads as Ambient Air (~420 ppm CO₂, δ¹³C ≈ -8‰)</a></li>
+                    <li>
+                        <a href="#high-variability-across-replicates--sd-0-dot-5" aria-label="High Variability Across Replicates (SD &gt; 0.5‰)">High Variability Across Replicates (SD &gt; 0.5‰)</a></li>
+                    <li>
+                        <a href="#values-don-t-stabilize--co-continues-drifting" aria-label="Values Don&rsquo;t Stabilize (CO₂ Continues Drifting)">Values Don&rsquo;t Stabilize (CO₂ Continues Drifting)</a></li>
+                    <li>
+                        <a href="#ssim-pressure-won-t-drop-below-50-torr-during-evacuation" aria-label="SSIM Pressure Won&rsquo;t Drop Below 50 Torr During Evacuation">SSIM Pressure Won&rsquo;t Drop Below 50 Torr During Evacuation</a></li>
+                    <li>
+                        <a href="#error-could-not-find-valve-in-coordinator-window" aria-label="&ldquo;Error: Could Not Find Valve&rdquo; in Coordinator Window">&ldquo;Error: Could Not Find Valve&rdquo; in Coordinator Window</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#replacing-the-vacuum-pump" aria-label="Replacing the Vacuum Pump">Replacing the Vacuum Pump</a></li>
+                    <li>
+                        <a href="#cleaning-the-ssim-sample-chamber" aria-label="Cleaning the SSIM Sample Chamber">Cleaning the SSIM Sample Chamber</a></li>
+                    <li>
+                        <a href="#annual-maintenance" aria-label="Annual Maintenance">Annual Maintenance</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#understanding-isotopic-data" aria-label="Understanding Isotopic Data">Understanding Isotopic Data</a><ul>
+                    <li>
+                        <a href="#what-do-the-numbers-mean" aria-label="What Do the Numbers Mean?">What Do the Numbers Mean?</a></li>
+                    <li>
+                        <a href="#typical-values" aria-label="Typical Values">Typical Values</a></li>
+                    <li>
+                        <a href="#keeling-plot-analysis" aria-label="Keeling Plot Analysis">Keeling Plot Analysis</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#safety-notes" aria-label="Safety Notes">Safety Notes</a></li>
+                    <li>
+                        <a href="#appendix-gas-cylinder-specifications" aria-label="Appendix: Gas Cylinder Specifications">Appendix: Gas Cylinder Specifications</a><ul>
+                    <li>
+                        <a href="#zero-air" aria-label="Zero Air">Zero Air</a></li>
+                    <li>
+                        <a href="#calibration-gas" aria-label="Calibration Gas">Calibration Gas</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#appendix-software-files-and-paths" aria-label="Appendix: Software Files and Paths">Appendix: Software Files and Paths</a><ul>
+                    <li>
+                        <a href="#key-directories" aria-label="Key Directories">Key Directories</a></li>
+                    <li>
+                        <a href="#editing-reference-gases" aria-label="Editing Reference Gases">Editing Reference Gases</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        
+        <div class="toc-mobile-bar" id="toc-mobile-bar">
+            <button class="toc-mobile-toggle" id="toc-mobile-toggle">
+                <span class="toc-mobile-label">
+                    <span class="toc-mobile-parent" id="toc-mobile-parent"></span>
+                    <span class="toc-mobile-current" id="toc-mobile-current">Contents</span>
+                </span>
+                <svg class="toc-mobile-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6" />
+                </svg>
+            </button>
+            <nav class="toc-mobile-nav" id="toc-mobile-nav">
+                <ul><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#introduction">Introduction</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#before-you-begin-analyzer-boot-issues">Before You Begin: Analyzer Boot Issues</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#what-the-system-measures">What the System Measures</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#pre-installation-requirements">Pre-Installation Requirements</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#system-architecture">System Architecture</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#hardware-setup">Hardware Setup</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#ssim2-physical-connections">SSIM2 Physical Connections</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#software-setup">Software Setup</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#disabling-the-valve-sequencer">Disabling the Valve Sequencer</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#installing-the-ssim-coordinator">Installing the SSIM Coordinator</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#running-the-ready-test">Running the Ready Test</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#operating-the-ssim2">Operating the SSIM2</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#launching-the-coordinator">Launching the Coordinator</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#configuring-measurement-parameters">Configuring Measurement Parameters</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#measurement-workflow">Measurement Workflow</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#step-1-purge-and-evacuate">Step 1: Purge and Evacuate</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#step-2-attach-sample">Step 2: Attach Sample</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#step-3-sample-loading">Step 3: Sample Loading</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#step-4-measurement">Step 4: Measurement</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#step-5-standard-measurement">Step 5: Standard Measurement</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#step-6-next-sample">Step 6: Next Sample</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#data-output-and-analysis">Data Output and Analysis</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#data-file-location">Data File Location</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#data-file-structure">Data File Structure</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#processing-the-data">Processing the Data</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#sample-preparation-best-practices">Sample Preparation Best Practices</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#collecting-field-samples">Collecting Field Samples</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#sample-volume-requirements">Sample Volume Requirements</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#diluting-high-concentration-samples">Diluting High-Concentration Samples</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#troubleshooting-and-maintenance">Troubleshooting and Maintenance</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#common-issues">Common Issues</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#pressure-high-or-pressure-low-warnings--normal">&ldquo;Pressure High&rdquo; or &ldquo;Pressure Low&rdquo; Warnings (Normal)</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#sample-reads-as-ambient-air--420-ppm-co-%ce%b4-c-8">Sample Reads as Ambient Air (~420 ppm CO₂, δ¹³C ≈ -8‰)</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#high-variability-across-replicates--sd-0-dot-5">High Variability Across Replicates (SD &gt; 0.5‰)</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#values-don-t-stabilize--co-continues-drifting">Values Don&rsquo;t Stabilize (CO₂ Continues Drifting)</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#ssim-pressure-won-t-drop-below-50-torr-during-evacuation">SSIM Pressure Won&rsquo;t Drop Below 50 Torr During Evacuation</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#error-could-not-find-valve-in-coordinator-window">&ldquo;Error: Could Not Find Valve&rdquo; in Coordinator Window</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#replacing-the-vacuum-pump">Replacing the Vacuum Pump</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#cleaning-the-ssim-sample-chamber">Cleaning the SSIM Sample Chamber</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#annual-maintenance">Annual Maintenance</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#understanding-isotopic-data">Understanding Isotopic Data</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#what-do-the-numbers-mean">What Do the Numbers Mean?</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#typical-values">Typical Values</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#keeling-plot-analysis">Keeling Plot Analysis</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#safety-notes">Safety Notes</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#appendix-gas-cylinder-specifications">Appendix: Gas Cylinder Specifications</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#zero-air">Zero Air</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#calibration-gas">Calibration Gas</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#appendix-software-files-and-paths">Appendix: Software Files and Paths</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#key-directories">Key Directories</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#editing-reference-gases">Editing Reference Gases</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#conclusion">Conclusion</a>
+                        </li></ul>
+            </nav>
+        </div>
+
+        <article class="post-single">
+            <header class="post-header">
+                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <h1 class="post-title entry-hint-parent">
+                    Using the Picarro G2201-i with SSIM2 module
+                </h1>
+                <div class="post-meta"><span title='2026-03-04 12:00:00 -0600 CST'>March 4, 2026</span>&nbsp;·&nbsp;<span>23 min</span>&nbsp;|&nbsp;<span>
+    <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-picarro-g2201i-with-ssim2.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
+</span>
+
+</div>
+            </header> 
+            <div class="post-content"><div class="alert alert-Warning">
+  <strong>This instrument is expensive.</strong> The Picarro G2201-i analyzer costs approximately $100,000. The SSIM2 module adds another $15,000-20,000. Handle with care, follow all procedures precisely, and never force connections or ignore error messages.
+</div>
+<div class="alert alert-Caution">
+  <strong>Leaks will ruin your data.</strong> All gas connections must be leak-free. A tiny leak can contaminate samples with ambient air, rendering isotopic measurements meaningless. Always use proper Swagelok fittings and check connections carefully.
+</div>
+<div class="alert alert-Warning">
+  <strong>The vacuum pump must ALWAYS be running when the analyzer is powered on.</strong> The Picarro&rsquo;s internal cavity operates at reduced pressure. If the vacuum pump is off while the analyzer is on, pressure will build up inside the cavity, potentially damaging sensitive optical components. This is not optional—treat the vacuum pump as part of the analyzer&rsquo;s power system.
+</div>
+<h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>The Picarro G2201-i is a high-precision isotopic analyzer that measures both CO₂ and CH₄ concentrations along with their stable carbon isotope ratios (δ¹³C-CO₂ and δ¹³C-CH₄). The instrument uses Cavity Ring-Down Spectroscopy (CRDS), a laser-based technique that provides part-per-billion sensitivity and exceptional isotopic precision.</p>
+<p>The Small Sample Isotope Module (SSIM2, Model A0312) is an accessory that enables analysis of discrete gas samples as small as ~20 ml. Without the SSIM, the Picarro operates in continuous-flow mode requiring sample volumes exceeding 100 ml. With the SSIM, you can analyze gas from sample bags, vials, soil chamber headspace, or any small container—making it ideal for field sampling where large volumes aren&rsquo;t practical.</p>
+<p>This guide covers the complete workflow: hardware setup, gas connections, software operation, taking measurements, data handling, and troubleshooting.</p>
+<h2 id="before-you-begin-analyzer-boot-issues">Before You Begin: Analyzer Boot Issues<a hidden class="anchor" aria-hidden="true" href="#before-you-begin-analyzer-boot-issues">#</a></h2>
+<p>If you&rsquo;re setting up a Picarro that&rsquo;s been in storage or transported, you may encounter a bootloop where the analyzer repeatedly restarts without fully initializing. This happened with our G2201-i and was resolved by reseating the internal RAM modules.</p>
+<p><strong>Symptoms of RAM-related bootloop:</strong></p>
+<ul>
+<li>Analyzer powers on, fans spin up</li>
+<li>LCD display shows initialization messages</li>
+<li>System restarts after 30-60 seconds</li>
+<li>Cycle repeats indefinitely, never reaching the main GUI</li>
+</ul>
+<p><strong>Solution:</strong></p>
+<div class="alert alert-Warning">
+  <strong>Opening the analyzer enclosure voids warranties and exposes you to electrical hazards and laser radiation.</strong> Only perform this procedure if you&rsquo;re comfortable working with electronics and have appropriate training. If your analyzer is under warranty, contact Picarro support instead.
+</div>
+<ol>
+<li><strong>Power off</strong> the analyzer completely and unplug from mains power</li>
+<li><strong>Wait 5 minutes</strong> for capacitors to discharge</li>
+<li><strong>Remove the analyzer cover</strong> (typically 6-8 screws on the rear and side panels)</li>
+<li><strong>Locate the RAM modules</strong> on the motherboard (usually near the CPU, two DIMM slots)</li>
+<li><strong>Remove both RAM sticks</strong> by pressing the retention clips outward</li>
+<li><strong>Clean the RAM slots</strong> by gently blowing out any dust or debris with your breath or compressed air</li>
+<li><strong>Clean the RAM stick contacts</strong> with a lint-free cloth (isopropyl alcohol optional but not necessary)</li>
+<li><strong>Reseat the RAM firmly</strong> into their slots until the retention clips click into place</li>
+<li><strong>Reassemble the cover</strong> and restore power</li>
+<li><strong>Power on</strong> and verify the analyzer boots normally</li>
+</ol>
+<p>In our case, the issue was resolved immediately after reseating the RAM and clearing dust from the sockets. The analyzer likely accumulated dust during transport or storage, causing intermittent electrical contact.</p>
+<div class="alert alert-Note">
+  If reseating the RAM doesn&rsquo;t fix the bootloop, the issue may be with the power supply, motherboard, or other components. Contact Picarro support for assistance.
+</div>
+<h2 id="what-the-system-measures">What the System Measures<a hidden class="anchor" aria-hidden="true" href="#what-the-system-measures">#</a></h2>
+<p>The G2201-i reports the following for each sample:</p>
+<ul>
+<li><strong>CO₂ concentration</strong> (ppm or µmol mol⁻¹)</li>
+<li><strong>δ¹³C-CO₂</strong> (‰ vs. VPDB standard)</li>
+<li><strong>CH₄ concentration</strong> (ppm or µmol mol⁻¹)</li>
+<li><strong>δ¹³C-CH₄</strong> (‰ vs. VPDB standard)</li>
+<li><strong>H₂O concentration</strong> (ppm)</li>
+</ul>
+<p><strong>What is δ¹³C?</strong></p>
+<p>Delta notation (δ¹³C) expresses the ratio of ¹³C to ¹²C in your sample relative to a reference standard (Vienna Pee Dee Belemnite, or VPDB). The value is reported in per mil (‰, parts per thousand). A more positive δ¹³C means your sample is enriched in the heavier isotope ¹³C relative to the standard; more negative means depleted.</p>
+<p>For example: atmospheric CO₂ has a δ¹³C around −8‰, while soil-respired CO₂ from C3 plants is typically −25‰ to −30‰. This isotopic difference allows you to distinguish CO₂ sources.</p>
+<h2 id="pre-installation-requirements">Pre-Installation Requirements<a hidden class="anchor" aria-hidden="true" href="#pre-installation-requirements">#</a></h2>
+<p>Before setting up the SSIM2, ensure you have:</p>
+<ol>
+<li>
+<p><strong>Picarro G2201-i analyzer</strong> fully operational and calibrated. The analyzer must be powered on and stabilized for at least 2 hours before making measurements.</p>
+</li>
+<li>
+<p><strong>External vacuum pump</strong> with power cable. The SSIM uses an external vacuum pump to evacuate the sample chamber and gas lines between measurements.</p>
+</li>
+<li>
+<p><strong>Pressurized &ldquo;zero air&rdquo; cylinder</strong> with regulator set to ≥1 psi (0.07 bar) and &lt;8 psi (~0.5 bar). Typical operating pressure is 3 psi. Zero air should contain &lt;1 ppm CO₂, &lt;5 ppb CH₄, and &lt;10 ppm H₂O. This is used to flush the system between samples.</p>
+</li>
+<li>
+<p><strong>Pressurized calibration gas cylinder</strong> with known δ¹³C values and CO₂/CH₄ concentrations, with regulator set to same pressure as zero air (typically 3 psi). You&rsquo;ll measure this repeatedly to calibrate your samples.</p>
+</li>
+<li>
+<p><strong>Sample containers</strong> with manual valves. These can be Tedlar bags, glass flasks, or any container that can be attached via 1/8&quot; Swagelok fittings and has a manual valve to isolate it during purging.</p>
+</li>
+</ol>
+<div class="alert alert-Note">
+  <strong>Manual valves on sample containers are mandatory.</strong> During the SSIM&rsquo;s purge cycle, the external vacuum pump evacuates the system. If your sample container doesn&rsquo;t have a valve to isolate it, the vacuum will suck out your sample and you&rsquo;ll lose it.
+</div>
+<ol>
+<li>
+<p><strong>1/8&quot; stainless steel tubing and Swagelok fittings</strong> (various lengths). All gas connections use 1/8&quot; Swagelok compression fittings.</p>
+</li>
+<li>
+<p><strong>Wrenches for Swagelok fittings</strong>: 7/16&quot;, 1/2&quot;, 9/16&quot;, and 11/16&quot; inch wrenches.</p>
+</li>
+</ol>
+<h2 id="system-architecture">System Architecture<a hidden class="anchor" aria-hidden="true" href="#system-architecture">#</a></h2>
+<p>The SSIM2 sits between your sample and the Picarro analyzer. Gas flows through this path:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Sample Container → SSIM Sample Port → SSIM Internal Chamber (20ml) →
+</span></span><span style="display:flex;"><span>SSIM Outlet → Picarro Gas Inlet
+</span></span></code></pre></div><p>The SSIM contains:</p>
+<ul>
+<li><strong>Internal valves</strong> (V₁, V₂, V₃, V₄) that control gas routing</li>
+<li><strong>20 ml sample chamber</strong> where pressure equilibration occurs</li>
+<li><strong>Pressure sensor</strong> to monitor chamber pressure</li>
+<li><strong>Vacuum port</strong> connected to external vacuum pump</li>
+<li><strong>Zero air port</strong> for flushing</li>
+<li><strong>Cal port</strong> for calibration gas (optional, on front panel)</li>
+</ul>
+<p>The workflow is automated by the SSIM Coordinator software:</p>
+<ol>
+<li><strong>Purge</strong>: Zero air flows through the system to remove residual sample</li>
+<li><strong>Evacuate</strong>: Vacuum pump evacuates SSIM and analyzer to remove all gas</li>
+<li><strong>Sample loading</strong>: User opens manual valve on sample container</li>
+<li><strong>Equilibration</strong>: Sample expands into the 20ml chamber, pressure equilibrates</li>
+<li><strong>Measurement</strong>: Picarro continuously measures the sample for 8-12 minutes</li>
+<li><strong>Repeat</strong>: Multiple replicate measurements of the same sample (typically 3-5)</li>
+</ol>
+<h2 id="hardware-setup">Hardware Setup<a hidden class="anchor" aria-hidden="true" href="#hardware-setup">#</a></h2>
+<h3 id="ssim2-physical-connections">SSIM2 Physical Connections<a hidden class="anchor" aria-hidden="true" href="#ssim2-physical-connections">#</a></h3>
+<div class="alert alert-Warning">
+  <strong>The analyzer must be running and stabilized for at least 2 hours before connecting the SSIM.</strong> The internal cavity must reach thermal equilibrium. If you connect the SSIM and start measurements too soon, your data will show drift as the analyzer continues to stabilize.
+</div>
+<p>The SSIM2 has ports on the rear panel and front panel:</p>
+<p><strong>Rear panel:</strong></p>
+<ul>
+<li><strong>Sample Out</strong> (connects to Picarro gas inlet)</li>
+<li><strong>Vacuum</strong> (connects to external vacuum pump)</li>
+<li><strong>Zero Air</strong> (connects to zero air cylinder)</li>
+<li><strong>USB</strong> (connects to computer)</li>
+<li><strong>Valves</strong> (power connection to SSIM)</li>
+</ul>
+<p><strong>Front panel:</strong></p>
+<ul>
+<li><strong>Sample</strong> (connects to sample container with manual valve)</li>
+<li><strong>Cal</strong> (optionally connects to calibration gas cylinder)</li>
+</ul>
+<p>Follow these steps to make gas connections:</p>
+<ol>
+<li>
+<p>Position the SSIM2 close to the Picarro analyzer to minimize dead volume in connecting tubing.</p>
+</li>
+<li>
+<p><strong>Connect SSIM outlet to Picarro inlet:</strong></p>
+<ul>
+<li>Use a short length (~15-30 cm) of 1/8&quot; stainless steel tubing with 1/8&quot; Swagelok fittings on both ends</li>
+<li>Connect from &ldquo;Sample Out&rdquo; on the rear of the SSIM to &ldquo;Gas Inlet&rdquo; on the Picarro</li>
+<li>Tighten compression fittings: finger-tight, then 1.25 turns with wrench</li>
+</ul>
+</li>
+<li>
+<p><strong>Connect vacuum pump:</strong></p>
+<ul>
+<li>Connect vacuum pump to &ldquo;Vacuum&rdquo; port on rear of SSIM with supplied vacuum line</li>
+<li>Plug vacuum pump into power outlet</li>
+</ul>
+</li>
+</ol>
+<div class="alert alert-Warning">
+  <strong>Turn on the vacuum pump NOW and leave it running continuously.</strong> The vacuum pump must be running whenever the Picarro analyzer is powered on. The analyzer&rsquo;s internal cavity operates under reduced pressure, and if the pump stops, pressure will build up and potentially damage the optical cavity. Treat the vacuum pump as an essential part of the system—if the analyzer is on, the pump must be on.
+</div>
+<ol>
+<li>
+<p><strong>Connect zero air cylinder:</strong></p>
+<ul>
+<li>Attach regulator to zero air cylinder and set output pressure to 3 psi</li>
+<li>Connect from regulator to &ldquo;Zero Air&rdquo; port on rear of SSIM using 1/8&quot; tubing</li>
+<li>Leave the cylinder valve closed for now</li>
+</ul>
+</li>
+<li>
+<p><strong>Connect calibration gas (optional):</strong></p>
+<ul>
+<li>Attach regulator to calibration gas cylinder and set output pressure to 3 psi</li>
+<li>Connect from regulator to &ldquo;Cal&rdquo; port on front of SSIM using 1/8&quot; tubing</li>
+<li>Leave the cylinder valve closed for now</li>
+</ul>
+</li>
+</ol>
+<div class="alert alert-Caution">
+  <strong>Check all Swagelok connections for leaks.</strong> After making connections, apply a small amount of soapy water to each fitting. Open gas cylinders briefly and watch for bubbles. Even tiny leaks will contaminate your samples. If you see bubbles, tighten the fitting an additional 1/4 turn.
+</div>
+<ol>
+<li><strong>Connect USB and power:</strong>
+<ul>
+<li>Connect USB cable from rear of SSIM to computer running the SSIM Coordinator software</li>
+<li>Connect the &ldquo;Valves&rdquo; power cable between SSIM and the Picarro analyzer&rsquo;s &ldquo;Valves&rdquo; port</li>
+<li>Verify the vacuum pump is running (you should hear it)</li>
+</ul>
+</li>
+</ol>
+<h3 id="software-setup">Software Setup<a hidden class="anchor" aria-hidden="true" href="#software-setup">#</a></h3>
+<p>The SSIM Coordinator software controls the SSIM hardware, manages the measurement sequence, and logs data.</p>
+<h4 id="disabling-the-valve-sequencer">Disabling the Valve Sequencer<a hidden class="anchor" aria-hidden="true" href="#disabling-the-valve-sequencer">#</a></h4>
+<p>If your Picarro has been used with other accessories (like the 16-Port Distribution Manifold), you must disable the Valve Sequencer before using the SSIM:</p>
+<ol>
+<li>On the Windows computer, navigate to Start Menu → Utilities → Setup Tool</li>
+<li>In the Setup Tool, go to the <strong>Port Manager</strong> tab</li>
+<li>Set &ldquo;Valve Sequencer MPV&rdquo; to <strong>OFF</strong></li>
+<li>Click &ldquo;Apply&rdquo; and close the Setup Tool</li>
+<li>Restart the Picarro software</li>
+</ol>
+<p>If you skip this step, the Coordinator will display an error about valve conflicts.</p>
+<h4 id="installing-the-ssim-coordinator">Installing the SSIM Coordinator<a hidden class="anchor" aria-hidden="true" href="#installing-the-ssim-coordinator">#</a></h4>
+<p>The Coordinator installer is typically on a USB drive provided by Picarro or can be requested from Picarro support.</p>
+<ol>
+<li>Locate <code>setup_SSIM.exe</code> and double-click to begin installation</li>
+<li>Click &ldquo;Next&rdquo; through the installation wizard</li>
+<li>Select destination (default is <code>C:\Picarro\G2000</code>)</li>
+<li>Select your analyzer type: <strong>G2201-i</strong> (for isotopic CO₂ and CH₄)</li>
+<li>Click &ldquo;Install&rdquo; and wait for completion</li>
+<li>Click &ldquo;Finish&rdquo;</li>
+</ol>
+<p>Several new icons will appear on the desktop:</p>
+<ul>
+<li><strong>Picarro SSIM Coordinator</strong> (for making measurements)</li>
+<li><strong>SSIM Ready Test</strong> (for system diagnostics)</li>
+<li><strong>Read Ext Sensor</strong> (for monitoring SSIM pressure)</li>
+</ul>
+<h4 id="running-the-ready-test">Running the Ready Test<a hidden class="anchor" aria-hidden="true" href="#running-the-ready-test">#</a></h4>
+<p>Before your first measurement session, run the Ready Test to verify the system is functioning:</p>
+<ol>
+<li>Open <strong>Picarro Coordinator Launcher</strong> from the desktop</li>
+<li>Select <strong>SSIM Ready Test</strong> from the dropdown</li>
+<li>Click &ldquo;Launch&rdquo;</li>
+<li>Set &ldquo;Maximum test duration&rdquo; to 10 minutes (default)</li>
+<li>Click &ldquo;OK&rdquo;</li>
+</ol>
+<p>The Ready Test uses a reference calibration gas (CAL) to verify the analyzer has stabilized and is producing consistent results. The test runs until the analyzer meets stability criteria or times out after 10 minutes.</p>
+<p>You&rsquo;ll see a table of measurements appear in the Coordinator window. The test prints an update every 30 seconds. If the analyzer is stable, the test will complete in 5-10 minutes.</p>
+<div class="alert alert-Note">
+  <strong>It&rsquo;s normal to see &ldquo;Pressure High/Pressure Low&rdquo; warnings</strong> in the GUI status log during SSIM operation. The analyzer constantly adjusts internal pressure as the SSIM purges and delivers samples. These warnings are harmless unless accompanied by a persistent &ldquo;System Alarm&rdquo; indicator.
+</div>
+<h2 id="operating-the-ssim2">Operating the SSIM2<a hidden class="anchor" aria-hidden="true" href="#operating-the-ssim2">#</a></h2>
+<h3 id="launching-the-coordinator">Launching the Coordinator<a hidden class="anchor" aria-hidden="true" href="#launching-the-coordinator">#</a></h3>
+<ol>
+<li>Open <strong>Picarro Coordinator Launcher</strong> from the desktop</li>
+<li>Select the appropriate mode:
+<ul>
+<li><strong>SSIM G2201-i</strong>: For standalone operation (manual sample containers)</li>
+<li><strong>SSIM G2201-i w/ HP CH4</strong>: If your G2201-i has the high-precision CH₄ upgrade</li>
+</ul>
+</li>
+<li>Click &ldquo;Launch&rdquo;</li>
+<li>The &ldquo;Select Reference Gas&rdquo; dialog appears—select your calibration gas from the dropdown (e.g., &ldquo;Reference Gas G2101-i #1&rdquo;)</li>
+<li>Click &ldquo;OK&rdquo;</li>
+</ol>
+<h3 id="configuring-measurement-parameters">Configuring Measurement Parameters<a hidden class="anchor" aria-hidden="true" href="#configuring-measurement-parameters">#</a></h3>
+<p>The &ldquo;User Editable Parameters&rdquo; window allows you to configure how measurements are taken:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Parameter</th>
+          <th>Description</th>
+          <th>Recommended Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Multi-Port Valve</strong></td>
+          <td>Set to <strong>2</strong> if NOT using 16-Port Manifold</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td><strong>Number of Sample Ports</strong></td>
+          <td>Ignored if Multi-Port Value = 2</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td><strong>Number of Repeats per Sample</strong></td>
+          <td>How many times to measure each sample</td>
+          <td>3-5</td>
+      </tr>
+      <tr>
+          <td><strong>Number of Repeats of Standard</strong></td>
+          <td>How many times to measure the CAL gas</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td><strong>Standard Mode</strong></td>
+          <td>1 = measure CAL between each sample; 2 = measure CAL only at beginning and end</td>
+          <td>1 (recommended)</td>
+      </tr>
+      <tr>
+          <td><strong>Measurement Mode</strong></td>
+          <td>1 = single measurement; 2 = continuous loop</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td><strong>Measurement Duration</strong></td>
+          <td>1 = standard (12 min); 2 = fast (8 min)</td>
+          <td>2 (for most applications)</td>
+      </tr>
+      <tr>
+          <td><strong>Sample Loading</strong></td>
+          <td>1 = manual; 2 = automatic</td>
+          <td>1 (for manual sample bags)</td>
+      </tr>
+      <tr>
+          <td><strong>Sample Dilution</strong></td>
+          <td>1 = no dilution; 2 = dilute sample with zero air</td>
+          <td>1 (unless sample &gt;2000 ppm CO₂)</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Typical configuration for soil/atmospheric samples:</strong></p>
+<ul>
+<li>Repeats per sample: <strong>3</strong> (for statistical confidence)</li>
+<li>Repeats of standard: <strong>1</strong> (measure CAL between each sample)</li>
+<li>Standard mode: <strong>1</strong> (interleaved standards correct for drift)</li>
+<li>Measurement duration: <strong>2</strong> (fast, 8 minutes per replicate)</li>
+<li>Sample loading: <strong>1</strong> (manual)</li>
+<li>Sample dilution: <strong>1</strong> (no dilution, unless your samples exceed 2000 ppm CO₂)</li>
+</ul>
+<p>After setting parameters, click &ldquo;OK&rdquo; to continue.</p>
+<h3 id="measurement-workflow">Measurement Workflow<a hidden class="anchor" aria-hidden="true" href="#measurement-workflow">#</a></h3>
+<p>Once the Coordinator window appears, the automated sequence begins:</p>
+<h4 id="step-1-purge-and-evacuate">Step 1: Purge and Evacuate<a hidden class="anchor" aria-hidden="true" href="#step-1-purge-and-evacuate">#</a></h4>
+<p>The Coordinator displays messages in the bottom log window:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Run started.
+</span></span><span style="display:flex;"><span>Warming up the analyzer.
+</span></span><span style="display:flex;"><span>Make SAMPLE closed.
+</span></span><span style="display:flex;"><span>Vacuum lines being opened: 830.00
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>The SSIM will:</p>
+<ol>
+<li>Flush the system with zero air for ~30 seconds</li>
+<li>Close valves and turn on the vacuum pump to evacuate gas lines</li>
+<li>Wait for chamber pressure to drop below 10 Torr</li>
+</ol>
+<p><strong>This takes approximately 2-3 minutes.</strong></p>
+<div class="alert alert-Warning">
+  <strong>Ensure your sample container&rsquo;s manual valve is closed during purging.</strong> The system evacuates to near-vacuum (~10 Torr). If the valve is open, your sample will be sucked out and lost.
+</div>
+<h4 id="step-2-attach-sample">Step 2: Attach Sample<a hidden class="anchor" aria-hidden="true" href="#step-2-attach-sample">#</a></h4>
+<p>After purging completes, the Coordinator prompts:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>ATTACH SAMPLE (CONTAINER WITH VALVE CLOSED) AND THEN SELECT &#34;RESUME&#34; UNDER &#34;CONTROL&#34; MENU.
+</span></span></code></pre></div><ol>
+<li>Take your sample container (Tedlar bag, flask, etc.) with its manual valve <strong>closed</strong></li>
+<li>Attach the container to the &ldquo;Sample&rdquo; port on the front of the SSIM using a 1/8&quot; Swagelok connection</li>
+<li>Once securely connected, go to the Coordinator window</li>
+<li>Click <strong>Control</strong> → <strong>Resume</strong></li>
+</ol>
+<div class="alert alert-Note">
+  <strong>Work quickly but carefully.</strong> The analyzer is continuously measuring zero air while waiting. Extended delays will waste time, but rushing and making a poor connection will contaminate the sample.
+</div>
+<h4 id="step-3-sample-loading">Step 3: Sample Loading<a hidden class="anchor" aria-hidden="true" href="#step-3-sample-loading">#</a></h4>
+<p>The Coordinator will perform another brief purge and pump cycle to clean the line between the SSIM and your sample container.</p>
+<p>After ~30 seconds, the Coordinator prompts:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>OPEN SAMPLE BAG VALVE, WAIT FOR PRESSURE TO SETTLE, AND SELECT &#34;RESUME&#34; UNDER &#34;CONTROL&#34; MENU.
+</span></span></code></pre></div><ol>
+<li>Slowly open the manual valve on your sample container</li>
+<li>Watch the pressure indicator in the Coordinator window (or the Read Ext Sensor window if open)</li>
+<li>The pressure will spike briefly, then settle as the sample expands into the SSIM&rsquo;s 20ml chamber</li>
+<li>Wait ~10-15 seconds for pressure to stabilize</li>
+<li>Click <strong>Control</strong> → <strong>Resume</strong></li>
+</ol>
+<div class="alert alert-Caution">
+  <strong>Open the valve slowly.</strong> A rapid pressure surge can disturb the analyzer&rsquo;s optical cavity. A slow, controlled opening allows smooth equilibration.
+</div>
+<h4 id="step-4-measurement">Step 4: Measurement<a hidden class="anchor" aria-hidden="true" href="#step-4-measurement">#</a></h4>
+<p>The measurement begins automatically. You&rsquo;ll see:</p>
+<ul>
+<li>The top panel shows real-time concentration and isotope values</li>
+<li>The table fills with data rows (one row per second)</li>
+<li>The log window shows status messages</li>
+</ul>
+<p><strong>Fast measurement mode</strong> runs for 8 minutes per replicate. The first 2-3 minutes are settling time while the gas equilibrates through the analyzer. The last 5-6 minutes are stable, averaged for your final result.</p>
+<p><strong>Standard measurement mode</strong> runs for 12 minutes per replicate.</p>
+<p>The Coordinator will automatically perform the number of replicates you specified (e.g., 3 replicates = 24 minutes total for fast mode).</p>
+<p>Between replicates, the system briefly evacuates and re-introduces your sample. This provides independent measurements of the same sample.</p>
+<h4 id="step-5-standard-measurement">Step 5: Standard Measurement<a hidden class="anchor" aria-hidden="true" href="#step-5-standard-measurement">#</a></h4>
+<p>After completing all replicates of your sample, the Coordinator measures the calibration gas standard.</p>
+<p>If &ldquo;Standard Mode&rdquo; was set to 1 (interleaved), it measures the CAL gas between each sample. This is recommended because the analyzer can drift slightly over hours, and interleaved standards allow you to correct for that drift during data processing.</p>
+<p>The standard measurement is automatic (no user input required).</p>
+<h4 id="step-6-next-sample">Step 6: Next Sample<a hidden class="anchor" aria-hidden="true" href="#step-6-next-sample">#</a></h4>
+<p>After the standard, the Coordinator returns to Step 1 (purge and evacuate) and prompts you to attach the next sample.</p>
+<p>The cycle repeats until you manually terminate the program by clicking the red &ldquo;X&rdquo; or <strong>Control</strong> → <strong>Stop</strong>.</p>
+<div class="alert alert-Warning">
+  <strong>Allow the Coordinator to finish gracefully.</strong> Click the red &ldquo;X&rdquo; and wait for the program to complete its shutdown sequence (up to 1 minute). This returns the SSIM and analyzer to a safe idle state. Forcibly killing the program may leave valves open or the vacuum pump running.
+</div>
+<h2 id="data-output-and-analysis">Data Output and Analysis<a hidden class="anchor" aria-hidden="true" href="#data-output-and-analysis">#</a></h2>
+<h3 id="data-file-location">Data File Location<a hidden class="anchor" aria-hidden="true" href="#data-file-location">#</a></h3>
+<p>Every time the Coordinator is started, a new CSV file is automatically created and saved to:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>C:\Isotopedata\
+</span></span></code></pre></div><p>The filename format is: <code>CRDS####_####_YYYYMMDD_HHMMSS.dat</code></p>
+<p>For example: <code>CRDS2101_5892_20260304_143021.dat</code></p>
+<p>The file is written in real-time as measurements proceed. The upper portion of the Coordinator window displays the current data table, which is identical to what&rsquo;s saved in the CSV.</p>
+<h3 id="data-file-structure">Data File Structure<a hidden class="anchor" aria-hidden="true" href="#data-file-structure">#</a></h3>
+<p>Each row in the CSV represents one second of data. Key columns include:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Column</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Run Num</strong></td>
+          <td>Sequential measurement number</td>
+      </tr>
+      <tr>
+          <td><strong>Sample Bag</strong></td>
+          <td>Sample identifier (user can edit in software)</td>
+      </tr>
+      <tr>
+          <td><strong>Date/Time</strong></td>
+          <td>Timestamp</td>
+      </tr>
+      <tr>
+          <td><strong>12CO2 (ppm)</strong></td>
+          <td>CO₂ concentration</td>
+      </tr>
+      <tr>
+          <td><strong>12CO2_Mean</strong></td>
+          <td>Average CO₂ over last 30 seconds</td>
+      </tr>
+      <tr>
+          <td><strong>13CO2 (ppm)</strong></td>
+          <td>¹³CO₂ concentration</td>
+      </tr>
+      <tr>
+          <td><strong>Delta_Raw (‰)</strong></td>
+          <td>Raw δ¹³C-CO₂ value</td>
+      </tr>
+      <tr>
+          <td><strong>12CH4 (ppm)</strong></td>
+          <td>CH₄ concentration</td>
+      </tr>
+      <tr>
+          <td><strong>13CH4 (ppm)</strong></td>
+          <td>¹³CH₄ concentration</td>
+      </tr>
+      <tr>
+          <td><strong>Delta_Raw_CH4 (‰)</strong></td>
+          <td>Raw δ¹³C-CH₄ value</td>
+      </tr>
+      <tr>
+          <td><strong>h2o_ppm</strong></td>
+          <td>Water vapor concentration</td>
+      </tr>
+      <tr>
+          <td><strong>SSIM Pressure (Torr)</strong></td>
+          <td>SSIM chamber pressure</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="processing-the-data">Processing the Data<a hidden class="anchor" aria-hidden="true" href="#processing-the-data">#</a></h3>
+<p>The raw δ¹³C values must be calibrated against your known reference standard. The general procedure:</p>
+<ol>
+<li>
+<p><strong>Identify stable measurement periods:</strong> For each replicate, the first 2-3 minutes are equilibration. The last 5-6 minutes (fast mode) or 8-9 minutes (standard mode) are stable.</p>
+</li>
+<li>
+<p><strong>Average stable values:</strong> For each replicate, calculate the mean of the stable period for:</p>
+<ul>
+<li><code>12CO2_Mean</code></li>
+<li><code>Delta_Raw</code> (δ¹³C-CO₂)</li>
+<li><code>12CH4_Mean</code></li>
+<li><code>Delta_Raw_CH4</code> (δ¹³C-CH₄)</li>
+</ul>
+</li>
+<li>
+<p><strong>Calculate the mean and standard deviation across replicates</strong> for each sample.</p>
+</li>
+<li>
+<p><strong>Apply two-point calibration using standards:</strong> If you measured two reference gases with known δ¹³C values, create a linear calibration:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>      δ¹³C_true = m × δ¹³C_raw + b
+</span></span></code></pre></div><p>Where <code>m</code> and <code>b</code> are determined from your standards. This corrects for any instrument drift or offset.</p>
+</li>
+<li>
+<p><strong>Check precision:</strong> The standard deviation across replicates should be &lt;0.2‰ for δ¹³C-CO₂ and &lt;0.5‰ for δ¹³C-CH₄. Higher variability suggests leaks, poor connections, or sample contamination.</p>
+</li>
+</ol>
+<h2 id="sample-preparation-best-practices">Sample Preparation Best Practices<a hidden class="anchor" aria-hidden="true" href="#sample-preparation-best-practices">#</a></h2>
+<h3 id="collecting-field-samples">Collecting Field Samples<a hidden class="anchor" aria-hidden="true" href="#collecting-field-samples">#</a></h3>
+<p><strong>Tedlar bags:</strong></p>
+<ul>
+<li>Use inert Tedlar bags with manual valve</li>
+<li>Overfill bags (fill to bulging, then release pressure until soft)</li>
+<li>Store samples in a cooler away from direct sunlight</li>
+<li>Analyze within 24 hours (some CO₂ can permeate through bag material over days)</li>
+</ul>
+<p><strong>Glass flasks:</strong></p>
+<ul>
+<li>Better for long-term storage (weeks to months)</li>
+<li>Evacuate flasks before field sampling, then open valve to fill with sample</li>
+<li>Close valve immediately</li>
+<li>Check for vacuum seal before analysis</li>
+</ul>
+<p><strong>Soil chamber headspace:</strong></p>
+<ul>
+<li>Let chamber equilibrate with soil for 5-10 minutes before sampling</li>
+<li>Use syringe to transfer gas from chamber to sample bag</li>
+<li>Or attach chamber directly to SSIM if chamber has appropriate fittings</li>
+</ul>
+<h3 id="sample-volume-requirements">Sample Volume Requirements<a hidden class="anchor" aria-hidden="true" href="#sample-volume-requirements">#</a></h3>
+<p>The SSIM needs ~20 ml to fill its internal chamber. However, your sample container should hold more than 20 ml because:</p>
+<ol>
+<li>Some gas remains in the connecting tubing and fittings</li>
+<li>Multiple replicates draw from the same container (3 replicates ≈ 60 ml total)</li>
+</ol>
+<p><strong>Recommended minimum sample volume: 100 ml</strong></p>
+<p>If you have less than 100 ml, you may only get 1-2 replicates, which reduces statistical confidence.</p>
+<h3 id="diluting-high-concentration-samples">Diluting High-Concentration Samples<a hidden class="anchor" aria-hidden="true" href="#diluting-high-concentration-samples">#</a></h3>
+<p>If your sample exceeds ~2000 ppm CO₂, the analyzer may saturate or show nonlinear response. In this case, use the dilution feature:</p>
+<ol>
+<li>Set &ldquo;Sample Dilution&rdquo; parameter to <strong>2</strong> in the User Editable Parameters window</li>
+<li>The SSIM will automatically mix your sample with zero air at a 1:1 ratio before introducing it to the analyzer</li>
+<li>This halves the effective concentration</li>
+</ol>
+<p>For soil respiration samples (which can reach 5000-10000 ppm CO₂), dilution is often necessary.</p>
+<h2 id="troubleshooting-and-maintenance">Troubleshooting and Maintenance<a hidden class="anchor" aria-hidden="true" href="#troubleshooting-and-maintenance">#</a></h2>
+<h3 id="common-issues">Common Issues<a hidden class="anchor" aria-hidden="true" href="#common-issues">#</a></h3>
+<h4 id="pressure-high-or-pressure-low-warnings--normal">&ldquo;Pressure High&rdquo; or &ldquo;Pressure Low&rdquo; Warnings (Normal)<a hidden class="anchor" aria-hidden="true" href="#pressure-high-or-pressure-low-warnings--normal">#</a></h4>
+<p><strong>Symptom:</strong> The GUI Status Log shows alternating &ldquo;Pressure High&rdquo; and &ldquo;Pressure Low&rdquo; warnings during measurements.</p>
+<p><strong>Cause:</strong> The analyzer constantly adjusts cavity pressure as the SSIM delivers sample, purges, and evacuates. These pressure fluctuations are normal and expected.</p>
+<p><strong>Solution:</strong> Ignore these warnings unless they persist for more than 5 minutes or are accompanied by a &ldquo;System Alarm&rdquo; indicator. If the alarm triggers, check for leaks or blockages in the gas lines.</p>
+<h4 id="sample-reads-as-ambient-air--420-ppm-co-δ-c-8">Sample Reads as Ambient Air (~420 ppm CO₂, δ¹³C ≈ -8‰)<a hidden class="anchor" aria-hidden="true" href="#sample-reads-as-ambient-air--420-ppm-co-δ-c-8">#</a></h4>
+<p><strong>Symptom:</strong> Your sample reads identical to atmospheric air, even though you expected a different composition.</p>
+<p><strong>Cause:</strong> The sample container leaked, or the sample was lost during the vacuum/purge cycle.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Verify the manual valve on the sample container was closed during the purge step</li>
+<li>Check all Swagelok connections for leaks (use soapy water)</li>
+<li>Ensure the sample container itself is airtight (some bags develop pinholes)</li>
+</ul>
+<h4 id="high-variability-across-replicates--sd-0-dot-5">High Variability Across Replicates (SD &gt; 0.5‰)<a hidden class="anchor" aria-hidden="true" href="#high-variability-across-replicates--sd-0-dot-5">#</a></h4>
+<p><strong>Symptom:</strong> The three replicates of a single sample show δ¹³C values that differ by more than 0.5‰.</p>
+<p><strong>Cause:</strong> Leak in the connection, incomplete pressure equilibration, or contamination.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Tighten all Swagelok fittings (add 1/4 turn)</li>
+<li>Wait longer (20-30 seconds) for pressure to stabilize after opening the sample valve</li>
+<li>Check that the zero air and calibration gas cylinders are not contaminated</li>
+</ul>
+<h4 id="values-don-t-stabilize--co-continues-drifting">Values Don&rsquo;t Stabilize (CO₂ Continues Drifting)<a hidden class="anchor" aria-hidden="true" href="#values-don-t-stabilize--co-continues-drifting">#</a></h4>
+<p><strong>Symptom:</strong> The CO₂ concentration or δ¹³C value continues to drift throughout the 8-12 minute measurement instead of reaching a plateau.</p>
+<p><strong>Cause:</strong> Slow leak, or the sample is reacting with moisture/materials inside the sample container.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Check all connections for leaks</li>
+<li>Avoid using sample bags that have been stored with reactive gases (e.g., don&rsquo;t reuse bags that previously held high-humidity samples)</li>
+<li>Consider switching to glass flasks</li>
+</ul>
+<h4 id="ssim-pressure-won-t-drop-below-50-torr-during-evacuation">SSIM Pressure Won&rsquo;t Drop Below 50 Torr During Evacuation<a hidden class="anchor" aria-hidden="true" href="#ssim-pressure-won-t-drop-below-50-torr-during-evacuation">#</a></h4>
+<p><strong>Symptom:</strong> The log window shows the SSIM chamber pressure remains at 50-100 Torr even after several minutes of evacuation.</p>
+<p><strong>Cause:</strong> Leak in the vacuum line, or the vacuum pump is failing.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Check the vacuum line connections (both at the SSIM and at the pump)</li>
+<li>Listen to the vacuum pump—it should be running continuously. If it&rsquo;s silent, check power and connections</li>
+<li>Replace the vacuum pump if it&rsquo;s been used for several years (diaphragm pumps degrade over time)</li>
+</ul>
+<div class="alert alert-Warning">
+  <strong>Never turn off the vacuum pump while the analyzer is running.</strong> Doing so will cause pressure to build up in the analyzer&rsquo;s optical cavity, potentially causing permanent damage. The vacuum pump must run continuously whenever the analyzer is powered on.
+</div>
+<h4 id="error-could-not-find-valve-in-coordinator-window">&ldquo;Error: Could Not Find Valve&rdquo; in Coordinator Window<a hidden class="anchor" aria-hidden="true" href="#error-could-not-find-valve-in-coordinator-window">#</a></h4>
+<p><strong>Symptom:</strong> The Coordinator displays an error about not finding the SSIM valve when launching.</p>
+<p><strong>Cause:</strong> The Valve Sequencer was not disabled, or the USB connection is faulty.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Open Setup Tool → Port Manager and set &ldquo;Valve Sequencer MPV&rdquo; to OFF</li>
+<li>Restart the Picarro GUI software</li>
+<li>Check the USB cable connection between SSIM and computer</li>
+<li>Restart the computer if necessary</li>
+</ul>
+<h3 id="replacing-the-vacuum-pump">Replacing the Vacuum Pump<a hidden class="anchor" aria-hidden="true" href="#replacing-the-vacuum-pump">#</a></h3>
+<p>The external vacuum pump is a consumable component that will eventually fail (typically after 2-5 years of use). Symptoms of a failing pump:</p>
+<ul>
+<li>SSIM chamber pressure won&rsquo;t drop below 50 Torr</li>
+<li>Pump makes unusual noises (grinding, squealing)</li>
+<li>Pump doesn&rsquo;t turn on when Coordinator starts</li>
+</ul>
+<p>To replace:</p>
+<ol>
+<li>Purchase a replacement diaphragm vacuum pump (Picarro part number or equivalent, capable of reaching &lt;10 Torr)</li>
+<li>Disconnect the old pump from the SSIM vacuum port and power</li>
+<li>Connect the new pump to the same vacuum line and power</li>
+<li>Run a Ready Test to verify the new pump functions correctly</li>
+</ol>
+<h3 id="cleaning-the-ssim-sample-chamber">Cleaning the SSIM Sample Chamber<a hidden class="anchor" aria-hidden="true" href="#cleaning-the-ssim-sample-chamber">#</a></h3>
+<p>Over time, dust, moisture, or particulates from samples can accumulate inside the SSIM&rsquo;s 20ml sample chamber. This is rare but can cause erratic readings.</p>
+<p><strong>Warning:</strong> Opening the SSIM requires disassembly and should only be done if you&rsquo;re comfortable with precision fittings. Contact Picarro support if unsure.</p>
+<p>To clean:</p>
+<ol>
+<li>Power off the SSIM and disconnect all gas lines</li>
+<li>Remove the sample chamber cover (typically 4 screws on the side panel)</li>
+<li>Flush the chamber with high-purity nitrogen or compressed air</li>
+<li>Use a lint-free wipe moistened with isopropyl alcohol to wipe the interior surfaces</li>
+<li>Allow to air-dry completely</li>
+<li>Reassemble and perform a Ready Test</li>
+</ol>
+<h3 id="annual-maintenance">Annual Maintenance<a hidden class="anchor" aria-hidden="true" href="#annual-maintenance">#</a></h3>
+<p>At least once per year (or every 1000 measurement hours):</p>
+<ol>
+<li>
+<p><strong>Check zero air and calibration gas cylinders</strong> for contamination. Replace if CO₂ or CH₄ concentrations have drifted.</p>
+</li>
+<li>
+<p><strong>Verify calibration</strong> by measuring 2-3 reference standards with known δ¹³C values (different from your routine CAL gas). If measured values deviate by &gt;0.5‰, contact Picarro support for recalibration.</p>
+</li>
+<li>
+<p><strong>Inspect all tubing and fittings</strong> for wear, corrosion, or damage. Replace any suspect components.</p>
+</li>
+<li>
+<p><strong>Replace vacuum pump oil</strong> (if using an oil-sealed pump) or inspect diaphragm condition (if using diaphragm pump).</p>
+</li>
+<li>
+<p><strong>Clean the Picarro analyzer&rsquo;s optical cavity</strong> (if trained to do so, or contact Picarro service).</p>
+</li>
+</ol>
+<h2 id="understanding-isotopic-data">Understanding Isotopic Data<a hidden class="anchor" aria-hidden="true" href="#understanding-isotopic-data">#</a></h2>
+<h3 id="what-do-the-numbers-mean">What Do the Numbers Mean?<a hidden class="anchor" aria-hidden="true" href="#what-do-the-numbers-mean">#</a></h3>
+<p><strong>δ¹³C is a relative measurement, not an absolute one.</strong> It compares the ¹³C/¹²C ratio in your sample to the ¹³C/¹²C ratio in a reference standard (VPDB).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>δ¹³C (‰) = [(R_sample / R_VPDB) - 1] × 1000
+</span></span></code></pre></div><p>Where <code>R = ¹³C / ¹²C</code></p>
+<ul>
+<li><strong>δ¹³C = 0‰</strong>: Your sample has the same ¹³C/¹²C ratio as VPDB</li>
+<li><strong>δ¹³C = -10‰</strong>: Your sample is depleted in ¹³C by 10 parts per thousand (10‰) relative to VPDB</li>
+<li><strong>δ¹³C = +5‰</strong>: Your sample is enriched in ¹³C by 5 parts per thousand relative to VPDB</li>
+</ul>
+<p>Most natural CO₂ sources have negative δ¹³C because biological processes preferentially use ¹²C (it&rsquo;s lighter and reacts faster).</p>
+<h3 id="typical-values">Typical Values<a hidden class="anchor" aria-hidden="true" href="#typical-values">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Source</th>
+          <th>δ¹³C-CO₂ (‰)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Atmospheric CO₂</td>
+          <td>-7 to -9</td>
+      </tr>
+      <tr>
+          <td>C3 plant respiration (trees, most crops)</td>
+          <td>-24 to -30</td>
+      </tr>
+      <tr>
+          <td>C4 plant respiration (corn, sugarcane)</td>
+          <td>-10 to -14</td>
+      </tr>
+      <tr>
+          <td>Soil respiration (mixed sources)</td>
+          <td>-18 to -25</td>
+      </tr>
+      <tr>
+          <td>Fossil fuel combustion</td>
+          <td>-25 to -30</td>
+      </tr>
+      <tr>
+          <td>Ocean-atmosphere exchange</td>
+          <td>~-8</td>
+      </tr>
+  </tbody>
+</table>
+<p>By measuring δ¹³C-CO₂ in a soil chamber, you can distinguish whether the CO₂ is coming from C3 plant roots, C4 plant roots, decomposition of organic matter, or atmospheric contamination.</p>
+<h3 id="keeling-plot-analysis">Keeling Plot Analysis<a hidden class="anchor" aria-hidden="true" href="#keeling-plot-analysis">#</a></h3>
+<p>If you&rsquo;re measuring a series of samples with different CO₂ concentrations, you can use a Keeling plot to determine the source δ¹³C.</p>
+<p>Plot <code>δ¹³C</code> (y-axis) vs. <code>1/CO₂</code> (x-axis). The y-intercept (where 1/CO₂ → 0, meaning CO₂ → ∞) gives the δ¹³C of the source.</p>
+<p>This is useful for soil respiration studies where you have chamber measurements taken at different closure times (and thus different CO₂ concentrations).</p>
+<h2 id="safety-notes">Safety Notes<a hidden class="anchor" aria-hidden="true" href="#safety-notes">#</a></h2>
+<ul>
+<li>
+<p><strong>The vacuum pump must run continuously whenever the analyzer is on.</strong> This is the most important safety rule for the Picarro. The internal optical cavity operates at reduced pressure. If the pump stops while the analyzer is running, pressure will build inside the cavity and can permanently damage the optics. <strong>Never turn off the vacuum pump unless you&rsquo;ve first shut down the analyzer.</strong> If you need to leave the lab for extended periods (days), either leave both the analyzer and pump running, or shut down both together.</p>
+</li>
+<li>
+<p><strong>Compressed gas cylinders</strong> can be hazardous if mishandled. Always secure cylinders in an upright position, use proper regulators, and never exceed maximum pressure ratings.</p>
+</li>
+<li>
+<p><strong>Vacuum systems</strong> can implode if glass components are damaged. Inspect all glass flasks for cracks before subjecting them to vacuum.</p>
+</li>
+<li>
+<p><strong>The Picarro analyzer contains a laser.</strong> Never attempt to open the analyzer enclosure without proper training. The laser is Class 1 (safe) only when enclosed. If you must open the enclosure (e.g., to reseat RAM), power off completely and wait 5 minutes for capacitors to discharge.</p>
+</li>
+<li>
+<p><strong>Electrical hazards:</strong> The vacuum pump and analyzer operate on mains voltage. Do not operate equipment with damaged power cables.</p>
+</li>
+</ul>
+<h2 id="appendix-gas-cylinder-specifications">Appendix: Gas Cylinder Specifications<a hidden class="anchor" aria-hidden="true" href="#appendix-gas-cylinder-specifications">#</a></h2>
+<h3 id="zero-air">Zero Air<a hidden class="anchor" aria-hidden="true" href="#zero-air">#</a></h3>
+<ul>
+<li><strong>Composition:</strong> &lt;1 ppm CO₂, &lt;5 ppb CH₄, &lt;10 ppm H₂O, balance N₂ and O₂</li>
+<li><strong>Typical supplier:</strong> Airgas &ldquo;Ultra Zero Air&rdquo; or equivalent</li>
+<li><strong>Cylinder size:</strong> Depends on usage; a size 300 cylinder (~6000 L) lasts ~6 months with daily use</li>
+<li><strong>Regulator:</strong> Single-stage or two-stage regulator, 0-60 psi range, 1/8&quot; outlet fitting</li>
+</ul>
+<h3 id="calibration-gas">Calibration Gas<a hidden class="anchor" aria-hidden="true" href="#calibration-gas">#</a></h3>
+<ul>
+<li><strong>Composition:</strong> Known δ¹³C-CO₂ and δ¹³C-CH₄ values, typically 400-800 ppm CO₂, 2-5 ppm CH₄, balance N₂</li>
+<li><strong>Typical supplier:</strong> Airgas, Isometric Instruments, or NOAA-certified standards</li>
+<li><strong>Cylinder size:</strong> Typically size 150 (aluminum) for portability</li>
+<li><strong>Regulator:</strong> Same as zero air</li>
+</ul>
+<div class="alert alert-Note">
+  <strong>Request a certificate of analysis</strong> when purchasing calibration gas. The certificate lists the exact δ¹³C values and concentrations, which you&rsquo;ll need for data processing.
+</div>
+<h2 id="appendix-software-files-and-paths">Appendix: Software Files and Paths<a hidden class="anchor" aria-hidden="true" href="#appendix-software-files-and-paths">#</a></h2>
+<h3 id="key-directories">Key Directories<a hidden class="anchor" aria-hidden="true" href="#key-directories">#</a></h3>
+<ul>
+<li><strong>Installation:</strong> <code>C:\Picarro\G2000\</code></li>
+<li><strong>Data output:</strong> <code>C:\Isotopedata\</code></li>
+<li><strong>Configuration files:</strong> <code>C:\Picarro\G2000\AddOns\SSIM\</code></li>
+<li><strong>Reference gas definitions:</strong> <code>C:\Picarro\G2000\AddOns\SSIM\ReferenceGases.ini</code></li>
+</ul>
+<h3 id="editing-reference-gases">Editing Reference Gases<a hidden class="anchor" aria-hidden="true" href="#editing-reference-gases">#</a></h3>
+<p>To add, remove, or modify reference gases:</p>
+<ol>
+<li>Close the SSIM Coordinator if running</li>
+<li>Navigate to <code>C:\Picarro\G2000\AddOns\SSIM\</code></li>
+<li>Open <code>ReferenceGases.ini</code> in a text editor</li>
+<li>Add a new section:</li>
+</ol>
+<!--listend-->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#66d9ef">[Reference Gas G2201-i #2]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">12CO2</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">450.5</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Delta_Raw</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">-8.25</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">12CH4</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">2.15</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Delta_Raw_CH4</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">-47.8</span>
+</span></span></code></pre></div><ol>
+<li>Save the file</li>
+<li>The new reference gas will appear in the dropdown when you next launch the Coordinator</li>
+</ol>
+<h2 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
+<p>The Picarro G2201-i with SSIM2 module provides lab-quality isotopic measurements of discrete samples. The key to success is attention to detail: leak-free connections, proper sample handling, and careful data processing. With practice, you can achieve precision better than 0.2‰ for δ¹³C-CO₂, enabling powerful insights into carbon cycling, source partitioning, and biogeochemical processes.</p>
+<p>If you encounter issues not covered in this guide, consult the official Picarro G2201-i manual, contact Picarro support, or reach out to <a href="mailto:morgan@mor-gan.com">morgan@mor-gan.com</a>.</p>
+<hr>
+<p><em>Written in March 2026.</em></p>
+<p><em>Created by Morgan Salisbury</em></p>
+
+
+            </div>
+
+            <footer class="post-footer">
+                <ul class="post-tags">
+                </ul>
+            </footer>
+        </article>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.getElementById('toc-sidebar');
+        const mobileBar = document.getElementById('toc-mobile-bar');
+        const mobileToggle = document.getElementById('toc-mobile-toggle');
+        const mobileNav = document.getElementById('toc-mobile-nav');
+        const mobileCurrent = document.getElementById('toc-mobile-current');
+        const mobileParent = document.getElementById('toc-mobile-parent');
+
+        if (!sidebar && !mobileBar) return;
+
+        const markers = sidebar ? sidebar.querySelectorAll('.toc-marker') : [];
+        const tocLinks = sidebar ? sidebar.querySelectorAll('.toc-nav a') : [];
+        const currentLabel = document.getElementById('toc-current-label');
+        const mobileLinks = mobileBar ? mobileBar.querySelectorAll('.toc-mobile-item a') : [];
+        const headings = [];
+
+        
+        if (markers.length > 0) {
+            markers.forEach((marker, i) => {
+                const id = marker.dataset.target.slice(1);
+                const heading = document.getElementById(id);
+                const title = marker.dataset.title;
+                const level = parseInt(marker.dataset.level);
+                if (heading) {
+                    headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title, level: level });
+                }
+            });
+        } else if (mobileLinks.length > 0) {
+            mobileLinks.forEach((link, i) => {
+                const href = link.getAttribute('href');
+                const id = href.slice(1);
+                const heading = document.getElementById(id);
+                const title = link.textContent.trim();
+                const level = parseInt(link.closest('.toc-mobile-item').dataset.level);
+                if (heading) {
+                    headings.push({ element: heading, link: link, title: title, level: level });
+                }
+            });
+        }
+
+        
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function () {
+                mobileBar.classList.toggle('open');
+            });
+        }
+
+        
+        if (mobileNav) {
+            mobileNav.addEventListener('click', function (e) {
+                if (e.target.tagName === 'A') {
+                    mobileBar.classList.remove('open');
+                }
+            });
+        }
+
+        function updateActiveState() {
+            const scrollPos = window.scrollY + 150;
+            let current = headings[0];
+            let currentIndex = 0;
+
+            for (let i = 0; i < headings.length; i++) {
+                if (headings[i].element.offsetTop <= scrollPos) {
+                    current = headings[i];
+                    currentIndex = i;
+                }
+            }
+
+            
+            if (sidebar) {
+                markers.forEach(m => m.classList.remove('active'));
+                tocLinks.forEach(l => l.classList.remove('active'));
+
+                if (current) {
+                    if (current.marker) current.marker.classList.add('active');
+                    if (current.link) current.link.classList.add('active');
+
+                    if (currentLabel) {
+                        
+                        let breadcrumbs = [];
+                        let targetLevel = current.level;
+
+                        
+                        for (let j = currentIndex - 1; j >= 0; j--) {
+                            if (headings[j].level < targetLevel) {
+                                breadcrumbs.unshift(headings[j].title);
+                                targetLevel = headings[j].level;
+                            }
+                            if (targetLevel <= 2) break;
+                        }
+
+                        
+                        let html = '';
+                        if (breadcrumbs.length > 0) {
+                            html += `<span class="toc-parent-label">${breadcrumbs.join(' › ')}</span>`;
+                        }
+                        html += `<span class="toc-child-label">${current.title}</span>`;
+                        currentLabel.innerHTML = html;
+
+                        const markerRect = current.marker.getBoundingClientRect();
+                        const sidebarRect = sidebar.getBoundingClientRect();
+                        currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (breadcrumbs.length > 0 ? 18 : 10)) + 'px';
+                    }
+                }
+            }
+
+            
+            if (mobileBar && current) {
+                
+                if (scrollPos > 200) {
+                    mobileBar.classList.add('visible');
+                } else {
+                    mobileBar.classList.remove('visible');
+                    mobileBar.classList.remove('open');
+                }
+
+                
+                let breadcrumbs = [];
+                let targetLevel = current.level;
+                for (let j = currentIndex - 1; j >= 0; j--) {
+                    if (headings[j].level < targetLevel) {
+                        breadcrumbs.unshift(headings[j].title);
+                        targetLevel = headings[j].level;
+                    }
+                    if (targetLevel <= 2) break;
+                }
+
+                if (mobileCurrent) mobileCurrent.textContent = current.title;
+                if (mobileParent) mobileParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
+
+                
+                mobileLinks.forEach(l => l.classList.remove('active'));
+                const activeLink = mobileBar.querySelector(`a[href="#${current.element.id}"]`);
+                if (activeLink) activeLink.classList.add('active');
+            }
+        }
+
+        window.addEventListener('scroll', updateActiveState);
+        updateActiveState();
+    });
+</script>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 </span> · 
+
+    <span>
+        Love from Kansas · Created with Emacs
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script></body>
+
+</html>
