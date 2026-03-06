@@ -1466,7 +1466,7 @@ Press ~c~ to clear all data from the current session. You will be asked to confi
 
 #+attr_shortcode: Note
 #+begin_alert2
-This does not clear data from the EGM's internal memory, only data that you have already dumped to the app. To clear data from the EGM's internal memory, see the initialize section.
+This does not clear data from the EGM's internal memory, only data that you have already dumped to the app.
 #+end_alert2
 
 *** Quitting (~q~)

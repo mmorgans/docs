@@ -362,7 +362,7 @@ Static sampling mode guides syringe-injection sampling directly from the monitor
 Press `c` to clear all data from the current session. You will be asked to confirm before the data is cleared.
 
 {{< alert2 Note >}}
-This does not clear data from the EGM's internal memory, only data that you have already dumped to the app. To clear data from the EGM's internal memory, see the initialize section.
+This does not clear data from the EGM's internal memory, only data that you have already dumped to the app.
 {{< /alert2 >}}
 
 
