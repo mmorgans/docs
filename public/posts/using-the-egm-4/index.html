@@ -18,9 +18,9 @@
 
 Introduction
 The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in its internal memory.">
-<meta name="author" content="">
+<meta name="author" content="Morgan">
 <link rel="canonical" href="http://localhost:1313/posts/using-the-egm-4/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.dc9d8bc0b516382c12a77323c16a97d5f0e9be0bff6b463a8acbfbd83f95dcee.css" integrity="sha256-3J2LwLUWOCwSp3MjwWqX1fDpvgv/a0Y6isv72D&#43;V3O4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.34cf0f9376c1e9cd49a0d8d509d2a1c4043bffa9bcbd52ef7d6fa3c42ad71bf3.css" integrity="sha256-NM8Pk3bB6c1JoNjVCdKhxAQ7/6m8vVLvfW&#43;jxCrXG/M=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -366,7 +366,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                 <h1 class="post-title entry-hint-parent">
                     Using the EGM-4 &amp; open-egm4 software
                 </h1>
-                <div class="post-meta"><span title='2026-02-01 15:25:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>41 min</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2026-02-01 15:25:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>41 min</span>&nbsp;·&nbsp;<span>Morgan</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-egm-4.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
@@ -435,9 +435,9 @@ You already know how to open a terminal.</p>
 </div>
 <p>In your terminal window, copy and paste this line as written:</p>
 <p><strong>macOS / Linux:</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sSL https://raw.githubusercontent.com/mmorgans/open-egm4/main/install.sh | bash
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sSL https://raw.githubusercontent.com/mmorgans/open-egm4/main/install.sh | bash
 </span></span></code></pre></div><p><strong>Windows (PowerShell):</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>irm https<span style="color:#960050;background-color:#1e0010">:</span>//raw.githubusercontent.com/mmorgans/open-egm4/main/install.ps1 | iex
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>irm https<span style="color:#960050;background-color:#1e0010">:</span>//raw.githubusercontent.com/mmorgans/open-egm4/main/install.ps1 | iex
 </span></span></code></pre></div><p><strong>How to Paste in Terminal:</strong></p>
 <ul>
 <li><strong>macOS</strong>: Press <code>Cmd + V</code> (normal paste works)</li>
@@ -450,7 +450,7 @@ You already know how to open a terminal.</p>
 </div>
 <h4 id="step-3-what-you-ll-see-during-installation">Step 3: What You&rsquo;ll See During Installation<a hidden class="anchor" aria-hidden="true" href="#step-3-what-you-ll-see-during-installation">#</a></h4>
 <p>After pressing Enter, text will start scrolling down the screen. You&rsquo;ll see messages like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>[INFO] Checking prerequisites...
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>[INFO] Checking prerequisites...
 </span></span><span style="display:flex;"><span>[INFO] Installing fresh to /Users/hello/.open-egm4...
 </span></span><span style="display:flex;"><span>[INFO] Creating virtual environment...
 </span></span><span style="display:flex;"><span>[INFO] Fetching latest version and installing dependencies...
@@ -464,7 +464,7 @@ You already know how to open a terminal.</p>
 </ul>
 <h3 id="pip-installation">Pip Installation<a hidden class="anchor" aria-hidden="true" href="#pip-installation">#</a></h3>
 <p>If you&rsquo;re comfortable with Python environments:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Install via pipx (recommended for isolation)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Install via pipx (recommended for isolation)</span>
 </span></span><span style="display:flex;"><span>pipx install git+https://github.com/mmorgans/open-egm4
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># OR install in your active virtual environment</span>
@@ -492,7 +492,7 @@ You already know how to open a terminal.</p>
 <li><strong>Launch the Software:</strong></li>
 </ol>
 <p>On your computer, in the terminal, run</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>open-egm4
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>open-egm4
 </span></span></code></pre></div><ol>
 <li><strong>Select Serial Port:</strong>
 <ul>
@@ -818,7 +818,7 @@ To export only a subset of that data, use the <code>p</code> and <code>d</code> 
 <p><strong>Measurement:</strong></p>
 <ul>
 <li>The EGM will display:
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>          C 420 H14.7 T22
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>          C 420 H14.7 T22
 </span></span><span style="display:flex;"><span>          A02.11 Q0000 110
 </span></span></code></pre></div></li>
 <li><code>C</code>: Current CO₂ (ppm)</li>
@@ -1439,7 +1439,7 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
   For CFX-1/CPY-3, column G contains a flow multiplier (1 or 10) that should be applied to get the true flow rate.
 </div>
 <p>Here&rsquo;s a Python function that parses a raw 61-character record:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>Args:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>Args:
 </span></span><span style="display:flex;"><span>    raw (str): The raw serial string (e<span style="color:#f92672">.</span>g<span style="color:#f92672">.</span>, <span style="color:#e6db74">&#39;R00000...&#39;</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Returns:
@@ -1639,7 +1639,7 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
 <p>The monitor screen orchestrates real-time display by wiring the serial handler to the chart widget (<code>widgets/co2_chart.py</code>), which renders data using <a href="https://github.com/piccolomo/plotext">plotext</a> for ASCII plotting. Statistics are calculated and displayed by <code>widgets/stats.py</code>, and the channel legend is managed by <code>widgets/legend.py</code>.</p>
 <p>Export functionality converts session data to CSV format, allowing users to filter by plot number and date range before saving.</p>
 <p><strong>Data Flow:</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>+----------+     +------------+     +------------------+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>+----------+     +------------+     +------------------+
 </span></span><span style="display:flex;"><span>|  EGM-4   | --&gt; | EGM4Serial | --&gt; |     Parser       |
 </span></span><span style="display:flex;"><span>+----------+     +------------+     +------------------+
 </span></span><span style="display:flex;"><span>                                            |

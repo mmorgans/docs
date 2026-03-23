@@ -2172,7 +2172,7 @@ Before setting up the SSIM2, ensure you have:
 
 4. *Pressurized calibration gas cylinder* with known δ¹³C values and CO₂/CH₄ concentrations, with regulator set to same pressure as zero air (typically 3 psi). You'll measure this repeatedly to calibrate your samples.
 
-5. *Sample containers* with manual valves. These can be Tedlar bags, glass flasks, or any container that can be attached via 1/8" Swagelok fittings and has a manual valve to isolate it during purging.
+5. *Sample containers* with manual valves. These can be Tedlar bags, glass flasks, syringes, or any container that can be attached via 1/8" Swagelok fittings and has a manual valve to isolate it during purging.
 
 #+attr_shortcode: Note
 #+begin_alert2

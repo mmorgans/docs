@@ -13,6 +13,7 @@ markup:
     renderer:
       unsafe: true
 params:
+  author: Morgan
   defaultTheme: dark
   disableThemeToggle: false
   disableSpecial1stPost: true
