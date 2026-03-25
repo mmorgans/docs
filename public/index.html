@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="Morgan">
 <link rel="canonical" href="http://localhost:1313/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.34cf0f9376c1e9cd49a0d8d509d2a1c4043bffa9bcbd52ef7d6fa3c42ad71bf3.css" integrity="sha256-NM8Pk3bB6c1JoNjVCdKhxAQ7/6m8vVLvfW&#43;jxCrXG/M=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9f5245256819451949712af51a1635f3f0c506d23cd4ed718e8ca670466fab62.css" integrity="sha256-n1JFJWgZRRlJcSr1GhY18/DFBtI81O1xjoymcEZvq2I=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -98,19 +98,6 @@
     </nav>
 </header>
 <main class="main"> 
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Using the Picarro G2201-i with SSIM2 module
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p> This instrument is expensive. The Picarro G2201-i analyzer costs approximately $100,000. The SSIM2 module adds another $15,000-20,000. Handle with care, follow all procedures precisely, and never force connections or ignore error messages. Leaks will ruin your data. All gas connections must be leak-free. A tiny leak can contaminate samples with ambient air, rendering isotopic measurements meaningless. Always use proper Swagelok fittings and check connections carefully. The vacuum pump must ALWAYS be running when the analyzer is powered on. The Picarro’s internal cavity operates at reduced pressure. If the vacuum pump is off while the analyzer is on, pressure will build up inside the cavity, potentially damaging sensitive optical components. This is not optional—treat the vacuum pump as part of the analyzer’s power system. Introduction The Picarro G2201-i is a high-precision isotopic analyzer that measures both CO₂ and CH₄ concentrations along with their stable carbon isotope ratios (δ¹³C-CO₂ and δ¹³C-CH₄). The instrument uses Cavity Ring-Down Spectroscopy (CRDS), a laser-based technique that provides part-per-billion sensitivity and exceptional isotopic precision.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2026-03-04 12:00:00 -0600 CST'>March 4, 2026</span>&nbsp;·&nbsp;<span>23 min</span>&nbsp;·&nbsp;<span>Morgan</span></footer>
-  <a class="entry-link" aria-label="post link to Using the Picarro G2201-i with SSIM2 module" href="http://localhost:1313/posts/using-the-picarro-g2201i-with-ssim2/"></a>
-</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -247,6 +234,22 @@ Define the area or points you are interested in Filter data Convert the results 
   <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;<span>9 min</span>&nbsp;·&nbsp;<span>Morgan</span></footer>
   <a class="entry-link" aria-label="post link to Getting data from AppEEARS and NOAA" href="http://localhost:1313/posts/getting-data-from-appeears-and-noaa/"></a>
 </article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Making maps of variables with rgee
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Introduction Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.
+Dividing EVI by Precipitation In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.
+Load and initialize rgee first!
+library(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Load the Sentinel-2 image collection and calculate EVI s2_collection &lt;- ee$ImageCollection(&#34;COPERNICUS/S2&#34;)$ filterDate(&#39;2020-06-01&#39;, &#39;2020-08-31&#39;)$ filterBounds(aoi)$ map(function(image) { evi &lt;- image$expression( &#39;2.5 * ((NIR - RED) / (NIR &#43; 6 * RED - 7.5 * BLUE &#43; 1))&#39;, list(&#39;NIR&#39; = image$select(&#34;B8&#34;), &#39;RED&#39; = image$select(&#34;B4&#34;), &#39;BLUE&#39; = image$select(&#34;B2&#34;)) )$rename(&#34;EVI&#34;) return(image$addBands(evi)) }) evi_image &lt;- s2_collection$select(&#34;EVI&#34;)$mean()$clip(aoi) # Visualize EVI to ensure it&#39;s calculated correctly evi_viz &lt;- list( min = -1, max = 1, palette = c(&#34;brown&#34;, &#34;yellow&#34;, &#34;green&#34;) ) Map$setCenter(-98.35, 38.5, 6) Map$addLayer(evi_image, evi_viz, &#34;EVI&#34;) # Load the TerraClimate PPT (precipitation) dataset ppt_dataset &lt;- ee$ImageCollection(&#34;IDAHO_EPSCOR/TERRACLIMATE&#34;)$ filterDate(&#39;2020-01-01&#39;, &#39;2020-12-31&#39;)$ select(&#34;pr&#34;)$ mean()$ clip(aoi) # Visualize PPT to ensure it&#39;s loaded correctly ppt_viz &lt;- list( min = 0, max = 2000, palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;green&#34;) ) Map$addLayer(ppt_dataset, ppt_viz, &#34;Precipitation&#34;) # Ensure the datasets align perfectly for each pixel evi_resampled &lt;- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000) ppt_resampled &lt;- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000) # Divide EVI by PPT evi_ppt_ratio &lt;- evi_resampled$divide(ppt_resampled) # Define visualization parameters for the ratio evi_ppt_viz &lt;- list( min = 0, max = 0.1, palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;red&#34;) ) # Add the EVI/PPT ratio layer Map$addLayer(evi_ppt_ratio, evi_ppt_viz, &#34;EVI/PPT Ratio&#34;) Breakdown Define the AOI, the state of Kansas. aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) Load and Filter Sentinel-2 Data Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>Morgan</span></footer>
+  <a class="entry-link" aria-label="post link to Making maps of variables with rgee" href="http://localhost:1313/posts/making-maps-of-variables-with-rgee/"></a>
+</article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="next" href="http://localhost:1313/page/2/">Next&nbsp;&nbsp;»
@@ -322,6 +325,204 @@ Define the area or points you are interested in Filter data Convert the results 
         }
     })
 
+</script>
+
+<script>
+     
+    (function () {
+        const prefetched = new Set();
+        let hoverTimer = null;
+
+        function prefetchUrl(url) {
+            if (prefetched.has(url)) return;
+            prefetched.add(url);
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = url;
+            document.head.appendChild(link);
+        }
+
+        document.addEventListener('pointerenter', function (e) {
+            const anchor = e.target.closest('.post-content a[href]');
+            if (!anchor) return;
+            const href = anchor.getAttribute('href');
+            
+            if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:')) return;
+            hoverTimer = setTimeout(function () {
+                prefetchUrl(anchor.href);
+            }, 65);
+        }, true);
+
+        document.addEventListener('pointerleave', function (e) {
+            if (e.target.closest && e.target.closest('.post-content a[href]')) {
+                clearTimeout(hoverTimer);
+            }
+        }, true);
+    })();
+</script>
+
+<script>
+     
+    (function () {
+        const footnotesSection = document.querySelector('.footnotes');
+        if (!footnotesSection) return;
+
+        const isMobile = () => window.innerWidth <= 768;
+        let activePopover = null;
+        let activeBackdrop = null;
+        let activeRef = null;
+        let hoverTimer = null;
+        let openedByClick = false;
+        let dismissTimer = null;
+
+        
+        footnotesSection.classList.add('footnotes-hidden');
+
+        function getFootnoteContent(id) {
+            const fnItem = document.getElementById(id);
+            if (!fnItem) return null;
+            const clone = fnItem.cloneNode(true);
+            clone.querySelectorAll('.footnote-backref').forEach(el => el.remove());
+            return clone.innerHTML;
+        }
+
+        function dismissPopover() {
+            clearTimeout(hoverTimer);
+            clearTimeout(dismissTimer);
+
+            if (activePopover) {
+                const pop = activePopover;
+                pop.classList.remove('visible');
+                
+                setTimeout(() => { if (pop.parentNode) pop.parentNode.removeChild(pop); }, 160);
+                activePopover = null;
+            }
+            if (activeBackdrop) {
+                const bd = activeBackdrop;
+                bd.classList.remove('visible');
+                setTimeout(() => { if (bd.parentNode) bd.parentNode.removeChild(bd); }, 160);
+                activeBackdrop = null;
+            }
+            activeRef = null;
+            openedByClick = false;
+        }
+
+        function scheduleDismiss() {
+            clearTimeout(dismissTimer);
+            dismissTimer = setTimeout(dismissPopover, 300);
+        }
+
+        function cancelDismiss() {
+            clearTimeout(dismissTimer);
+        }
+
+        function showPopover(ref, viaClick) {
+            
+            if (activeRef === ref && activePopover) {
+                if (viaClick) dismissPopover();
+                return;
+            }
+
+            dismissPopover();
+
+            const href = ref.getAttribute('href');
+            if (!href) return;
+            const fnId = href.replace('#', '');
+            const content = getFootnoteContent(fnId);
+            if (!content) return;
+
+            const popover = document.createElement('div');
+            popover.className = 'footnote-popover';
+            popover.innerHTML = content;
+            activePopover = popover;
+            activeRef = ref;
+            openedByClick = viaClick;
+
+            if (isMobile()) {
+                const backdrop = document.createElement('div');
+                backdrop.className = 'footnote-backdrop';
+                document.body.appendChild(backdrop);
+                document.body.appendChild(popover);
+                activeBackdrop = backdrop;
+
+                requestAnimationFrame(() => {
+                    backdrop.classList.add('visible');
+                    popover.classList.add('visible');
+                });
+
+                backdrop.addEventListener('click', dismissPopover);
+            } else {
+                document.body.appendChild(popover);
+
+                const refRect = ref.getBoundingClientRect();
+                const popoverWidth = Math.min(420, window.innerWidth - 32);
+                let left = refRect.left + window.scrollX - 16;
+                let top = refRect.bottom + window.scrollY + 8;
+
+                if (left + popoverWidth > window.innerWidth - 16) {
+                    left = window.innerWidth - popoverWidth - 16;
+                }
+                if (left < 16) left = 16;
+
+                popover.style.left = left + 'px';
+                popover.style.top = top + 'px';
+                popover.style.maxWidth = popoverWidth + 'px';
+
+                const arrowLeft = refRect.left + window.scrollX - left + refRect.width / 2 - 6;
+                popover.style.setProperty('--arrow-pos', Math.max(12, Math.min(arrowLeft, popoverWidth - 24)) + 'px');
+
+                requestAnimationFrame(() => { popover.classList.add('visible'); });
+
+                
+                popover.addEventListener('mouseenter', cancelDismiss);
+                popover.addEventListener('mouseleave', () => { if (!openedByClick) scheduleDismiss(); });
+            }
+        }
+
+        
+        document.addEventListener('click', function (e) {
+            const ref = e.target.closest('.footnote-ref');
+            if (ref) {
+                e.preventDefault();
+                e.stopPropagation();
+                showPopover(ref, true);
+                return;
+            }
+            
+            if (activePopover && !e.target.closest('.footnote-popover')) {
+                dismissPopover();
+            }
+        });
+
+        
+        document.addEventListener('mouseenter', function (e) {
+            if (isMobile()) return;
+            const ref = e.target.closest && e.target.closest('.footnote-ref');
+            if (!ref) return;
+            if (openedByClick) return;
+            clearTimeout(hoverTimer);
+            hoverTimer = setTimeout(() => showPopover(ref, false), 200);
+        }, true);
+
+        document.addEventListener('mouseleave', function (e) {
+            const ref = e.target.closest && e.target.closest('.footnote-ref');
+            if (!ref) return;
+            clearTimeout(hoverTimer);
+            if (!openedByClick && activePopover) scheduleDismiss();
+        }, true);
+
+        
+        window.addEventListener('scroll', function () {
+            if (!isMobile() && activePopover && !openedByClick) {
+                dismissPopover();
+            }
+        });
+
+        
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') dismissPopover();
+        });
+    })();
 </script></body>
 
 </html>

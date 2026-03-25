@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="Morgan">
 <link rel="canonical" href="http://localhost:1313/tags/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.34cf0f9376c1e9cd49a0d8d509d2a1c4043bffa9bcbd52ef7d6fa3c42ad71bf3.css" integrity="sha256-NM8Pk3bB6c1JoNjVCdKhxAQ7/6m8vVLvfW&#43;jxCrXG/M=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9f5245256819451949712af51a1635f3f0c506d23cd4ed718e8ca670466fab62.css" integrity="sha256-n1JFJWgZRRlJcSr1GhY18/DFBtI81O1xjoymcEZvq2I=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -180,6 +180,199 @@
         }
     })
 
+</script>
+
+<script>
+     
+    (function () {
+        const prefetched = new Set();
+        let hoverTimer = null;
+
+        function prefetchUrl(url) {
+            if (prefetched.has(url)) return;
+            prefetched.add(url);
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = url;
+            document.head.appendChild(link);
+        }
+
+        document.addEventListener('pointerenter', function (e) {
+            const anchor = e.target.closest('.post-content a[href]');
+            if (!anchor) return;
+            const href = anchor.getAttribute('href');
+            
+            if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:')) return;
+            hoverTimer = setTimeout(function () {
+                prefetchUrl(anchor.href);
+            }, 65);
+        }, true);
+
+        document.addEventListener('pointerleave', function (e) {
+            if (e.target.closest && e.target.closest('.post-content a[href]')) {
+                clearTimeout(hoverTimer);
+            }
+        }, true);
+    })();
+</script>
+
+<script>
+     
+    (function () {
+        const footnotesSection = document.querySelector('.footnotes');
+        if (!footnotesSection) return;
+
+        const isMobile = () => window.innerWidth <= 768;
+        let activePopover = null;
+        let activeBackdrop = null;
+        let hoverTimer = null;
+
+        
+        footnotesSection.classList.add('footnotes-hidden');
+
+        function getFootnoteContent(id) {
+            const fnItem = document.getElementById(id);
+            if (!fnItem) return null;
+            const clone = fnItem.cloneNode(true);
+            
+            clone.querySelectorAll('.footnote-backref').forEach(el => el.remove());
+            return clone.innerHTML;
+        }
+
+        function dismissPopover() {
+            if (activePopover) {
+                activePopover.classList.remove('visible');
+                setTimeout(() => {
+                    if (activePopover && activePopover.parentNode) {
+                        activePopover.parentNode.removeChild(activePopover);
+                    }
+                    activePopover = null;
+                }, 150);
+            }
+            if (activeBackdrop) {
+                activeBackdrop.classList.remove('visible');
+                setTimeout(() => {
+                    if (activeBackdrop && activeBackdrop.parentNode) {
+                        activeBackdrop.parentNode.removeChild(activeBackdrop);
+                    }
+                    activeBackdrop = null;
+                }, 150);
+            }
+        }
+
+        function showPopover(ref) {
+            dismissPopover();
+
+            const href = ref.getAttribute('href');
+            if (!href) return;
+            const fnId = href.replace('#', '');
+            const content = getFootnoteContent(fnId);
+            if (!content) return;
+
+            
+            const popover = document.createElement('div');
+            popover.className = 'footnote-popover';
+            popover.innerHTML = content;
+            activePopover = popover;
+
+            if (isMobile()) {
+                
+                const backdrop = document.createElement('div');
+                backdrop.className = 'footnote-backdrop';
+                document.body.appendChild(backdrop);
+                document.body.appendChild(popover);
+                activeBackdrop = backdrop;
+
+                requestAnimationFrame(() => {
+                    backdrop.classList.add('visible');
+                    popover.classList.add('visible');
+                });
+
+                backdrop.addEventListener('click', dismissPopover);
+            } else {
+                
+                document.body.appendChild(popover);
+
+                const refRect = ref.getBoundingClientRect();
+                const popoverWidth = 420;
+                let left = refRect.left + window.scrollX - 16;
+                let top = refRect.bottom + window.scrollY + 8;
+
+                
+                if (left + popoverWidth > window.innerWidth - 16) {
+                    left = window.innerWidth - popoverWidth - 16;
+                }
+                if (left < 16) left = 16;
+
+                popover.style.left = left + 'px';
+                popover.style.top = top + 'px';
+
+                
+                const arrowLeft = refRect.left + window.scrollX - left + refRect.width / 2 - 6;
+                popover.style.setProperty('--arrow-pos', Math.max(12, Math.min(arrowLeft, popoverWidth - 24)) + 'px');
+
+                requestAnimationFrame(() => {
+                    popover.classList.add('visible');
+                });
+
+                
+                let dismissTimer = null;
+                const startDismissTimer = () => {
+                    dismissTimer = setTimeout(dismissPopover, 300);
+                };
+                const cancelDismissTimer = () => {
+                    clearTimeout(dismissTimer);
+                };
+
+                popover.addEventListener('mouseenter', cancelDismissTimer);
+                popover.addEventListener('mouseleave', startDismissTimer);
+                ref.addEventListener('mouseleave', startDismissTimer);
+                ref.addEventListener('mouseenter', cancelDismissTimer);
+            }
+        }
+
+        
+        document.addEventListener('click', function (e) {
+            const ref = e.target.closest('.footnote-ref');
+            if (!ref) {
+                
+                if (isMobile() && activePopover && !e.target.closest('.footnote-popover')) {
+                    dismissPopover();
+                }
+                return;
+            }
+            e.preventDefault();
+            showPopover(ref);
+        });
+
+        
+        document.addEventListener('mouseenter', function (e) {
+            const ref = e.target.closest && e.target.closest('.footnote-ref');
+            if (!ref || isMobile()) return;
+            clearTimeout(hoverTimer);
+            hoverTimer = setTimeout(() => showPopover(ref), 200);
+        }, true);
+
+        document.addEventListener('mouseleave', function (e) {
+            const ref = e.target.closest && e.target.closest('.footnote-ref');
+            if (!ref) return;
+            clearTimeout(hoverTimer);
+        }, true);
+
+        
+        let scrollTimer = null;
+        window.addEventListener('scroll', function () {
+            if (!isMobile() && activePopover) {
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(dismissPopover, 100);
+            }
+        });
+
+        
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') dismissPopover();
+        });
+    })();
 </script></body>
 
 </html>

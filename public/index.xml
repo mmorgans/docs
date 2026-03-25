@@ -6,25 +6,8 @@
     <description>Recent content on morgan docs</description>
     <generator>Hugo -- 0.157.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 04 Mar 2026 12:00:00 -0600</lastBuildDate>
+    <lastBuildDate>Sun, 01 Feb 2026 15:25:00 -0600</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Using the Picarro G2201-i with SSIM2 module</title>
-      <link>http://localhost:1313/posts/using-the-picarro-g2201i-with-ssim2/</link>
-      <pubDate>Wed, 04 Mar 2026 12:00:00 -0600</pubDate>
-      <guid>http://localhost:1313/posts/using-the-picarro-g2201i-with-ssim2/</guid>
-      <description>&lt;div class=&#34;alert alert-Warning&#34;&gt;
-  &lt;strong&gt;This instrument is expensive.&lt;/strong&gt; The Picarro G2201-i analyzer costs approximately $100,000. The SSIM2 module adds another $15,000-20,000. Handle with care, follow all procedures precisely, and never force connections or ignore error messages.
-&lt;/div&gt;
-&lt;div class=&#34;alert alert-Caution&#34;&gt;
-  &lt;strong&gt;Leaks will ruin your data.&lt;/strong&gt; All gas connections must be leak-free. A tiny leak can contaminate samples with ambient air, rendering isotopic measurements meaningless. Always use proper Swagelok fittings and check connections carefully.
-&lt;/div&gt;
-&lt;div class=&#34;alert alert-Warning&#34;&gt;
-  &lt;strong&gt;The vacuum pump must ALWAYS be running when the analyzer is powered on.&lt;/strong&gt; The Picarro&amp;rsquo;s internal cavity operates at reduced pressure. If the vacuum pump is off while the analyzer is on, pressure will build up inside the cavity, potentially damaging sensitive optical components. This is not optional—treat the vacuum pump as part of the analyzer&amp;rsquo;s power system.
-&lt;/div&gt;
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;The Picarro G2201-i is a high-precision isotopic analyzer that measures both CO₂ and CH₄ concentrations along with their stable carbon isotope ratios (δ¹³C-CO₂ and δ¹³C-CH₄). The instrument uses Cavity Ring-Down Spectroscopy (CRDS), a laser-based technique that provides part-per-billion sensitivity and exceptional isotopic precision.&lt;/p&gt;</description>
-    </item>
     <item>
       <title>Using the EGM-4 &amp; open-egm4 software</title>
       <link>http://localhost:1313/posts/using-the-egm-4/</link>

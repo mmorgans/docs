@@ -50,7 +50,7 @@ If you don&rsquo;t know what to use, select .kml.
 ">
 <meta name="author" content="Morgan">
 <link rel="canonical" href="http://localhost:1313/posts/creating-a-kml-from-a-project/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.34cf0f9376c1e9cd49a0d8d509d2a1c4043bffa9bcbd52ef7d6fa3c42ad71bf3.css" integrity="sha256-NM8Pk3bB6c1JoNjVCdKhxAQ7/6m8vVLvfW&#43;jxCrXG/M=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9f5245256819451949712af51a1635f3f0c506d23cd4ed718e8ca670466fab62.css" integrity="sha256-n1JFJWgZRRlJcSr1GhY18/DFBtI81O1xjoymcEZvq2I=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -500,6 +500,204 @@ If you don&rsquo;t know what to use, select .kml.
             codeblock.parentNode.appendChild(copybutton);
         }
     });
+</script>
+
+<script>
+     
+    (function () {
+        const prefetched = new Set();
+        let hoverTimer = null;
+
+        function prefetchUrl(url) {
+            if (prefetched.has(url)) return;
+            prefetched.add(url);
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = url;
+            document.head.appendChild(link);
+        }
+
+        document.addEventListener('pointerenter', function (e) {
+            const anchor = e.target.closest('.post-content a[href]');
+            if (!anchor) return;
+            const href = anchor.getAttribute('href');
+            
+            if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:')) return;
+            hoverTimer = setTimeout(function () {
+                prefetchUrl(anchor.href);
+            }, 65);
+        }, true);
+
+        document.addEventListener('pointerleave', function (e) {
+            if (e.target.closest && e.target.closest('.post-content a[href]')) {
+                clearTimeout(hoverTimer);
+            }
+        }, true);
+    })();
+</script>
+
+<script>
+     
+    (function () {
+        const footnotesSection = document.querySelector('.footnotes');
+        if (!footnotesSection) return;
+
+        const isMobile = () => window.innerWidth <= 768;
+        let activePopover = null;
+        let activeBackdrop = null;
+        let activeRef = null;
+        let hoverTimer = null;
+        let openedByClick = false;
+        let dismissTimer = null;
+
+        
+        footnotesSection.classList.add('footnotes-hidden');
+
+        function getFootnoteContent(id) {
+            const fnItem = document.getElementById(id);
+            if (!fnItem) return null;
+            const clone = fnItem.cloneNode(true);
+            clone.querySelectorAll('.footnote-backref').forEach(el => el.remove());
+            return clone.innerHTML;
+        }
+
+        function dismissPopover() {
+            clearTimeout(hoverTimer);
+            clearTimeout(dismissTimer);
+
+            if (activePopover) {
+                const pop = activePopover;
+                pop.classList.remove('visible');
+                
+                setTimeout(() => { if (pop.parentNode) pop.parentNode.removeChild(pop); }, 160);
+                activePopover = null;
+            }
+            if (activeBackdrop) {
+                const bd = activeBackdrop;
+                bd.classList.remove('visible');
+                setTimeout(() => { if (bd.parentNode) bd.parentNode.removeChild(bd); }, 160);
+                activeBackdrop = null;
+            }
+            activeRef = null;
+            openedByClick = false;
+        }
+
+        function scheduleDismiss() {
+            clearTimeout(dismissTimer);
+            dismissTimer = setTimeout(dismissPopover, 300);
+        }
+
+        function cancelDismiss() {
+            clearTimeout(dismissTimer);
+        }
+
+        function showPopover(ref, viaClick) {
+            
+            if (activeRef === ref && activePopover) {
+                if (viaClick) dismissPopover();
+                return;
+            }
+
+            dismissPopover();
+
+            const href = ref.getAttribute('href');
+            if (!href) return;
+            const fnId = href.replace('#', '');
+            const content = getFootnoteContent(fnId);
+            if (!content) return;
+
+            const popover = document.createElement('div');
+            popover.className = 'footnote-popover';
+            popover.innerHTML = content;
+            activePopover = popover;
+            activeRef = ref;
+            openedByClick = viaClick;
+
+            if (isMobile()) {
+                const backdrop = document.createElement('div');
+                backdrop.className = 'footnote-backdrop';
+                document.body.appendChild(backdrop);
+                document.body.appendChild(popover);
+                activeBackdrop = backdrop;
+
+                requestAnimationFrame(() => {
+                    backdrop.classList.add('visible');
+                    popover.classList.add('visible');
+                });
+
+                backdrop.addEventListener('click', dismissPopover);
+            } else {
+                document.body.appendChild(popover);
+
+                const refRect = ref.getBoundingClientRect();
+                const popoverWidth = Math.min(420, window.innerWidth - 32);
+                let left = refRect.left + window.scrollX - 16;
+                let top = refRect.bottom + window.scrollY + 8;
+
+                if (left + popoverWidth > window.innerWidth - 16) {
+                    left = window.innerWidth - popoverWidth - 16;
+                }
+                if (left < 16) left = 16;
+
+                popover.style.left = left + 'px';
+                popover.style.top = top + 'px';
+                popover.style.maxWidth = popoverWidth + 'px';
+
+                const arrowLeft = refRect.left + window.scrollX - left + refRect.width / 2 - 6;
+                popover.style.setProperty('--arrow-pos', Math.max(12, Math.min(arrowLeft, popoverWidth - 24)) + 'px');
+
+                requestAnimationFrame(() => { popover.classList.add('visible'); });
+
+                
+                popover.addEventListener('mouseenter', cancelDismiss);
+                popover.addEventListener('mouseleave', () => { if (!openedByClick) scheduleDismiss(); });
+            }
+        }
+
+        
+        document.addEventListener('click', function (e) {
+            const ref = e.target.closest('.footnote-ref');
+            if (ref) {
+                e.preventDefault();
+                e.stopPropagation();
+                showPopover(ref, true);
+                return;
+            }
+            
+            if (activePopover && !e.target.closest('.footnote-popover')) {
+                dismissPopover();
+            }
+        });
+
+        
+        document.addEventListener('mouseenter', function (e) {
+            if (isMobile()) return;
+            const ref = e.target.closest && e.target.closest('.footnote-ref');
+            if (!ref) return;
+            if (openedByClick) return;
+            clearTimeout(hoverTimer);
+            hoverTimer = setTimeout(() => showPopover(ref, false), 200);
+        }, true);
+
+        document.addEventListener('mouseleave', function (e) {
+            const ref = e.target.closest && e.target.closest('.footnote-ref');
+            if (!ref) return;
+            clearTimeout(hoverTimer);
+            if (!openedByClick && activePopover) scheduleDismiss();
+        }, true);
+
+        
+        window.addEventListener('scroll', function () {
+            if (!isMobile() && activePopover && !openedByClick) {
+                dismissPopover();
+            }
+        });
+
+        
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') dismissPopover();
+        });
+    })();
 </script></body>
 
 </html>

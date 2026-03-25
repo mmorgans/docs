@@ -210,6 +210,179 @@
 }
 
 /* --------------------------------------------------------------------------
+   Link Click Feedback — wave-up highlight
+   -------------------------------------------------------------------------- */
+.post-content a:not(.anchor):not(.copy-code) {
+    position: relative;
+    z-index: 1;
+}
+
+.post-content a:not(.anchor):not(.copy-code)::after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    bottom: -1px;
+    top: -1px;
+    background: var(--accent);
+    opacity: 0.15;
+    border-radius: 3px;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease-out;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.post-content a:not(.anchor):not(.copy-code):active::after {
+    transform: scaleY(1);
+    transition: transform 0.15s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .post-content a:not(.anchor):not(.copy-code)::after {
+        transition: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Footnote Popovers
+   -------------------------------------------------------------------------- */
+.footnote-popover {
+    position: absolute;
+    z-index: 300;
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    max-width: 420px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--content);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    pointer-events: auto;
+}
+
+.footnote-popover.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.footnote-popover p {
+    margin: 0;
+}
+
+.footnote-popover p + p {
+    margin-top: 0.5rem;
+}
+
+.footnote-popover a {
+    color: var(--primary);
+    box-shadow: 0 1px 0;
+}
+
+/* Arrow pointing up toward the citation */
+.footnote-popover::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: var(--arrow-pos, 20px);
+    width: 12px;
+    height: 12px;
+    background: var(--entry);
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    transform: rotate(45deg);
+}
+
+/* Hide the default endnotes section when JS is active */
+.footnotes-hidden {
+    display: none;
+}
+
+/* Footnote ref styling — make the superscript a bit more tappable */
+.post-content sup .footnote-ref {
+    padding: 2px 4px;
+    margin: 0 1px;
+    border-radius: 3px;
+    transition: background 0.15s ease;
+}
+
+.post-content sup .footnote-ref:hover {
+    background: var(--tertiary);
+}
+
+/* Mobile: bottom sheet style */
+@media (max-width: 768px) {
+    .footnote-popover {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        max-width: none;
+        max-height: 50vh;
+        border-radius: 16px 16px 0 0;
+        border-bottom: none;
+        transform: translateY(100%);
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.2);
+        padding: 1.25rem 1.5rem 2rem;
+    }
+
+    .footnote-popover.visible {
+        transform: translateY(0);
+    }
+
+    .footnote-popover::before {
+        display: none;
+    }
+
+    /* Drag handle visual */
+    .footnote-popover::after {
+        content: '';
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 36px;
+        height: 4px;
+        background: var(--border);
+        border-radius: 2px;
+    }
+}
+
+/* Backdrop for mobile */
+.footnote-backdrop {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .footnote-backdrop {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 299;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+        pointer-events: none;
+    }
+
+    .footnote-backdrop.visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+/* --------------------------------------------------------------------------
    Code blocks
    -------------------------------------------------------------------------- */
 .highlight,

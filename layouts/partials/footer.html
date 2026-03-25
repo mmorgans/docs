@@ -141,3 +141,201 @@
     });
 </script>
 {{- end }}
+
+<script>
+    /* Prefetch links on hover (65ms debounce to avoid incidental triggers) */
+    (function () {
+        const prefetched = new Set();
+        let hoverTimer = null;
+
+        function prefetchUrl(url) {
+            if (prefetched.has(url)) return;
+            prefetched.add(url);
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = url;
+            document.head.appendChild(link);
+        }
+
+        document.addEventListener('pointerenter', function (e) {
+            const anchor = e.target.closest('.post-content a[href]');
+            if (!anchor) return;
+            const href = anchor.getAttribute('href');
+            // Skip anchors, javascript:, and mailto:
+            if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:')) return;
+            hoverTimer = setTimeout(function () {
+                prefetchUrl(anchor.href);
+            }, 65);
+        }, true);
+
+        document.addEventListener('pointerleave', function (e) {
+            if (e.target.closest && e.target.closest('.post-content a[href]')) {
+                clearTimeout(hoverTimer);
+            }
+        }, true);
+    })();
+</script>
+
+<script>
+    /* Footnote Popovers — hover (desktop) / tap (mobile) */
+    (function () {
+        const footnotesSection = document.querySelector('.footnotes');
+        if (!footnotesSection) return;
+
+        const isMobile = () => window.innerWidth <= 768;
+        let activePopover = null;
+        let activeBackdrop = null;
+        let activeRef = null;
+        let hoverTimer = null;
+        let openedByClick = false;
+        let dismissTimer = null;
+
+        // Hide the endnotes section (keep in DOM for fallback)
+        footnotesSection.classList.add('footnotes-hidden');
+
+        function getFootnoteContent(id) {
+            const fnItem = document.getElementById(id);
+            if (!fnItem) return null;
+            const clone = fnItem.cloneNode(true);
+            clone.querySelectorAll('.footnote-backref').forEach(el => el.remove());
+            return clone.innerHTML;
+        }
+
+        function dismissPopover() {
+            clearTimeout(hoverTimer);
+            clearTimeout(dismissTimer);
+
+            if (activePopover) {
+                const pop = activePopover;
+                pop.classList.remove('visible');
+                // Remove after transition
+                setTimeout(() => { if (pop.parentNode) pop.parentNode.removeChild(pop); }, 160);
+                activePopover = null;
+            }
+            if (activeBackdrop) {
+                const bd = activeBackdrop;
+                bd.classList.remove('visible');
+                setTimeout(() => { if (bd.parentNode) bd.parentNode.removeChild(bd); }, 160);
+                activeBackdrop = null;
+            }
+            activeRef = null;
+            openedByClick = false;
+        }
+
+        function scheduleDismiss() {
+            clearTimeout(dismissTimer);
+            dismissTimer = setTimeout(dismissPopover, 300);
+        }
+
+        function cancelDismiss() {
+            clearTimeout(dismissTimer);
+        }
+
+        function showPopover(ref, viaClick) {
+            // If same ref is already open, toggle off on click
+            if (activeRef === ref && activePopover) {
+                if (viaClick) dismissPopover();
+                return;
+            }
+
+            dismissPopover();
+
+            const href = ref.getAttribute('href');
+            if (!href) return;
+            const fnId = href.replace('#', '');
+            const content = getFootnoteContent(fnId);
+            if (!content) return;
+
+            const popover = document.createElement('div');
+            popover.className = 'footnote-popover';
+            popover.innerHTML = content;
+            activePopover = popover;
+            activeRef = ref;
+            openedByClick = viaClick;
+
+            if (isMobile()) {
+                const backdrop = document.createElement('div');
+                backdrop.className = 'footnote-backdrop';
+                document.body.appendChild(backdrop);
+                document.body.appendChild(popover);
+                activeBackdrop = backdrop;
+
+                requestAnimationFrame(() => {
+                    backdrop.classList.add('visible');
+                    popover.classList.add('visible');
+                });
+
+                backdrop.addEventListener('click', dismissPopover);
+            } else {
+                document.body.appendChild(popover);
+
+                const refRect = ref.getBoundingClientRect();
+                const popoverWidth = Math.min(420, window.innerWidth - 32);
+                let left = refRect.left + window.scrollX - 16;
+                let top = refRect.bottom + window.scrollY + 8;
+
+                if (left + popoverWidth > window.innerWidth - 16) {
+                    left = window.innerWidth - popoverWidth - 16;
+                }
+                if (left < 16) left = 16;
+
+                popover.style.left = left + 'px';
+                popover.style.top = top + 'px';
+                popover.style.maxWidth = popoverWidth + 'px';
+
+                const arrowLeft = refRect.left + window.scrollX - left + refRect.width / 2 - 6;
+                popover.style.setProperty('--arrow-pos', Math.max(12, Math.min(arrowLeft, popoverWidth - 24)) + 'px');
+
+                requestAnimationFrame(() => { popover.classList.add('visible'); });
+
+                // Hover dismiss (only if not opened by click)
+                popover.addEventListener('mouseenter', cancelDismiss);
+                popover.addEventListener('mouseleave', () => { if (!openedByClick) scheduleDismiss(); });
+            }
+        }
+
+        // Click handler — works on both desktop and mobile
+        document.addEventListener('click', function (e) {
+            const ref = e.target.closest('.footnote-ref');
+            if (ref) {
+                e.preventDefault();
+                e.stopPropagation();
+                showPopover(ref, true);
+                return;
+            }
+            // Click outside popover dismisses it
+            if (activePopover && !e.target.closest('.footnote-popover')) {
+                dismissPopover();
+            }
+        });
+
+        // Desktop hover — only if no click-opened popover is active
+        document.addEventListener('mouseenter', function (e) {
+            if (isMobile()) return;
+            const ref = e.target.closest && e.target.closest('.footnote-ref');
+            if (!ref) return;
+            if (openedByClick) return;
+            clearTimeout(hoverTimer);
+            hoverTimer = setTimeout(() => showPopover(ref, false), 200);
+        }, true);
+
+        document.addEventListener('mouseleave', function (e) {
+            const ref = e.target.closest && e.target.closest('.footnote-ref');
+            if (!ref) return;
+            clearTimeout(hoverTimer);
+            if (!openedByClick && activePopover) scheduleDismiss();
+        }, true);
+
+        // Dismiss on scroll (desktop hover-opened only)
+        window.addEventListener('scroll', function () {
+            if (!isMobile() && activePopover && !openedByClick) {
+                dismissPopover();
+            }
+        });
+
+        // Dismiss on Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') dismissPopover();
+        });
+    })();
+</script>
