@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="dark">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Using the Field Portable Gas Analyzer (FPGA) | morgan docs</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+  Do not let water reach the sensors. If you see water in the trap, condensation in the lines, or a sudden vacuum drop that suggests a kinked or flooded intake, stop the pump immediately. Do not keep sampling a flooded well.
+
+
+  Do not run the pump against a sealed loop. In the one-port workflow, valve 6 can close both outlet paths. Once valve 6 is moved into that sealed position, the pump must already be off.
+
+
+  This guide is for the current Kirk lab FPGA build. The overall design comes from Brecheisen et al. 2019, but the workflows here reflect the present lab units and protocol, including one-port sampling, direct injection through valve 2, and a dedicated backflush mode.
+
+Introduction
+The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil gas to the surface, measuring O2 and CO2, and collecting samples when needed for later lab analysis. It was developed as a lighter and less expensive alternative to commercial dual-gas field analyzers, while still being robust enough for repeated work at depth and in remote field sites.">
+<meta name="author" content="Morgan Salisbury">
+<link rel="canonical" href="http://localhost:1313/posts/using-the-field-portable-gas-analyzer/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f556c9f1698d000578e4f6ffd9189a798c3c839a1c72e4ad0852e74f80372745.css" integrity="sha256-9VbJ8WmNAAV45Pb/2RiaeYw8g5occuStCFLnT4A3J0U=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/using-the-field-portable-gas-analyzer/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+
+
+<meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A1D1B" media="(prefers-color-scheme: dark)">
+
+
+<meta name="color-scheme" content="light dark">
+
+
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/search/" title="search (Alt &#43; /)" accesskey=/>
+                    <span>search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"><div class="post-wrapper post-wrapper-fpga">
+        <aside class="toc-sidebar" id="toc-sidebar" aria-label="On this page">
+            <button class="toc-sidebar-toggle" id="toc-sidebar-toggle" type="button" aria-expanded="false"
+                aria-controls="toc-nav" aria-label="Toggle table of contents">
+                <span class="toc-sidebar-kicker">On This Page</span>
+                <span class="toc-current-label">
+                    <span class="toc-current-parent" id="toc-current-parent"></span>
+                    <span class="toc-current-heading" id="toc-current-label">Contents</span>
+                </span>
+            </button>
+            <div class="toc-progress" aria-hidden="true"><span class="toc-marker" data-target="#introduction" data-level="2"
+                        data-state="" data-title="Introduction"></span><span class="toc-marker" data-target="#what-the-fpga-measures" data-level="2"
+                        data-state="" data-title="What the FPGA Measures"></span><span class="toc-marker" data-target="#prerequisites" data-level="2"
+                        data-state="" data-title="Prerequisites"></span><span class="toc-marker" data-target="#hardware-overview" data-level="2"
+                        data-state="" data-title="Hardware Overview"></span><span class="toc-marker" data-target="#valve-map-and-flow-paths" data-level="2"
+                        data-state="" data-title="Valve Map and Flow Paths"></span><span class="toc-marker" data-target="#safety-notes" data-level="2"
+                        data-state="" data-title="Safety Notes"></span><span class="toc-marker" data-target="#reading-the-measurements" data-level="2"
+                        data-state="" data-title="Reading the Measurements"></span><span class="toc-marker" data-target="#o" data-level="3"
+                        data-state="" data-title="O2"></span><span class="toc-marker" data-target="#co" data-level="3"
+                        data-state="" data-title="CO2"></span><span class="toc-marker" data-target="#calculating-arq" data-level="3"
+                        data-state="" data-title="Calculating ARQ"></span><span class="toc-marker" data-target="#startup-and-ambient-check" data-level="2"
+                        data-state="" data-title="Startup and Ambient Check"></span><span class="toc-marker" data-target="#field-workflows" data-level="2"
+                        data-state="" data-title="Field Workflows"></span><span class="toc-marker" data-target="#workflow-1-two-port-buried-gas-wells" data-level="3"
+                        data-state="" data-title="Workflow 1: Two-Port Buried Gas Wells"></span><span class="toc-marker" data-target="#collecting-a-sample-for-later-lab-analysis" data-level="4"
+                        data-state="" data-title="Collecting a sample for later lab analysis"></span><span class="toc-marker" data-target="#workflow-2-one-port-wells-or-tubes" data-level="3"
+                        data-state="" data-title="Workflow 2: One-Port Wells or Tubes"></span><span class="toc-marker" data-target="#workflow-3-syringe-or-gas-bag-injection" data-level="3"
+                        data-state="" data-title="Workflow 3: Syringe or Gas-Bag Injection"></span><span class="toc-marker" data-target="#workflow-4-backflushing-moisture-from-the-lines" data-level="3"
+                        data-state="" data-title="Workflow 4: Backflushing Moisture from the Lines"></span><span class="toc-marker" data-target="#performance-and-limits" data-level="2"
+                        data-state="" data-title="Performance and Limits"></span><span class="toc-marker" data-target="#troubleshooting-and-maintenance" data-level="2"
+                        data-state="" data-title="Troubleshooting &amp; Maintenance"></span><span class="toc-marker" data-target="#after-each-session" data-level="2"
+                        data-state="" data-title="After Each Session"></span><span class="toc-marker" data-target="#appendix-quick-reference" data-level="2"
+                        data-state="" data-title="Appendix: Quick Reference"></span><span class="toc-marker" data-target="#before-leaving-the-lab" data-level="3"
+                        data-state="" data-title="Before Leaving the Lab"></span><span class="toc-marker" data-target="#at-the-field-site--before-first-sample" data-level="3"
+                        data-state="" data-title="At the Field Site (before first sample)"></span><span class="toc-marker" data-target="#at-each-sampling-point" data-level="3"
+                        data-state="" data-title="At Each Sampling Point"></span><span class="toc-marker" data-target="#data-recording" data-level="3"
+                        data-state="" data-title="Data Recording"></span><span class="toc-marker" data-target="#ambient-benchmarks-for-the-current-build" data-level="3"
+                        data-state="" data-title="Ambient Benchmarks for the Current Build"></span><span class="toc-marker" data-target="#current-build-reference" data-level="3"
+                        data-state="" data-title="Current Build Reference"></span><span class="toc-marker" data-target="#conclusion" data-level="2"
+                        data-state="" data-title="Conclusion"></span></div>
+            <nav class="toc-nav" id="toc-nav" aria-label="On this page navigation">
+                <div class="toc-title">Contents</div><ul>
+                    <li>
+                        <a href="#introduction" data-state="" aria-label="Introduction">Introduction</a></li>
+                    <li>
+                        <a href="#what-the-fpga-measures" data-state="" aria-label="What the FPGA Measures">What the FPGA Measures</a></li>
+                    <li>
+                        <a href="#prerequisites" data-state="" aria-label="Prerequisites">Prerequisites</a></li>
+                    <li>
+                        <a href="#hardware-overview" data-state="" aria-label="Hardware Overview">Hardware Overview</a></li>
+                    <li>
+                        <a href="#valve-map-and-flow-paths" data-state="" aria-label="Valve Map and Flow Paths">Valve Map and Flow Paths</a></li>
+                    <li>
+                        <a href="#safety-notes" data-state="" aria-label="Safety Notes">Safety Notes</a></li>
+                    <li>
+                        <a href="#reading-the-measurements" data-state="" aria-label="Reading the Measurements">Reading the Measurements</a><ul>
+                    <li>
+                        <a href="#o" data-state="" aria-label="O2">O2</a></li>
+                    <li>
+                        <a href="#co" data-state="" aria-label="CO2">CO2</a></li>
+                    <li>
+                        <a href="#calculating-arq" data-state="" aria-label="Calculating ARQ">Calculating ARQ</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#startup-and-ambient-check" data-state="" aria-label="Startup and Ambient Check">Startup and Ambient Check</a></li>
+                    <li>
+                        <a href="#field-workflows" data-state="" aria-label="Field Workflows">Field Workflows</a><ul>
+                    <li>
+                        <a href="#workflow-1-two-port-buried-gas-wells" data-state="" aria-label="Workflow 1: Two-Port Buried Gas Wells">Workflow 1: Two-Port Buried Gas Wells</a><ul>
+                    <li>
+                        <a href="#collecting-a-sample-for-later-lab-analysis" data-state="" aria-label="Collecting a sample for later lab analysis">Collecting a sample for later lab analysis</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#workflow-2-one-port-wells-or-tubes" data-state="" aria-label="Workflow 2: One-Port Wells or Tubes">Workflow 2: One-Port Wells or Tubes</a></li>
+                    <li>
+                        <a href="#workflow-3-syringe-or-gas-bag-injection" data-state="" aria-label="Workflow 3: Syringe or Gas-Bag Injection">Workflow 3: Syringe or Gas-Bag Injection</a></li>
+                    <li>
+                        <a href="#workflow-4-backflushing-moisture-from-the-lines" data-state="" aria-label="Workflow 4: Backflushing Moisture from the Lines">Workflow 4: Backflushing Moisture from the Lines</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#performance-and-limits" data-state="" aria-label="Performance and Limits">Performance and Limits</a></li>
+                    <li>
+                        <a href="#troubleshooting-and-maintenance" data-state="" aria-label="Troubleshooting &amp; Maintenance">Troubleshooting &amp; Maintenance</a></li>
+                    <li>
+                        <a href="#after-each-session" data-state="" aria-label="After Each Session">After Each Session</a></li>
+                    <li>
+                        <a href="#appendix-quick-reference" data-state="" aria-label="Appendix: Quick Reference">Appendix: Quick Reference</a><ul>
+                    <li>
+                        <a href="#before-leaving-the-lab" data-state="" aria-label="Before Leaving the Lab">Before Leaving the Lab</a></li>
+                    <li>
+                        <a href="#at-the-field-site--before-first-sample" data-state="" aria-label="At the Field Site (before first sample)">At the Field Site (before first sample)</a></li>
+                    <li>
+                        <a href="#at-each-sampling-point" data-state="" aria-label="At Each Sampling Point">At Each Sampling Point</a></li>
+                    <li>
+                        <a href="#data-recording" data-state="" aria-label="Data Recording">Data Recording</a></li>
+                    <li>
+                        <a href="#ambient-benchmarks-for-the-current-build" data-state="" aria-label="Ambient Benchmarks for the Current Build">Ambient Benchmarks for the Current Build</a></li>
+                    <li>
+                        <a href="#current-build-reference" data-state="" aria-label="Current Build Reference">Current Build Reference</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#conclusion" data-state="" aria-label="Conclusion">Conclusion</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        
+        <div class="toc-mobile-bar" id="toc-mobile-bar">
+            <button class="toc-mobile-toggle" id="toc-mobile-toggle" type="button" aria-expanded="false"
+                aria-controls="toc-mobile-nav" aria-label="Toggle on-page contents">
+                <span class="toc-mobile-label">
+                    <span class="toc-mobile-parent" id="toc-mobile-parent"></span>
+                    <span class="toc-mobile-current" id="toc-mobile-current">Contents</span>
+                </span>
+                <svg class="toc-mobile-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6" />
+                </svg>
+            </button>
+            <nav class="toc-mobile-nav" id="toc-mobile-nav" aria-label="On this page navigation">
+                <ul><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#introduction" data-state="">Introduction</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#what-the-fpga-measures" data-state="">What the FPGA Measures</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#prerequisites" data-state="">Prerequisites</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#hardware-overview" data-state="">Hardware Overview</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#valve-map-and-flow-paths" data-state="">Valve Map and Flow Paths</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#safety-notes" data-state="">Safety Notes</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#reading-the-measurements" data-state="">Reading the Measurements</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#o" data-state="">O<sub>2</sub></a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#co" data-state="">CO<sub>2</sub></a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#calculating-arq" data-state="">Calculating ARQ</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#startup-and-ambient-check" data-state="">Startup and Ambient Check</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#field-workflows" data-state="">Field Workflows</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#workflow-1-two-port-buried-gas-wells" data-state="">Workflow 1: Two-Port Buried Gas Wells</a>
+                        </li><li class="toc-mobile-item level-4" data-level="4">
+                            <a href="#collecting-a-sample-for-later-lab-analysis" data-state="">Collecting a sample for later lab analysis</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#workflow-2-one-port-wells-or-tubes" data-state="">Workflow 2: One-Port Wells or Tubes</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#workflow-3-syringe-or-gas-bag-injection" data-state="">Workflow 3: Syringe or Gas-Bag Injection</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#workflow-4-backflushing-moisture-from-the-lines" data-state="">Workflow 4: Backflushing Moisture from the Lines</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#performance-and-limits" data-state="">Performance and Limits</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#troubleshooting-and-maintenance" data-state="">Troubleshooting &amp; Maintenance</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#after-each-session" data-state="">After Each Session</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#appendix-quick-reference" data-state="">Appendix: Quick Reference</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#before-leaving-the-lab" data-state="">Before Leaving the Lab</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#at-the-field-site--before-first-sample" data-state="">At the Field Site (before first sample)</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#at-each-sampling-point" data-state="">At Each Sampling Point</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#data-recording" data-state="">Data Recording</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#ambient-benchmarks-for-the-current-build" data-state="">Ambient Benchmarks for the Current Build</a>
+                        </li><li class="toc-mobile-item level-3" data-level="3">
+                            <a href="#current-build-reference" data-state="">Current Build Reference</a>
+                        </li><li class="toc-mobile-item level-2" data-level="2">
+                            <a href="#conclusion" data-state="">Conclusion</a>
+                        </li></ul>
+            </nav>
+        </div><aside class="fpga-card-shell fpga-card-shell--sidebar" aria-label="Field Portable Gas Analyzer guide"><figure class="fpga-card" data-fpga-card data-mode="normalFlow">
+  <figcaption class="fpga-card-header">
+    <p class="fpga-card-kicker" data-fpga-role="kicker">System</p>
+    <p class="fpga-card-title" data-fpga-role="title">Normal Flow Path</p>
+    <p class="fpga-card-summary" data-fpga-role="summary">
+      Read the FPGA as a flow path first, then choose the workflow that matches the sample source.
+    </p>
+  </figcaption>
+
+  <div class="fpga-card-flow">
+    <span class="fpga-card-flow-label">Flow now</span>
+    <p class="fpga-card-flow-text" data-fpga-role="flow">
+      Black intake to trap to gauge to pump to valve 4 and the sensors, then valve 6 decides the outlet.
+    </p>
+  </div>
+
+  <div class="fpga-card-checkpoint">
+    <span class="fpga-card-checkpoint-label" data-fpga-role="checkpoint-label">Hard stops</span>
+    <p class="fpga-card-checkpoint-value" data-fpga-role="checkpoint">
+      Water upstream of the sensors means stop the pump. A sealed loop with the pump on means stop.
+    </p>
+  </div>
+
+  <div class="fpga-card-diagram" aria-hidden="true">
+    <svg class="fpga-diagram" viewBox="0 0 320 250" focusable="false">
+      <path class="fpga-diagram-path" data-fpga-path="intake" d="M28 126H108" />
+      <path class="fpga-diagram-path" data-fpga-path="pre-pump" d="M108 126H170" />
+      <path class="fpga-diagram-path" data-fpga-path="post-pump" d="M194 126H224" />
+      <path class="fpga-diagram-path" data-fpga-path="sensor" d="M224 126H290" />
+      <path class="fpga-diagram-path" data-fpga-path="return" d="M290 126V56H308" />
+      <path class="fpga-diagram-path" data-fpga-path="free-air" d="M290 126V196H308" />
+      <path class="fpga-diagram-path" data-fpga-path="injection" d="M170 196V126" />
+      <path class="fpga-diagram-path" data-fpga-path="sample" d="M224 126V56" />
+
+      <circle class="fpga-node" data-fpga-node="intake" cx="28" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="trap" cx="76" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="gauge" cx="108" cy="126" r="6" />
+      <rect class="fpga-pump" data-fpga-node="pump" x="170" y="114" width="24" height="24" rx="5" />
+      <circle class="fpga-node" data-fpga-node="v4" cx="224" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="co2" cx="248" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="o2" cx="268" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="check" cx="280" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="v6" cx="290" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="return-port" cx="308" cy="56" r="6" />
+      <circle class="fpga-node" data-fpga-node="free-air-port" cx="308" cy="196" r="6" />
+      <circle class="fpga-node" data-fpga-node="inject-port" cx="170" cy="196" r="6" />
+      <circle class="fpga-node" data-fpga-node="sample-port" cx="224" cy="56" r="6" />
+
+      <text class="fpga-label" x="24" y="108">Black intake</text>
+      <text class="fpga-label" x="62" y="108">Trap</text>
+      <text class="fpga-label" x="96" y="108">Gauge</text>
+      <text class="fpga-label" x="166" y="108">Pump</text>
+      <text class="fpga-label" x="213" y="108">V4</text>
+      <text class="fpga-label" x="238" y="108">CO2</text>
+      <text class="fpga-label" x="260" y="108">O2</text>
+      <text class="fpga-label" x="274" y="108">V6</text>
+      <text class="fpga-label" x="270" y="42">White return</text>
+      <text class="fpga-label" x="262" y="220">Free air</text>
+      <text class="fpga-label" x="149" y="220">V2 inject</text>
+      <text class="fpga-label" x="204" y="42">V4 sample</text>
+
+      <text class="fpga-direction fpga-direction-forward" x="108" y="148">forward flow</text>
+      <text class="fpga-direction fpga-direction-reverse" x="102" y="148">reverse purge</text>
+
+      <g class="fpga-sealed-indicator" aria-hidden="true">
+        <rect x="246" y="14" width="62" height="22" rx="11" />
+        <text x="277" y="29">loop sealed</text>
+      </g>
+    </svg>
+  </div>
+
+  <dl class="fpga-card-grid">
+    <div class="fpga-card-row">
+      <dt>Goal</dt>
+      <dd data-fpga-role="goal">Orient yourself before changing any valves.</dd>
+    </div>
+    <div class="fpga-card-row">
+      <dt>Set</dt>
+      <dd data-fpga-role="set">Know what valve 2, valve 4, and valve 6 will do before the run starts.</dd>
+    </div>
+    <div class="fpga-card-row">
+      <dt>Pump</dt>
+      <dd data-fpga-role="pump">Use only as needed for baseline or sample movement.</dd>
+    </div>
+    <div class="fpga-card-row">
+      <dt>Record</dt>
+      <dd data-fpga-role="record">Record ambient checks and sample extrema once the path is correct.</dd>
+    </div>
+    <div class="fpga-card-row fpga-card-row--warning">
+      <dt>Stop if</dt>
+      <dd data-fpga-role="stop">Water appears or the next valve move is unclear.</dd>
+    </div>
+  </dl>
+
+  <div class="fpga-card-hard-stops">
+    <p class="fpga-card-hard-stop">
+      <strong>Water upstream:</strong> stop the pump and clear the line before trusting any reading.
+    </p>
+    <p class="fpga-card-hard-stop">
+      <strong>Loop sealed:</strong> valve 6 can trap gas, so the pump must already be off first.
+    </p>
+  </div>
+</figure>
+</aside><script type="application/json" id="fpga-sidebar-config">{"ambientBaseline":{"checkpoint":"O2 should be about 20.95-21 percent. Outdoor CO2 is often about 40-45 mV on the current units when 1 V equals 1 percent CO2.","checkpointLabel":"Baseline target","flow":"Ambient air moves through the full analyzer and out to free air while the sensors stabilize.","goal":"Start from a known baseline before attaching any sample source.","kicker":"Startup","nodes":["intake","trap","gauge","pump","v4","co2","o2","check","v6","free-air-port"],"paths":["intake","pre-pump","post-pump","sensor","free-air"],"pump":"On for about 1 minute in ambient air.","record":"Ambient O2, ambient CO2 baseline, and whether the trap and gauge look normal.","reverse":false,"sealed":false,"set":"V1-V5 on the normal path, V6 to free air, and nothing attached to the intake or white return.","stop":"The trap is wet, the gauge pulls hard negative, or O2 refuses to settle near ambient.","summary":"Before every run, reset to normal flow, attach nothing, and let ambient air move through the full analyzer path.","title":"Baseline in Ambient Air"},"directInjection":{"checkpoint":"Good for standards, incubation jars, syringes, and gas bags that are not attached as buried wells.","checkpointLabel":"Use case","flow":"Valve 2 luer port to the pump, through the sensors, then out to free air.","goal":"Read a discrete sample directly without using the black intake line.","kicker":"Workflow 3","nodes":["inject-port","pump","v4","co2","o2","check","v6","free-air-port"],"paths":["injection","post-pump","sensor","free-air"],"pump":"On while drawing the sample through valve 2.","record":"CO2 peak and O2 low point within about 1 minute. Near-ambient samples may need timing set by standards.","reverse":false,"sealed":false,"set":"Open the valve 2 luer port, empty the sample fully, then return V2 to normal before disconnecting.","stop":"Valve 2 is still open after the syringe or bag is removed.","summary":"For syringes, standards, incubation headspaces, or gas bags, open valve 2, pull the sample through the analyzer, then close valve 2 again.","title":"Inject a Discrete Sample Through Valve 2"},"fieldChecklist":{"checkpoint":"Reset valves, ambient baseline, sample, note the CO2 high point and O2 low point, and reset again before moving on.","checkpointLabel":"Quick routine","flow":"Good runs start and end in the normal through-flow path.","goal":"Leave each site with a clean path and a complete note of what happened.","kicker":"Quick Reference","nodes":["intake","trap","gauge","pump","v4","co2","o2","check","v6","free-air-port"],"paths":["intake","pre-pump","post-pump","sensor","free-air"],"pump":"On for ambient baseline and sampling, off for sealed or reading phases.","record":"Ambient check, sample ID, CO2 high point, O2 low point, and any water or pressure anomalies.","reverse":false,"sealed":false,"set":"Return the valves to normal through-flow before the next well, bag, or lab standard.","stop":"You are about to move on without a baseline check or without resetting the valves.","summary":"The safest habit stays the same at every site: reset the valves, baseline in ambient air, run the sample, record the sample extrema, then reset again.","title":"Reset, Baseline, Then Sample"},"filledLoopSample":{"checkpoint":"Only sample after the loop is already filled with soil gas, then return valve 4 to normal before you measure again.","checkpointLabel":"Timing","flow":"Gas already in the filled loop is diverted at valve 4 into the sample port instead of continuing to the CO2 path.","goal":"Pull a later-lab sample from gas already inside the loop.","kicker":"Workflow 1 Sample","nodes":["intake","trap","gauge","pump","v4","sample-port"],"paths":["intake","pre-pump","post-pump","sample"],"pump":"Briefly on only while filling the bag or syringe.","record":"Label the sample source and restore valve 4 to the sensor path before disconnecting.","reverse":false,"sealed":false,"set":"Attach to the valve 4 luer port, then turn V4 to the sample position. This closes the path to the CO2 sensor during collection.","stop":"Valve 4 is still on the sample branch when you go back to measuring.","summary":"Once a two-port loop is already full of soil gas, valve 4 can divert that gas into a bag or syringe without continuing through the CO2 sensor.","title":"Collect a Bag from the Filled Loop"},"interpretReadings":{"checkpoint":"If 1 volt equals 1 percent CO2, then 1 millivolt equals 10 ppm and 43 millivolts is about 430 ppm.","checkpointLabel":"Current build","flow":"The sample is already in place across the sensors while you read O2 directly and convert CO2 from voltage.","goal":"Convert the sample extrema correctly and treat subtle departures from ambient with caution.","kicker":"Read and Convert","nodes":["co2","o2"],"paths":["sensor"],"pump":"Usually off while you record the CO2 high point and O2 low point.","record":"O2 direct in percent. CO2 from voltage using the scaling for your unit.","reverse":false,"sealed":false,"set":"No new valve move here. Hold the sample state steady while you read.","stop":"You are assuming the wrong CO2 scaling or over-trusting ARQ near ambient.","summary":"Once the sample is in the analyzer, focus on the sample extrema, the unit-specific CO2 scaling, and the limits of near-ambient interpretation.","title":"Convert and Interpret Readings"},"normalFlow":{"checkpoint":"Water upstream of the sensors means stop the pump. A sealed loop with the pump on means stop.","checkpointLabel":"Hard stops","flow":"Black intake to trap to gauge to pump to valve 4, through CO2 and O2, then out through valve 6.","goal":"Orient yourself before sampling or moving a valve.","kicker":"System","nodes":["intake","trap","gauge","pump","v4","co2","o2","check","v6","free-air-port"],"paths":["intake","pre-pump","post-pump","sensor","free-air"],"pump":"Use as needed for ambient baseline or for moving a sample.","record":"Nothing yet. This state is for understanding the path.","reverse":false,"sealed":false,"set":"Normal flow is the base state. Valve 2 injects, valve 4 samples, and valve 6 decides free air, white return, or sealed loop.","stop":"The trap is wet, the white return port is damaged, or you cannot say where gas will go next.","summary":"Read the FPGA as a flow path first: intake, trap, gauge, pump, valve 4, sensors, then valve 6 picks the outlet.","title":"Normal Flow Path"},"onePortCapture":{"checkpoint":"time (seconds) ~= sample volume (liters) / 17.2 * 60","checkpointLabel":"Timing formula","flow":"Black intake through the analyzer path, then valve 6 closes the loop so the sample stays in place for the reading.","goal":"Capture a single-opening sample without over-pulling from the surrounding soil volume.","kicker":"Workflow 2","nodes":["intake","trap","gauge","pump","v4","co2","o2","check","v6"],"paths":["intake","pre-pump","post-pump","sensor"],"pump":"On only long enough to fill the analyzer path. Off before sealing.","record":"Maximum CO2 and minimum O2 within about 1 minute after sealing.","reverse":false,"sealed":true,"set":"Estimate the fill time, then move V6 to the sealed position only after the pump is off.","stop":"Valve 6 is sealing the loop while the pump is still running.","summary":"One-port sampling is timing-sensitive. Pull just long enough to fill the analyzer path, stop the pump, then move valve 6 into the sealed position.","title":"One-Port Well: Pull, Stop, Then Seal"},"symptomChecks":{"checkpoint":"About -20 kPa is a useful blockage warning from the original paper.","checkpointLabel":"Common threshold","flow":"Most failures show up as water, strong vacuum, or a baseline that refuses to recover.","goal":"Use physical symptoms to decide whether to stop, clear the path, or reset.","kicker":"Troubleshooting","nodes":["intake","trap","gauge","pump","co2","o2"],"paths":["intake","pre-pump","sensor"],"pump":"Off if water appears or the gauge drops hard negative.","record":"Note water, vacuum behavior, and whether ambient baseline returns after the run.","reverse":false,"sealed":false,"set":"Return to normal flow before troubleshooting unless you are actively backflushing.","stop":"The gauge nears -20 kPa, water is visible, or the system will not recover to ambient.","summary":"The trap, pressure gauge, and baseline behavior catch most bad runs before the numbers do.","title":"Stop Conditions and Fixes"},"twoPortLoop":{"checkpoint":"Typical flush is about 1 liter, often 30-45 seconds for a normal buried well.","checkpointLabel":"Key number","flow":"First flush through free air, then switch valve 6 so the same path returns through the white return port.","goal":"Fill the analyzer with soil gas, then briefly close the loop and read the CO2 high point with the matching O2 low point.","kicker":"Workflow 1","nodes":["intake","trap","gauge","pump","v4","co2","o2","check","v6","return-port","free-air-port"],"paths":["intake","pre-pump","post-pump","sensor","return","free-air"],"pump":"On for the flush, then off while you record the sample extrema within about 1 minute.","record":"Maximum CO2 and minimum O2 after the pump stops. Keep recirculation brief.","reverse":false,"sealed":false,"set":"Start with V6 to free air for the flush. After the line is cleared, turn V6 to the white return port.","stop":"The trap wets up, the gauge suggests blockage, or the white return line is kinked.","summary":"Two-port sampling has two phases: flush about 1 liter to free air, then switch valve 6 to the white return and read the sample extrema after the pump stops.","title":"Two-Port Well: Flush, Loop, Read CO2 High and O2 Low"},"valveJobs":{"checkpoint":"V2 injects or admits free air for backflush. V4 diverts gas to a bag. V6 switches between free air, white return, and a sealed loop.","checkpointLabel":"Valve focus","flow":"The important branch points are valve 2 at the pump inlet, valve 4 before CO2, and valve 6 after the sensors.","goal":"Memorize the branch points before touching the case in the field.","kicker":"Valve Map","nodes":["trap","gauge","pump","v4","co2","o2","check","v6","return-port","free-air-port","inject-port","sample-port"],"paths":["intake","pre-pump","post-pump","sensor","return","free-air","injection","sample"],"pump":"Off while you are checking paths.","record":"Confirm the workflow and expected outlet before attaching a sample source.","reverse":false,"sealed":false,"set":"Keep the pump off while learning or reconfiguring. Match each valve move to a specific workflow.","stop":"You cannot predict the next path opening or which valve is creating the branch.","summary":"The usable mental map is simple: valve 1 and valve 3 support backflush, valve 2 injects, valve 4 collects a sample, and valve 6 chooses the outlet.","title":"What Each Valve Changes"},"waterRecovery":{"checkpoint":"Point the black intake away from people, electronics, notebooks, and the open case before you pulse the pump.","checkpointLabel":"Hard stop","flow":"Free air enters at valve 2 and is pushed backward through the gauge, trap, and black intake line.","goal":"Push condensation or water back out of the plumbing.","kicker":"Workflow 4","nodes":["inject-port","pump","gauge","trap","intake"],"paths":["injection","pre-pump","intake"],"pump":"Brief reverse purge only.","record":"Confirm the trap and lines are clear, then return V1-V3 to normal before the next sample.","reverse":true,"sealed":false,"set":"Pump off first. Turn V3 toward the evacuation line, V1 toward the pressure gauge, and V2 toward the pressure gauge so the free-air intake is open.","stop":"Water may have reached a sensor housing or spray is heading toward you.","summary":"Backflush is a recovery mode, not a sampling mode. Turn the pump off, set valves 1 to 3 for reverse purge, and push free air backward through the wet line.","title":"Clear Water from the Lines"},"workflowChoice":{"checkpoint":"Set the path first, then attach the source. Most bad runs begin when the mode changes halfway through the sample.","checkpointLabel":"Best practice","flow":"Every workflow is the same core analyzer path with one branch changed at the inlet, valve 4, or valve 6.","goal":"Pick the workflow before any gas starts moving.","kicker":"Field Workflows","nodes":["pump","v4","co2","o2","check","v6","return-port","free-air-port","inject-port","sample-port"],"paths":["intake","pre-pump","post-pump","sensor","return","free-air","injection","sample"],"pump":"Depends on workflow, but keep it off while reconfiguring.","record":"Have the timing or flush target in mind before you start.","reverse":false,"sealed":false,"set":"Know whether the outlet should end in free air, the white return, a sample bag, or a sealed loop.","stop":"You are improvising path changes while a sample is already in motion.","summary":"The safest habit is deciding on the mode before touching a valve: two-port, one-port, direct injection, or backflush.","title":"Choose the Mode First"}}</script>
+
+
+        <article class="post-single">
+            <header class="post-header">
+                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <h1 class="post-title entry-hint-parent">
+                    Using the Field Portable Gas Analyzer (FPGA)
+                </h1>
+                <div class="post-meta"><span title='2026-03-29 10:30:00 -0500 CDT'>March 29, 2026</span>&nbsp;·&nbsp;<span>23 min</span>&nbsp;·&nbsp;<span>Morgan Salisbury</span>&nbsp;|&nbsp;<span>
+    <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-field-portable-gas-analyzer.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
+</span>
+
+</div>
+            </header> <details class="fpga-card-shell fpga-card-shell--inline" open>
+  <summary class="fpga-card-shell-summary">
+    <span class="fpga-card-shell-summary-title">Live FPGA guide</span>
+    <span class="fpga-card-shell-summary-note">Updates as you scroll</span>
+  </summary>
+  <div class="fpga-card-shell-body"><figure class="fpga-card" data-fpga-card data-mode="normalFlow">
+  <figcaption class="fpga-card-header">
+    <p class="fpga-card-kicker" data-fpga-role="kicker">System</p>
+    <p class="fpga-card-title" data-fpga-role="title">Normal Flow Path</p>
+    <p class="fpga-card-summary" data-fpga-role="summary">
+      Read the FPGA as a flow path first, then choose the workflow that matches the sample source.
+    </p>
+  </figcaption>
+
+  <div class="fpga-card-flow">
+    <span class="fpga-card-flow-label">Flow now</span>
+    <p class="fpga-card-flow-text" data-fpga-role="flow">
+      Black intake to trap to gauge to pump to valve 4 and the sensors, then valve 6 decides the outlet.
+    </p>
+  </div>
+
+  <div class="fpga-card-checkpoint">
+    <span class="fpga-card-checkpoint-label" data-fpga-role="checkpoint-label">Hard stops</span>
+    <p class="fpga-card-checkpoint-value" data-fpga-role="checkpoint">
+      Water upstream of the sensors means stop the pump. A sealed loop with the pump on means stop.
+    </p>
+  </div>
+
+  <div class="fpga-card-diagram" aria-hidden="true">
+    <svg class="fpga-diagram" viewBox="0 0 320 250" focusable="false">
+      <path class="fpga-diagram-path" data-fpga-path="intake" d="M28 126H108" />
+      <path class="fpga-diagram-path" data-fpga-path="pre-pump" d="M108 126H170" />
+      <path class="fpga-diagram-path" data-fpga-path="post-pump" d="M194 126H224" />
+      <path class="fpga-diagram-path" data-fpga-path="sensor" d="M224 126H290" />
+      <path class="fpga-diagram-path" data-fpga-path="return" d="M290 126V56H308" />
+      <path class="fpga-diagram-path" data-fpga-path="free-air" d="M290 126V196H308" />
+      <path class="fpga-diagram-path" data-fpga-path="injection" d="M170 196V126" />
+      <path class="fpga-diagram-path" data-fpga-path="sample" d="M224 126V56" />
+
+      <circle class="fpga-node" data-fpga-node="intake" cx="28" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="trap" cx="76" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="gauge" cx="108" cy="126" r="6" />
+      <rect class="fpga-pump" data-fpga-node="pump" x="170" y="114" width="24" height="24" rx="5" />
+      <circle class="fpga-node" data-fpga-node="v4" cx="224" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="co2" cx="248" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="o2" cx="268" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="check" cx="280" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="v6" cx="290" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="return-port" cx="308" cy="56" r="6" />
+      <circle class="fpga-node" data-fpga-node="free-air-port" cx="308" cy="196" r="6" />
+      <circle class="fpga-node" data-fpga-node="inject-port" cx="170" cy="196" r="6" />
+      <circle class="fpga-node" data-fpga-node="sample-port" cx="224" cy="56" r="6" />
+
+      <text class="fpga-label" x="24" y="108">Black intake</text>
+      <text class="fpga-label" x="62" y="108">Trap</text>
+      <text class="fpga-label" x="96" y="108">Gauge</text>
+      <text class="fpga-label" x="166" y="108">Pump</text>
+      <text class="fpga-label" x="213" y="108">V4</text>
+      <text class="fpga-label" x="238" y="108">CO2</text>
+      <text class="fpga-label" x="260" y="108">O2</text>
+      <text class="fpga-label" x="274" y="108">V6</text>
+      <text class="fpga-label" x="270" y="42">White return</text>
+      <text class="fpga-label" x="262" y="220">Free air</text>
+      <text class="fpga-label" x="149" y="220">V2 inject</text>
+      <text class="fpga-label" x="204" y="42">V4 sample</text>
+
+      <text class="fpga-direction fpga-direction-forward" x="108" y="148">forward flow</text>
+      <text class="fpga-direction fpga-direction-reverse" x="102" y="148">reverse purge</text>
+
+      <g class="fpga-sealed-indicator" aria-hidden="true">
+        <rect x="246" y="14" width="62" height="22" rx="11" />
+        <text x="277" y="29">loop sealed</text>
+      </g>
+    </svg>
+  </div>
+
+  <dl class="fpga-card-grid">
+    <div class="fpga-card-row">
+      <dt>Goal</dt>
+      <dd data-fpga-role="goal">Orient yourself before changing any valves.</dd>
+    </div>
+    <div class="fpga-card-row">
+      <dt>Set</dt>
+      <dd data-fpga-role="set">Know what valve 2, valve 4, and valve 6 will do before the run starts.</dd>
+    </div>
+    <div class="fpga-card-row">
+      <dt>Pump</dt>
+      <dd data-fpga-role="pump">Use only as needed for baseline or sample movement.</dd>
+    </div>
+    <div class="fpga-card-row">
+      <dt>Record</dt>
+      <dd data-fpga-role="record">Record ambient checks and sample extrema once the path is correct.</dd>
+    </div>
+    <div class="fpga-card-row fpga-card-row--warning">
+      <dt>Stop if</dt>
+      <dd data-fpga-role="stop">Water appears or the next valve move is unclear.</dd>
+    </div>
+  </dl>
+
+  <div class="fpga-card-hard-stops">
+    <p class="fpga-card-hard-stop">
+      <strong>Water upstream:</strong> stop the pump and clear the line before trusting any reading.
+    </p>
+    <p class="fpga-card-hard-stop">
+      <strong>Loop sealed:</strong> valve 6 can trap gas, so the pump must already be off first.
+    </p>
+  </div>
+</figure>
+</div>
+</details>
+            <div class="post-content"><div class="alert alert-Warning">
+  <strong>Do not let water reach the sensors.</strong> If you see water in the trap, condensation in the lines, or a sudden vacuum drop that suggests a kinked or flooded intake, stop the pump immediately. Do not keep sampling a flooded well.
+</div>
+<div class="alert alert-Warning">
+  <strong>Do not run the pump against a sealed loop.</strong> In the one-port workflow, valve 6 can close both outlet paths. Once valve 6 is moved into that sealed position, the pump must already be off.
+</div>
+<div class="alert alert-Note">
+  <strong>This guide is for the current Kirk lab FPGA build.</strong> The overall design comes from <a href="https://doi.org/10.1371/journal.pone.0220176">Brecheisen et al. 2019</a>, but the workflows here reflect the present lab units and protocol, including one-port sampling, direct injection through valve 2, and a dedicated backflush mode.
+</div>
+<h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil gas to the surface, measuring O<sub>2</sub> and CO<sub>2</sub>, and collecting samples when needed for later lab analysis. It was developed as a lighter and less expensive alternative to commercial dual-gas field analyzers, while still being robust enough for repeated work at depth and in remote field sites.</p>
+<p>This guide covers operation rather than construction. The goal is simple: bring the instrument to ambient baseline, choose the correct flow path for your sample, move gas through the system without introducing water or pressure problems, and write things down in a way that will still make sense when you are looking at the data three weeks later.</p>
+<h2 id="what-the-fpga-measures">What the FPGA Measures<a hidden class="anchor" aria-hidden="true" href="#what-the-fpga-measures">#</a></h2>
+<p>The FPGA measures:</p>
+<ul>
+<li><strong>O<sub>2</sub></strong> directly on the Apogee meter, in percent.</li>
+<li><strong>CO<sub>2</sub></strong> as an analog voltage on the multimeter, which must be converted according to the scaling of the Vaisala probe on your unit.</li>
+<li><strong>Temperature</strong> separately, using the thermocouple stored in the case.</li>
+</ul>
+<p>Paired O<sub>2</sub> and CO<sub>2</sub> measurements are especially useful in soil systems because they let you see more than CO<sub>2</sub> buildup alone. In many cases, soil CO<sub>2</sub> increases while soil O<sub>2</sub> declines. The ratio of those changes — the Apparent Respiratory Quotient (ARQ) — encodes information about respiration substrate, gas diffusivity, and the degree of anaerobiosis belowground.</p>
+<p>Interpreting ARQ is not straightforward. Even under purely aerobic conditions, measured ARQ in soil rarely sits at the theoretical 1.0. CO<sub>2</sub> and O<sub>2</sub> diffuse at slightly different rates in partially water-saturated pores, which introduces a physical transport signature on top of the biological one. Fermentation or CO<sub>2</sub> release from carbonates drives ARQ above 1.0; methane oxidation or oxidation of reduced compounds drives it below. Expect field ARQ values roughly in the range of 0.7 to 1.2 under aerobic conditions, and treat values outside that range as a prompt to investigate rather than a result to report without comment.</p>
+<p>If you intend to calculate ARQ, two things matter above all else. First, both ΔCO<sub>2</sub> and ΔO<sub>2</sub> must be calculated from the ambient air baseline you measured <em>at that site, that day</em> — not from textbook atmospheric values. Second, ARQ becomes unreliable when either delta is small relative to instrument precision. Given the stated sensor precision of ~0.1% absolute, treat ARQ as unreliable when either ΔCO<sub>2</sub> or ΔO<sub>2</sub> is below about 0.1% (1000 ppm for CO<sub>2</sub>, 0.1 percentage points for O<sub>2</sub>). Below that threshold, you are not measuring respiration; you are dividing measurement noise by measurement noise.</p>
+<h2 id="prerequisites">Prerequisites<a hidden class="anchor" aria-hidden="true" href="#prerequisites">#</a></h2>
+<p><strong>What to bring:</strong></p>
+<ul>
+<li>A charged 12V battery for the FPGA</li>
+<li>A working Apogee O<sub>2</sub> meter</li>
+<li>The correct CO<sub>2</sub> voltage-to-concentration conversion for your specific unit (stored with the case documentation)</li>
+<li>Syringes, sample bags, labels, and notebook</li>
+<li>Evacuated vials if samples will not reach the lab within 3 days</li>
+</ul>
+<p><strong>What to know before you leave:</strong></p>
+<ul>
+<li>Which CO<sub>2</sub> voltage scaling your unit uses — do not assume it matches another unit</li>
+<li>Which workflow you are using before you open the case. This sounds obvious. It becomes less obvious at 7 AM in a field site when someone hands you the instrument and asks which valve to turn first.</li>
+</ul>
+<p>If you are sampling newly installed gas wells, remember that they may need several days to equilibrate with the surrounding soil air. The original paper notes that equilibration can be sped up by pumping several liters out of the well after installation, without recirculating that gas back into the chamber.</p>
+<h2 id="hardware-overview">Hardware Overview<a hidden class="anchor" aria-hidden="true" href="#hardware-overview">#</a></h2>
+<p>The FPGA is easiest to use once you think of it as a gas path rather than a pile of parts. Gas travels in one direction through the internal system: black intake → water trap → pressure gauge → pump → CO<sub>2</sub> sensor → O<sub>2</sub> sensor → outlet. This linear path is the same in every workflow. What changes between workflows is only what you connect to the intake and where you route the outlet. The valve map below is a set of routing decisions layered on top of that fixed path.</p>
+<p>The key parts are:</p>
+<ul>
+<li><strong>Black intake line:</strong> the main inlet from a gas well, tube, or other sample source</li>
+<li><strong>Water trap:</strong> catches liquid water before it can reach the sensors</li>
+<li><strong>Pressure gauge:</strong> warns you about kinks, clogs, and flooded wells — a hard negative drop is a signal to stop, not to keep pumping</li>
+<li><strong>Pump:</strong> moves gas through the system</li>
+<li><strong>CO<sub>2</sub> sensor and voltmeter:</strong> the Vaisala probe uses non-dispersive infrared (NDIR) absorption and outputs a linearized voltage calibrated to a specific range at the factory; the multimeter reads that voltage</li>
+<li><strong>O<sub>2</sub> sensor:</strong> reports O<sub>2</sub> directly as percent</li>
+<li><strong>Valve 4 luer port:</strong> used for collecting a bag or syringe sample from gas already inside the system</li>
+<li><strong>Valve 2 luer port:</strong> used for drawing a discrete syringe or gas-bag sample directly into the analyzer</li>
+<li><strong>White external port:</strong> used as the return line for two-port well sampling</li>
+<li><strong>Check valve:</strong> prevents reverse bulk flow of outside air into the outlet path when the pump is off</li>
+</ul>
+<div class="alert alert-Caution">
+  <strong>Protect the external white port when transporting the case.</strong> It protrudes from the side of the Pelican case and can be damaged if the case is dropped or packed carelessly. When closing the case, check that no tubing or valve handles are being pinched.
+</div>
+<h2 id="valve-map-and-flow-paths">Valve Map and Flow Paths<a hidden class="anchor" aria-hidden="true" href="#valve-map-and-flow-paths">#</a></h2>
+<p>The numbered valves define the grammar of the instrument. Change them deliberately — most problems with this instrument trace back to someone turning a valve to see what it did, rather than knowing what it would do before touching it. The map below exists for this reason. Use it.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Valve</th>
+          <th>Normal job</th>
+          <th>Special use</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>Connects the water trap to the main intake path</td>
+          <td>Opens the reverse-flow path used for backflushing</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>Connects the pressure gauge to the pump inflow</td>
+          <td>Opens the luer intake for syringe or gas-bag injection; also serves as the free-air intake during backflush</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>Sends pump outflow toward the sensors</td>
+          <td>Reroutes pump outflow into the backflush line</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>Sends gas from the pump toward the CO<sub>2</sub> sensor</td>
+          <td>Opens the sample-collection port for filling a bag or syringe from gas already in the system</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>Connects the O<sub>2</sub> sensor to the check valve and outlet path</td>
+          <td>Usually left in the normal position during routine sampling</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>Chooses where gas exits after the sensors</td>
+          <td>Sends gas to free air, to the white return port, or into a sealed loop for one-port mode</td>
+      </tr>
+  </tbody>
+</table>
+<p>The most useful mental model is this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Normal through-flow:
+</span></span><span style="display:flex;"><span>Black intake -&gt; water trap -&gt; pressure gauge -&gt; pump -&gt; CO2 sensor -&gt;
+</span></span><span style="display:flex;"><span>O2 sensor -&gt; check valve -&gt; valve 6 -&gt; free-air outlet
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Two-port recirculation:
+</span></span><span style="display:flex;"><span>Gas well line A -&gt; FPGA -&gt; white return port -&gt; gas well line B
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Direct injection:
+</span></span><span style="display:flex;"><span>Syringe or gas bag -&gt; valve 2 luer port -&gt; pump -&gt; sensors -&gt; exhaust
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Sample collection from an already-filled loop:
+</span></span><span style="display:flex;"><span>Gas inside FPGA -&gt; valve 4 luer port -&gt; sample bag or syringe
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Backflush:
+</span></span><span style="display:flex;"><span>Free air -&gt; valve 2 -&gt; pump -&gt; evacuation line -&gt; water trap (reverse) -&gt;
+</span></span><span style="display:flex;"><span>black intake line
+</span></span></code></pre></div><p><strong>Workflow selection at a glance:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Does your well have two ports (separate intake and return lines)?
+</span></span><span style="display:flex;"><span>  +-- Yes --&gt; Workflow 1: Two-Port Wells
+</span></span><span style="display:flex;"><span>  +-- No, one port only --&gt; Workflow 2: One-Port Wells
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>No buried well -- discrete sample (syringe, gas bag, headspace jar)?
+</span></span><span style="display:flex;"><span>  +-- --&gt; Workflow 3: Syringe or Gas-Bag Injection
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Water or condensation in the lines?
+</span></span><span style="display:flex;"><span>  +-- --&gt; Workflow 4: Backflush (recovery procedure, not a sampling mode)
+</span></span></code></pre></div><p>Unless a workflow below says otherwise, return the valves to the normal through-flow path before starting.</p>
+<h2 id="safety-notes">Safety Notes<a hidden class="anchor" aria-hidden="true" href="#safety-notes">#</a></h2>
+<ul>
+<li><strong>Water is the main enemy of this instrument.</strong> The CO<sub>2</sub> probe in particular will give unreliable readings for a long time after a water intrusion event, and sensor repair or replacement is expensive and slow. If water appears anywhere upstream of the sensors, stop and clear it before doing anything else.</li>
+<li><strong>Change valves deliberately, not to see what happens.</strong> Most operator mistakes come from changing a valve before understanding which path is about to open or close.</li>
+<li><strong>Do not seal the loop with the pump running.</strong> This matters most in one-port mode, but it is a good rule generally.</li>
+<li><strong>Protect the plumbing when closing and carrying the case.</strong> The white external port, luer fittings, and internal tubing are easy to crush if the lid is closed carelessly.</li>
+<li><strong>Use common sense with syringes and needles.</strong> If you are filling bags or vials, recap sharps safely and do not leave needles loose in the case.</li>
+</ul>
+<h2 id="reading-the-measurements">Reading the Measurements<a hidden class="anchor" aria-hidden="true" href="#reading-the-measurements">#</a></h2>
+<h3 id="o">O<sub>2</sub><a hidden class="anchor" aria-hidden="true" href="#o">#</a></h3>
+<p>Record the percent value displayed on the Apogee meter directly.</p>
+<p>If the O<sub>2</sub> reading does not return to approximately 20.95–21% during the ambient check, do not proceed to sampling. Check the battery, allow more warmup time, and confirm you are not working in a poorly ventilated space. If your work depends on very low O<sub>2</sub> values, verify the meter against certified standards rather than assuming the low end is calibrated correctly.</p>
+<h3 id="co">CO<sub>2</sub><a hidden class="anchor" aria-hidden="true" href="#co">#</a></h3>
+<p>The CO<sub>2</sub> side requires conversion from voltage to concentration. On the current lab units, the practical field assumption is 1 V = 1% CO<sub>2</sub>. Under that configuration:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Voltage</th>
+          <th>CO<sub>2</sub> concentration</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1 mV</td>
+          <td>10 ppm</td>
+      </tr>
+      <tr>
+          <td>10 mV</td>
+          <td>0.01% (100 ppm)</td>
+      </tr>
+      <tr>
+          <td>100 mV</td>
+          <td>0.10% (1,000 ppm)</td>
+      </tr>
+      <tr>
+          <td>1000 mV</td>
+          <td>1.00% (10,000 ppm)</td>
+      </tr>
+  </tbody>
+</table>
+<p>An ambient reading of around 43 mV corresponds to roughly 430 ppm CO<sub>2</sub>. If your unit uses a different Vaisala scaling, use that instead.</p>
+<div class="alert alert-Note">
+  <strong>The CO<sub>2</sub> voltage is build-specific.</strong> The Vaisala probe&rsquo;s analog output is calibrated at the factory to a specific range. Do not assume that every FPGA converts voltage the same way. Confirm the scaling on your unit before converting millivolts to CO<sub>2</sub> concentration — the documentation is stored with the case.
+</div>
+<p><strong>Temperature and the CO<sub>2</sub> reading:</strong> NDIR sensors are temperature-sensitive. The Vaisala probe&rsquo;s output assumes operation near its calibration temperature. In cold field conditions (below ~10°C) or hot conditions (above ~35°C), check whether your unit&rsquo;s documentation specifies a temperature correction, and apply it if so. The thermocouple reading serves double duty: it is both a data point and a diagnostic for whether your CO<sub>2</sub> readings may be thermally offset.</p>
+<h3 id="calculating-arq">Calculating ARQ<a hidden class="anchor" aria-hidden="true" href="#calculating-arq">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>ARQ = Delta-CO2 / Delta-O2
+</span></span></code></pre></div><p>where ΔCO<sub>2</sub> is the increase in CO<sub>2</sub> above ambient (in percent) and ΔO<sub>2</sub> is the decrease in O<sub>2</sub> below ambient in the same units. Both deltas must be computed from the ambient baseline measured at that site that day — write it down during the startup check.</p>
+<p>For aerobic respiration of carbohydrates, the theoretical ARQ is 1.0. In soil systems, ARQ commonly ranges from roughly 0.7 to 1.2 under aerobic conditions. Values above 1.0 can indicate fermentation or CO<sub>2</sub> release from carbonates; values below 1.0 can reflect methane oxidation, oxidation of reduced compounds, or the physical effect of differential diffusivity of CO<sub>2</sub> and O<sub>2</sub> in partially water-saturated pores.</p>
+<div class="alert alert-Note">
+  <strong>If the Brecheisen et al. protocol for your specific unit specifies a correction factor,</strong> apply it after computing the basic ratio and document what the factor is and where it comes from. The standard biogeochemical definition of ARQ carries no scalar multiplier.
+</div>
+<p>ARQ becomes unreliable when either delta is small. As a rough sense of scale: at ΔCO<sub>2</sub> = 1.0% and ΔO<sub>2</sub> = 1.0%, a ±0.1% absolute error in each propagates to roughly ±14% relative error in ARQ. At ΔCO<sub>2</sub> = 0.2% and ΔO<sub>2</sub> = 0.2%, the same absolute error propagates to roughly ±70% relative error. Samples close to ambient are not good candidates for ARQ analysis from a single measurement.</p>
+<h2 id="startup-and-ambient-check">Startup and Ambient Check<a hidden class="anchor" aria-hidden="true" href="#startup-and-ambient-check">#</a></h2>
+<p>Do this before every sampling run, regardless of which mode you plan to use.</p>
+<ol>
+<li>Return the valves to the normal through-flow path:
+<ul>
+<li>Valve 1: water trap to pressure gauge</li>
+<li>Valve 2: pressure gauge to pump inflow</li>
+<li>Valve 3: pump outflow to valve 4</li>
+<li>Valve 4: valve 3 to the CO<sub>2</sub> sensor</li>
+<li>Valve 5: O<sub>2</sub> sensor to the check valve</li>
+<li>Valve 6: check valve to the free-air outlet, not the white return port</li>
+</ul>
+</li>
+<li>Power on the CO<sub>2</sub> sensor, the Apogee O<sub>2</sub> meter, and the pump with nothing attached to the intake or return ports.</li>
+<li>Let the system run in ambient air for about 1 minute.</li>
+<li>Confirm that the O<sub>2</sub> meter reads very close to ambient air, usually around 20.95–21%.</li>
+<li>Check the CO<sub>2</sub> baseline on the multimeter. On the current lab units, ambient outdoor air is usually around 40–45 mV if the unit is configured at 1 V = 1% CO<sub>2</sub>. Indoor air may read higher. <strong>Record this ambient value in your notebook — you will need it for delta calculations.</strong></li>
+<li>Check the water trap and pressure gauge before attaching anything. If the gauge suggests strong blockage or the trap already contains water, stop and fix the problem first.</li>
+</ol>
+<h2 id="field-workflows">Field Workflows<a hidden class="anchor" aria-hidden="true" href="#field-workflows">#</a></h2>
+<h3 id="workflow-1-two-port-buried-gas-wells">Workflow 1: Two-Port Buried Gas Wells<a hidden class="anchor" aria-hidden="true" href="#workflow-1-two-port-buried-gas-wells">#</a></h3>
+<p>This is the default field workflow when a reservoir has separate intake and return lines.</p>
+<ol>
+<li>Complete the startup and ambient check.</li>
+<li>Connect one gas-well line to the black intake line and the other to the white return port.</li>
+<li>Confirm that the water trap is dry and that the pressure gauge is not indicating a kinked or flooded line.</li>
+<li>Flush the FPGA with approximately 1 L of soil gas before recording anything. At typical pump flow rates on the current lab units, this takes about 30–45 seconds — but treat that as a starting estimate, not a universal rule. The goal is to fill the internal path with soil gas rather than ambient air from the tubing. If your tubing run is longer than normal, extend the flush accordingly. When in doubt, flush longer rather than shorter; a premature reading is a more common source of error than over-flushing.</li>
+<li>Turn valve 6 so the outlet is routed to the white return port. This closes the loop through the well and fills the full pathway with soil gas.</li>
+<li>Shut off the pump and record the maximum CO<sub>2</sub> and O<sub>2</sub> values you observe within about 1 minute.</li>
+</ol>
+<p>The CO<sub>2</sub> reading will rise to a peak and then drift slightly lower. This is the probe equilibrating, not the soil gas changing. Record the peak. If you record the lower number because it looked more stable, your data will be systematically off in a way that is annoying to discover later.</p>
+<div class="alert alert-Note">
+  <strong>NDIR sensors are also sensitive to pressure fluctuations.</strong> If the pump creates a noticeable pressure transient when turned off, wait for the pressure gauge to stabilize before recording the peak value.
+</div>
+<p>If you are sampling a sequence of wells with different concentrations, go from lower CO<sub>2</sub> samples to higher CO<sub>2</sub> samples when possible. In many soil profiles that means shallower wells before deeper ones, which helps reduce carryover between samples.</p>
+<div class="alert alert-Note">
+  <strong>Keep recirculation as short as you can.</strong> The original paper reports that continuous circulatory analysis can dilute CO<sub>2</sub> by about 0.1–0.2%. The current lab workflow uses the return path to close the loop, but avoid leaving gas circulating any longer than needed.
+</div>
+<h4 id="collecting-a-sample-for-later-lab-analysis">Collecting a sample for later lab analysis<a hidden class="anchor" aria-hidden="true" href="#collecting-a-sample-for-later-lab-analysis">#</a></h4>
+<p>If you need a bag or syringe sample from a two-port well, do it after the loop has been filled with soil gas.</p>
+<ol>
+<li>Attach the sample bag or syringe to the luer port on valve 4.</li>
+<li>Turn valve 4 so it closes the path to the CO<sub>2</sub> sensor and opens the sample port.</li>
+<li>Turn the pump back on and fill the bag or syringe.</li>
+<li>Turn valve 4 back to the normal sensor path before disconnecting the sample container.</li>
+</ol>
+<p>Label the sample immediately with the well ID, depth, date, and time. Sample bags remain stable for CO<sub>2</sub> for up to about 3 days. For longer storage, or for O<sub>2</sub> measurements where bag permeability is a concern, transfer the gas to an evacuated glass vial.</p>
+<h3 id="workflow-2-one-port-wells-or-tubes">Workflow 2: One-Port Wells or Tubes<a hidden class="anchor" aria-hidden="true" href="#workflow-2-one-port-wells-or-tubes">#</a></h3>
+<p>This mode is for wells or tubes with only one opening. It is more timing-sensitive than the two-port workflow — there is no return path, so the pressure math matters more than it did before. It is genuinely easier once you understand the system. It is genuinely harder the first time.</p>
+<ol>
+<li>
+<p>Complete the startup and ambient check.</p>
+</li>
+<li>
+<p>Connect the well or tube only to the black intake line.</p>
+</li>
+<li>
+<p>Estimate the tubing volume and pump time before starting.</p>
+<p>To estimate well or tube volume from tubing geometry:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>      Volume (L) = pi * (inner radius in m)^2 * length (m) * 1000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      For standard 1/4&#34; ID tubing (inner radius ~0.003 m):
+</span></span><span style="display:flex;"><span>      Volume (L) ~= 0.028 * tube length (m)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      Examples:
+</span></span><span style="display:flex;"><span>        5 m tube  -&gt; ~0.14 L
+</span></span><span style="display:flex;"><span>        10 m tube -&gt; ~0.28 L
+</span></span></code></pre></div><p>To estimate pump time, first verify your unit&rsquo;s actual flow rate. The nominal value from the original paper is 17.2 L/min, but cross-check it against observed behavior: on the current lab units, moving about 1 L takes roughly 30–45 seconds, which implies a working rate closer to 1.5–2 L/min. Use the rate that matches what your unit actually does.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>      Time (seconds) ~= (sample volume in L / pump rate in L/min) * 60
+</span></span></code></pre></div></li>
+<li>
+<p>Run the pump just long enough to pull the sample from depth into the FPGA. If you keep pumping past that point, you begin sampling a larger and less well-defined surrounding soil volume.</p>
+</li>
+<li>
+<p>Once the sample is in the FPGA loop, turn off the pump <strong>before</strong> moving valve 6 into the sealed position that closes both outlet paths.</p>
+</li>
+<li>
+<p>Record the maximum CO<sub>2</sub> and O<sub>2</sub> values within about 1 minute.</p>
+</li>
+</ol>
+<div class="alert alert-Warning">
+  <strong>Do not let the pump continue after sealing valve 6.</strong> In one-port mode, that sealed position traps gas in the loop. If the pump keeps running, the system will overpressurize.
+</div>
+<p>This workflow only works well if the tubing or well volume is large enough to fill the analyzer path. If the installed volume is too small, you will end up mixing the intended sample with ambient gas before the instrument fully fills.</p>
+<h3 id="workflow-3-syringe-or-gas-bag-injection">Workflow 3: Syringe or Gas-Bag Injection<a hidden class="anchor" aria-hidden="true" href="#workflow-3-syringe-or-gas-bag-injection">#</a></h3>
+<p>Use this mode for discrete samples, standards, incubation headspaces, or gas bags that are not connected as a buried well.</p>
+<ol>
+<li>Complete the startup and ambient check.</li>
+<li>Turn valve 2 so its luer port is open.</li>
+<li>Attach the syringe or luer-lock gas bag to valve 2.</li>
+<li>Let the pump draw in the sample. If using a syringe, depress the plunger fully. If using a gas bag, let the bag empty completely.</li>
+<li>Return valve 2 to the normal through-flow position before disconnecting the syringe or bag.</li>
+<li>Record the maximum CO<sub>2</sub> and O<sub>2</sub> values within about 1 minute.</li>
+</ol>
+<p>For samples that are close to ambient air, the CO<sub>2</sub> peak may be subtle. In that case, inject a known standard first and time how long the system takes to reach its maximum reading, then use the same timing for your near-ambient samples.</p>
+<p>For incubation jars or other small headspaces, keep flush times short. You only need to replace the internal volume of the FPGA with the headspace gas; prolonged pumping will dilute or exhaust a small sample.</p>
+<h3 id="workflow-4-backflushing-moisture-from-the-lines">Workflow 4: Backflushing Moisture from the Lines<a hidden class="anchor" aria-hidden="true" href="#workflow-4-backflushing-moisture-from-the-lines">#</a></h3>
+<p>Use this only when water or condensation has entered the plumbing. It is a recovery procedure, not a normal sampling mode.</p>
+<ol>
+<li>Turn the pump off first.</li>
+<li>Reconfigure the valves:
+<ul>
+<li>Turn valve 3 toward the sensor side so the pump is routed into the evacuation line</li>
+<li>Turn valve 1 toward the pressure gauge</li>
+<li>Turn valve 2 toward the pressure gauge so the free-air intake is open</li>
+</ul>
+</li>
+<li>Point the black intake tube away from yourself, other people, and the instrument case.</li>
+<li>Run the pump briefly so it pulls free air in through valve 2 and pushes that air backward through the water trap and out the black intake tube.</li>
+<li>Stop once the trap and lines are clear, then return valves 1, 2, and 3 to their normal positions before taking another sample.</li>
+</ol>
+<div class="alert alert-Warning">
+  <strong>Water can spray out of the black intake line during backflush.</strong> Keep it pointed away from your face, the electronics, your notebook, and the open case. This is the most theatrical thing the instrument does, and it is completely preventable. If you suspect water has reached either sensor housing, stop using the instrument until it has been inspected.
+</div>
+<h2 id="performance-and-limits">Performance and Limits<a hidden class="anchor" aria-hidden="true" href="#performance-and-limits">#</a></h2>
+<p>The original FPGA paper is strongest on CO<sub>2</sub> validation. It reports 1639 paired field and laboratory measurements, with FPGA CO<sub>2</sub> compared against gas chromatography at a slope of 1.017, an intercept of −0.033, and an R<sup>2</sup> of 0.956 over the observed field range. The same paper reports at least 0.1% precision for both CO<sub>2</sub> and O<sub>2</sub> — this is an absolute figure (0.1 percentage points), not a relative one.</p>
+<p>Those numbers are useful context. They are not permission to skip the ambient check, leave water in the lines, or explain away an ARQ of 1.8 by citing measurement uncertainty. Real-world performance depends on dry lines, correct valve positions, enough flush volume, and not convincing yourself that a near-ambient sample is valid when it isn&rsquo;t.</p>
+<p>Note that 0.1% absolute precision means different things at different concentrations. At 5% CO<sub>2</sub>, that is ±2% relative error — acceptable for most applications. At 0.2% CO<sub>2</sub>, it is ±50% relative. This matters most for ARQ analysis: a sample where one or both gases are close to ambient will carry a large relative uncertainty through the ratio calculation regardless of how carefully you ran the protocol. Plan your sampling design accordingly.</p>
+<p>Historical numbers from the 2019 paper such as cost (~$2,000) and weight (&lt;10 kg including battery) are best treated as context rather than current specifications.</p>
+<h2 id="troubleshooting-and-maintenance">Troubleshooting &amp; Maintenance<a hidden class="anchor" aria-hidden="true" href="#troubleshooting-and-maintenance">#</a></h2>
+<p><strong>Water in the trap or condensation in the lines:</strong>
+Stop the pump immediately. Backflush the lines before sampling again. Do not continue sampling a flooded well.</p>
+<p><strong>Pressure gauge drops hard negative:</strong>
+The original paper uses a threshold of about −20 kPa as a sign of a clogged, kinked, or flooded intake. Treat any sudden drop from your normal operating pressure as a warning sign, even if it has not hit −20 kPa. Shut the pump off and inspect the line.</p>
+<p><strong>O<sub>2</sub> does not return to ambient during startup:</strong>
+Check the O<sub>2</sub> meter battery, allow more time in free air, and confirm you are not testing in a poorly ventilated space. If the meter still will not settle near ambient, do not trust low-O<sub>2</sub> samples until the instrument has been checked. If your work depends on very low O<sub>2</sub> values, verify the meter against certified standards rather than assuming the low end is correct.</p>
+<p><strong>CO<sub>2</sub> baseline never settles:</strong>
+Give the sensor more warmup time, verify the battery and wiring, and confirm you are using the correct voltage scaling. Indoor lab air can legitimately read higher than outdoor ambient.</p>
+<p><strong>Samples look flat or diluted:</strong>
+Suspect insufficient flush, too much recirculation, a leak, or carryover from a previous high-CO<sub>2</sub> sample. Work from lower CO<sub>2</sub> samples to higher ones and keep circulation brief. A useful sanity check: if CO<sub>2</sub> and O<sub>2</sub> sum to approximately 21%, the sample is likely contaminated with ambient air. In a genuine soil gas sample, aerobic respiration consumes O<sub>2</sub> and adds CO<sub>2</sub> in ratios that do not fully replace the removed O<sub>2</sub>, so the sum should be measurably less than 21%.</p>
+<p><strong>One-port sampling is inconsistent:</strong>
+Your timing may be off, or the installed tubing volume may be too small relative to the analyzer path. Recalculate the evacuation time using your unit&rsquo;s actual observed flow rate. Confirm that you are not inadvertently drawing in gas from outside the intended sampling volume.</p>
+<p><strong>Long gap between sites:</strong>
+If the next measurement is more than about 10 minutes away, turn off the CO<sub>2</sub> sensor between sites to conserve battery, then warm it up again before the next run.</p>
+<p><strong>Quick failure-mode reference:</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>What you observe</th>
+          <th>Likely cause</th>
+          <th>First check</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Pressure pegged hard negative at startup</td>
+          <td>Blocked or kinked intake</td>
+          <td>Inspect black intake line before running pump</td>
+      </tr>
+      <tr>
+          <td>CO<sub>2</sub> and O<sub>2</sub> both at ambient despite sampling</td>
+          <td>Insufficient flush or air leak</td>
+          <td>Extend flush time; inspect all connections</td>
+      </tr>
+      <tr>
+          <td>CO<sub>2</sub> + O<sub>2</sub> sum ≈ 21%</td>
+          <td>Sample is mostly ambient air</td>
+          <td>Flush longer; check for leaks at all fittings</td>
+      </tr>
+      <tr>
+          <td>O<sub>2</sub> stable at ambient, CO<sub>2</sub> elevated</td>
+          <td>Possible O<sub>2</sub> sensor issue</td>
+          <td>Check O<sub>2</sub> meter connections and battery</td>
+      </tr>
+      <tr>
+          <td>CO<sub>2</sub> spikes on pump shutoff then immediately decays</td>
+          <td>NDIR pressure transient</td>
+          <td>Wait for pressure gauge to stabilize before recording</td>
+      </tr>
+      <tr>
+          <td>Readings inconsistent between successive samples</td>
+          <td>Carryover from high-CO<sub>2</sub> sample</td>
+          <td>Flush longer with ambient air between samples</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="after-each-session">After Each Session<a hidden class="anchor" aria-hidden="true" href="#after-each-session">#</a></h2>
+<p>Before closing the case:</p>
+<ol>
+<li>Turn off the pump, then the CO<sub>2</sub> sensor, then the O<sub>2</sub> meter.</li>
+<li>With the intake open to free air, run the pump for about 30 seconds. This clears residual soil gas from the lines and reduces condensation during storage.</li>
+<li>Return all valves to the normal through-flow position.</li>
+<li>Inspect the water trap. If there is any moisture, do a brief backflush before closing.</li>
+<li>Close all luer port caps and confirm the white external port is protected.</li>
+<li>Close and latch the Pelican case. Check that no tubing or valve handles are being pinched by the lid.</li>
+</ol>
+<h2 id="appendix-quick-reference">Appendix: Quick Reference<a hidden class="anchor" aria-hidden="true" href="#appendix-quick-reference">#</a></h2>
+<h3 id="before-leaving-the-lab">Before Leaving the Lab<a hidden class="anchor" aria-hidden="true" href="#before-leaving-the-lab">#</a></h3>
+<ul>
+<li>Charge the 12V battery</li>
+<li>Confirm the O<sub>2</sub> meter powers on</li>
+<li>Confirm the CO<sub>2</sub> voltage conversion for your unit (stored with the case)</li>
+<li>Pack syringes, bags, labels, and notebook</li>
+<li>Decide which workflow you are using</li>
+</ul>
+<h3 id="at-the-field-site--before-first-sample">At the Field Site (before first sample)<a hidden class="anchor" aria-hidden="true" href="#at-the-field-site--before-first-sample">#</a></h3>
+<ul>
+<li>Open the case and inspect the water trap</li>
+<li>Run the system in ambient air for about 1 minute</li>
+<li>Confirm O<sub>2</sub> reads ~20.95–21% (if not, stop and investigate)</li>
+<li>Record the ambient CO<sub>2</sub> voltage baseline in your notebook</li>
+<li>Check the pressure gauge reads normal</li>
+</ul>
+<h3 id="at-each-sampling-point">At Each Sampling Point<a hidden class="anchor" aria-hidden="true" href="#at-each-sampling-point">#</a></h3>
+<ul>
+<li>Return valves to the normal through-flow path</li>
+<li>Attach the sample source</li>
+<li>Flush before recording</li>
+<li>Record raw mV and converted concentration; note which workflow was used</li>
+</ul>
+<h3 id="data-recording">Data Recording<a hidden class="anchor" aria-hidden="true" href="#data-recording">#</a></h3>
+<p>For each sample, record at minimum:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Field</th>
+          <th>Example</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Date and time</td>
+          <td>2026-03-28 09:14</td>
+      </tr>
+      <tr>
+          <td>Site and well ID</td>
+          <td>Site A, Well 3</td>
+      </tr>
+      <tr>
+          <td>Depth (m)</td>
+          <td>0.5</td>
+      </tr>
+      <tr>
+          <td>Workflow used</td>
+          <td>Two-port</td>
+      </tr>
+      <tr>
+          <td>Ambient O<sub>2</sub> (%)</td>
+          <td>20.97</td>
+      </tr>
+      <tr>
+          <td>Ambient CO<sub>2</sub> (mV / ppm)</td>
+          <td>43 mV / 430 ppm</td>
+      </tr>
+      <tr>
+          <td>Sample O<sub>2</sub> (%)</td>
+          <td>18.4</td>
+      </tr>
+      <tr>
+          <td>Sample CO<sub>2</sub> (mV / ppm)</td>
+          <td>312 mV / 3120 ppm</td>
+      </tr>
+      <tr>
+          <td>Notes</td>
+          <td>Brief backflush required before this sample</td>
+      </tr>
+  </tbody>
+</table>
+<p>Recording both raw mV and converted concentration matters. If the voltage scaling is ever in question, you can recompute from the raw value. You cannot go the other direction.</p>
+<h3 id="ambient-benchmarks-for-the-current-build">Ambient Benchmarks for the Current Build<a hidden class="anchor" aria-hidden="true" href="#ambient-benchmarks-for-the-current-build">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Metric</th>
+          <th>Expected value</th>
+          <th>Worth investigating if&hellip;</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>O<sub>2</sub> in ambient air</td>
+          <td>~20.95–21%</td>
+          <td>Below 20.7% or above 21.1% during startup</td>
+      </tr>
+      <tr>
+          <td>CO<sub>2</sub> in ambient outdoor air</td>
+          <td>~40–45 mV (~420–450 ppm)</td>
+          <td>Above 60 mV outdoors suggests contamination or warm-up issue</td>
+      </tr>
+      <tr>
+          <td>Typical two-port flush</td>
+          <td>~30–45 seconds for ~1 L</td>
+          <td>Adjust if tubing run is longer than standard</td>
+      </tr>
+      <tr>
+          <td>Pump rate (verify on your unit)</td>
+          <td>~1.5–2 L/min observed</td>
+          <td>Cross-check: does moving 1 L take 30–45 seconds?</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="current-build-reference">Current Build Reference<a hidden class="anchor" aria-hidden="true" href="#current-build-reference">#</a></h3>
+<p>This documentation applies to the Kirk lab FPGA units as of March 2026. Sensor model numbers and factory scaling are stored with each case. If the unit has been modified or a sensor replaced, verify that the ambient benchmarks above still apply before trusting any conversion factors or flush time estimates.</p>
+<h2 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
+<p>The FPGA is a straightforward instrument once the flow paths stop feeling arbitrary — which takes about one field session, assuming you read this first. Gas comes in, passes the sensors, and goes somewhere depending on your valve configuration. Most good data come from the same four habits: warm up in ambient air, choose your mode before touching anything, keep water out of the sensors, and don&rsquo;t rush the transitions where pressure and flow direction change. None of those are hard. They are just easier to do when you already know them.</p>
+<p>For construction details, performance validation, and the original design logic, read <a href="https://doi.org/10.1371/journal.pone.0220176">Brecheisen et al. 2019</a>. For the exact sensor manuals and accessories packed with the current lab units, check the documentation stored with the case.</p>
+<hr>
+<p><em>Written in March 2026.</em></p>
+<p><em>Created by Morgan Salisbury</em></p>
+
+
+            </div>
+
+            <footer class="post-footer">
+                <ul class="post-tags">
+                </ul>
+            </footer>
+        </article>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.getElementById('toc-sidebar');
+        const tocSidebarToggle = document.getElementById('toc-sidebar-toggle');
+        const tocNav = document.getElementById('toc-nav');
+        const tocCurrentParent = document.getElementById('toc-current-parent');
+        const tocCurrentLabel = document.getElementById('toc-current-label');
+        const mobileBar = document.getElementById('toc-mobile-bar');
+        const mobileToggle = document.getElementById('toc-mobile-toggle');
+        const mobileNav = document.getElementById('toc-mobile-nav');
+        const mobileCurrent = document.getElementById('toc-mobile-current');
+        const mobileParent = document.getElementById('toc-mobile-parent');
+        const fpgaCards = Array.from(document.querySelectorAll('[data-fpga-card]'));
+        const fpgaConfig = document.getElementById('fpga-sidebar-config');
+
+        if (!sidebar && !mobileBar && fpgaCards.length === 0) return;
+
+        const markers = sidebar ? sidebar.querySelectorAll('.toc-marker') : [];
+        const tocLinks = tocNav ? tocNav.querySelectorAll('a') : [];
+        const mobileLinks = mobileBar ? mobileBar.querySelectorAll('.toc-mobile-item a') : [];
+        const headings = [];
+        let fpgaStates = null;
+        const warnedFpgaStates = new Set();
+        if (fpgaConfig) {
+            try {
+                const parsedConfig = JSON.parse(fpgaConfig.textContent);
+                fpgaStates = typeof parsedConfig === 'string' ? JSON.parse(parsedConfig) : parsedConfig;
+            } catch (error) {
+                console.error('Unable to parse FPGA sidebar config.', error);
+            }
+        }
+
+        markers.forEach((marker, i) => {
+            const id = marker.dataset.target.slice(1);
+            const heading = document.getElementById(id);
+            const desktopLink = tocLinks[i] || null;
+            const mobileLink = mobileBar ? mobileBar.querySelector(`a[href="#${id}"]`) : null;
+            const title = marker.dataset.title || (desktopLink ? desktopLink.textContent.trim() : id);
+            const level = parseInt(marker.dataset.level, 10);
+            const stateKey = marker.dataset.state || (desktopLink ? desktopLink.dataset.state : '') || (mobileLink ? mobileLink.dataset.state : '');
+
+            if (heading) {
+                headings.push({
+                    element: heading,
+                    marker: marker,
+                    desktopLink: desktopLink,
+                    mobileLink: mobileLink,
+                    title: title,
+                    level: Number.isNaN(level) ? 2 : level,
+                    stateKey: stateKey
+                });
+            }
+        });
+
+        if (headings.length === 0 && mobileLinks.length > 0) {
+            mobileLinks.forEach((link) => {
+                const id = link.getAttribute('href').slice(1);
+                const heading = document.getElementById(id);
+                const level = parseInt(link.closest('.toc-mobile-item')?.dataset.level || '2', 10);
+                if (heading) {
+                    headings.push({
+                        element: heading,
+                        marker: null,
+                        desktopLink: tocNav ? tocNav.querySelector(`a[href="#${id}"]`) : null,
+                        mobileLink: link,
+                        title: link.textContent.trim(),
+                        level: Number.isNaN(level) ? 2 : level,
+                        stateKey: link.dataset.state || ''
+                    });
+                }
+            });
+        }
+
+        if (fpgaStates) {
+            const missingStates = headings
+                .filter((heading) => !heading.stateKey)
+                .map((heading) => heading.element.id);
+            if (missingStates.length > 0) {
+                console.warn('FPGA sidebar headings missing state mappings:', missingStates);
+            }
+        }
+
+        function setDesktopTocOpen(isOpen, options = {}) {
+            if (!sidebar || !tocSidebarToggle) return;
+            sidebar.classList.toggle('is-open', isOpen);
+            tocSidebarToggle.setAttribute('aria-expanded', String(isOpen));
+            if (!isOpen && options.focusToggle) {
+                tocSidebarToggle.focus();
+            }
+        }
+
+        function setMobileTocOpen(isOpen, options = {}) {
+            if (!mobileBar || !mobileToggle) return;
+            mobileBar.classList.toggle('open', isOpen);
+            mobileToggle.setAttribute('aria-expanded', String(isOpen));
+            if (!isOpen && options.focusToggle) {
+                mobileToggle.focus();
+            }
+        }
+
+        function updateFPGACards(stateKey) {
+            if (!fpgaStates || fpgaCards.length === 0) return;
+
+            if (stateKey && !fpgaStates[stateKey] && !warnedFpgaStates.has(stateKey)) {
+                console.warn('Unknown FPGA sidebar state:', stateKey);
+                warnedFpgaStates.add(stateKey);
+            }
+
+            const resolvedKey = stateKey && fpgaStates[stateKey] ? stateKey : 'normalFlow';
+            const state = fpgaStates[resolvedKey];
+            if (!state) return;
+
+            fpgaCards.forEach((card) => {
+                card.dataset.mode = resolvedKey;
+                card.classList.toggle('is-reverse', !!state.reverse);
+                card.classList.toggle('is-sealed', !!state.sealed);
+
+                ['kicker', 'title', 'summary', 'flow', 'checkpointLabel', 'checkpoint', 'goal', 'set', 'pump', 'record', 'stop'].forEach((role) => {
+                    const target = card.querySelector(`[data-fpga-role="${role}"]`);
+                    if (target && state[role]) {
+                        target.textContent = state[role];
+                    }
+                });
+
+                card.querySelectorAll('[data-fpga-path]').forEach((path) => {
+                    path.classList.toggle('is-active', state.paths.includes(path.dataset.fpgaPath));
+                });
+
+                card.querySelectorAll('[data-fpga-node]').forEach((node) => {
+                    node.classList.toggle('is-active', state.nodes.includes(node.dataset.fpgaNode));
+                });
+            });
+        }
+
+        if (tocSidebarToggle) {
+            tocSidebarToggle.addEventListener('click', function () {
+                setDesktopTocOpen(!sidebar.classList.contains('is-open'));
+            });
+        }
+
+        if (sidebar) {
+            document.addEventListener('click', function (event) {
+                if (sidebar.classList.contains('is-open') && !sidebar.contains(event.target)) {
+                    setDesktopTocOpen(false);
+                }
+            });
+        }
+
+        if (tocNav) {
+            tocNav.addEventListener('click', function (event) {
+                if (event.target.tagName === 'A') {
+                    setDesktopTocOpen(false);
+                }
+            });
+        }
+
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function () {
+                setMobileTocOpen(!mobileBar.classList.contains('open'));
+            });
+        }
+
+        
+        if (mobileNav) {
+            mobileNav.addEventListener('click', function (e) {
+                if (e.target.tagName === 'A') {
+                    setMobileTocOpen(false);
+                }
+            });
+        }
+
+        function updateActiveState() {
+            if (headings.length === 0) return;
+            const scrollPos = window.scrollY + 150;
+            let current = headings[0];
+            let currentIndex = 0;
+
+            for (let i = 0; i < headings.length; i++) {
+                if (headings[i].element.offsetTop <= scrollPos) {
+                    current = headings[i];
+                    currentIndex = i;
+                }
+            }
+
+            
+            if (sidebar) {
+                markers.forEach(m => m.classList.remove('active'));
+                tocLinks.forEach((link) => {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                });
+
+                if (current) {
+                    if (current.marker) current.marker.classList.add('active');
+                    if (current.desktopLink) {
+                        current.desktopLink.classList.add('active');
+                        current.desktopLink.setAttribute('aria-current', 'location');
+                    }
+                }
+            }
+
+            let breadcrumbs = [];
+            let targetLevel = current.level;
+            for (let j = currentIndex - 1; j >= 0; j--) {
+                if (headings[j].level < targetLevel) {
+                    breadcrumbs.unshift(headings[j].title);
+                    targetLevel = headings[j].level;
+                }
+                if (targetLevel <= 2) break;
+            }
+
+            if (tocCurrentLabel) tocCurrentLabel.textContent = current.title;
+            if (tocCurrentParent) tocCurrentParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
+
+            
+            if (mobileBar && current) {
+                
+                if (scrollPos > 200) {
+                    mobileBar.classList.add('visible');
+                } else {
+                    mobileBar.classList.remove('visible');
+                    setMobileTocOpen(false);
+                }
+
+                if (mobileCurrent) mobileCurrent.textContent = current.title;
+                if (mobileParent) mobileParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
+
+                
+                mobileLinks.forEach((link) => {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                });
+                if (current.mobileLink) {
+                    current.mobileLink.classList.add('active');
+                    current.mobileLink.setAttribute('aria-current', 'location');
+                }
+            }
+
+            if (current) {
+                updateFPGACards(current.stateKey);
+            }
+        }
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                if (sidebar && sidebar.classList.contains('is-open')) {
+                    setDesktopTocOpen(false, { focusToggle: true });
+                }
+                if (mobileBar && mobileBar.classList.contains('open')) {
+                    setMobileTocOpen(false, { focusToggle: true });
+                }
+            }
+        });
+
+        window.addEventListener('scroll', updateActiveState, { passive: true });
+        window.addEventListener('resize', updateActiveState);
+        window.addEventListener('hashchange', updateActiveState);
+        updateActiveState();
+    });
+</script>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 </span> · 
+
+    <span>
+        Love from Kansas · Created with Emacs
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+<script>
+     
+    (function () {
+        const prefetched = new Set();
+        let hoverTimer = null;
+
+        function prefetchUrl(url) {
+            if (prefetched.has(url)) return;
+            prefetched.add(url);
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = url;
+            document.head.appendChild(link);
+        }
+
+        document.addEventListener('pointerenter', function (e) {
+            const anchor = e.target.closest('.post-content a[href]');
+            if (!anchor) return;
+            const href = anchor.getAttribute('href');
+            
+            if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:')) return;
+            hoverTimer = setTimeout(function () {
+                prefetchUrl(anchor.href);
+            }, 65);
+        }, true);
+
+        document.addEventListener('pointerleave', function (e) {
+            if (e.target.closest && e.target.closest('.post-content a[href]')) {
+                clearTimeout(hoverTimer);
+            }
+        }, true);
+    })();
+</script>
+
+<script>
+     
+    (function () {
+        const footnotesSection = document.querySelector('.footnotes');
+        if (!footnotesSection) return;
+
+        const isMobile = () => window.innerWidth <= 768;
+        let activePopover = null;
+        let activeBackdrop = null;
+        let activeRef = null;
+        let hoverTimer = null;
+        let openedByClick = false;
+        let dismissTimer = null;
+
+        
+        footnotesSection.classList.add('footnotes-hidden');
+
+        function getFootnoteContent(id) {
+            const fnItem = document.getElementById(id);
+            if (!fnItem) return null;
+            const clone = fnItem.cloneNode(true);
+            clone.querySelectorAll('.footnote-backref').forEach(el => el.remove());
+            return clone.innerHTML;
+        }
+
+        function dismissPopover() {
+            clearTimeout(hoverTimer);
+            clearTimeout(dismissTimer);
+
+            if (activePopover) {
+                const pop = activePopover;
+                pop.classList.remove('visible');
+                
+                setTimeout(() => { if (pop.parentNode) pop.parentNode.removeChild(pop); }, 160);
+                activePopover = null;
+            }
+            if (activeBackdrop) {
+                const bd = activeBackdrop;
+                bd.classList.remove('visible');
+                setTimeout(() => { if (bd.parentNode) bd.parentNode.removeChild(bd); }, 160);
+                activeBackdrop = null;
+            }
+            activeRef = null;
+            openedByClick = false;
+        }
+
+        function scheduleDismiss() {
+            clearTimeout(dismissTimer);
+            dismissTimer = setTimeout(dismissPopover, 300);
+        }
+
+        function cancelDismiss() {
+            clearTimeout(dismissTimer);
+        }
+
+        function showPopover(ref, viaClick) {
+            
+            if (activeRef === ref && activePopover) {
+                if (viaClick) dismissPopover();
+                return;
+            }
+
+            dismissPopover();
+
+            const href = ref.getAttribute('href');
+            if (!href) return;
+            const fnId = href.replace('#', '');
+            const content = getFootnoteContent(fnId);
+            if (!content) return;
+
+            const popover = document.createElement('div');
+            popover.className = 'footnote-popover';
+            popover.innerHTML = content;
+            activePopover = popover;
+            activeRef = ref;
+            openedByClick = viaClick;
+
+            if (isMobile()) {
+                const backdrop = document.createElement('div');
+                backdrop.className = 'footnote-backdrop';
+                document.body.appendChild(backdrop);
+                document.body.appendChild(popover);
+                activeBackdrop = backdrop;
+
+                requestAnimationFrame(() => {
+                    backdrop.classList.add('visible');
+                    popover.classList.add('visible');
+                });
+
+                backdrop.addEventListener('click', dismissPopover);
+            } else {
+                document.body.appendChild(popover);
+
+                const refRect = ref.getBoundingClientRect();
+                const popoverWidth = Math.min(420, window.innerWidth - 32);
+                let left = refRect.left + window.scrollX - 16;
+                let top = refRect.bottom + window.scrollY + 8;
+
+                if (left + popoverWidth > window.innerWidth - 16) {
+                    left = window.innerWidth - popoverWidth - 16;
+                }
+                if (left < 16) left = 16;
+
+                popover.style.left = left + 'px';
+                popover.style.top = top + 'px';
+                popover.style.maxWidth = popoverWidth + 'px';
+
+                const arrowLeft = refRect.left + window.scrollX - left + refRect.width / 2 - 6;
+                popover.style.setProperty('--arrow-pos', Math.max(12, Math.min(arrowLeft, popoverWidth - 24)) + 'px');
+
+                requestAnimationFrame(() => { popover.classList.add('visible'); });
+
+                
+                popover.addEventListener('mouseenter', cancelDismiss);
+                popover.addEventListener('mouseleave', () => { if (!openedByClick) scheduleDismiss(); });
+            }
+        }
+
+        
+        document.addEventListener('click', function (e) {
+            const ref = e.target.closest('.footnote-ref');
+            if (ref) {
+                e.preventDefault();
+                e.stopPropagation();
+                showPopover(ref, true);
+                return;
+            }
+            
+            if (activePopover && !e.target.closest('.footnote-popover')) {
+                dismissPopover();
+            }
+        });
+
+        
+        document.addEventListener('mouseenter', function (e) {
+            if (isMobile()) return;
+            const ref = e.target.closest && e.target.closest('.footnote-ref');
+            if (!ref) return;
+            if (openedByClick) return;
+            clearTimeout(hoverTimer);
+            hoverTimer = setTimeout(() => showPopover(ref, false), 200);
+        }, true);
+
+        document.addEventListener('mouseleave', function (e) {
+            const ref = e.target.closest && e.target.closest('.footnote-ref');
+            if (!ref) return;
+            clearTimeout(hoverTimer);
+            if (!openedByClick && activePopover) scheduleDismiss();
+        }, true);
+
+        
+        window.addEventListener('scroll', function () {
+            if (!isMobile() && activePopover && !openedByClick) {
+                dismissPopover();
+            }
+        });
+
+        
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') dismissPopover();
+        });
+    })();
+</script></body>
+
+</html>

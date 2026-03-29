@@ -13,7 +13,7 @@ markup:
     renderer:
       unsafe: true
 params:
-  author: Morgan
+  author: Morgan Salisbury
   defaultTheme: dark
   disableThemeToggle: false
   disableSpecial1stPost: true

@@ -1,0 +1,103 @@
+<figure class="fpga-card" data-fpga-card data-mode="normalFlow">
+  <figcaption class="fpga-card-header">
+    <p class="fpga-card-kicker" data-fpga-role="kicker">System</p>
+    <p class="fpga-card-title" data-fpga-role="title">Normal Flow Path</p>
+    <p class="fpga-card-summary" data-fpga-role="summary">
+      Read the FPGA as a flow path first, then choose the workflow that matches the sample source.
+    </p>
+  </figcaption>
+
+  <div class="fpga-card-flow">
+    <span class="fpga-card-flow-label">Flow now</span>
+    <p class="fpga-card-flow-text" data-fpga-role="flow">
+      Black intake to trap to gauge to pump to valve 4 and the sensors, then valve 6 decides the outlet.
+    </p>
+  </div>
+
+  <div class="fpga-card-checkpoint">
+    <span class="fpga-card-checkpoint-label" data-fpga-role="checkpoint-label">Hard stops</span>
+    <p class="fpga-card-checkpoint-value" data-fpga-role="checkpoint">
+      Water upstream of the sensors means stop the pump. A sealed loop with the pump on means stop.
+    </p>
+  </div>
+
+  <div class="fpga-card-diagram" aria-hidden="true">
+    <svg class="fpga-diagram" viewBox="0 0 320 250" focusable="false">
+      <path class="fpga-diagram-path" data-fpga-path="intake" d="M28 126H108" />
+      <path class="fpga-diagram-path" data-fpga-path="pre-pump" d="M108 126H170" />
+      <path class="fpga-diagram-path" data-fpga-path="post-pump" d="M194 126H224" />
+      <path class="fpga-diagram-path" data-fpga-path="sensor" d="M224 126H290" />
+      <path class="fpga-diagram-path" data-fpga-path="return" d="M290 126V56H308" />
+      <path class="fpga-diagram-path" data-fpga-path="free-air" d="M290 126V196H308" />
+      <path class="fpga-diagram-path" data-fpga-path="injection" d="M170 196V126" />
+      <path class="fpga-diagram-path" data-fpga-path="sample" d="M224 126V56" />
+
+      <circle class="fpga-node" data-fpga-node="intake" cx="28" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="trap" cx="76" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="gauge" cx="108" cy="126" r="6" />
+      <rect class="fpga-pump" data-fpga-node="pump" x="170" y="114" width="24" height="24" rx="5" />
+      <circle class="fpga-node" data-fpga-node="v4" cx="224" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="co2" cx="248" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="o2" cx="268" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="check" cx="280" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="v6" cx="290" cy="126" r="6" />
+      <circle class="fpga-node" data-fpga-node="return-port" cx="308" cy="56" r="6" />
+      <circle class="fpga-node" data-fpga-node="free-air-port" cx="308" cy="196" r="6" />
+      <circle class="fpga-node" data-fpga-node="inject-port" cx="170" cy="196" r="6" />
+      <circle class="fpga-node" data-fpga-node="sample-port" cx="224" cy="56" r="6" />
+
+      <text class="fpga-label" x="24" y="108">Black intake</text>
+      <text class="fpga-label" x="62" y="108">Trap</text>
+      <text class="fpga-label" x="96" y="108">Gauge</text>
+      <text class="fpga-label" x="166" y="108">Pump</text>
+      <text class="fpga-label" x="213" y="108">V4</text>
+      <text class="fpga-label" x="238" y="108">CO2</text>
+      <text class="fpga-label" x="260" y="108">O2</text>
+      <text class="fpga-label" x="274" y="108">V6</text>
+      <text class="fpga-label" x="270" y="42">White return</text>
+      <text class="fpga-label" x="262" y="220">Free air</text>
+      <text class="fpga-label" x="149" y="220">V2 inject</text>
+      <text class="fpga-label" x="204" y="42">V4 sample</text>
+
+      <text class="fpga-direction fpga-direction-forward" x="108" y="148">forward flow</text>
+      <text class="fpga-direction fpga-direction-reverse" x="102" y="148">reverse purge</text>
+
+      <g class="fpga-sealed-indicator" aria-hidden="true">
+        <rect x="246" y="14" width="62" height="22" rx="11" />
+        <text x="277" y="29">loop sealed</text>
+      </g>
+    </svg>
+  </div>
+
+  <dl class="fpga-card-grid">
+    <div class="fpga-card-row">
+      <dt>Goal</dt>
+      <dd data-fpga-role="goal">Orient yourself before changing any valves.</dd>
+    </div>
+    <div class="fpga-card-row">
+      <dt>Set</dt>
+      <dd data-fpga-role="set">Know what valve 2, valve 4, and valve 6 will do before the run starts.</dd>
+    </div>
+    <div class="fpga-card-row">
+      <dt>Pump</dt>
+      <dd data-fpga-role="pump">Use only as needed for baseline or sample movement.</dd>
+    </div>
+    <div class="fpga-card-row">
+      <dt>Record</dt>
+      <dd data-fpga-role="record">Record ambient checks and sample extrema once the path is correct.</dd>
+    </div>
+    <div class="fpga-card-row fpga-card-row--warning">
+      <dt>Stop if</dt>
+      <dd data-fpga-role="stop">Water appears or the next valve move is unclear.</dd>
+    </div>
+  </dl>
+
+  <div class="fpga-card-hard-stops">
+    <p class="fpga-card-hard-stop">
+      <strong>Water upstream:</strong> stop the pump and clear the line before trusting any reading.
+    </p>
+    <p class="fpga-card-hard-stop">
+      <strong>Loop sealed:</strong> valve 6 can trap gas, so the pump must already be off first.
+    </p>
+  </div>
+</figure>

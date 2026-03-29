@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="dark">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Mapping DI and EP with rgee | morgan docs</title>
 <meta name="keywords" content="rgee, maps">
 <meta name="description" content="
@@ -16,17 +16,17 @@ Note 2: JS version had the same issues and created more problems. Nevermind!
 Rgee version
 Introduction
 Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.">
-<meta name="author" content="Morgan">
-<link rel="canonical" href="http://localhost:1313/posts/mapping-di-and-ep-with-rgee/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.9f5245256819451949712af51a1635f3f0c506d23cd4ed718e8ca670466fab62.css" integrity="sha256-n1JFJWgZRRlJcSr1GhY18/DFBtI81O1xjoymcEZvq2I=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="author" content="Morgan Salisbury">
+<link rel="canonical" href="https://docs.mor-gan.com/posts/mapping-di-and-ep-with-rgee/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f556c9f1698d000578e4f6ffd9189a798c3c839a1c72e4ad0852e74f80372745.css" integrity="sha256-9VbJ8WmNAAV45Pb/2RiaeYw8g5occuStCFLnT4A3J0U=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://docs.mor-gan.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://docs.mor-gan.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://docs.mor-gan.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://docs.mor-gan.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://docs.mor-gan.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/mapping-di-and-ep-with-rgee/">
+<link rel="alternate" hreflang="en" href="https://docs.mor-gan.com/posts/mapping-di-and-ep-with-rgee/">
 <noscript>
     <style>
         #theme-toggle,
@@ -63,13 +63,91 @@ Goal: create global maps showing Dryness Index and Evaporative Index in both 201
         }
     };
 </script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><meta property="og:url" content="https://docs.mor-gan.com/posts/mapping-di-and-ep-with-rgee/">
+  <meta property="og:site_name" content="morgan docs">
+  <meta property="og:title" content="Mapping DI and EP with rgee">
+  <meta property="og:description" content=" Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
+Note 2: JS version had the same issues and created more problems. Nevermind!
+Rgee version Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-08-15T12:39:00-05:00">
+    <meta property="article:modified_time" content="2024-08-15T12:39:00-05:00">
+    <meta property="article:tag" content="Rgee">
+    <meta property="article:tag" content="Maps">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mapping DI and EP with rgee">
+<meta name="twitter:description" content="
+  
+  
+
+Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.
+Note 2: JS version had the same issues and created more problems. Nevermind!
+Rgee version
+Introduction
+Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://docs.mor-gan.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Mapping DI and EP with rgee",
+      "item": "https://docs.mor-gan.com/posts/mapping-di-and-ep-with-rgee/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mapping DI and EP with rgee",
+  "name": "Mapping DI and EP with rgee",
+  "description": " Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.\nNote 2: JS version had the same issues and created more problems. Nevermind!\nRgee version Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.\n",
+  "keywords": [
+    "rgee", "maps"
+  ],
+  "articleBody": " Note: I have a sneaking suspicion that trying this in Earth Engine proper using JS will significantly improve the results. The same goal attempted in rgee will remain available below, and a hopefully better JS version will appear above this in the coming days.\nNote 2: JS version had the same issues and created more problems. Nevermind!\nRgee version Introduction Goal: create global maps showing Dryness Index and Evaporative Index in both 2012 and 2019, using rgee.\nThis was pretty tricky to get working. The primary challenge was visualizing the data in a way that was meaningful, and preventing extreme values from obfuscating the scale.\nScale values / min and max A major pain to get right. The values in the script below are still not correct and the product generated should not be used for any purpose other than general visualization. Google Earth Engine documentation provides estimated min and max values and scale, but using those results in seemingly useless visualizations. After trials, I found that the best visualization came from using max values of 4 for DI layers, and 2 for EI layers. Additionally, make sure to multiple all bands by 0.1 to account for scale.\nColor palette Another pinch point. At first, the map being dominated by extreme values seems like an issue that could be easily solved by using a more expansive color palette. In practice, this doesn’t work. Going from only three colors to over twenty just creates more range in the areas of the map where range actually exists, instead of creating it in the areas that are solidly either the min or the max.\nData statistics Interesting findings here that mostly reveal my own incompetence. Doing some light sniffing on the visualized values gives some very bizarre results: for both bands, the 50th percentile is 0. For EI, the 95th percentile is 0.662 and the 99th is 0.759. Similar values are present among both years and both DI and EI.\nScript # Load required libraries library(rgee) library(ggplot2) # Initialize rgee: see docs.mor-gan.com/posts/setting-up-rgee/#initializing ee_check() ee_install_upgrade() ee$Authenticate(auth_mode='localhost') ee$Initialize(project='ee-pugbugdude') # Define the years of interest years \u003c- c(2012, 2019) # Function to load datasets for different years - continued with snippet below. load_dataset \u003c- function(year) { ee$ImageCollection(\"IDAHO_EPSCOR/TERRACLIMATE\")$ filter(ee$Filter$calendarRange(year, year, \"year\"))$ mean() } # Loads the dataset above for both defined years. dataset_2012 \u003c- load_dataset(2012) dataset_2019 \u003c- load_dataset(2019) # Function to select bands and scale properly # see developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE#bands # for scaling info. get_scaled_bands \u003c- function(dataset) { list( pet = dataset$select('pet')$multiply(0.1), aet = dataset$select('aet')$multiply(0.1), pr = dataset$select('pr') ) } # Sets the bands for both years bands_2012 \u003c- get_scaled_bands(dataset_2012) bands_2019 \u003c- get_scaled_bands(dataset_2019) # Calculate indices # DI (Dryness Index) = PET / PR # EI (Evaporative Index) = AET / PR calculate_indices \u003c- function(bands) { list( dryness_index = bands$pet$divide(bands$pr)$rename(\"Dryness_Index\"), evap_index = bands$aet$divide(bands$pr)$rename(\"Evaporative_Index\") ) } # Calculates indices for both years indices_2012 \u003c- calculate_indices(bands_2012) indices_2019 \u003c- calculate_indices(bands_2019) # Sets the palette to use for mapping. index_palette \u003c- c(\"blue\", \"cyan\", \"green\", \"yellow\", \"orange\", \"red\", \"darkred\") # Function to put layers on the map for both years and bands # Uses variables set above # Why: It's easier to be able to edit the palette, min, and max values # for all layers at once, rather than having to keep track of several different lines. visualize_layer \u003c- function(image, title, min, max) { Map$addLayer( image, list(min = min, max = max, palette = index_palette), title ) } # Set min and max values for visualization. # IMPORTANT: These are very, very finicky to figure out. The min and max listed at # developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE#bands # will result in a wonky, poorly visualized map. # The numbers used below are a best attempt effort that generates a product to be used purely for # visualization, not a particularly accurate one. I strongly encourage you to adjust them to see how the map changes. dryness_index_min \u003c- 0 dryness_index_max \u003c- 4 evap_index_min \u003c- 0 evap_index_max \u003c- 1.5 # Adds each of the layers to the map. # In RStudio, the map should open automatically in the viewer tab. # In other environments, the map should open in a browser tab. visualize_layer(indices_2012$dryness_index, \"DI 2012\", dryness_index_min, dryness_index_max) visualize_layer(indices_2012$evap_index, \"EI 2012\", evap_index_min, evap_index_max) # Add layers for 2019 visualize_layer(indices_2019$dryness_index, \"DI 2019\", dryness_index_min, dryness_index_max) visualize_layer(indices_2019$evap_index, \"EI 2019\", evap_index_min, evap_index_max) ",
+  "wordCount" : "710",
+  "inLanguage": "en",
+  "datePublished": "2024-08-15T12:39:00-05:00",
+  "dateModified": "2024-08-15T12:39:00-05:00",
+  "author":{
+    "@type": "Person",
+    "name": "Morgan Salisbury"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://docs.mor-gan.com/posts/mapping-di-and-ep-with-rgee/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "morgan docs",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://docs.mor-gan.com/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <a href="https://docs.mor-gan.com/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -95,40 +173,45 @@ Goal: create global maps showing Dryness Index and Evaporative Index in both 201
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/search/" title="search (Alt &#43; /)" accesskey=/>
+                <a href="https://docs.mor-gan.com/search/" title="search (Alt &#43; /)" accesskey=/>
                     <span>search</span>
                 </a>
             </li>
         </ul>
     </nav>
 </header>
-<main class="main">
-
-<div class="post-wrapper">
-        <aside class="toc-sidebar" id="toc-sidebar">
-            <div class="toc-progress"><div class="toc-marker" data-target="#rgee-version" data-level="2"
-                        data-title="Rgee version"></div><div class="toc-marker" data-target="#introduction" data-level="3"
-                        data-title="Introduction"></div><div class="toc-marker" data-target="#scale-values-min-and-max" data-level="4"
-                        data-title="Scale values / min and max"></div><div class="toc-marker" data-target="#color-palette" data-level="4"
-                        data-title="Color palette"></div><div class="toc-marker" data-target="#data-statistics" data-level="4"
-                        data-title="Data statistics"></div><div class="toc-marker" data-target="#script" data-level="3"
-                        data-title="Script"></div></div>
-            <div class="toc-current-label" id="toc-current-label"></div>
-            <nav class="toc-nav" id="toc-nav">
+<main class="main"><div class="post-wrapper">
+        <aside class="toc-sidebar" id="toc-sidebar" aria-label="On this page">
+            <button class="toc-sidebar-toggle" id="toc-sidebar-toggle" type="button" aria-expanded="false"
+                aria-controls="toc-nav" aria-label="Toggle table of contents">
+                <span class="toc-sidebar-kicker">On This Page</span>
+                <span class="toc-current-label">
+                    <span class="toc-current-parent" id="toc-current-parent"></span>
+                    <span class="toc-current-heading" id="toc-current-label">Contents</span>
+                </span>
+            </button>
+            <div class="toc-progress" aria-hidden="true"><span class="toc-marker" data-target="#rgee-version" data-level="2"
+                        data-state="" data-title="Rgee version"></span><span class="toc-marker" data-target="#introduction" data-level="3"
+                        data-state="" data-title="Introduction"></span><span class="toc-marker" data-target="#scale-values-min-and-max" data-level="4"
+                        data-state="" data-title="Scale values / min and max"></span><span class="toc-marker" data-target="#color-palette" data-level="4"
+                        data-state="" data-title="Color palette"></span><span class="toc-marker" data-target="#data-statistics" data-level="4"
+                        data-state="" data-title="Data statistics"></span><span class="toc-marker" data-target="#script" data-level="3"
+                        data-state="" data-title="Script"></span></div>
+            <nav class="toc-nav" id="toc-nav" aria-label="On this page navigation">
                 <div class="toc-title">Contents</div><ul>
                     <li>
-                        <a href="#rgee-version" aria-label="Rgee version">Rgee version</a><ul>
+                        <a href="#rgee-version" data-state="" aria-label="Rgee version">Rgee version</a><ul>
                     <li>
-                        <a href="#introduction" aria-label="Introduction">Introduction</a><ul>
+                        <a href="#introduction" data-state="" aria-label="Introduction">Introduction</a><ul>
                     <li>
-                        <a href="#scale-values-min-and-max" aria-label="Scale values / min and max">Scale values / min and max</a></li>
+                        <a href="#scale-values-min-and-max" data-state="" aria-label="Scale values / min and max">Scale values / min and max</a></li>
                     <li>
-                        <a href="#color-palette" aria-label="Color palette">Color palette</a></li>
+                        <a href="#color-palette" data-state="" aria-label="Color palette">Color palette</a></li>
                     <li>
-                        <a href="#data-statistics" aria-label="Data statistics">Data statistics</a></li></ul>
+                        <a href="#data-statistics" data-state="" aria-label="Data statistics">Data statistics</a></li></ul>
                     </li>
                     <li>
-                        <a href="#script" aria-label="Script">Script</a>
+                        <a href="#script" data-state="" aria-label="Script">Script</a>
                     </li>
                 </ul>
                 </li>
@@ -138,7 +221,8 @@ Goal: create global maps showing Dryness Index and Evaporative Index in both 201
 
         
         <div class="toc-mobile-bar" id="toc-mobile-bar">
-            <button class="toc-mobile-toggle" id="toc-mobile-toggle">
+            <button class="toc-mobile-toggle" id="toc-mobile-toggle" type="button" aria-expanded="false"
+                aria-controls="toc-mobile-nav" aria-label="Toggle on-page contents">
                 <span class="toc-mobile-label">
                     <span class="toc-mobile-parent" id="toc-mobile-parent"></span>
                     <span class="toc-mobile-current" id="toc-mobile-current">Contents</span>
@@ -147,30 +231,30 @@ Goal: create global maps showing Dryness Index and Evaporative Index in both 201
                     <path d="M6 9l6 6 6-6" />
                 </svg>
             </button>
-            <nav class="toc-mobile-nav" id="toc-mobile-nav">
+            <nav class="toc-mobile-nav" id="toc-mobile-nav" aria-label="On this page navigation">
                 <ul><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#rgee-version">Rgee version</a>
+                            <a href="#rgee-version" data-state="">Rgee version</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#introduction">Introduction</a>
+                            <a href="#introduction" data-state="">Introduction</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#scale-values-min-and-max">Scale values / min and max</a>
+                            <a href="#scale-values-min-and-max" data-state="">Scale values / min and max</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#color-palette">Color palette</a>
+                            <a href="#color-palette" data-state="">Color palette</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#data-statistics">Data statistics</a>
+                            <a href="#data-statistics" data-state="">Data statistics</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#script">Script</a>
+                            <a href="#script" data-state="">Script</a>
                         </li></ul>
             </nav>
         </div>
 
         <article class="post-single">
             <header class="post-header">
-                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <div class="breadcrumbs"><a href="https://docs.mor-gan.com/">Home</a>&nbsp;»&nbsp;<a href="https://docs.mor-gan.com/posts/">Posts</a></div>
                 <h1 class="post-title entry-hint-parent">
                     Mapping DI and EP with rgee
                 </h1>
-                <div class="post-meta"><span title='2024-08-15 12:39:00 -0500 CDT'>August 15, 2024</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;·&nbsp;<span>Morgan</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2024-08-15 12:39:00 -0500 CDT'>August 15, 2024</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;·&nbsp;<span>Morgan Salisbury</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/Mapping-DI-and-EP-with-rgee.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
@@ -289,8 +373,8 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
 
             <footer class="post-footer">
                 <ul class="post-tags">
-                    <li><a href="http://localhost:1313/tags/rgee/">Rgee</a></li>
-                    <li><a href="http://localhost:1313/tags/maps/">Maps</a></li>
+                    <li><a href="https://docs.mor-gan.com/tags/rgee/">Rgee</a></li>
+                    <li><a href="https://docs.mor-gan.com/tags/maps/">Maps</a></li>
                 </ul>
             </footer>
         </article>
@@ -299,48 +383,162 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const sidebar = document.getElementById('toc-sidebar');
+        const tocSidebarToggle = document.getElementById('toc-sidebar-toggle');
+        const tocNav = document.getElementById('toc-nav');
+        const tocCurrentParent = document.getElementById('toc-current-parent');
+        const tocCurrentLabel = document.getElementById('toc-current-label');
         const mobileBar = document.getElementById('toc-mobile-bar');
         const mobileToggle = document.getElementById('toc-mobile-toggle');
         const mobileNav = document.getElementById('toc-mobile-nav');
         const mobileCurrent = document.getElementById('toc-mobile-current');
         const mobileParent = document.getElementById('toc-mobile-parent');
+        const fpgaCards = Array.from(document.querySelectorAll('[data-fpga-card]'));
+        const fpgaConfig = document.getElementById('fpga-sidebar-config');
 
-        if (!sidebar && !mobileBar) return;
+        if (!sidebar && !mobileBar && fpgaCards.length === 0) return;
 
         const markers = sidebar ? sidebar.querySelectorAll('.toc-marker') : [];
-        const tocLinks = sidebar ? sidebar.querySelectorAll('.toc-nav a') : [];
-        const currentLabel = document.getElementById('toc-current-label');
+        const tocLinks = tocNav ? tocNav.querySelectorAll('a') : [];
         const mobileLinks = mobileBar ? mobileBar.querySelectorAll('.toc-mobile-item a') : [];
         const headings = [];
+        let fpgaStates = null;
+        const warnedFpgaStates = new Set();
+        if (fpgaConfig) {
+            try {
+                const parsedConfig = JSON.parse(fpgaConfig.textContent);
+                fpgaStates = typeof parsedConfig === 'string' ? JSON.parse(parsedConfig) : parsedConfig;
+            } catch (error) {
+                console.error('Unable to parse FPGA sidebar config.', error);
+            }
+        }
 
-        
-        if (markers.length > 0) {
-            markers.forEach((marker, i) => {
-                const id = marker.dataset.target.slice(1);
+        markers.forEach((marker, i) => {
+            const id = marker.dataset.target.slice(1);
+            const heading = document.getElementById(id);
+            const desktopLink = tocLinks[i] || null;
+            const mobileLink = mobileBar ? mobileBar.querySelector(`a[href="#${id}"]`) : null;
+            const title = marker.dataset.title || (desktopLink ? desktopLink.textContent.trim() : id);
+            const level = parseInt(marker.dataset.level, 10);
+            const stateKey = marker.dataset.state || (desktopLink ? desktopLink.dataset.state : '') || (mobileLink ? mobileLink.dataset.state : '');
+
+            if (heading) {
+                headings.push({
+                    element: heading,
+                    marker: marker,
+                    desktopLink: desktopLink,
+                    mobileLink: mobileLink,
+                    title: title,
+                    level: Number.isNaN(level) ? 2 : level,
+                    stateKey: stateKey
+                });
+            }
+        });
+
+        if (headings.length === 0 && mobileLinks.length > 0) {
+            mobileLinks.forEach((link) => {
+                const id = link.getAttribute('href').slice(1);
                 const heading = document.getElementById(id);
-                const title = marker.dataset.title;
-                const level = parseInt(marker.dataset.level);
+                const level = parseInt(link.closest('.toc-mobile-item')?.dataset.level || '2', 10);
                 if (heading) {
-                    headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title, level: level });
-                }
-            });
-        } else if (mobileLinks.length > 0) {
-            mobileLinks.forEach((link, i) => {
-                const href = link.getAttribute('href');
-                const id = href.slice(1);
-                const heading = document.getElementById(id);
-                const title = link.textContent.trim();
-                const level = parseInt(link.closest('.toc-mobile-item').dataset.level);
-                if (heading) {
-                    headings.push({ element: heading, link: link, title: title, level: level });
+                    headings.push({
+                        element: heading,
+                        marker: null,
+                        desktopLink: tocNav ? tocNav.querySelector(`a[href="#${id}"]`) : null,
+                        mobileLink: link,
+                        title: link.textContent.trim(),
+                        level: Number.isNaN(level) ? 2 : level,
+                        stateKey: link.dataset.state || ''
+                    });
                 }
             });
         }
 
-        
+        if (fpgaStates) {
+            const missingStates = headings
+                .filter((heading) => !heading.stateKey)
+                .map((heading) => heading.element.id);
+            if (missingStates.length > 0) {
+                console.warn('FPGA sidebar headings missing state mappings:', missingStates);
+            }
+        }
+
+        function setDesktopTocOpen(isOpen, options = {}) {
+            if (!sidebar || !tocSidebarToggle) return;
+            sidebar.classList.toggle('is-open', isOpen);
+            tocSidebarToggle.setAttribute('aria-expanded', String(isOpen));
+            if (!isOpen && options.focusToggle) {
+                tocSidebarToggle.focus();
+            }
+        }
+
+        function setMobileTocOpen(isOpen, options = {}) {
+            if (!mobileBar || !mobileToggle) return;
+            mobileBar.classList.toggle('open', isOpen);
+            mobileToggle.setAttribute('aria-expanded', String(isOpen));
+            if (!isOpen && options.focusToggle) {
+                mobileToggle.focus();
+            }
+        }
+
+        function updateFPGACards(stateKey) {
+            if (!fpgaStates || fpgaCards.length === 0) return;
+
+            if (stateKey && !fpgaStates[stateKey] && !warnedFpgaStates.has(stateKey)) {
+                console.warn('Unknown FPGA sidebar state:', stateKey);
+                warnedFpgaStates.add(stateKey);
+            }
+
+            const resolvedKey = stateKey && fpgaStates[stateKey] ? stateKey : 'normalFlow';
+            const state = fpgaStates[resolvedKey];
+            if (!state) return;
+
+            fpgaCards.forEach((card) => {
+                card.dataset.mode = resolvedKey;
+                card.classList.toggle('is-reverse', !!state.reverse);
+                card.classList.toggle('is-sealed', !!state.sealed);
+
+                ['kicker', 'title', 'summary', 'flow', 'checkpointLabel', 'checkpoint', 'goal', 'set', 'pump', 'record', 'stop'].forEach((role) => {
+                    const target = card.querySelector(`[data-fpga-role="${role}"]`);
+                    if (target && state[role]) {
+                        target.textContent = state[role];
+                    }
+                });
+
+                card.querySelectorAll('[data-fpga-path]').forEach((path) => {
+                    path.classList.toggle('is-active', state.paths.includes(path.dataset.fpgaPath));
+                });
+
+                card.querySelectorAll('[data-fpga-node]').forEach((node) => {
+                    node.classList.toggle('is-active', state.nodes.includes(node.dataset.fpgaNode));
+                });
+            });
+        }
+
+        if (tocSidebarToggle) {
+            tocSidebarToggle.addEventListener('click', function () {
+                setDesktopTocOpen(!sidebar.classList.contains('is-open'));
+            });
+        }
+
+        if (sidebar) {
+            document.addEventListener('click', function (event) {
+                if (sidebar.classList.contains('is-open') && !sidebar.contains(event.target)) {
+                    setDesktopTocOpen(false);
+                }
+            });
+        }
+
+        if (tocNav) {
+            tocNav.addEventListener('click', function (event) {
+                if (event.target.tagName === 'A') {
+                    setDesktopTocOpen(false);
+                }
+            });
+        }
+
         if (mobileToggle) {
             mobileToggle.addEventListener('click', function () {
-                mobileBar.classList.toggle('open');
+                setMobileTocOpen(!mobileBar.classList.contains('open'));
             });
         }
 
@@ -348,12 +546,13 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
         if (mobileNav) {
             mobileNav.addEventListener('click', function (e) {
                 if (e.target.tagName === 'A') {
-                    mobileBar.classList.remove('open');
+                    setMobileTocOpen(false);
                 }
             });
         }
 
         function updateActiveState() {
+            if (headings.length === 0) return;
             const scrollPos = window.scrollY + 150;
             let current = headings[0];
             let currentIndex = 0;
@@ -368,40 +567,32 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
             
             if (sidebar) {
                 markers.forEach(m => m.classList.remove('active'));
-                tocLinks.forEach(l => l.classList.remove('active'));
+                tocLinks.forEach((link) => {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                });
 
                 if (current) {
                     if (current.marker) current.marker.classList.add('active');
-                    if (current.link) current.link.classList.add('active');
-
-                    if (currentLabel) {
-                        
-                        let breadcrumbs = [];
-                        let targetLevel = current.level;
-
-                        
-                        for (let j = currentIndex - 1; j >= 0; j--) {
-                            if (headings[j].level < targetLevel) {
-                                breadcrumbs.unshift(headings[j].title);
-                                targetLevel = headings[j].level;
-                            }
-                            if (targetLevel <= 2) break;
-                        }
-
-                        
-                        let html = '';
-                        if (breadcrumbs.length > 0) {
-                            html += `<span class="toc-parent-label">${breadcrumbs.join(' › ')}</span>`;
-                        }
-                        html += `<span class="toc-child-label">${current.title}</span>`;
-                        currentLabel.innerHTML = html;
-
-                        const markerRect = current.marker.getBoundingClientRect();
-                        const sidebarRect = sidebar.getBoundingClientRect();
-                        currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (breadcrumbs.length > 0 ? 18 : 10)) + 'px';
+                    if (current.desktopLink) {
+                        current.desktopLink.classList.add('active');
+                        current.desktopLink.setAttribute('aria-current', 'location');
                     }
                 }
             }
+
+            let breadcrumbs = [];
+            let targetLevel = current.level;
+            for (let j = currentIndex - 1; j >= 0; j--) {
+                if (headings[j].level < targetLevel) {
+                    breadcrumbs.unshift(headings[j].title);
+                    targetLevel = headings[j].level;
+                }
+                if (targetLevel <= 2) break;
+            }
+
+            if (tocCurrentLabel) tocCurrentLabel.textContent = current.title;
+            if (tocCurrentParent) tocCurrentParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
 
             
             if (mobileBar && current) {
@@ -410,31 +601,42 @@ Note: I have a sneaking suspicion that trying this in Earth Engine proper using 
                     mobileBar.classList.add('visible');
                 } else {
                     mobileBar.classList.remove('visible');
-                    mobileBar.classList.remove('open');
-                }
-
-                
-                let breadcrumbs = [];
-                let targetLevel = current.level;
-                for (let j = currentIndex - 1; j >= 0; j--) {
-                    if (headings[j].level < targetLevel) {
-                        breadcrumbs.unshift(headings[j].title);
-                        targetLevel = headings[j].level;
-                    }
-                    if (targetLevel <= 2) break;
+                    setMobileTocOpen(false);
                 }
 
                 if (mobileCurrent) mobileCurrent.textContent = current.title;
                 if (mobileParent) mobileParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
 
                 
-                mobileLinks.forEach(l => l.classList.remove('active'));
-                const activeLink = mobileBar.querySelector(`a[href="#${current.element.id}"]`);
-                if (activeLink) activeLink.classList.add('active');
+                mobileLinks.forEach((link) => {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                });
+                if (current.mobileLink) {
+                    current.mobileLink.classList.add('active');
+                    current.mobileLink.setAttribute('aria-current', 'location');
+                }
+            }
+
+            if (current) {
+                updateFPGACards(current.stateKey);
             }
         }
 
-        window.addEventListener('scroll', updateActiveState);
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                if (sidebar && sidebar.classList.contains('is-open')) {
+                    setDesktopTocOpen(false, { focusToggle: true });
+                }
+                if (mobileBar && mobileBar.classList.contains('open')) {
+                    setMobileTocOpen(false, { focusToggle: true });
+                }
+            }
+        });
+
+        window.addEventListener('scroll', updateActiveState, { passive: true });
+        window.addEventListener('resize', updateActiveState);
+        window.addEventListener('hashchange', updateActiveState);
         updateActiveState();
     });
 </script>

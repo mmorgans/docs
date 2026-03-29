@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="dark">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Making maps of variables with rgee | morgan docs</title>
 <meta name="keywords" content="rgee">
 <meta name="description" content="Introduction
@@ -76,17 +76,17 @@ Define the AOI, the state of Kansas.
 aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0))
 Load and Filter Sentinel-2 Data
 Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.">
-<meta name="author" content="Morgan">
-<link rel="canonical" href="http://localhost:1313/posts/making-maps-of-variables-with-rgee/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.9f5245256819451949712af51a1635f3f0c506d23cd4ed718e8ca670466fab62.css" integrity="sha256-n1JFJWgZRRlJcSr1GhY18/DFBtI81O1xjoymcEZvq2I=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="author" content="Morgan Salisbury">
+<link rel="canonical" href="https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f556c9f1698d000578e4f6ffd9189a798c3c839a1c72e4ad0852e74f80372745.css" integrity="sha256-9VbJ8WmNAAV45Pb/2RiaeYw8g5occuStCFLnT4A3J0U=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://docs.mor-gan.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://docs.mor-gan.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://docs.mor-gan.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://docs.mor-gan.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://docs.mor-gan.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/making-maps-of-variables-with-rgee/">
+<link rel="alternate" hreflang="en" href="https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/">
 <noscript>
     <style>
         #theme-toggle,
@@ -123,13 +123,151 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
         }
     };
 </script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><meta property="og:url" content="https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/">
+  <meta property="og:site_name" content="morgan docs">
+  <meta property="og:title" content="Making maps of variables with rgee">
+  <meta property="og:description" content="Introduction Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.
+Dividing EVI by Precipitation In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.
+Load and initialize rgee first!
+library(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Load the Sentinel-2 image collection and calculate EVI s2_collection &lt;- ee$ImageCollection(&#34;COPERNICUS/S2&#34;)$ filterDate(&#39;2020-06-01&#39;, &#39;2020-08-31&#39;)$ filterBounds(aoi)$ map(function(image) { evi &lt;- image$expression( &#39;2.5 * ((NIR - RED) / (NIR &#43; 6 * RED - 7.5 * BLUE &#43; 1))&#39;, list(&#39;NIR&#39; = image$select(&#34;B8&#34;), &#39;RED&#39; = image$select(&#34;B4&#34;), &#39;BLUE&#39; = image$select(&#34;B2&#34;)) )$rename(&#34;EVI&#34;) return(image$addBands(evi)) }) evi_image &lt;- s2_collection$select(&#34;EVI&#34;)$mean()$clip(aoi) # Visualize EVI to ensure it&#39;s calculated correctly evi_viz &lt;- list( min = -1, max = 1, palette = c(&#34;brown&#34;, &#34;yellow&#34;, &#34;green&#34;) ) Map$setCenter(-98.35, 38.5, 6) Map$addLayer(evi_image, evi_viz, &#34;EVI&#34;) # Load the TerraClimate PPT (precipitation) dataset ppt_dataset &lt;- ee$ImageCollection(&#34;IDAHO_EPSCOR/TERRACLIMATE&#34;)$ filterDate(&#39;2020-01-01&#39;, &#39;2020-12-31&#39;)$ select(&#34;pr&#34;)$ mean()$ clip(aoi) # Visualize PPT to ensure it&#39;s loaded correctly ppt_viz &lt;- list( min = 0, max = 2000, palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;green&#34;) ) Map$addLayer(ppt_dataset, ppt_viz, &#34;Precipitation&#34;) # Ensure the datasets align perfectly for each pixel evi_resampled &lt;- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000) ppt_resampled &lt;- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000) # Divide EVI by PPT evi_ppt_ratio &lt;- evi_resampled$divide(ppt_resampled) # Define visualization parameters for the ratio evi_ppt_viz &lt;- list( min = 0, max = 0.1, palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;red&#34;) ) # Add the EVI/PPT ratio layer Map$addLayer(evi_ppt_ratio, evi_ppt_viz, &#34;EVI/PPT Ratio&#34;) Breakdown Define the AOI, the state of Kansas. aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) Load and Filter Sentinel-2 Data Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-08-13T11:37:00-05:00">
+    <meta property="article:modified_time" content="2024-08-13T11:37:00-05:00">
+    <meta property="article:tag" content="Rgee">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Making maps of variables with rgee">
+<meta name="twitter:description" content="Introduction
+Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.
+Dividing EVI by Precipitation
+In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.
+Load and initialize rgee first!
+library(rgee)
+ee_Initialize()
+
+# Define an area of interest (AOI) over Kansas
+aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0))
+
+# Load the Sentinel-2 image collection and calculate EVI
+s2_collection &lt;- ee$ImageCollection(&#34;COPERNICUS/S2&#34;)$
+  filterDate(&#39;2020-06-01&#39;, &#39;2020-08-31&#39;)$
+  filterBounds(aoi)$
+  map(function(image) {
+    evi &lt;- image$expression(
+      &#39;2.5 * ((NIR - RED) / (NIR &#43; 6 * RED - 7.5 * BLUE &#43; 1))&#39;,
+      list(&#39;NIR&#39; = image$select(&#34;B8&#34;), &#39;RED&#39; = image$select(&#34;B4&#34;), &#39;BLUE&#39; = image$select(&#34;B2&#34;))
+    )$rename(&#34;EVI&#34;)
+    return(image$addBands(evi))
+  })
+evi_image &lt;- s2_collection$select(&#34;EVI&#34;)$mean()$clip(aoi)
+
+# Visualize EVI to ensure it&#39;s calculated correctly
+evi_viz &lt;- list(
+  min = -1,
+  max = 1,
+  palette = c(&#34;brown&#34;, &#34;yellow&#34;, &#34;green&#34;)
+)
+Map$setCenter(-98.35, 38.5, 6)
+Map$addLayer(evi_image, evi_viz, &#34;EVI&#34;)
+
+# Load the TerraClimate PPT (precipitation) dataset
+ppt_dataset &lt;- ee$ImageCollection(&#34;IDAHO_EPSCOR/TERRACLIMATE&#34;)$
+  filterDate(&#39;2020-01-01&#39;, &#39;2020-12-31&#39;)$
+  select(&#34;pr&#34;)$
+  mean()$
+  clip(aoi)
+
+# Visualize PPT to ensure it&#39;s loaded correctly
+ppt_viz &lt;- list(
+  min = 0,
+  max = 2000,
+  palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;green&#34;)
+)
+Map$addLayer(ppt_dataset, ppt_viz, &#34;Precipitation&#34;)
+
+# Ensure the datasets align perfectly for each pixel
+evi_resampled &lt;- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000)
+ppt_resampled &lt;- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000)
+
+# Divide EVI by PPT
+evi_ppt_ratio &lt;- evi_resampled$divide(ppt_resampled)
+
+# Define visualization parameters for the ratio
+evi_ppt_viz &lt;- list(
+  min = 0,
+  max = 0.1,
+  palette = c(&#34;blue&#34;, &#34;white&#34;, &#34;red&#34;)
+)
+
+# Add the EVI/PPT ratio layer
+Map$addLayer(evi_ppt_ratio, evi_ppt_viz, &#34;EVI/PPT Ratio&#34;)
+Breakdown
+Define the AOI, the state of Kansas.
+aoi &lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0))
+Load and Filter Sentinel-2 Data
+Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://docs.mor-gan.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Making maps of variables with rgee",
+      "item": "https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Making maps of variables with rgee",
+  "name": "Making maps of variables with rgee",
+  "description": "Introduction Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.\nDividing EVI by Precipitation In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.\nLoad and initialize rgee first!\nlibrary(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi \u0026lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Load the Sentinel-2 image collection and calculate EVI s2_collection \u0026lt;- ee$ImageCollection(\u0026#34;COPERNICUS/S2\u0026#34;)$ filterDate(\u0026#39;2020-06-01\u0026#39;, \u0026#39;2020-08-31\u0026#39;)$ filterBounds(aoi)$ map(function(image) { evi \u0026lt;- image$expression( \u0026#39;2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))\u0026#39;, list(\u0026#39;NIR\u0026#39; = image$select(\u0026#34;B8\u0026#34;), \u0026#39;RED\u0026#39; = image$select(\u0026#34;B4\u0026#34;), \u0026#39;BLUE\u0026#39; = image$select(\u0026#34;B2\u0026#34;)) )$rename(\u0026#34;EVI\u0026#34;) return(image$addBands(evi)) }) evi_image \u0026lt;- s2_collection$select(\u0026#34;EVI\u0026#34;)$mean()$clip(aoi) # Visualize EVI to ensure it\u0026#39;s calculated correctly evi_viz \u0026lt;- list( min = -1, max = 1, palette = c(\u0026#34;brown\u0026#34;, \u0026#34;yellow\u0026#34;, \u0026#34;green\u0026#34;) ) Map$setCenter(-98.35, 38.5, 6) Map$addLayer(evi_image, evi_viz, \u0026#34;EVI\u0026#34;) # Load the TerraClimate PPT (precipitation) dataset ppt_dataset \u0026lt;- ee$ImageCollection(\u0026#34;IDAHO_EPSCOR/TERRACLIMATE\u0026#34;)$ filterDate(\u0026#39;2020-01-01\u0026#39;, \u0026#39;2020-12-31\u0026#39;)$ select(\u0026#34;pr\u0026#34;)$ mean()$ clip(aoi) # Visualize PPT to ensure it\u0026#39;s loaded correctly ppt_viz \u0026lt;- list( min = 0, max = 2000, palette = c(\u0026#34;blue\u0026#34;, \u0026#34;white\u0026#34;, \u0026#34;green\u0026#34;) ) Map$addLayer(ppt_dataset, ppt_viz, \u0026#34;Precipitation\u0026#34;) # Ensure the datasets align perfectly for each pixel evi_resampled \u0026lt;- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000) ppt_resampled \u0026lt;- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000) # Divide EVI by PPT evi_ppt_ratio \u0026lt;- evi_resampled$divide(ppt_resampled) # Define visualization parameters for the ratio evi_ppt_viz \u0026lt;- list( min = 0, max = 0.1, palette = c(\u0026#34;blue\u0026#34;, \u0026#34;white\u0026#34;, \u0026#34;red\u0026#34;) ) # Add the EVI/PPT ratio layer Map$addLayer(evi_ppt_ratio, evi_ppt_viz, \u0026#34;EVI/PPT Ratio\u0026#34;) Breakdown Define the AOI, the state of Kansas. aoi \u0026lt;- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) Load and Filter Sentinel-2 Data Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.\n",
+  "keywords": [
+    "rgee"
+  ],
+  "articleBody": "Introduction Raw data often needs to be transformed in order to do anything useful with it. Typically, transforming variables in GEE involves manipulating raw bands of imagery to create products like NDVI and EVI, or performing math operations with multiple datasets.\nDividing EVI by Precipitation In this example, EVI is being divided by precipitation data for Kansas, and the result is mapped.\nLoad and initialize rgee first!\nlibrary(rgee) ee_Initialize() # Define an area of interest (AOI) over Kansas aoi \u003c- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) # Load the Sentinel-2 image collection and calculate EVI s2_collection \u003c- ee$ImageCollection(\"COPERNICUS/S2\")$ filterDate('2020-06-01', '2020-08-31')$ filterBounds(aoi)$ map(function(image) { evi \u003c- image$expression( '2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))', list('NIR' = image$select(\"B8\"), 'RED' = image$select(\"B4\"), 'BLUE' = image$select(\"B2\")) )$rename(\"EVI\") return(image$addBands(evi)) }) evi_image \u003c- s2_collection$select(\"EVI\")$mean()$clip(aoi) # Visualize EVI to ensure it's calculated correctly evi_viz \u003c- list( min = -1, max = 1, palette = c(\"brown\", \"yellow\", \"green\") ) Map$setCenter(-98.35, 38.5, 6) Map$addLayer(evi_image, evi_viz, \"EVI\") # Load the TerraClimate PPT (precipitation) dataset ppt_dataset \u003c- ee$ImageCollection(\"IDAHO_EPSCOR/TERRACLIMATE\")$ filterDate('2020-01-01', '2020-12-31')$ select(\"pr\")$ mean()$ clip(aoi) # Visualize PPT to ensure it's loaded correctly ppt_viz \u003c- list( min = 0, max = 2000, palette = c(\"blue\", \"white\", \"green\") ) Map$addLayer(ppt_dataset, ppt_viz, \"Precipitation\") # Ensure the datasets align perfectly for each pixel evi_resampled \u003c- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000) ppt_resampled \u003c- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000) # Divide EVI by PPT evi_ppt_ratio \u003c- evi_resampled$divide(ppt_resampled) # Define visualization parameters for the ratio evi_ppt_viz \u003c- list( min = 0, max = 0.1, palette = c(\"blue\", \"white\", \"red\") ) # Add the EVI/PPT ratio layer Map$addLayer(evi_ppt_ratio, evi_ppt_viz, \"EVI/PPT Ratio\") Breakdown Define the AOI, the state of Kansas. aoi \u003c- ee$Geometry$Rectangle(c(-102.05, 36.99, -94.6, 40.0)) Load and Filter Sentinel-2 Data Next, we load the Sentinel-2 image collection, filter it for the summer months (June to August 2020), and calculate EVI for each image. EVI values are then averaged and clipped only to our AOI.\ns2_collection \u003c- ee$ImageCollection(\"COPERNICUS/S2\")$ filterDate('2020-06-01', '2020-08-31')$ filterBounds(aoi)$ map(function(image) { evi \u003c- image$expression( '2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))', list('NIR' = image$select(\"B8\"), 'RED' = image$select(\"B4\"), 'BLUE' = image$select(\"B2\")) )$rename(\"EVI\") return(image$addBands(evi)) }) evi_image \u003c- s2_collection$select(\"EVI\")$mean()$clip(aoi) First mapping of EVI This is to make sure the current values are correct and being visualized correctly. I had a lot of trouble with this example in particular, so I am redundantly checking work as we go.\nevi_viz \u003c- list( min = -1, max = 1, palette = c(\"brown\", \"yellow\", \"green\") ) Map$setCenter(-98.35, 38.5, 6) Map$addLayer(evi_image, evi_viz, \"EVI\") Loading precip data We load precip data from TerraClimate, filter it for the year 2020, average values, and clip them.\nppt_dataset \u003c- ee$ImageCollection(\"IDAHO_EPSCOR/TERRACLIMATE\")$ filterDate('2020-01-01', '2020-12-31')$ select(\"pr\")$ mean()$ clip(aoi) Visualize PPT to make sure it’s correct Again, I am visualizing the precipitation data to make sure it looks correct.\nppt_viz \u003c- list( min = 0, max = 2000, palette = c(\"blue\", \"white\", \"green\") ) Map$addLayer(ppt_dataset, ppt_viz, \"Precipitation\") Make sure data is aligned Before actually performing any operations on the data, making sure that both datasets are aligned correctly is important. Here I’m reprojecting both sets to the same scale and resolution.\nevi_resampled \u003c- evi_image$reproject(crs = ppt_dataset$projection(), scale = 1000) ppt_resampled \u003c- ppt_dataset$reproject(crs = evi_image$projection(), scale = 1000) Transform the data Dividing the EVI by the precip to calculate the ratio.\nevi_ppt_ratio \u003c- evi_resampled$divide(ppt_resampled) Define viz params for mapping the new ratio evi_ppt_viz \u003c- list( min = 0, max = 0.1, palette = c(\"blue\", \"white\", \"red\") ) Map$addLayer(evi_ppt_ratio, evi_ppt_viz, \"EVI/PPT Ratio\") ",
+  "wordCount" : "585",
+  "inLanguage": "en",
+  "datePublished": "2024-08-13T11:37:00-05:00",
+  "dateModified": "2024-08-13T11:37:00-05:00",
+  "author":{
+    "@type": "Person",
+    "name": "Morgan Salisbury"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://docs.mor-gan.com/posts/making-maps-of-variables-with-rgee/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "morgan docs",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://docs.mor-gan.com/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <a href="https://docs.mor-gan.com/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -155,54 +293,59 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/search/" title="search (Alt &#43; /)" accesskey=/>
+                <a href="https://docs.mor-gan.com/search/" title="search (Alt &#43; /)" accesskey=/>
                     <span>search</span>
                 </a>
             </li>
         </ul>
     </nav>
 </header>
-<main class="main">
-
-<div class="post-wrapper">
-        <aside class="toc-sidebar" id="toc-sidebar">
-            <div class="toc-progress"><div class="toc-marker" data-target="#introduction" data-level="2"
-                        data-title="Introduction"></div><div class="toc-marker" data-target="#dividing-evi-by-precipitation" data-level="3"
-                        data-title="Dividing EVI by Precipitation"></div><div class="toc-marker" data-target="#breakdown" data-level="3"
-                        data-title="Breakdown"></div><div class="toc-marker" data-target="#define-the-aoi-the-state-of-kansas-dot" data-level="4"
-                        data-title="Define the AOI, the state of Kansas."></div><div class="toc-marker" data-target="#load-and-filter-sentinel-2-data" data-level="4"
-                        data-title="Load and Filter Sentinel-2 Data"></div><div class="toc-marker" data-target="#first-mapping-of-evi" data-level="4"
-                        data-title="First mapping of EVI"></div><div class="toc-marker" data-target="#loading-precip-data" data-level="4"
-                        data-title="Loading precip data"></div><div class="toc-marker" data-target="#visualize-ppt-to-make-sure-it-s-correct" data-level="4"
-                        data-title="Visualize PPT to make sure it&rsquo;s correct"></div><div class="toc-marker" data-target="#make-sure-data-is-aligned" data-level="4"
-                        data-title="Make sure data is aligned"></div><div class="toc-marker" data-target="#transform-the-data" data-level="4"
-                        data-title="Transform the data"></div><div class="toc-marker" data-target="#define-viz-params-for-mapping-the-new-ratio" data-level="4"
-                        data-title="Define viz params for mapping the new ratio"></div></div>
-            <div class="toc-current-label" id="toc-current-label"></div>
-            <nav class="toc-nav" id="toc-nav">
+<main class="main"><div class="post-wrapper">
+        <aside class="toc-sidebar" id="toc-sidebar" aria-label="On this page">
+            <button class="toc-sidebar-toggle" id="toc-sidebar-toggle" type="button" aria-expanded="false"
+                aria-controls="toc-nav" aria-label="Toggle table of contents">
+                <span class="toc-sidebar-kicker">On This Page</span>
+                <span class="toc-current-label">
+                    <span class="toc-current-parent" id="toc-current-parent"></span>
+                    <span class="toc-current-heading" id="toc-current-label">Contents</span>
+                </span>
+            </button>
+            <div class="toc-progress" aria-hidden="true"><span class="toc-marker" data-target="#introduction" data-level="2"
+                        data-state="" data-title="Introduction"></span><span class="toc-marker" data-target="#dividing-evi-by-precipitation" data-level="3"
+                        data-state="" data-title="Dividing EVI by Precipitation"></span><span class="toc-marker" data-target="#breakdown" data-level="3"
+                        data-state="" data-title="Breakdown"></span><span class="toc-marker" data-target="#define-the-aoi-the-state-of-kansas-dot" data-level="4"
+                        data-state="" data-title="Define the AOI, the state of Kansas."></span><span class="toc-marker" data-target="#load-and-filter-sentinel-2-data" data-level="4"
+                        data-state="" data-title="Load and Filter Sentinel-2 Data"></span><span class="toc-marker" data-target="#first-mapping-of-evi" data-level="4"
+                        data-state="" data-title="First mapping of EVI"></span><span class="toc-marker" data-target="#loading-precip-data" data-level="4"
+                        data-state="" data-title="Loading precip data"></span><span class="toc-marker" data-target="#visualize-ppt-to-make-sure-it-s-correct" data-level="4"
+                        data-state="" data-title="Visualize PPT to make sure it&rsquo;s correct"></span><span class="toc-marker" data-target="#make-sure-data-is-aligned" data-level="4"
+                        data-state="" data-title="Make sure data is aligned"></span><span class="toc-marker" data-target="#transform-the-data" data-level="4"
+                        data-state="" data-title="Transform the data"></span><span class="toc-marker" data-target="#define-viz-params-for-mapping-the-new-ratio" data-level="4"
+                        data-state="" data-title="Define viz params for mapping the new ratio"></span></div>
+            <nav class="toc-nav" id="toc-nav" aria-label="On this page navigation">
                 <div class="toc-title">Contents</div><ul>
                     <li>
-                        <a href="#introduction" aria-label="Introduction">Introduction</a><ul>
+                        <a href="#introduction" data-state="" aria-label="Introduction">Introduction</a><ul>
                     <li>
-                        <a href="#dividing-evi-by-precipitation" aria-label="Dividing EVI by Precipitation">Dividing EVI by Precipitation</a></li>
+                        <a href="#dividing-evi-by-precipitation" data-state="" aria-label="Dividing EVI by Precipitation">Dividing EVI by Precipitation</a></li>
                     <li>
-                        <a href="#breakdown" aria-label="Breakdown">Breakdown</a><ul>
+                        <a href="#breakdown" data-state="" aria-label="Breakdown">Breakdown</a><ul>
                     <li>
-                        <a href="#define-the-aoi-the-state-of-kansas-dot" aria-label="Define the AOI, the state of Kansas.">Define the AOI, the state of Kansas.</a></li>
+                        <a href="#define-the-aoi-the-state-of-kansas-dot" data-state="" aria-label="Define the AOI, the state of Kansas.">Define the AOI, the state of Kansas.</a></li>
                     <li>
-                        <a href="#load-and-filter-sentinel-2-data" aria-label="Load and Filter Sentinel-2 Data">Load and Filter Sentinel-2 Data</a></li>
+                        <a href="#load-and-filter-sentinel-2-data" data-state="" aria-label="Load and Filter Sentinel-2 Data">Load and Filter Sentinel-2 Data</a></li>
                     <li>
-                        <a href="#first-mapping-of-evi" aria-label="First mapping of EVI">First mapping of EVI</a></li>
+                        <a href="#first-mapping-of-evi" data-state="" aria-label="First mapping of EVI">First mapping of EVI</a></li>
                     <li>
-                        <a href="#loading-precip-data" aria-label="Loading precip data">Loading precip data</a></li>
+                        <a href="#loading-precip-data" data-state="" aria-label="Loading precip data">Loading precip data</a></li>
                     <li>
-                        <a href="#visualize-ppt-to-make-sure-it-s-correct" aria-label="Visualize PPT to make sure it&rsquo;s correct">Visualize PPT to make sure it&rsquo;s correct</a></li>
+                        <a href="#visualize-ppt-to-make-sure-it-s-correct" data-state="" aria-label="Visualize PPT to make sure it&rsquo;s correct">Visualize PPT to make sure it&rsquo;s correct</a></li>
                     <li>
-                        <a href="#make-sure-data-is-aligned" aria-label="Make sure data is aligned">Make sure data is aligned</a></li>
+                        <a href="#make-sure-data-is-aligned" data-state="" aria-label="Make sure data is aligned">Make sure data is aligned</a></li>
                     <li>
-                        <a href="#transform-the-data" aria-label="Transform the data">Transform the data</a></li>
+                        <a href="#transform-the-data" data-state="" aria-label="Transform the data">Transform the data</a></li>
                     <li>
-                        <a href="#define-viz-params-for-mapping-the-new-ratio" aria-label="Define viz params for mapping the new ratio">Define viz params for mapping the new ratio</a>
+                        <a href="#define-viz-params-for-mapping-the-new-ratio" data-state="" aria-label="Define viz params for mapping the new ratio">Define viz params for mapping the new ratio</a>
                     </li>
                 </ul>
                 </li>
@@ -214,7 +357,8 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
 
         
         <div class="toc-mobile-bar" id="toc-mobile-bar">
-            <button class="toc-mobile-toggle" id="toc-mobile-toggle">
+            <button class="toc-mobile-toggle" id="toc-mobile-toggle" type="button" aria-expanded="false"
+                aria-controls="toc-mobile-nav" aria-label="Toggle on-page contents">
                 <span class="toc-mobile-label">
                     <span class="toc-mobile-parent" id="toc-mobile-parent"></span>
                     <span class="toc-mobile-current" id="toc-mobile-current">Contents</span>
@@ -223,40 +367,40 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
                     <path d="M6 9l6 6 6-6" />
                 </svg>
             </button>
-            <nav class="toc-mobile-nav" id="toc-mobile-nav">
+            <nav class="toc-mobile-nav" id="toc-mobile-nav" aria-label="On this page navigation">
                 <ul><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#introduction">Introduction</a>
+                            <a href="#introduction" data-state="">Introduction</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#dividing-evi-by-precipitation">Dividing EVI by Precipitation</a>
+                            <a href="#dividing-evi-by-precipitation" data-state="">Dividing EVI by Precipitation</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#breakdown">Breakdown</a>
+                            <a href="#breakdown" data-state="">Breakdown</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#define-the-aoi-the-state-of-kansas-dot">Define the AOI, the state of Kansas.</a>
+                            <a href="#define-the-aoi-the-state-of-kansas-dot" data-state="">Define the AOI, the state of Kansas.</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#load-and-filter-sentinel-2-data">Load and Filter Sentinel-2 Data</a>
+                            <a href="#load-and-filter-sentinel-2-data" data-state="">Load and Filter Sentinel-2 Data</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#first-mapping-of-evi">First mapping of EVI</a>
+                            <a href="#first-mapping-of-evi" data-state="">First mapping of EVI</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#loading-precip-data">Loading precip data</a>
+                            <a href="#loading-precip-data" data-state="">Loading precip data</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#visualize-ppt-to-make-sure-it-s-correct">Visualize PPT to make sure it&rsquo;s correct</a>
+                            <a href="#visualize-ppt-to-make-sure-it-s-correct" data-state="">Visualize PPT to make sure it&rsquo;s correct</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#make-sure-data-is-aligned">Make sure data is aligned</a>
+                            <a href="#make-sure-data-is-aligned" data-state="">Make sure data is aligned</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#transform-the-data">Transform the data</a>
+                            <a href="#transform-the-data" data-state="">Transform the data</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#define-viz-params-for-mapping-the-new-ratio">Define viz params for mapping the new ratio</a>
+                            <a href="#define-viz-params-for-mapping-the-new-ratio" data-state="">Define viz params for mapping the new ratio</a>
                         </li></ul>
             </nav>
         </div>
 
         <article class="post-single">
             <header class="post-header">
-                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <div class="breadcrumbs"><a href="https://docs.mor-gan.com/">Home</a>&nbsp;»&nbsp;<a href="https://docs.mor-gan.com/posts/">Posts</a></div>
                 <h1 class="post-title entry-hint-parent">
                     Making maps of variables with rgee
                 </h1>
-                <div class="post-meta"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>Morgan</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2024-08-13 11:37:00 -0500 CDT'>August 13, 2024</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>Morgan Salisbury</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/Making-maps-of-variables-with-rgee.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
@@ -386,7 +530,7 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
 
             <footer class="post-footer">
                 <ul class="post-tags">
-                    <li><a href="http://localhost:1313/tags/rgee/">Rgee</a></li>
+                    <li><a href="https://docs.mor-gan.com/tags/rgee/">Rgee</a></li>
                 </ul>
             </footer>
         </article>
@@ -395,48 +539,162 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const sidebar = document.getElementById('toc-sidebar');
+        const tocSidebarToggle = document.getElementById('toc-sidebar-toggle');
+        const tocNav = document.getElementById('toc-nav');
+        const tocCurrentParent = document.getElementById('toc-current-parent');
+        const tocCurrentLabel = document.getElementById('toc-current-label');
         const mobileBar = document.getElementById('toc-mobile-bar');
         const mobileToggle = document.getElementById('toc-mobile-toggle');
         const mobileNav = document.getElementById('toc-mobile-nav');
         const mobileCurrent = document.getElementById('toc-mobile-current');
         const mobileParent = document.getElementById('toc-mobile-parent');
+        const fpgaCards = Array.from(document.querySelectorAll('[data-fpga-card]'));
+        const fpgaConfig = document.getElementById('fpga-sidebar-config');
 
-        if (!sidebar && !mobileBar) return;
+        if (!sidebar && !mobileBar && fpgaCards.length === 0) return;
 
         const markers = sidebar ? sidebar.querySelectorAll('.toc-marker') : [];
-        const tocLinks = sidebar ? sidebar.querySelectorAll('.toc-nav a') : [];
-        const currentLabel = document.getElementById('toc-current-label');
+        const tocLinks = tocNav ? tocNav.querySelectorAll('a') : [];
         const mobileLinks = mobileBar ? mobileBar.querySelectorAll('.toc-mobile-item a') : [];
         const headings = [];
+        let fpgaStates = null;
+        const warnedFpgaStates = new Set();
+        if (fpgaConfig) {
+            try {
+                const parsedConfig = JSON.parse(fpgaConfig.textContent);
+                fpgaStates = typeof parsedConfig === 'string' ? JSON.parse(parsedConfig) : parsedConfig;
+            } catch (error) {
+                console.error('Unable to parse FPGA sidebar config.', error);
+            }
+        }
 
-        
-        if (markers.length > 0) {
-            markers.forEach((marker, i) => {
-                const id = marker.dataset.target.slice(1);
+        markers.forEach((marker, i) => {
+            const id = marker.dataset.target.slice(1);
+            const heading = document.getElementById(id);
+            const desktopLink = tocLinks[i] || null;
+            const mobileLink = mobileBar ? mobileBar.querySelector(`a[href="#${id}"]`) : null;
+            const title = marker.dataset.title || (desktopLink ? desktopLink.textContent.trim() : id);
+            const level = parseInt(marker.dataset.level, 10);
+            const stateKey = marker.dataset.state || (desktopLink ? desktopLink.dataset.state : '') || (mobileLink ? mobileLink.dataset.state : '');
+
+            if (heading) {
+                headings.push({
+                    element: heading,
+                    marker: marker,
+                    desktopLink: desktopLink,
+                    mobileLink: mobileLink,
+                    title: title,
+                    level: Number.isNaN(level) ? 2 : level,
+                    stateKey: stateKey
+                });
+            }
+        });
+
+        if (headings.length === 0 && mobileLinks.length > 0) {
+            mobileLinks.forEach((link) => {
+                const id = link.getAttribute('href').slice(1);
                 const heading = document.getElementById(id);
-                const title = marker.dataset.title;
-                const level = parseInt(marker.dataset.level);
+                const level = parseInt(link.closest('.toc-mobile-item')?.dataset.level || '2', 10);
                 if (heading) {
-                    headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title, level: level });
-                }
-            });
-        } else if (mobileLinks.length > 0) {
-            mobileLinks.forEach((link, i) => {
-                const href = link.getAttribute('href');
-                const id = href.slice(1);
-                const heading = document.getElementById(id);
-                const title = link.textContent.trim();
-                const level = parseInt(link.closest('.toc-mobile-item').dataset.level);
-                if (heading) {
-                    headings.push({ element: heading, link: link, title: title, level: level });
+                    headings.push({
+                        element: heading,
+                        marker: null,
+                        desktopLink: tocNav ? tocNav.querySelector(`a[href="#${id}"]`) : null,
+                        mobileLink: link,
+                        title: link.textContent.trim(),
+                        level: Number.isNaN(level) ? 2 : level,
+                        stateKey: link.dataset.state || ''
+                    });
                 }
             });
         }
 
-        
+        if (fpgaStates) {
+            const missingStates = headings
+                .filter((heading) => !heading.stateKey)
+                .map((heading) => heading.element.id);
+            if (missingStates.length > 0) {
+                console.warn('FPGA sidebar headings missing state mappings:', missingStates);
+            }
+        }
+
+        function setDesktopTocOpen(isOpen, options = {}) {
+            if (!sidebar || !tocSidebarToggle) return;
+            sidebar.classList.toggle('is-open', isOpen);
+            tocSidebarToggle.setAttribute('aria-expanded', String(isOpen));
+            if (!isOpen && options.focusToggle) {
+                tocSidebarToggle.focus();
+            }
+        }
+
+        function setMobileTocOpen(isOpen, options = {}) {
+            if (!mobileBar || !mobileToggle) return;
+            mobileBar.classList.toggle('open', isOpen);
+            mobileToggle.setAttribute('aria-expanded', String(isOpen));
+            if (!isOpen && options.focusToggle) {
+                mobileToggle.focus();
+            }
+        }
+
+        function updateFPGACards(stateKey) {
+            if (!fpgaStates || fpgaCards.length === 0) return;
+
+            if (stateKey && !fpgaStates[stateKey] && !warnedFpgaStates.has(stateKey)) {
+                console.warn('Unknown FPGA sidebar state:', stateKey);
+                warnedFpgaStates.add(stateKey);
+            }
+
+            const resolvedKey = stateKey && fpgaStates[stateKey] ? stateKey : 'normalFlow';
+            const state = fpgaStates[resolvedKey];
+            if (!state) return;
+
+            fpgaCards.forEach((card) => {
+                card.dataset.mode = resolvedKey;
+                card.classList.toggle('is-reverse', !!state.reverse);
+                card.classList.toggle('is-sealed', !!state.sealed);
+
+                ['kicker', 'title', 'summary', 'flow', 'checkpointLabel', 'checkpoint', 'goal', 'set', 'pump', 'record', 'stop'].forEach((role) => {
+                    const target = card.querySelector(`[data-fpga-role="${role}"]`);
+                    if (target && state[role]) {
+                        target.textContent = state[role];
+                    }
+                });
+
+                card.querySelectorAll('[data-fpga-path]').forEach((path) => {
+                    path.classList.toggle('is-active', state.paths.includes(path.dataset.fpgaPath));
+                });
+
+                card.querySelectorAll('[data-fpga-node]').forEach((node) => {
+                    node.classList.toggle('is-active', state.nodes.includes(node.dataset.fpgaNode));
+                });
+            });
+        }
+
+        if (tocSidebarToggle) {
+            tocSidebarToggle.addEventListener('click', function () {
+                setDesktopTocOpen(!sidebar.classList.contains('is-open'));
+            });
+        }
+
+        if (sidebar) {
+            document.addEventListener('click', function (event) {
+                if (sidebar.classList.contains('is-open') && !sidebar.contains(event.target)) {
+                    setDesktopTocOpen(false);
+                }
+            });
+        }
+
+        if (tocNav) {
+            tocNav.addEventListener('click', function (event) {
+                if (event.target.tagName === 'A') {
+                    setDesktopTocOpen(false);
+                }
+            });
+        }
+
         if (mobileToggle) {
             mobileToggle.addEventListener('click', function () {
-                mobileBar.classList.toggle('open');
+                setMobileTocOpen(!mobileBar.classList.contains('open'));
             });
         }
 
@@ -444,12 +702,13 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
         if (mobileNav) {
             mobileNav.addEventListener('click', function (e) {
                 if (e.target.tagName === 'A') {
-                    mobileBar.classList.remove('open');
+                    setMobileTocOpen(false);
                 }
             });
         }
 
         function updateActiveState() {
+            if (headings.length === 0) return;
             const scrollPos = window.scrollY + 150;
             let current = headings[0];
             let currentIndex = 0;
@@ -464,40 +723,32 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
             
             if (sidebar) {
                 markers.forEach(m => m.classList.remove('active'));
-                tocLinks.forEach(l => l.classList.remove('active'));
+                tocLinks.forEach((link) => {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                });
 
                 if (current) {
                     if (current.marker) current.marker.classList.add('active');
-                    if (current.link) current.link.classList.add('active');
-
-                    if (currentLabel) {
-                        
-                        let breadcrumbs = [];
-                        let targetLevel = current.level;
-
-                        
-                        for (let j = currentIndex - 1; j >= 0; j--) {
-                            if (headings[j].level < targetLevel) {
-                                breadcrumbs.unshift(headings[j].title);
-                                targetLevel = headings[j].level;
-                            }
-                            if (targetLevel <= 2) break;
-                        }
-
-                        
-                        let html = '';
-                        if (breadcrumbs.length > 0) {
-                            html += `<span class="toc-parent-label">${breadcrumbs.join(' › ')}</span>`;
-                        }
-                        html += `<span class="toc-child-label">${current.title}</span>`;
-                        currentLabel.innerHTML = html;
-
-                        const markerRect = current.marker.getBoundingClientRect();
-                        const sidebarRect = sidebar.getBoundingClientRect();
-                        currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (breadcrumbs.length > 0 ? 18 : 10)) + 'px';
+                    if (current.desktopLink) {
+                        current.desktopLink.classList.add('active');
+                        current.desktopLink.setAttribute('aria-current', 'location');
                     }
                 }
             }
+
+            let breadcrumbs = [];
+            let targetLevel = current.level;
+            for (let j = currentIndex - 1; j >= 0; j--) {
+                if (headings[j].level < targetLevel) {
+                    breadcrumbs.unshift(headings[j].title);
+                    targetLevel = headings[j].level;
+                }
+                if (targetLevel <= 2) break;
+            }
+
+            if (tocCurrentLabel) tocCurrentLabel.textContent = current.title;
+            if (tocCurrentParent) tocCurrentParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
 
             
             if (mobileBar && current) {
@@ -506,31 +757,42 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
                     mobileBar.classList.add('visible');
                 } else {
                     mobileBar.classList.remove('visible');
-                    mobileBar.classList.remove('open');
-                }
-
-                
-                let breadcrumbs = [];
-                let targetLevel = current.level;
-                for (let j = currentIndex - 1; j >= 0; j--) {
-                    if (headings[j].level < targetLevel) {
-                        breadcrumbs.unshift(headings[j].title);
-                        targetLevel = headings[j].level;
-                    }
-                    if (targetLevel <= 2) break;
+                    setMobileTocOpen(false);
                 }
 
                 if (mobileCurrent) mobileCurrent.textContent = current.title;
                 if (mobileParent) mobileParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
 
                 
-                mobileLinks.forEach(l => l.classList.remove('active'));
-                const activeLink = mobileBar.querySelector(`a[href="#${current.element.id}"]`);
-                if (activeLink) activeLink.classList.add('active');
+                mobileLinks.forEach((link) => {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                });
+                if (current.mobileLink) {
+                    current.mobileLink.classList.add('active');
+                    current.mobileLink.setAttribute('aria-current', 'location');
+                }
+            }
+
+            if (current) {
+                updateFPGACards(current.stateKey);
             }
         }
 
-        window.addEventListener('scroll', updateActiveState);
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                if (sidebar && sidebar.classList.contains('is-open')) {
+                    setDesktopTocOpen(false, { focusToggle: true });
+                }
+                if (mobileBar && mobileBar.classList.contains('open')) {
+                    setMobileTocOpen(false, { focusToggle: true });
+                }
+            }
+        });
+
+        window.addEventListener('scroll', updateActiveState, { passive: true });
+        window.addEventListener('resize', updateActiveState);
+        window.addEventListener('hashchange', updateActiveState);
         updateActiveState();
     });
 </script>
@@ -695,7 +957,10 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
         const isMobile = () => window.innerWidth <= 768;
         let activePopover = null;
         let activeBackdrop = null;
+        let activeRef = null;
         let hoverTimer = null;
+        let openedByClick = false;
+        let dismissTimer = null;
 
         
         footnotesSection.classList.add('footnotes-hidden');
@@ -704,33 +969,47 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
             const fnItem = document.getElementById(id);
             if (!fnItem) return null;
             const clone = fnItem.cloneNode(true);
-            
             clone.querySelectorAll('.footnote-backref').forEach(el => el.remove());
             return clone.innerHTML;
         }
 
         function dismissPopover() {
+            clearTimeout(hoverTimer);
+            clearTimeout(dismissTimer);
+
             if (activePopover) {
-                activePopover.classList.remove('visible');
-                setTimeout(() => {
-                    if (activePopover && activePopover.parentNode) {
-                        activePopover.parentNode.removeChild(activePopover);
-                    }
-                    activePopover = null;
-                }, 150);
+                const pop = activePopover;
+                pop.classList.remove('visible');
+                
+                setTimeout(() => { if (pop.parentNode) pop.parentNode.removeChild(pop); }, 160);
+                activePopover = null;
             }
             if (activeBackdrop) {
-                activeBackdrop.classList.remove('visible');
-                setTimeout(() => {
-                    if (activeBackdrop && activeBackdrop.parentNode) {
-                        activeBackdrop.parentNode.removeChild(activeBackdrop);
-                    }
-                    activeBackdrop = null;
-                }, 150);
+                const bd = activeBackdrop;
+                bd.classList.remove('visible');
+                setTimeout(() => { if (bd.parentNode) bd.parentNode.removeChild(bd); }, 160);
+                activeBackdrop = null;
             }
+            activeRef = null;
+            openedByClick = false;
         }
 
-        function showPopover(ref) {
+        function scheduleDismiss() {
+            clearTimeout(dismissTimer);
+            dismissTimer = setTimeout(dismissPopover, 300);
+        }
+
+        function cancelDismiss() {
+            clearTimeout(dismissTimer);
+        }
+
+        function showPopover(ref, viaClick) {
+            
+            if (activeRef === ref && activePopover) {
+                if (viaClick) dismissPopover();
+                return;
+            }
+
             dismissPopover();
 
             const href = ref.getAttribute('href');
@@ -739,14 +1018,14 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
             const content = getFootnoteContent(fnId);
             if (!content) return;
 
-            
             const popover = document.createElement('div');
             popover.className = 'footnote-popover';
             popover.innerHTML = content;
             activePopover = popover;
+            activeRef = ref;
+            openedByClick = viaClick;
 
             if (isMobile()) {
-                
                 const backdrop = document.createElement('div');
                 backdrop.className = 'footnote-backdrop';
                 document.body.appendChild(backdrop);
@@ -760,15 +1039,13 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
 
                 backdrop.addEventListener('click', dismissPopover);
             } else {
-                
                 document.body.appendChild(popover);
 
                 const refRect = ref.getBoundingClientRect();
-                const popoverWidth = 420;
+                const popoverWidth = Math.min(420, window.innerWidth - 32);
                 let left = refRect.left + window.scrollX - 16;
                 let top = refRect.bottom + window.scrollY + 8;
 
-                
                 if (left + popoverWidth > window.innerWidth - 16) {
                     left = window.innerWidth - popoverWidth - 16;
                 }
@@ -776,65 +1053,55 @@ Next, we load the Sentinel-2 image collection, filter it for the summer months (
 
                 popover.style.left = left + 'px';
                 popover.style.top = top + 'px';
+                popover.style.maxWidth = popoverWidth + 'px';
 
-                
                 const arrowLeft = refRect.left + window.scrollX - left + refRect.width / 2 - 6;
                 popover.style.setProperty('--arrow-pos', Math.max(12, Math.min(arrowLeft, popoverWidth - 24)) + 'px');
 
-                requestAnimationFrame(() => {
-                    popover.classList.add('visible');
-                });
+                requestAnimationFrame(() => { popover.classList.add('visible'); });
 
                 
-                let dismissTimer = null;
-                const startDismissTimer = () => {
-                    dismissTimer = setTimeout(dismissPopover, 300);
-                };
-                const cancelDismissTimer = () => {
-                    clearTimeout(dismissTimer);
-                };
-
-                popover.addEventListener('mouseenter', cancelDismissTimer);
-                popover.addEventListener('mouseleave', startDismissTimer);
-                ref.addEventListener('mouseleave', startDismissTimer);
-                ref.addEventListener('mouseenter', cancelDismissTimer);
+                popover.addEventListener('mouseenter', cancelDismiss);
+                popover.addEventListener('mouseleave', () => { if (!openedByClick) scheduleDismiss(); });
             }
         }
 
         
         document.addEventListener('click', function (e) {
             const ref = e.target.closest('.footnote-ref');
-            if (!ref) {
-                
-                if (isMobile() && activePopover && !e.target.closest('.footnote-popover')) {
-                    dismissPopover();
-                }
+            if (ref) {
+                e.preventDefault();
+                e.stopPropagation();
+                showPopover(ref, true);
                 return;
             }
-            e.preventDefault();
-            showPopover(ref);
+            
+            if (activePopover && !e.target.closest('.footnote-popover')) {
+                dismissPopover();
+            }
         });
 
         
         document.addEventListener('mouseenter', function (e) {
+            if (isMobile()) return;
             const ref = e.target.closest && e.target.closest('.footnote-ref');
-            if (!ref || isMobile()) return;
+            if (!ref) return;
+            if (openedByClick) return;
             clearTimeout(hoverTimer);
-            hoverTimer = setTimeout(() => showPopover(ref), 200);
+            hoverTimer = setTimeout(() => showPopover(ref, false), 200);
         }, true);
 
         document.addEventListener('mouseleave', function (e) {
             const ref = e.target.closest && e.target.closest('.footnote-ref');
             if (!ref) return;
             clearTimeout(hoverTimer);
+            if (!openedByClick && activePopover) scheduleDismiss();
         }, true);
 
         
-        let scrollTimer = null;
         window.addEventListener('scroll', function () {
-            if (!isMobile() && activePopover) {
-                clearTimeout(scrollTimer);
-                scrollTimer = setTimeout(dismissPopover, 100);
+            if (!isMobile() && activePopover && !openedByClick) {
+                dismissPopover();
             }
         });
 

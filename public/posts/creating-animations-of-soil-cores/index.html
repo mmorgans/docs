@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="dark">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Creating animations of soil cores out of CT scans | morgan docs</title>
 <meta name="keywords" content="">
 <meta name="description" content="Introduction
@@ -43,17 +43,17 @@ Use Gifski to convert to reasonably sized gif
 Getting .vol files from EMSL data portal
 Selecting cores
 To start, we need to get the CT scan files from EMSL, provided as .vol files.">
-<meta name="author" content="Morgan">
-<link rel="canonical" href="http://localhost:1313/posts/creating-animations-of-soil-cores/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.9f5245256819451949712af51a1635f3f0c506d23cd4ed718e8ca670466fab62.css" integrity="sha256-n1JFJWgZRRlJcSr1GhY18/DFBtI81O1xjoymcEZvq2I=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="author" content="Morgan Salisbury">
+<link rel="canonical" href="https://docs.mor-gan.com/posts/creating-animations-of-soil-cores/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f556c9f1698d000578e4f6ffd9189a798c3c839a1c72e4ad0852e74f80372745.css" integrity="sha256-9VbJ8WmNAAV45Pb/2RiaeYw8g5occuStCFLnT4A3J0U=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://docs.mor-gan.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://docs.mor-gan.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://docs.mor-gan.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://docs.mor-gan.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://docs.mor-gan.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/creating-animations-of-soil-cores/">
+<link rel="alternate" hreflang="en" href="https://docs.mor-gan.com/posts/creating-animations-of-soil-cores/">
 <noscript>
     <style>
         #theme-toggle,
@@ -90,13 +90,116 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
         }
     };
 </script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><meta property="og:url" content="https://docs.mor-gan.com/posts/creating-animations-of-soil-cores/">
+  <meta property="og:site_name" content="morgan docs">
+  <meta property="og:title" content="Creating animations of soil cores out of CT scans">
+  <meta property="og:description" content="Introduction Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.
+We’re getting our files from the Environmental Molecular Sciences Laboratory at the Pacific Northwest National Laboratory, who have scanned the soil cores with a Nikon XTH CT scanner.
+Requirements .vol files from a CT scanner At least 16gb of memory Ideally more. Both Fiji and Dragonfly attempt to load the entire file into memory; the downloaded .vol is almost 40gb. Dragonfly from Comet Software. You’ll need a license: 30 day free trials are easily accessible, and non commercial licenses are available. Fiji or ImageJ, but use Fiji. A windows or Linux machine to run Dragonfly on; everything but that can be done on Mac TL;DR Download .vol files from EMSL Data portal Import the files into Fiji as raw data, 2000x2000x2000 Convert to 8-bit, save as .tiff Open the .tiff in Dragonfly, crop to slices 250-1800 Make a cylindrical mask to crop the garbage off the core Use movie maker to make a rotating movie, export to .avi Use ffmpeg or similar to convert to mp4 Use kdenlive or similar to crop to square Use Gifski to convert to reasonably sized gif Getting .vol files from EMSL data portal Selecting cores To start, we need to get the CT scan files from EMSL, provided as .vol files.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-11-20T13:53:00-06:00">
+    <meta property="article:modified_time" content="2024-11-20T13:53:00-06:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Creating animations of soil cores out of CT scans">
+<meta name="twitter:description" content="Introduction
+Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.
+We&rsquo;re getting our files from the Environmental Molecular Sciences Laboratory at the Pacific Northwest National Laboratory, who have scanned the soil cores with a Nikon XTH CT scanner.
+Requirements
+
+.vol files from a CT scanner
+At least 16gb of memory
+
+Ideally more. Both Fiji and Dragonfly attempt to load the entire file into memory; the downloaded .vol is almost 40gb.
+
+
+Dragonfly from Comet Software. You&rsquo;ll need a license: 30 day free trials are easily accessible, and non commercial licenses are available.
+Fiji or ImageJ, but use Fiji.
+A windows or Linux machine to run Dragonfly on; everything but that can be done on Mac
+
+TL;DR
+
+Download .vol files from EMSL Data portal
+Import the files into Fiji as raw data, 2000x2000x2000
+
+Convert to 8-bit, save as .tiff
+
+
+Open the .tiff in Dragonfly, crop to slices 250-1800
+
+Make a cylindrical mask to crop the garbage off the core
+Use movie maker to make a rotating movie, export to .avi
+
+
+Use ffmpeg or similar to convert to mp4
+Use kdenlive or similar to crop to square
+Use Gifski to convert to reasonably sized gif
+
+Getting .vol files from EMSL data portal
+Selecting cores
+To start, we need to get the CT scan files from EMSL, provided as .vol files.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://docs.mor-gan.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Creating animations of soil cores out of CT scans",
+      "item": "https://docs.mor-gan.com/posts/creating-animations-of-soil-cores/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Creating animations of soil cores out of CT scans",
+  "name": "Creating animations of soil cores out of CT scans",
+  "description": "Introduction Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.\nWe\u0026rsquo;re getting our files from the Environmental Molecular Sciences Laboratory at the Pacific Northwest National Laboratory, who have scanned the soil cores with a Nikon XTH CT scanner.\nRequirements .vol files from a CT scanner At least 16gb of memory Ideally more. Both Fiji and Dragonfly attempt to load the entire file into memory; the downloaded .vol is almost 40gb. Dragonfly from Comet Software. You\u0026rsquo;ll need a license: 30 day free trials are easily accessible, and non commercial licenses are available. Fiji or ImageJ, but use Fiji. A windows or Linux machine to run Dragonfly on; everything but that can be done on Mac TL;DR Download .vol files from EMSL Data portal Import the files into Fiji as raw data, 2000x2000x2000 Convert to 8-bit, save as .tiff Open the .tiff in Dragonfly, crop to slices 250-1800 Make a cylindrical mask to crop the garbage off the core Use movie maker to make a rotating movie, export to .avi Use ffmpeg or similar to convert to mp4 Use kdenlive or similar to crop to square Use Gifski to convert to reasonably sized gif Getting .vol files from EMSL data portal Selecting cores To start, we need to get the CT scan files from EMSL, provided as .vol files.\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Introduction Goal: To create animations of soil cores spinning from .vol files obtained from the Pacific Northwest National Laboratory.\nWe’re getting our files from the Environmental Molecular Sciences Laboratory at the Pacific Northwest National Laboratory, who have scanned the soil cores with a Nikon XTH CT scanner.\nRequirements .vol files from a CT scanner At least 16gb of memory Ideally more. Both Fiji and Dragonfly attempt to load the entire file into memory; the downloaded .vol is almost 40gb. Dragonfly from Comet Software. You’ll need a license: 30 day free trials are easily accessible, and non commercial licenses are available. Fiji or ImageJ, but use Fiji. A windows or Linux machine to run Dragonfly on; everything but that can be done on Mac TL;DR Download .vol files from EMSL Data portal Import the files into Fiji as raw data, 2000x2000x2000 Convert to 8-bit, save as .tiff Open the .tiff in Dragonfly, crop to slices 250-1800 Make a cylindrical mask to crop the garbage off the core Use movie maker to make a rotating movie, export to .avi Use ffmpeg or similar to convert to mp4 Use kdenlive or similar to crop to square Use Gifski to convert to reasonably sized gif Getting .vol files from EMSL data portal Selecting cores To start, we need to get the CT scan files from EMSL, provided as .vol files.\nNavigate to the EMSL data portal, and login. On the left hand side of the screen, open the Project drawer and scroll down to the Principle Investigator field. Enter the first few characters of a name, and then check the cooresponding box. The main panel should update with the relevant project. Scroll down to the Select Datasets button, and click it. You should now see a list of the datasets associated with that project. In this example, we’re looking for individually numbered soil cores, but you will note that none of the data are labeled.\nIf you have a specific core number in mind, the only way to locate it is by looking inside of every single dataset by clicking the DOI button next to the Upload ID. You can then see the individual file names, which include the soil core number. If you decide to embark on a search to find a soil core, I recommend sorting by Instrument to only see XCT data, and then sort by file size. You are looking for datasets that are 29.8GB. Only view 10 datasets per page, as when you exit the DOI file viewer the entire webpage snaps to the top; it’s easier to keep track of where you are when there are only 10 items.\nOnce you find the core you want, note the Upload ID. To search for an ID you already know, set Items per page to All, and use cmd + f.\nSome known core ID’s:\nCore # Bottom Top 1 3132984 2 3134562 5 3135086 6 3135290 7 3049610 10 3133330 11 3051409 3051495 15 3010819 3010713 16 3011663 3013268 20 3010658 3010660 Some notes:\nEach core is 30cm tall, and the bottom 10cm and top 10cm were scanned. Each core is 7.62cm in diameter. 2000 slices per scan, meaning that each slice is 50µm (0.05mm) thick. If a core (including 1 \u0026 6 listed above) is difficult to use or is seemingly empty, it’s most likely because the soil profile wasn’t tall enough for a full sample to be taken. Downloading cores Add each dataset to your cart by checking the box next to it. To download the cores, you will need to set up and use Globus.\nOnce EMSL prepares the files, you will see a link to go to the created guest collection. Open it, and navigate to your endpoint (computer) on the pane without the .tar in it. Go to the folder where you want the files to be downloaded to. Once there, select the tar on the other pane, hit Transfer or Sync to... in the middle, and then click start above the pane.\nGlobus will start transferring the file. You should get an email when its done. For reference, a 96GB transfer took a little over three and a half hours.\nInitial .vol work in Fiji Unzip the tarball, and navigate through the mess of folders inside to get to the .vol files (each should be around 30GB). I recommend moving the .vols into their own folder, separate from the tarball’s filesystem, because it’s obnoxious to have to go 30 directories deep to get to them.\nNotes:\nEach .vol has a corresponding .vgi that contains metadata about the .vol. Open it in a text editor if you want to know more. There are a number of other derived products in the tar, namely still images of the core and csv files with data (notably porosity). Each .vol contains 2000 images, each of which is 2000x2000 pixels, totalling 8 billion voxels, each of which is represented as a 32-bit floating-point number and saved in an uncompressed file. This makes the raw files wildly impractical to work with, hence the use of Fiji. The goal is to convert each file to 8-bit and save it as a .tiff, both of which should drastically reduce the size while losing no useable data.\nOpen Fiji, and use File \u003e Import \u003e Raw... to open the .vol.\nImage type: 32-bit Real Width: 2000 Height: 2000 Offset: 0 Number of images: 2000 Gap: 0 Check Little-endian byte order and Use virtual stack. Virtual stacks load the images without fully committing them to memory, making it possible to view datasets that are larger in size than the amount of memory you have. If you don’t have at least 40GB of memory and don’t use virtual stacks, Fiji will crash your system attempting to load the file.\nFiji will open the file, and you should be able to scroll through the slices of the core, or use the scroll bar at the bottom of the window containing the core.\nTo convert the file to 8-bit, use Image \u003e Type \u003e 8-bit. This will take time: you should be able to see Fiji converting images by the hundreds on the main toolbar.\nYou should now have an updated view of the core; notice the reduced file size displayed in the window title. To save as a .tiff, use File \u003e Save as \u003e Tiff...\nWorking in Dragonfly Loading \u0026 masking In Dragonfly, open the newly created .tiff file with File \u003e Import Image Files.... Click the Add... button, then select the file. Click Next in the bottom right.\nThe fields on this screen should be correct. Ensure that the Total size (on right, under Information) is less than the amount of memory you have.\nClick Crop Image... and preview the image of the soil core. If the core doesn’t take up most of the frame, crop it by dragging the green dotted edges or corners inward.\nIn the Crop Image... window, crop the image to slices 250-1800. Under the Cropping slider, enter 250 in the first field and 1800 in the second. Click OK.\nClick Finish. After loading, you should see four views of the core: a 3D render and three orthogonal views. You can maximize a pane by double clicking, and you can move the 3D view by clicking and dragging in its pane. Double click again to return to all four views.\nNotice the “fuzziness” or garbage data visible in the 3D view (most visible looking top down, around the edges). To remove this data, we need to create a cylindrical mask.\nAt the top of the 3D view, there is a row of buttons under the Shapes bar. Click the cylinder button, the third from the left - note the capsule button right next to the cylinder button.\nYou should see a wireframe cylinder insdie of the soil core. Using one of the side orthogonal views, drag the green lines outward, and stop when you hit the garbage data.\nYou should see the cylinder on the other views increasing and get a sense of what you’re doing. Everything outside the cylinder will be excluded.\nOn the right hand side of the screen, you should see a list of the objects loaded: the core and the cylinder. Click on the cylinder, and look under Shape properties, Visual effects, Visuals. Check the box next to the core. Check Outside, then under 3D effects, Clip. You should see the 3D view update to exclude anything outside the cylinder.\nAnimating Right click the 3D view and select Show Movie Maker. Double click the 3D view pane to maximize it. You’ll need to position the 3D view to be what you want the video to look like: I position the core straight on, with the camera slightly raised above it at an angle so the top is visible.\nClick and drag to manipulate the core, and click and hold the middle mouse button and move your cursor up and down to zoom in and out. To physically move the core in the 3D space, press x on your keyboard and click and drag. Make sure to press escape when you are done moving it to return to the default track tool.\nOnce you’ve positioned the core, look at the timeline near the bottom of the screen. At the 00:00 mark, you should see a square with a picture of the core in it. Right click it, and select Update key frame.\nTo actually rotate the core, click the Rotate button above the timeline. Choose one of the two right-most options (I use clockwise), and select Rotate around the object's axis. A second image, or keyframe, should appear on the timeline. Drag this second keyframe out to around the 20 second mark, or however long you want the video to be.\nThe original keyframe is where the animation will start, and the ending keyframe is exactly the same except that the core has been rotated 360 degrees. Dragonfly interpolates the motion in between the keyframes, so by dragging the 2nd keyframe further out along the timeline you are causing the core to spin slower.\nYou can drag the green bar marker along the timeline to preview the animation, or click the play symbol above the timeline. Note that the animation likely will not play at full speed, as it’s rendering in real time.\nTo change the color of the background to a solid white, click the Scene's Views Properties bar in the left list of toolbars. Near-ish the top is a button next to Background color. In the window, you’ll want to select Uniform under mode, and then click the button next to Color 1 in the Color section on the right. In the color picker, drag the right mode slider up from black to white, and click OK, then OK. You should see the updated background.\nTo export the animation, click the Export animation symbol above the timeline, immediately next to the start / beginning symbol. Set the FPS to 60, the Dimensions preset to 1920x1080, and the bitrate to High. Click Save as Video File. Once you’ve given a name and location for the file, Dragonfly will render and export the animation as an .avi file.\nWorking with .avi video files. Once you have the exported .avi files, the goal is now to convert them into a more common, useable format. If you want to create .gif files out of the animations, a few different steps are needed. In general, you need to:\nConvert the .avi into a more useable format (.mp4) Crop the new .mp4 into the a square aspect ratio. This looks nice, and crops out the small cube axis visualizer in the bottom right of the frame. Convert the .mp4 into a .gif. These steps can be completed in a little over 3 trillion different ways. In this guide, I’ll use ffmpeg for converting files, kdenlive for cropping, and Gifski for making the .gifs, but it’s practically much easier to use software like Adobe Premiere Pro or Final Cut Pro (free 90 day trial!) if you have access to them.\nYou can get ffmpeg from their website, or install it (on mac) with homebrew by running brew install ffmpeg in a terminal. Kdenlive is available online. Gifski is available on the mac app store (link on GitHub)\nI would recommend working in a folder where all of your video files are, which prevents you from needing to type out full paths for the following commands.\nConverting .avi to .mp4 with ffmpeg To convert an .avi into a .gif:\nffmpeg -i input.avi -vcodec libx264 -crf 23 -preset medium output.mp4 where input.avi is the .avi file and output.mp4 is the desired output file.\nWith the new .mp4, you can move on to cropping.\nCropping with Kdenlive In kdenlive, add the clip to the timeline with Project \u003e Add Clip or Folder..., then select the .mp4. If you get prompted to Switch to clip profile HD 1080p 60 fps, click cancel. Instead, we want to change the project to be a square aspect ratio.\nNavigate to Project \u003e Project Settings..., then under the list of folders of profiles, scroll down to Custom, open the folder, and select Square 1080p 60 fps. Click OK, then confirm.\nIn the top left panel, you should see the .mp4 under the Sequences folder. Drag it to the V1 timeline, highlighted in blue. Be sure to drag it to the far left, so that it starts at 0:00.\nThe vertical white line is your Playhead, which represents where in the video the preview monitor is showing. Drag the top of the playhead on the timeline to skim through the video.\nNote that there are two soil cores on your screen: The monitor on the left is displaying the source clip, while the one on the right is displaying your entire project. Once we apply effects (cropping the video), you’ll be using the monitor on the right for reference.\nTo do this, go to the Effects tab, underneath the far top left panel, about halfway down your screen. Use the search field at the top to search for Transform, and double click it. You should notice that the effect appears on the list of effects to the right of the timeline.\nIn that panel, change the Size variable to 179%. The core should now fill the frame. Use your spacebar as a play/pause button and you should see the soil core rotating.\nAt this point, the video should be complete and ready to export. To do this, go to Project \u003e Render..., and select the MP4-H264/AAC preset. Click the small file button next to the Output file field to select where you want to save the file. Once you are done, click the Render to File button at the bottom left of the window to start rendering.\nConverting a .mp4 file to a .gif with Gifski Open Gifski, and either drag the cropped .mp4 into the window or select it with the file picker. The app is incredibly simple to use compared to the stuff that was happening up there. There is a quality slider, and an estimated file size. I would set the fps to 50 to make it as smooth as possible.\nSmash Convert once you are happy with the estimated size, and enjoy.\nWooo!!!!\n",
+  "wordCount" : "2557",
+  "inLanguage": "en",
+  "datePublished": "2024-11-20T13:53:00-06:00",
+  "dateModified": "2024-11-20T13:53:00-06:00",
+  "author":{
+    "@type": "Person",
+    "name": "Morgan Salisbury"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://docs.mor-gan.com/posts/creating-animations-of-soil-cores/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "morgan docs",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://docs.mor-gan.com/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <a href="https://docs.mor-gan.com/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -122,65 +225,70 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/search/" title="search (Alt &#43; /)" accesskey=/>
+                <a href="https://docs.mor-gan.com/search/" title="search (Alt &#43; /)" accesskey=/>
                     <span>search</span>
                 </a>
             </li>
         </ul>
     </nav>
 </header>
-<main class="main">
-
-<div class="post-wrapper">
-        <aside class="toc-sidebar" id="toc-sidebar">
-            <div class="toc-progress"><div class="toc-marker" data-target="#introduction" data-level="2"
-                        data-title="Introduction"></div><div class="toc-marker" data-target="#requirements" data-level="2"
-                        data-title="Requirements"></div><div class="toc-marker" data-target="#tl-dr" data-level="2"
-                        data-title="TL;DR"></div><div class="toc-marker" data-target="#getting-dot-vol-files-from-emsl-data-portal" data-level="2"
-                        data-title="Getting .vol files from EMSL data portal"></div><div class="toc-marker" data-target="#selecting-cores" data-level="3"
-                        data-title="Selecting cores"></div><div class="toc-marker" data-target="#downloading-cores" data-level="3"
-                        data-title="Downloading cores"></div><div class="toc-marker" data-target="#initial-dot-vol-work-in-fiji" data-level="2"
-                        data-title="Initial .vol work in Fiji"></div><div class="toc-marker" data-target="#working-in-dragonfly" data-level="2"
-                        data-title="Working in Dragonfly"></div><div class="toc-marker" data-target="#loading-and-masking" data-level="3"
-                        data-title="Loading &amp; masking"></div><div class="toc-marker" data-target="#animating" data-level="3"
-                        data-title="Animating"></div><div class="toc-marker" data-target="#working-with-dot-avi-video-files-dot" data-level="2"
-                        data-title="Working with .avi video files."></div><div class="toc-marker" data-target="#converting-dot-avi-to-dot-mp4-with-ffmpeg" data-level="3"
-                        data-title="Converting .avi to .mp4 with ffmpeg"></div><div class="toc-marker" data-target="#cropping-with-kdenlive" data-level="3"
-                        data-title="Cropping with Kdenlive"></div><div class="toc-marker" data-target="#converting-a-dot-mp4-file-to-a-dot-gif-with-gifski" data-level="3"
-                        data-title="Converting a .mp4 file to a .gif with Gifski"></div></div>
-            <div class="toc-current-label" id="toc-current-label"></div>
-            <nav class="toc-nav" id="toc-nav">
+<main class="main"><div class="post-wrapper">
+        <aside class="toc-sidebar" id="toc-sidebar" aria-label="On this page">
+            <button class="toc-sidebar-toggle" id="toc-sidebar-toggle" type="button" aria-expanded="false"
+                aria-controls="toc-nav" aria-label="Toggle table of contents">
+                <span class="toc-sidebar-kicker">On This Page</span>
+                <span class="toc-current-label">
+                    <span class="toc-current-parent" id="toc-current-parent"></span>
+                    <span class="toc-current-heading" id="toc-current-label">Contents</span>
+                </span>
+            </button>
+            <div class="toc-progress" aria-hidden="true"><span class="toc-marker" data-target="#introduction" data-level="2"
+                        data-state="" data-title="Introduction"></span><span class="toc-marker" data-target="#requirements" data-level="2"
+                        data-state="" data-title="Requirements"></span><span class="toc-marker" data-target="#tl-dr" data-level="2"
+                        data-state="" data-title="TL;DR"></span><span class="toc-marker" data-target="#getting-dot-vol-files-from-emsl-data-portal" data-level="2"
+                        data-state="" data-title="Getting .vol files from EMSL data portal"></span><span class="toc-marker" data-target="#selecting-cores" data-level="3"
+                        data-state="" data-title="Selecting cores"></span><span class="toc-marker" data-target="#downloading-cores" data-level="3"
+                        data-state="" data-title="Downloading cores"></span><span class="toc-marker" data-target="#initial-dot-vol-work-in-fiji" data-level="2"
+                        data-state="" data-title="Initial .vol work in Fiji"></span><span class="toc-marker" data-target="#working-in-dragonfly" data-level="2"
+                        data-state="" data-title="Working in Dragonfly"></span><span class="toc-marker" data-target="#loading-and-masking" data-level="3"
+                        data-state="" data-title="Loading &amp; masking"></span><span class="toc-marker" data-target="#animating" data-level="3"
+                        data-state="" data-title="Animating"></span><span class="toc-marker" data-target="#working-with-dot-avi-video-files-dot" data-level="2"
+                        data-state="" data-title="Working with .avi video files."></span><span class="toc-marker" data-target="#converting-dot-avi-to-dot-mp4-with-ffmpeg" data-level="3"
+                        data-state="" data-title="Converting .avi to .mp4 with ffmpeg"></span><span class="toc-marker" data-target="#cropping-with-kdenlive" data-level="3"
+                        data-state="" data-title="Cropping with Kdenlive"></span><span class="toc-marker" data-target="#converting-a-dot-mp4-file-to-a-dot-gif-with-gifski" data-level="3"
+                        data-state="" data-title="Converting a .mp4 file to a .gif with Gifski"></span></div>
+            <nav class="toc-nav" id="toc-nav" aria-label="On this page navigation">
                 <div class="toc-title">Contents</div><ul>
                     <li>
-                        <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                        <a href="#introduction" data-state="" aria-label="Introduction">Introduction</a></li>
                     <li>
-                        <a href="#requirements" aria-label="Requirements">Requirements</a></li>
+                        <a href="#requirements" data-state="" aria-label="Requirements">Requirements</a></li>
                     <li>
-                        <a href="#tl-dr" aria-label="TL;DR">TL;DR</a></li>
+                        <a href="#tl-dr" data-state="" aria-label="TL;DR">TL;DR</a></li>
                     <li>
-                        <a href="#getting-dot-vol-files-from-emsl-data-portal" aria-label="Getting .vol files from EMSL data portal">Getting .vol files from EMSL data portal</a><ul>
+                        <a href="#getting-dot-vol-files-from-emsl-data-portal" data-state="" aria-label="Getting .vol files from EMSL data portal">Getting .vol files from EMSL data portal</a><ul>
                     <li>
-                        <a href="#selecting-cores" aria-label="Selecting cores">Selecting cores</a></li>
+                        <a href="#selecting-cores" data-state="" aria-label="Selecting cores">Selecting cores</a></li>
                     <li>
-                        <a href="#downloading-cores" aria-label="Downloading cores">Downloading cores</a></li></ul>
+                        <a href="#downloading-cores" data-state="" aria-label="Downloading cores">Downloading cores</a></li></ul>
                     </li>
                     <li>
-                        <a href="#initial-dot-vol-work-in-fiji" aria-label="Initial .vol work in Fiji">Initial .vol work in Fiji</a></li>
+                        <a href="#initial-dot-vol-work-in-fiji" data-state="" aria-label="Initial .vol work in Fiji">Initial .vol work in Fiji</a></li>
                     <li>
-                        <a href="#working-in-dragonfly" aria-label="Working in Dragonfly">Working in Dragonfly</a><ul>
+                        <a href="#working-in-dragonfly" data-state="" aria-label="Working in Dragonfly">Working in Dragonfly</a><ul>
                     <li>
-                        <a href="#loading-and-masking" aria-label="Loading &amp; masking">Loading &amp; masking</a></li>
+                        <a href="#loading-and-masking" data-state="" aria-label="Loading &amp; masking">Loading &amp; masking</a></li>
                     <li>
-                        <a href="#animating" aria-label="Animating">Animating</a></li></ul>
+                        <a href="#animating" data-state="" aria-label="Animating">Animating</a></li></ul>
                     </li>
                     <li>
-                        <a href="#working-with-dot-avi-video-files-dot" aria-label="Working with .avi video files.">Working with .avi video files.</a><ul>
+                        <a href="#working-with-dot-avi-video-files-dot" data-state="" aria-label="Working with .avi video files.">Working with .avi video files.</a><ul>
                     <li>
-                        <a href="#converting-dot-avi-to-dot-mp4-with-ffmpeg" aria-label="Converting .avi to .mp4 with ffmpeg">Converting .avi to .mp4 with ffmpeg</a></li>
+                        <a href="#converting-dot-avi-to-dot-mp4-with-ffmpeg" data-state="" aria-label="Converting .avi to .mp4 with ffmpeg">Converting .avi to .mp4 with ffmpeg</a></li>
                     <li>
-                        <a href="#cropping-with-kdenlive" aria-label="Cropping with Kdenlive">Cropping with Kdenlive</a></li>
+                        <a href="#cropping-with-kdenlive" data-state="" aria-label="Cropping with Kdenlive">Cropping with Kdenlive</a></li>
                     <li>
-                        <a href="#converting-a-dot-mp4-file-to-a-dot-gif-with-gifski" aria-label="Converting a .mp4 file to a .gif with Gifski">Converting a .mp4 file to a .gif with Gifski</a>
+                        <a href="#converting-a-dot-mp4-file-to-a-dot-gif-with-gifski" data-state="" aria-label="Converting a .mp4 file to a .gif with Gifski">Converting a .mp4 file to a .gif with Gifski</a>
                     </li>
                 </ul>
                 </li>
@@ -190,7 +298,8 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
 
         
         <div class="toc-mobile-bar" id="toc-mobile-bar">
-            <button class="toc-mobile-toggle" id="toc-mobile-toggle">
+            <button class="toc-mobile-toggle" id="toc-mobile-toggle" type="button" aria-expanded="false"
+                aria-controls="toc-mobile-nav" aria-label="Toggle on-page contents">
                 <span class="toc-mobile-label">
                     <span class="toc-mobile-parent" id="toc-mobile-parent"></span>
                     <span class="toc-mobile-current" id="toc-mobile-current">Contents</span>
@@ -199,46 +308,46 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
                     <path d="M6 9l6 6 6-6" />
                 </svg>
             </button>
-            <nav class="toc-mobile-nav" id="toc-mobile-nav">
+            <nav class="toc-mobile-nav" id="toc-mobile-nav" aria-label="On this page navigation">
                 <ul><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#introduction">Introduction</a>
+                            <a href="#introduction" data-state="">Introduction</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#requirements">Requirements</a>
+                            <a href="#requirements" data-state="">Requirements</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#tl-dr">TL;DR</a>
+                            <a href="#tl-dr" data-state="">TL;DR</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#getting-dot-vol-files-from-emsl-data-portal">Getting .vol files from EMSL data portal</a>
+                            <a href="#getting-dot-vol-files-from-emsl-data-portal" data-state="">Getting .vol files from EMSL data portal</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#selecting-cores">Selecting cores</a>
+                            <a href="#selecting-cores" data-state="">Selecting cores</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#downloading-cores">Downloading cores</a>
+                            <a href="#downloading-cores" data-state="">Downloading cores</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#initial-dot-vol-work-in-fiji">Initial .vol work in Fiji</a>
+                            <a href="#initial-dot-vol-work-in-fiji" data-state="">Initial .vol work in Fiji</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#working-in-dragonfly">Working in Dragonfly</a>
+                            <a href="#working-in-dragonfly" data-state="">Working in Dragonfly</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#loading-and-masking">Loading &amp; masking</a>
+                            <a href="#loading-and-masking" data-state="">Loading &amp; masking</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#animating">Animating</a>
+                            <a href="#animating" data-state="">Animating</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#working-with-dot-avi-video-files-dot">Working with .avi video files.</a>
+                            <a href="#working-with-dot-avi-video-files-dot" data-state="">Working with .avi video files.</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#converting-dot-avi-to-dot-mp4-with-ffmpeg">Converting .avi to .mp4 with ffmpeg</a>
+                            <a href="#converting-dot-avi-to-dot-mp4-with-ffmpeg" data-state="">Converting .avi to .mp4 with ffmpeg</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#cropping-with-kdenlive">Cropping with Kdenlive</a>
+                            <a href="#cropping-with-kdenlive" data-state="">Cropping with Kdenlive</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#converting-a-dot-mp4-file-to-a-dot-gif-with-gifski">Converting a .mp4 file to a .gif with Gifski</a>
+                            <a href="#converting-a-dot-mp4-file-to-a-dot-gif-with-gifski" data-state="">Converting a .mp4 file to a .gif with Gifski</a>
                         </li></ul>
             </nav>
         </div>
 
         <article class="post-single">
             <header class="post-header">
-                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <div class="breadcrumbs"><a href="https://docs.mor-gan.com/">Home</a>&nbsp;»&nbsp;<a href="https://docs.mor-gan.com/posts/">Posts</a></div>
                 <h1 class="post-title entry-hint-parent">
                     Creating animations of soil cores out of CT scans
                 </h1>
-                <div class="post-meta"><span title='2024-11-20 13:53:00 -0600 CST'>November 20, 2024</span>&nbsp;·&nbsp;<span>13 min</span>&nbsp;·&nbsp;<span>Morgan</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2024-11-20 13:53:00 -0600 CST'>November 20, 2024</span>&nbsp;·&nbsp;<span>13 min</span>&nbsp;·&nbsp;<span>Morgan Salisbury</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/creating-animations-of-soil-cores.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
@@ -447,48 +556,162 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const sidebar = document.getElementById('toc-sidebar');
+        const tocSidebarToggle = document.getElementById('toc-sidebar-toggle');
+        const tocNav = document.getElementById('toc-nav');
+        const tocCurrentParent = document.getElementById('toc-current-parent');
+        const tocCurrentLabel = document.getElementById('toc-current-label');
         const mobileBar = document.getElementById('toc-mobile-bar');
         const mobileToggle = document.getElementById('toc-mobile-toggle');
         const mobileNav = document.getElementById('toc-mobile-nav');
         const mobileCurrent = document.getElementById('toc-mobile-current');
         const mobileParent = document.getElementById('toc-mobile-parent');
+        const fpgaCards = Array.from(document.querySelectorAll('[data-fpga-card]'));
+        const fpgaConfig = document.getElementById('fpga-sidebar-config');
 
-        if (!sidebar && !mobileBar) return;
+        if (!sidebar && !mobileBar && fpgaCards.length === 0) return;
 
         const markers = sidebar ? sidebar.querySelectorAll('.toc-marker') : [];
-        const tocLinks = sidebar ? sidebar.querySelectorAll('.toc-nav a') : [];
-        const currentLabel = document.getElementById('toc-current-label');
+        const tocLinks = tocNav ? tocNav.querySelectorAll('a') : [];
         const mobileLinks = mobileBar ? mobileBar.querySelectorAll('.toc-mobile-item a') : [];
         const headings = [];
+        let fpgaStates = null;
+        const warnedFpgaStates = new Set();
+        if (fpgaConfig) {
+            try {
+                const parsedConfig = JSON.parse(fpgaConfig.textContent);
+                fpgaStates = typeof parsedConfig === 'string' ? JSON.parse(parsedConfig) : parsedConfig;
+            } catch (error) {
+                console.error('Unable to parse FPGA sidebar config.', error);
+            }
+        }
 
-        
-        if (markers.length > 0) {
-            markers.forEach((marker, i) => {
-                const id = marker.dataset.target.slice(1);
+        markers.forEach((marker, i) => {
+            const id = marker.dataset.target.slice(1);
+            const heading = document.getElementById(id);
+            const desktopLink = tocLinks[i] || null;
+            const mobileLink = mobileBar ? mobileBar.querySelector(`a[href="#${id}"]`) : null;
+            const title = marker.dataset.title || (desktopLink ? desktopLink.textContent.trim() : id);
+            const level = parseInt(marker.dataset.level, 10);
+            const stateKey = marker.dataset.state || (desktopLink ? desktopLink.dataset.state : '') || (mobileLink ? mobileLink.dataset.state : '');
+
+            if (heading) {
+                headings.push({
+                    element: heading,
+                    marker: marker,
+                    desktopLink: desktopLink,
+                    mobileLink: mobileLink,
+                    title: title,
+                    level: Number.isNaN(level) ? 2 : level,
+                    stateKey: stateKey
+                });
+            }
+        });
+
+        if (headings.length === 0 && mobileLinks.length > 0) {
+            mobileLinks.forEach((link) => {
+                const id = link.getAttribute('href').slice(1);
                 const heading = document.getElementById(id);
-                const title = marker.dataset.title;
-                const level = parseInt(marker.dataset.level);
+                const level = parseInt(link.closest('.toc-mobile-item')?.dataset.level || '2', 10);
                 if (heading) {
-                    headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title, level: level });
-                }
-            });
-        } else if (mobileLinks.length > 0) {
-            mobileLinks.forEach((link, i) => {
-                const href = link.getAttribute('href');
-                const id = href.slice(1);
-                const heading = document.getElementById(id);
-                const title = link.textContent.trim();
-                const level = parseInt(link.closest('.toc-mobile-item').dataset.level);
-                if (heading) {
-                    headings.push({ element: heading, link: link, title: title, level: level });
+                    headings.push({
+                        element: heading,
+                        marker: null,
+                        desktopLink: tocNav ? tocNav.querySelector(`a[href="#${id}"]`) : null,
+                        mobileLink: link,
+                        title: link.textContent.trim(),
+                        level: Number.isNaN(level) ? 2 : level,
+                        stateKey: link.dataset.state || ''
+                    });
                 }
             });
         }
 
-        
+        if (fpgaStates) {
+            const missingStates = headings
+                .filter((heading) => !heading.stateKey)
+                .map((heading) => heading.element.id);
+            if (missingStates.length > 0) {
+                console.warn('FPGA sidebar headings missing state mappings:', missingStates);
+            }
+        }
+
+        function setDesktopTocOpen(isOpen, options = {}) {
+            if (!sidebar || !tocSidebarToggle) return;
+            sidebar.classList.toggle('is-open', isOpen);
+            tocSidebarToggle.setAttribute('aria-expanded', String(isOpen));
+            if (!isOpen && options.focusToggle) {
+                tocSidebarToggle.focus();
+            }
+        }
+
+        function setMobileTocOpen(isOpen, options = {}) {
+            if (!mobileBar || !mobileToggle) return;
+            mobileBar.classList.toggle('open', isOpen);
+            mobileToggle.setAttribute('aria-expanded', String(isOpen));
+            if (!isOpen && options.focusToggle) {
+                mobileToggle.focus();
+            }
+        }
+
+        function updateFPGACards(stateKey) {
+            if (!fpgaStates || fpgaCards.length === 0) return;
+
+            if (stateKey && !fpgaStates[stateKey] && !warnedFpgaStates.has(stateKey)) {
+                console.warn('Unknown FPGA sidebar state:', stateKey);
+                warnedFpgaStates.add(stateKey);
+            }
+
+            const resolvedKey = stateKey && fpgaStates[stateKey] ? stateKey : 'normalFlow';
+            const state = fpgaStates[resolvedKey];
+            if (!state) return;
+
+            fpgaCards.forEach((card) => {
+                card.dataset.mode = resolvedKey;
+                card.classList.toggle('is-reverse', !!state.reverse);
+                card.classList.toggle('is-sealed', !!state.sealed);
+
+                ['kicker', 'title', 'summary', 'flow', 'checkpointLabel', 'checkpoint', 'goal', 'set', 'pump', 'record', 'stop'].forEach((role) => {
+                    const target = card.querySelector(`[data-fpga-role="${role}"]`);
+                    if (target && state[role]) {
+                        target.textContent = state[role];
+                    }
+                });
+
+                card.querySelectorAll('[data-fpga-path]').forEach((path) => {
+                    path.classList.toggle('is-active', state.paths.includes(path.dataset.fpgaPath));
+                });
+
+                card.querySelectorAll('[data-fpga-node]').forEach((node) => {
+                    node.classList.toggle('is-active', state.nodes.includes(node.dataset.fpgaNode));
+                });
+            });
+        }
+
+        if (tocSidebarToggle) {
+            tocSidebarToggle.addEventListener('click', function () {
+                setDesktopTocOpen(!sidebar.classList.contains('is-open'));
+            });
+        }
+
+        if (sidebar) {
+            document.addEventListener('click', function (event) {
+                if (sidebar.classList.contains('is-open') && !sidebar.contains(event.target)) {
+                    setDesktopTocOpen(false);
+                }
+            });
+        }
+
+        if (tocNav) {
+            tocNav.addEventListener('click', function (event) {
+                if (event.target.tagName === 'A') {
+                    setDesktopTocOpen(false);
+                }
+            });
+        }
+
         if (mobileToggle) {
             mobileToggle.addEventListener('click', function () {
-                mobileBar.classList.toggle('open');
+                setMobileTocOpen(!mobileBar.classList.contains('open'));
             });
         }
 
@@ -496,12 +719,13 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
         if (mobileNav) {
             mobileNav.addEventListener('click', function (e) {
                 if (e.target.tagName === 'A') {
-                    mobileBar.classList.remove('open');
+                    setMobileTocOpen(false);
                 }
             });
         }
 
         function updateActiveState() {
+            if (headings.length === 0) return;
             const scrollPos = window.scrollY + 150;
             let current = headings[0];
             let currentIndex = 0;
@@ -516,40 +740,32 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
             
             if (sidebar) {
                 markers.forEach(m => m.classList.remove('active'));
-                tocLinks.forEach(l => l.classList.remove('active'));
+                tocLinks.forEach((link) => {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                });
 
                 if (current) {
                     if (current.marker) current.marker.classList.add('active');
-                    if (current.link) current.link.classList.add('active');
-
-                    if (currentLabel) {
-                        
-                        let breadcrumbs = [];
-                        let targetLevel = current.level;
-
-                        
-                        for (let j = currentIndex - 1; j >= 0; j--) {
-                            if (headings[j].level < targetLevel) {
-                                breadcrumbs.unshift(headings[j].title);
-                                targetLevel = headings[j].level;
-                            }
-                            if (targetLevel <= 2) break;
-                        }
-
-                        
-                        let html = '';
-                        if (breadcrumbs.length > 0) {
-                            html += `<span class="toc-parent-label">${breadcrumbs.join(' › ')}</span>`;
-                        }
-                        html += `<span class="toc-child-label">${current.title}</span>`;
-                        currentLabel.innerHTML = html;
-
-                        const markerRect = current.marker.getBoundingClientRect();
-                        const sidebarRect = sidebar.getBoundingClientRect();
-                        currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (breadcrumbs.length > 0 ? 18 : 10)) + 'px';
+                    if (current.desktopLink) {
+                        current.desktopLink.classList.add('active');
+                        current.desktopLink.setAttribute('aria-current', 'location');
                     }
                 }
             }
+
+            let breadcrumbs = [];
+            let targetLevel = current.level;
+            for (let j = currentIndex - 1; j >= 0; j--) {
+                if (headings[j].level < targetLevel) {
+                    breadcrumbs.unshift(headings[j].title);
+                    targetLevel = headings[j].level;
+                }
+                if (targetLevel <= 2) break;
+            }
+
+            if (tocCurrentLabel) tocCurrentLabel.textContent = current.title;
+            if (tocCurrentParent) tocCurrentParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
 
             
             if (mobileBar && current) {
@@ -558,31 +774,42 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
                     mobileBar.classList.add('visible');
                 } else {
                     mobileBar.classList.remove('visible');
-                    mobileBar.classList.remove('open');
-                }
-
-                
-                let breadcrumbs = [];
-                let targetLevel = current.level;
-                for (let j = currentIndex - 1; j >= 0; j--) {
-                    if (headings[j].level < targetLevel) {
-                        breadcrumbs.unshift(headings[j].title);
-                        targetLevel = headings[j].level;
-                    }
-                    if (targetLevel <= 2) break;
+                    setMobileTocOpen(false);
                 }
 
                 if (mobileCurrent) mobileCurrent.textContent = current.title;
                 if (mobileParent) mobileParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
 
                 
-                mobileLinks.forEach(l => l.classList.remove('active'));
-                const activeLink = mobileBar.querySelector(`a[href="#${current.element.id}"]`);
-                if (activeLink) activeLink.classList.add('active');
+                mobileLinks.forEach((link) => {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                });
+                if (current.mobileLink) {
+                    current.mobileLink.classList.add('active');
+                    current.mobileLink.setAttribute('aria-current', 'location');
+                }
+            }
+
+            if (current) {
+                updateFPGACards(current.stateKey);
             }
         }
 
-        window.addEventListener('scroll', updateActiveState);
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                if (sidebar && sidebar.classList.contains('is-open')) {
+                    setDesktopTocOpen(false, { focusToggle: true });
+                }
+                if (mobileBar && mobileBar.classList.contains('open')) {
+                    setMobileTocOpen(false, { focusToggle: true });
+                }
+            }
+        });
+
+        window.addEventListener('scroll', updateActiveState, { passive: true });
+        window.addEventListener('resize', updateActiveState);
+        window.addEventListener('hashchange', updateActiveState);
         updateActiveState();
     });
 </script>
@@ -747,7 +974,10 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
         const isMobile = () => window.innerWidth <= 768;
         let activePopover = null;
         let activeBackdrop = null;
+        let activeRef = null;
         let hoverTimer = null;
+        let openedByClick = false;
+        let dismissTimer = null;
 
         
         footnotesSection.classList.add('footnotes-hidden');
@@ -756,33 +986,47 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
             const fnItem = document.getElementById(id);
             if (!fnItem) return null;
             const clone = fnItem.cloneNode(true);
-            
             clone.querySelectorAll('.footnote-backref').forEach(el => el.remove());
             return clone.innerHTML;
         }
 
         function dismissPopover() {
+            clearTimeout(hoverTimer);
+            clearTimeout(dismissTimer);
+
             if (activePopover) {
-                activePopover.classList.remove('visible');
-                setTimeout(() => {
-                    if (activePopover && activePopover.parentNode) {
-                        activePopover.parentNode.removeChild(activePopover);
-                    }
-                    activePopover = null;
-                }, 150);
+                const pop = activePopover;
+                pop.classList.remove('visible');
+                
+                setTimeout(() => { if (pop.parentNode) pop.parentNode.removeChild(pop); }, 160);
+                activePopover = null;
             }
             if (activeBackdrop) {
-                activeBackdrop.classList.remove('visible');
-                setTimeout(() => {
-                    if (activeBackdrop && activeBackdrop.parentNode) {
-                        activeBackdrop.parentNode.removeChild(activeBackdrop);
-                    }
-                    activeBackdrop = null;
-                }, 150);
+                const bd = activeBackdrop;
+                bd.classList.remove('visible');
+                setTimeout(() => { if (bd.parentNode) bd.parentNode.removeChild(bd); }, 160);
+                activeBackdrop = null;
             }
+            activeRef = null;
+            openedByClick = false;
         }
 
-        function showPopover(ref) {
+        function scheduleDismiss() {
+            clearTimeout(dismissTimer);
+            dismissTimer = setTimeout(dismissPopover, 300);
+        }
+
+        function cancelDismiss() {
+            clearTimeout(dismissTimer);
+        }
+
+        function showPopover(ref, viaClick) {
+            
+            if (activeRef === ref && activePopover) {
+                if (viaClick) dismissPopover();
+                return;
+            }
+
             dismissPopover();
 
             const href = ref.getAttribute('href');
@@ -791,14 +1035,14 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
             const content = getFootnoteContent(fnId);
             if (!content) return;
 
-            
             const popover = document.createElement('div');
             popover.className = 'footnote-popover';
             popover.innerHTML = content;
             activePopover = popover;
+            activeRef = ref;
+            openedByClick = viaClick;
 
             if (isMobile()) {
-                
                 const backdrop = document.createElement('div');
                 backdrop.className = 'footnote-backdrop';
                 document.body.appendChild(backdrop);
@@ -812,15 +1056,13 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
 
                 backdrop.addEventListener('click', dismissPopover);
             } else {
-                
                 document.body.appendChild(popover);
 
                 const refRect = ref.getBoundingClientRect();
-                const popoverWidth = 420;
+                const popoverWidth = Math.min(420, window.innerWidth - 32);
                 let left = refRect.left + window.scrollX - 16;
                 let top = refRect.bottom + window.scrollY + 8;
 
-                
                 if (left + popoverWidth > window.innerWidth - 16) {
                     left = window.innerWidth - popoverWidth - 16;
                 }
@@ -828,65 +1070,55 @@ To start, we need to get the CT scan files from EMSL, provided as .vol files.">
 
                 popover.style.left = left + 'px';
                 popover.style.top = top + 'px';
+                popover.style.maxWidth = popoverWidth + 'px';
 
-                
                 const arrowLeft = refRect.left + window.scrollX - left + refRect.width / 2 - 6;
                 popover.style.setProperty('--arrow-pos', Math.max(12, Math.min(arrowLeft, popoverWidth - 24)) + 'px');
 
-                requestAnimationFrame(() => {
-                    popover.classList.add('visible');
-                });
+                requestAnimationFrame(() => { popover.classList.add('visible'); });
 
                 
-                let dismissTimer = null;
-                const startDismissTimer = () => {
-                    dismissTimer = setTimeout(dismissPopover, 300);
-                };
-                const cancelDismissTimer = () => {
-                    clearTimeout(dismissTimer);
-                };
-
-                popover.addEventListener('mouseenter', cancelDismissTimer);
-                popover.addEventListener('mouseleave', startDismissTimer);
-                ref.addEventListener('mouseleave', startDismissTimer);
-                ref.addEventListener('mouseenter', cancelDismissTimer);
+                popover.addEventListener('mouseenter', cancelDismiss);
+                popover.addEventListener('mouseleave', () => { if (!openedByClick) scheduleDismiss(); });
             }
         }
 
         
         document.addEventListener('click', function (e) {
             const ref = e.target.closest('.footnote-ref');
-            if (!ref) {
-                
-                if (isMobile() && activePopover && !e.target.closest('.footnote-popover')) {
-                    dismissPopover();
-                }
+            if (ref) {
+                e.preventDefault();
+                e.stopPropagation();
+                showPopover(ref, true);
                 return;
             }
-            e.preventDefault();
-            showPopover(ref);
+            
+            if (activePopover && !e.target.closest('.footnote-popover')) {
+                dismissPopover();
+            }
         });
 
         
         document.addEventListener('mouseenter', function (e) {
+            if (isMobile()) return;
             const ref = e.target.closest && e.target.closest('.footnote-ref');
-            if (!ref || isMobile()) return;
+            if (!ref) return;
+            if (openedByClick) return;
             clearTimeout(hoverTimer);
-            hoverTimer = setTimeout(() => showPopover(ref), 200);
+            hoverTimer = setTimeout(() => showPopover(ref, false), 200);
         }, true);
 
         document.addEventListener('mouseleave', function (e) {
             const ref = e.target.closest && e.target.closest('.footnote-ref');
             if (!ref) return;
             clearTimeout(hoverTimer);
+            if (!openedByClick && activePopover) scheduleDismiss();
         }, true);
 
         
-        let scrollTimer = null;
         window.addEventListener('scroll', function () {
-            if (!isMobile() && activePopover) {
-                clearTimeout(scrollTimer);
-                scrollTimer = setTimeout(dismissPopover, 100);
+            if (!isMobile() && activePopover && !openedByClick) {
+                dismissPopover();
             }
         });
 
