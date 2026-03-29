@@ -66,30 +66,33 @@
 
 .toc-sidebar {
     position: fixed;
-    left: max(1rem, calc(50% - (var(--main-width) / 2) - 124px));
+    left: max(1rem, calc(50% - (var(--main-width) / 2) - 88px));
     top: 50%;
     transform: translateY(-50%);
     z-index: 100;
-    width: 88px;
+    width: 44px;
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
-    align-items: stretch;
+    gap: 0.75rem;
+    align-items: center;
 }
 
 .toc-sidebar-toggle {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0;
     width: 100%;
-    padding: 0.75rem 0.8rem;
+    min-height: 44px;
+    padding: 0.55rem 0.25rem;
     border: 1px solid var(--border-strong);
-    border-radius: 14px;
+    border-radius: 999px;
     background: color-mix(in srgb, var(--entry) 92%, var(--theme));
     color: inherit;
     cursor: pointer;
-    text-align: left;
-    box-shadow: 0 8px 24px rgba(15, 22, 16, 0.08);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(15, 22, 16, 0.08);
 }
 
 .toc-sidebar.is-open .toc-sidebar-toggle,
@@ -104,15 +107,12 @@
     font-size: 0.66rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.11em;
+    letter-spacing: 0.12em;
     color: var(--secondary);
 }
 
 .toc-current-label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.18rem;
-    min-height: 2.4rem;
+    display: none;
 }
 
 .toc-current-parent {
@@ -135,14 +135,14 @@
 .toc-progress {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 7px;
     align-items: center;
-    padding: 0.25rem 0;
+    padding: 0.1rem 0;
 }
 
 .toc-marker {
     width: 7px;
-    height: 16px;
+    height: 18px;
     background: var(--border-strong);
     border-radius: 999px;
     transition: transform 0.2s ease, background 0.2s ease;
@@ -155,10 +155,10 @@
 
 .toc-nav {
     position: absolute;
-    left: 108px;
+    left: 62px;
     top: 50%;
     transform: translateY(-50%) translateX(-10px);
-    width: 304px;
+    width: 280px;
     max-height: 72vh;
     overflow-y: auto;
     padding: 1rem 1.15rem;
@@ -580,7 +580,7 @@ pre code {
 }
 
 /* Show mobile bar only on narrower screens */
-@media (max-width: 1399px) {
+@media (max-width: 1679px) {
     .toc-mobile-bar {
         display: block;
     }
@@ -625,10 +625,10 @@ pre code {
    -------------------------------------------------------------------------- */
 .fpga-card-shell--sidebar {
     position: fixed;
-    left: calc(50% + (var(--main-width) / 2) + 40px);
-    top: 50%;
-    transform: translateY(-50%);
-    width: 320px;
+    left: calc(50% + (var(--main-width) / 2) + 24px);
+    top: calc(var(--header-height) + 1.2rem);
+    transform: none;
+    width: 272px;
     z-index: 95;
 }
 
@@ -683,6 +683,12 @@ pre code {
     box-shadow: 0 14px 36px rgba(15, 22, 16, 0.12);
 }
 
+.fpga-card-shell--sidebar .fpga-card {
+    max-height: calc(100vh - var(--header-height) - 2.2rem);
+    overflow-y: auto;
+    padding: 0.9rem;
+}
+
 .fpga-card-header {
     margin-bottom: 0.9rem;
 }
@@ -706,15 +712,15 @@ pre code {
 
 .fpga-card-summary {
     margin: 0;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 0.86rem;
+    line-height: 1.45;
     color: var(--content);
 }
 
 .fpga-card-flow,
 .fpga-card-checkpoint {
     margin-bottom: 0.85rem;
-    padding: 0.8rem 0.9rem;
+    padding: 0.72rem 0.8rem;
     border-radius: 14px;
     background: color-mix(in srgb, var(--theme) 74%, var(--entry));
     border: 1px solid var(--border);
@@ -734,7 +740,7 @@ pre code {
 .fpga-card-flow-text,
 .fpga-card-checkpoint-value {
     margin: 0;
-    font-size: 0.84rem;
+    font-size: 0.8rem;
     line-height: 1.45;
     color: var(--primary);
 }
@@ -876,7 +882,7 @@ pre code {
 
 .fpga-card-row dd {
     margin: 0;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     line-height: 1.45;
     color: var(--primary);
 }
@@ -900,7 +906,14 @@ pre code {
     color: var(--content);
 }
 
-@media (max-width: 1479px) {
+.fpga-card-shell--sidebar .fpga-card-checkpoint,
+.fpga-card-shell--sidebar .fpga-card-hard-stops,
+.fpga-card-shell--sidebar .fpga-card-row--goal,
+.fpga-card-shell--sidebar .fpga-card-row--set {
+    display: none;
+}
+
+@media (max-width: 1679px) {
     .fpga-card-shell--sidebar {
         display: none;
     }

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="dark">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Using the Field Portable Gas Analyzer (FPGA) | morgan docs</title>
 <meta name="keywords" content="">
 <meta name="description" content="
@@ -19,16 +19,16 @@
 Introduction
 The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil gas to the surface, measuring O2 and CO2, and collecting samples when needed for later lab analysis. It was developed as a lighter and less expensive alternative to commercial dual-gas field analyzers, while still being robust enough for repeated work at depth and in remote field sites.">
 <meta name="author" content="Morgan Salisbury">
-<link rel="canonical" href="http://localhost:1313/posts/using-the-field-portable-gas-analyzer/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.f556c9f1698d000578e4f6ffd9189a798c3c839a1c72e4ad0852e74f80372745.css" integrity="sha256-9VbJ8WmNAAV45Pb/2RiaeYw8g5occuStCFLnT4A3J0U=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="canonical" href="https://docs.mor-gan.com/posts/using-the-field-portable-gas-analyzer/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.dd7bf0b4e7de43872b52b2ed635556248f2eb0bdf0bf48519340a12bf5f3fae7.css" integrity="sha256-3XvwtOfeQ4crUrLtY1VWJI8usL3wv0hRk0ChK/Xz&#43;uc=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://docs.mor-gan.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://docs.mor-gan.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://docs.mor-gan.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://docs.mor-gan.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://docs.mor-gan.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/using-the-field-portable-gas-analyzer/">
+<link rel="alternate" hreflang="en" href="https://docs.mor-gan.com/posts/using-the-field-portable-gas-analyzer/">
 <noscript>
     <style>
         #theme-toggle,
@@ -65,13 +65,89 @@ The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil g
         }
     };
 </script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><meta property="og:url" content="https://docs.mor-gan.com/posts/using-the-field-portable-gas-analyzer/">
+  <meta property="og:site_name" content="morgan docs">
+  <meta property="og:title" content="Using the Field Portable Gas Analyzer (FPGA)">
+  <meta property="og:description" content=" Do not let water reach the sensors. If you see water in the trap, condensation in the lines, or a sudden vacuum drop that suggests a kinked or flooded intake, stop the pump immediately. Do not keep sampling a flooded well. Do not run the pump against a sealed loop. In the one-port workflow, valve 6 can close both outlet paths. Once valve 6 is moved into that sealed position, the pump must already be off. This guide is for the current Kirk lab FPGA build. The overall design comes from Brecheisen et al. 2019, but the workflows here reflect the present lab units and protocol, including one-port sampling, direct injection through valve 2, and a dedicated backflush mode. Introduction The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil gas to the surface, measuring O2 and CO2, and collecting samples when needed for later lab analysis. It was developed as a lighter and less expensive alternative to commercial dual-gas field analyzers, while still being robust enough for repeated work at depth and in remote field sites.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-03-29T10:30:00-05:00">
+    <meta property="article:modified_time" content="2026-03-29T10:30:00-05:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Using the Field Portable Gas Analyzer (FPGA)">
+<meta name="twitter:description" content="
+  Do not let water reach the sensors. If you see water in the trap, condensation in the lines, or a sudden vacuum drop that suggests a kinked or flooded intake, stop the pump immediately. Do not keep sampling a flooded well.
+
+
+  Do not run the pump against a sealed loop. In the one-port workflow, valve 6 can close both outlet paths. Once valve 6 is moved into that sealed position, the pump must already be off.
+
+
+  This guide is for the current Kirk lab FPGA build. The overall design comes from Brecheisen et al. 2019, but the workflows here reflect the present lab units and protocol, including one-port sampling, direct injection through valve 2, and a dedicated backflush mode.
+
+Introduction
+The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil gas to the surface, measuring O2 and CO2, and collecting samples when needed for later lab analysis. It was developed as a lighter and less expensive alternative to commercial dual-gas field analyzers, while still being robust enough for repeated work at depth and in remote field sites.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://docs.mor-gan.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Using the Field Portable Gas Analyzer (FPGA)",
+      "item": "https://docs.mor-gan.com/posts/using-the-field-portable-gas-analyzer/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Using the Field Portable Gas Analyzer (FPGA)",
+  "name": "Using the Field Portable Gas Analyzer (FPGA)",
+  "description": " Do not let water reach the sensors. If you see water in the trap, condensation in the lines, or a sudden vacuum drop that suggests a kinked or flooded intake, stop the pump immediately. Do not keep sampling a flooded well. Do not run the pump against a sealed loop. In the one-port workflow, valve 6 can close both outlet paths. Once valve 6 is moved into that sealed position, the pump must already be off. This guide is for the current Kirk lab FPGA build. The overall design comes from Brecheisen et al. 2019, but the workflows here reflect the present lab units and protocol, including one-port sampling, direct injection through valve 2, and a dedicated backflush mode. Introduction The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil gas to the surface, measuring O2 and CO2, and collecting samples when needed for later lab analysis. It was developed as a lighter and less expensive alternative to commercial dual-gas field analyzers, while still being robust enough for repeated work at depth and in remote field sites.\n",
+  "keywords": [
+    
+  ],
+  "articleBody": " Do not let water reach the sensors. If you see water in the trap, condensation in the lines, or a sudden vacuum drop that suggests a kinked or flooded intake, stop the pump immediately. Do not keep sampling a flooded well. Do not run the pump against a sealed loop. In the one-port workflow, valve 6 can close both outlet paths. Once valve 6 is moved into that sealed position, the pump must already be off. This guide is for the current Kirk lab FPGA build. The overall design comes from Brecheisen et al. 2019, but the workflows here reflect the present lab units and protocol, including one-port sampling, direct injection through valve 2, and a dedicated backflush mode. Introduction The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil gas to the surface, measuring O2 and CO2, and collecting samples when needed for later lab analysis. It was developed as a lighter and less expensive alternative to commercial dual-gas field analyzers, while still being robust enough for repeated work at depth and in remote field sites.\nThis guide covers operation rather than construction. The goal is simple: bring the instrument to ambient baseline, choose the correct flow path for your sample, move gas through the system without introducing water or pressure problems, and write things down in a way that will still make sense when you are looking at the data three weeks later.\nWhat the FPGA Measures The FPGA measures:\nO2 directly on the Apogee meter, in percent. CO2 as an analog voltage on the multimeter, which must be converted according to the scaling of the Vaisala probe on your unit. Temperature separately, using the thermocouple stored in the case. Paired O2 and CO2 measurements are especially useful in soil systems because they let you see more than CO2 buildup alone. In many cases, soil CO2 increases while soil O2 declines. The ratio of those changes — the Apparent Respiratory Quotient (ARQ) — encodes information about respiration substrate, gas diffusivity, and the degree of anaerobiosis belowground.\nInterpreting ARQ is not straightforward. Even under purely aerobic conditions, measured ARQ in soil rarely sits at the theoretical 1.0. CO2 and O2 diffuse at slightly different rates in partially water-saturated pores, which introduces a physical transport signature on top of the biological one. Fermentation or CO2 release from carbonates drives ARQ above 1.0; methane oxidation or oxidation of reduced compounds drives it below. Expect field ARQ values roughly in the range of 0.7 to 1.2 under aerobic conditions, and treat values outside that range as a prompt to investigate rather than a result to report without comment.\nIf you intend to calculate ARQ, two things matter above all else. First, both ΔCO2 and ΔO2 must be calculated from the ambient air baseline you measured at that site, that day — not from textbook atmospheric values. Second, ARQ becomes unreliable when either delta is small relative to instrument precision. Given the stated sensor precision of ~0.1% absolute, treat ARQ as unreliable when either ΔCO2 or ΔO2 is below about 0.1% (1000 ppm for CO2, 0.1 percentage points for O2). Below that threshold, you are not measuring respiration; you are dividing measurement noise by measurement noise.\nPrerequisites What to bring:\nA charged 12V battery for the FPGA A working Apogee O2 meter The correct CO2 voltage-to-concentration conversion for your specific unit (stored with the case documentation) Syringes, sample bags, labels, and notebook Evacuated vials if samples will not reach the lab within 3 days What to know before you leave:\nWhich CO2 voltage scaling your unit uses — do not assume it matches another unit Which workflow you are using before you open the case. This sounds obvious. It becomes less obvious at 7 AM in a field site when someone hands you the instrument and asks which valve to turn first. If you are sampling newly installed gas wells, remember that they may need several days to equilibrate with the surrounding soil air. The original paper notes that equilibration can be sped up by pumping several liters out of the well after installation, without recirculating that gas back into the chamber.\nHardware Overview The FPGA is easiest to use once you think of it as a gas path rather than a pile of parts. Gas travels in one direction through the internal system: black intake → water trap → pressure gauge → pump → CO2 sensor → O2 sensor → outlet. This linear path is the same in every workflow. What changes between workflows is only what you connect to the intake and where you route the outlet. The valve map below is a set of routing decisions layered on top of that fixed path.\nThe key parts are:\nBlack intake line: the main inlet from a gas well, tube, or other sample source Water trap: catches liquid water before it can reach the sensors Pressure gauge: warns you about kinks, clogs, and flooded wells — a hard negative drop is a signal to stop, not to keep pumping Pump: moves gas through the system CO2 sensor and voltmeter: the Vaisala probe uses non-dispersive infrared (NDIR) absorption and outputs a linearized voltage calibrated to a specific range at the factory; the multimeter reads that voltage O2 sensor: reports O2 directly as percent Valve 4 luer port: used for collecting a bag or syringe sample from gas already inside the system Valve 2 luer port: used for drawing a discrete syringe or gas-bag sample directly into the analyzer White external port: used as the return line for two-port well sampling Check valve: prevents reverse bulk flow of outside air into the outlet path when the pump is off Protect the external white port when transporting the case. It protrudes from the side of the Pelican case and can be damaged if the case is dropped or packed carelessly. When closing the case, check that no tubing or valve handles are being pinched. Valve Map and Flow Paths The numbered valves define the grammar of the instrument. Change them deliberately — most problems with this instrument trace back to someone turning a valve to see what it did, rather than knowing what it would do before touching it. The map below exists for this reason. Use it.\nValve Normal job Special use 1 Connects the water trap to the main intake path Opens the reverse-flow path used for backflushing 2 Connects the pressure gauge to the pump inflow Opens the luer intake for syringe or gas-bag injection; also serves as the free-air intake during backflush 3 Sends pump outflow toward the sensors Reroutes pump outflow into the backflush line 4 Sends gas from the pump toward the CO2 sensor Opens the sample-collection port for filling a bag or syringe from gas already in the system 5 Connects the O2 sensor to the check valve and outlet path Usually left in the normal position during routine sampling 6 Chooses where gas exits after the sensors Sends gas to free air, to the white return port, or into a sealed loop for one-port mode The most useful mental model is this:\nNormal through-flow: Black intake -\u003e water trap -\u003e pressure gauge -\u003e pump -\u003e CO2 sensor -\u003e O2 sensor -\u003e check valve -\u003e valve 6 -\u003e free-air outlet Two-port recirculation: Gas well line A -\u003e FPGA -\u003e white return port -\u003e gas well line B Direct injection: Syringe or gas bag -\u003e valve 2 luer port -\u003e pump -\u003e sensors -\u003e exhaust Sample collection from an already-filled loop: Gas inside FPGA -\u003e valve 4 luer port -\u003e sample bag or syringe Backflush: Free air -\u003e valve 2 -\u003e pump -\u003e evacuation line -\u003e water trap (reverse) -\u003e black intake line Workflow selection at a glance:\nDoes your well have two ports (separate intake and return lines)? +-- Yes --\u003e Workflow 1: Two-Port Wells +-- No, one port only --\u003e Workflow 2: One-Port Wells No buried well -- discrete sample (syringe, gas bag, headspace jar)? +-- --\u003e Workflow 3: Syringe or Gas-Bag Injection Water or condensation in the lines? +-- --\u003e Workflow 4: Backflush (recovery procedure, not a sampling mode) Unless a workflow below says otherwise, return the valves to the normal through-flow path before starting.\nSafety Notes Water is the main enemy of this instrument. The CO2 probe in particular will give unreliable readings for a long time after a water intrusion event, and sensor repair or replacement is expensive and slow. If water appears anywhere upstream of the sensors, stop and clear it before doing anything else. Change valves deliberately, not to see what happens. Most operator mistakes come from changing a valve before understanding which path is about to open or close. Do not seal the loop with the pump running. This matters most in one-port mode, but it is a good rule generally. Protect the plumbing when closing and carrying the case. The white external port, luer fittings, and internal tubing are easy to crush if the lid is closed carelessly. Use common sense with syringes and needles. If you are filling bags or vials, recap sharps safely and do not leave needles loose in the case. Reading the Measurements O2 Record the percent value displayed on the Apogee meter directly.\nIf the O2 reading does not return to approximately 20.95–21% during the ambient check, do not proceed to sampling. Check the battery, allow more warmup time, and confirm you are not working in a poorly ventilated space. If your work depends on very low O2 values, verify the meter against certified standards rather than assuming the low end is calibrated correctly.\nCO2 The CO2 side requires conversion from voltage to concentration. On the current lab units, the practical field assumption is 1 V = 1% CO2. Under that configuration:\nVoltage CO2 concentration 1 mV 10 ppm 10 mV 0.01% (100 ppm) 100 mV 0.10% (1,000 ppm) 1000 mV 1.00% (10,000 ppm) An ambient reading of around 43 mV corresponds to roughly 430 ppm CO2. If your unit uses a different Vaisala scaling, use that instead.\nThe CO2 voltage is build-specific. The Vaisala probe’s analog output is calibrated at the factory to a specific range. Do not assume that every FPGA converts voltage the same way. Confirm the scaling on your unit before converting millivolts to CO2 concentration — the documentation is stored with the case. Temperature and the CO2 reading: NDIR sensors are temperature-sensitive. The Vaisala probe’s output assumes operation near its calibration temperature. In cold field conditions (below ~10°C) or hot conditions (above ~35°C), check whether your unit’s documentation specifies a temperature correction, and apply it if so. The thermocouple reading serves double duty: it is both a data point and a diagnostic for whether your CO2 readings may be thermally offset.\nCalculating ARQ ARQ = Delta-CO2 / Delta-O2 where ΔCO2 is the increase in CO2 above ambient (in percent) and ΔO2 is the decrease in O2 below ambient in the same units. Both deltas must be computed from the ambient baseline measured at that site that day — write it down during the startup check.\nFor aerobic respiration of carbohydrates, the theoretical ARQ is 1.0. In soil systems, ARQ commonly ranges from roughly 0.7 to 1.2 under aerobic conditions. Values above 1.0 can indicate fermentation or CO2 release from carbonates; values below 1.0 can reflect methane oxidation, oxidation of reduced compounds, or the physical effect of differential diffusivity of CO2 and O2 in partially water-saturated pores.\nIf the Brecheisen et al. protocol for your specific unit specifies a correction factor, apply it after computing the basic ratio and document what the factor is and where it comes from. The standard biogeochemical definition of ARQ carries no scalar multiplier. ARQ becomes unreliable when either delta is small. As a rough sense of scale: at ΔCO2 = 1.0% and ΔO2 = 1.0%, a ±0.1% absolute error in each propagates to roughly ±14% relative error in ARQ. At ΔCO2 = 0.2% and ΔO2 = 0.2%, the same absolute error propagates to roughly ±70% relative error. Samples close to ambient are not good candidates for ARQ analysis from a single measurement.\nStartup and Ambient Check Do this before every sampling run, regardless of which mode you plan to use.\nReturn the valves to the normal through-flow path: Valve 1: water trap to pressure gauge Valve 2: pressure gauge to pump inflow Valve 3: pump outflow to valve 4 Valve 4: valve 3 to the CO2 sensor Valve 5: O2 sensor to the check valve Valve 6: check valve to the free-air outlet, not the white return port Power on the CO2 sensor, the Apogee O2 meter, and the pump with nothing attached to the intake or return ports. Let the system run in ambient air for about 1 minute. Confirm that the O2 meter reads very close to ambient air, usually around 20.95–21%. Check the CO2 baseline on the multimeter. On the current lab units, ambient outdoor air is usually around 40–45 mV if the unit is configured at 1 V = 1% CO2. Indoor air may read higher. Record this ambient value in your notebook — you will need it for delta calculations. Check the water trap and pressure gauge before attaching anything. If the gauge suggests strong blockage or the trap already contains water, stop and fix the problem first. Field Workflows Workflow 1: Two-Port Buried Gas Wells This is the default field workflow when a reservoir has separate intake and return lines.\nComplete the startup and ambient check. Connect one gas-well line to the black intake line and the other to the white return port. Confirm that the water trap is dry and that the pressure gauge is not indicating a kinked or flooded line. Flush the FPGA with approximately 1 L of soil gas before recording anything. At typical pump flow rates on the current lab units, this takes about 30–45 seconds — but treat that as a starting estimate, not a universal rule. The goal is to fill the internal path with soil gas rather than ambient air from the tubing. If your tubing run is longer than normal, extend the flush accordingly. When in doubt, flush longer rather than shorter; a premature reading is a more common source of error than over-flushing. Turn valve 6 so the outlet is routed to the white return port. This closes the loop through the well and fills the full pathway with soil gas. Shut off the pump and record the maximum CO2 and O2 values you observe within about 1 minute. The CO2 reading will rise to a peak and then drift slightly lower. This is the probe equilibrating, not the soil gas changing. Record the peak. If you record the lower number because it looked more stable, your data will be systematically off in a way that is annoying to discover later.\nNDIR sensors are also sensitive to pressure fluctuations. If the pump creates a noticeable pressure transient when turned off, wait for the pressure gauge to stabilize before recording the peak value. If you are sampling a sequence of wells with different concentrations, go from lower CO2 samples to higher CO2 samples when possible. In many soil profiles that means shallower wells before deeper ones, which helps reduce carryover between samples.\nKeep recirculation as short as you can. The original paper reports that continuous circulatory analysis can dilute CO2 by about 0.1–0.2%. The current lab workflow uses the return path to close the loop, but avoid leaving gas circulating any longer than needed. Collecting a sample for later lab analysis If you need a bag or syringe sample from a two-port well, do it after the loop has been filled with soil gas.\nAttach the sample bag or syringe to the luer port on valve 4. Turn valve 4 so it closes the path to the CO2 sensor and opens the sample port. Turn the pump back on and fill the bag or syringe. Turn valve 4 back to the normal sensor path before disconnecting the sample container. Label the sample immediately with the well ID, depth, date, and time. Sample bags remain stable for CO2 for up to about 3 days. For longer storage, or for O2 measurements where bag permeability is a concern, transfer the gas to an evacuated glass vial.\nWorkflow 2: One-Port Wells or Tubes This mode is for wells or tubes with only one opening. It is more timing-sensitive than the two-port workflow — there is no return path, so the pressure math matters more than it did before. It is genuinely easier once you understand the system. It is genuinely harder the first time.\nComplete the startup and ambient check.\nConnect the well or tube only to the black intake line.\nEstimate the tubing volume and pump time before starting.\nTo estimate well or tube volume from tubing geometry:\nVolume (L) = pi * (inner radius in m)^2 * length (m) * 1000 For standard 1/4\" ID tubing (inner radius ~0.003 m): Volume (L) ~= 0.028 * tube length (m) Examples: 5 m tube -\u003e ~0.14 L 10 m tube -\u003e ~0.28 L To estimate pump time, first verify your unit’s actual flow rate. The nominal value from the original paper is 17.2 L/min, but cross-check it against observed behavior: on the current lab units, moving about 1 L takes roughly 30–45 seconds, which implies a working rate closer to 1.5–2 L/min. Use the rate that matches what your unit actually does.\nTime (seconds) ~= (sample volume in L / pump rate in L/min) * 60 Run the pump just long enough to pull the sample from depth into the FPGA. If you keep pumping past that point, you begin sampling a larger and less well-defined surrounding soil volume.\nOnce the sample is in the FPGA loop, turn off the pump before moving valve 6 into the sealed position that closes both outlet paths.\nRecord the maximum CO2 and O2 values within about 1 minute.\nDo not let the pump continue after sealing valve 6. In one-port mode, that sealed position traps gas in the loop. If the pump keeps running, the system will overpressurize. This workflow only works well if the tubing or well volume is large enough to fill the analyzer path. If the installed volume is too small, you will end up mixing the intended sample with ambient gas before the instrument fully fills.\nWorkflow 3: Syringe or Gas-Bag Injection Use this mode for discrete samples, standards, incubation headspaces, or gas bags that are not connected as a buried well.\nComplete the startup and ambient check. Turn valve 2 so its luer port is open. Attach the syringe or luer-lock gas bag to valve 2. Let the pump draw in the sample. If using a syringe, depress the plunger fully. If using a gas bag, let the bag empty completely. Return valve 2 to the normal through-flow position before disconnecting the syringe or bag. Record the maximum CO2 and O2 values within about 1 minute. For samples that are close to ambient air, the CO2 peak may be subtle. In that case, inject a known standard first and time how long the system takes to reach its maximum reading, then use the same timing for your near-ambient samples.\nFor incubation jars or other small headspaces, keep flush times short. You only need to replace the internal volume of the FPGA with the headspace gas; prolonged pumping will dilute or exhaust a small sample.\nWorkflow 4: Backflushing Moisture from the Lines Use this only when water or condensation has entered the plumbing. It is a recovery procedure, not a normal sampling mode.\nTurn the pump off first. Reconfigure the valves: Turn valve 3 toward the sensor side so the pump is routed into the evacuation line Turn valve 1 toward the pressure gauge Turn valve 2 toward the pressure gauge so the free-air intake is open Point the black intake tube away from yourself, other people, and the instrument case. Run the pump briefly so it pulls free air in through valve 2 and pushes that air backward through the water trap and out the black intake tube. Stop once the trap and lines are clear, then return valves 1, 2, and 3 to their normal positions before taking another sample. Water can spray out of the black intake line during backflush. Keep it pointed away from your face, the electronics, your notebook, and the open case. This is the most theatrical thing the instrument does, and it is completely preventable. If you suspect water has reached either sensor housing, stop using the instrument until it has been inspected. Performance and Limits The original FPGA paper is strongest on CO2 validation. It reports 1639 paired field and laboratory measurements, with FPGA CO2 compared against gas chromatography at a slope of 1.017, an intercept of −0.033, and an R2 of 0.956 over the observed field range. The same paper reports at least 0.1% precision for both CO2 and O2 — this is an absolute figure (0.1 percentage points), not a relative one.\nThose numbers are useful context. They are not permission to skip the ambient check, leave water in the lines, or explain away an ARQ of 1.8 by citing measurement uncertainty. Real-world performance depends on dry lines, correct valve positions, enough flush volume, and not convincing yourself that a near-ambient sample is valid when it isn’t.\nNote that 0.1% absolute precision means different things at different concentrations. At 5% CO2, that is ±2% relative error — acceptable for most applications. At 0.2% CO2, it is ±50% relative. This matters most for ARQ analysis: a sample where one or both gases are close to ambient will carry a large relative uncertainty through the ratio calculation regardless of how carefully you ran the protocol. Plan your sampling design accordingly.\nHistorical numbers from the 2019 paper such as cost (~$2,000) and weight (\u003c10 kg including battery) are best treated as context rather than current specifications.\nTroubleshooting \u0026 Maintenance Water in the trap or condensation in the lines: Stop the pump immediately. Backflush the lines before sampling again. Do not continue sampling a flooded well.\nPressure gauge drops hard negative: The original paper uses a threshold of about −20 kPa as a sign of a clogged, kinked, or flooded intake. Treat any sudden drop from your normal operating pressure as a warning sign, even if it has not hit −20 kPa. Shut the pump off and inspect the line.\nO2 does not return to ambient during startup: Check the O2 meter battery, allow more time in free air, and confirm you are not testing in a poorly ventilated space. If the meter still will not settle near ambient, do not trust low-O2 samples until the instrument has been checked. If your work depends on very low O2 values, verify the meter against certified standards rather than assuming the low end is correct.\nCO2 baseline never settles: Give the sensor more warmup time, verify the battery and wiring, and confirm you are using the correct voltage scaling. Indoor lab air can legitimately read higher than outdoor ambient.\nSamples look flat or diluted: Suspect insufficient flush, too much recirculation, a leak, or carryover from a previous high-CO2 sample. Work from lower CO2 samples to higher ones and keep circulation brief. A useful sanity check: if CO2 and O2 sum to approximately 21%, the sample is likely contaminated with ambient air. In a genuine soil gas sample, aerobic respiration consumes O2 and adds CO2 in ratios that do not fully replace the removed O2, so the sum should be measurably less than 21%.\nOne-port sampling is inconsistent: Your timing may be off, or the installed tubing volume may be too small relative to the analyzer path. Recalculate the evacuation time using your unit’s actual observed flow rate. Confirm that you are not inadvertently drawing in gas from outside the intended sampling volume.\nLong gap between sites: If the next measurement is more than about 10 minutes away, turn off the CO2 sensor between sites to conserve battery, then warm it up again before the next run.\nQuick failure-mode reference:\nWhat you observe Likely cause First check Pressure pegged hard negative at startup Blocked or kinked intake Inspect black intake line before running pump CO2 and O2 both at ambient despite sampling Insufficient flush or air leak Extend flush time; inspect all connections CO2 + O2 sum ≈ 21% Sample is mostly ambient air Flush longer; check for leaks at all fittings O2 stable at ambient, CO2 elevated Possible O2 sensor issue Check O2 meter connections and battery CO2 spikes on pump shutoff then immediately decays NDIR pressure transient Wait for pressure gauge to stabilize before recording Readings inconsistent between successive samples Carryover from high-CO2 sample Flush longer with ambient air between samples After Each Session Before closing the case:\nTurn off the pump, then the CO2 sensor, then the O2 meter. With the intake open to free air, run the pump for about 30 seconds. This clears residual soil gas from the lines and reduces condensation during storage. Return all valves to the normal through-flow position. Inspect the water trap. If there is any moisture, do a brief backflush before closing. Close all luer port caps and confirm the white external port is protected. Close and latch the Pelican case. Check that no tubing or valve handles are being pinched by the lid. Appendix: Quick Reference Before Leaving the Lab Charge the 12V battery Confirm the O2 meter powers on Confirm the CO2 voltage conversion for your unit (stored with the case) Pack syringes, bags, labels, and notebook Decide which workflow you are using At the Field Site (before first sample) Open the case and inspect the water trap Run the system in ambient air for about 1 minute Confirm O2 reads ~20.95–21% (if not, stop and investigate) Record the ambient CO2 voltage baseline in your notebook Check the pressure gauge reads normal At Each Sampling Point Return valves to the normal through-flow path Attach the sample source Flush before recording Record raw mV and converted concentration; note which workflow was used Data Recording For each sample, record at minimum:\nField Example Date and time 2026-03-28 09:14 Site and well ID Site A, Well 3 Depth (m) 0.5 Workflow used Two-port Ambient O2 (%) 20.97 Ambient CO2 (mV / ppm) 43 mV / 430 ppm Sample O2 (%) 18.4 Sample CO2 (mV / ppm) 312 mV / 3120 ppm Notes Brief backflush required before this sample Recording both raw mV and converted concentration matters. If the voltage scaling is ever in question, you can recompute from the raw value. You cannot go the other direction.\nAmbient Benchmarks for the Current Build Metric Expected value Worth investigating if… O2 in ambient air ~20.95–21% Below 20.7% or above 21.1% during startup CO2 in ambient outdoor air ~40–45 mV (~420–450 ppm) Above 60 mV outdoors suggests contamination or warm-up issue Typical two-port flush ~30–45 seconds for ~1 L Adjust if tubing run is longer than standard Pump rate (verify on your unit) ~1.5–2 L/min observed Cross-check: does moving 1 L take 30–45 seconds? Current Build Reference This documentation applies to the Kirk lab FPGA units as of March 2026. Sensor model numbers and factory scaling are stored with each case. If the unit has been modified or a sensor replaced, verify that the ambient benchmarks above still apply before trusting any conversion factors or flush time estimates.\nConclusion The FPGA is a straightforward instrument once the flow paths stop feeling arbitrary — which takes about one field session, assuming you read this first. Gas comes in, passes the sensors, and goes somewhere depending on your valve configuration. Most good data come from the same four habits: warm up in ambient air, choose your mode before touching anything, keep water out of the sensors, and don’t rush the transitions where pressure and flow direction change. None of those are hard. They are just easier to do when you already know them.\nFor construction details, performance validation, and the original design logic, read Brecheisen et al. 2019. For the exact sensor manuals and accessories packed with the current lab units, check the documentation stored with the case.\nWritten in March 2026.\nCreated by Morgan Salisbury\n",
+  "wordCount" : "4716",
+  "inLanguage": "en",
+  "datePublished": "2026-03-29T10:30:00-05:00",
+  "dateModified": "2026-03-29T10:30:00-05:00",
+  "author":{
+    "@type": "Person",
+    "name": "Morgan Salisbury"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://docs.mor-gan.com/posts/using-the-field-portable-gas-analyzer/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "morgan docs",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://docs.mor-gan.com/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
+            <a href="https://docs.mor-gan.com/" accesskey="h" title="morgan docs (Alt + H)">morgan docs</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -97,7 +173,7 @@ The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil g
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/search/" title="search (Alt &#43; /)" accesskey=/>
+                <a href="https://docs.mor-gan.com/search/" title="search (Alt &#43; /)" accesskey=/>
                     <span>search</span>
                 </a>
             </li>
@@ -108,7 +184,7 @@ The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil g
         <aside class="toc-sidebar" id="toc-sidebar" aria-label="On this page">
             <button class="toc-sidebar-toggle" id="toc-sidebar-toggle" type="button" aria-expanded="false"
                 aria-controls="toc-nav" aria-label="Toggle table of contents">
-                <span class="toc-sidebar-kicker">On This Page</span>
+                <span class="toc-sidebar-kicker">TOC</span>
                 <span class="toc-current-label">
                     <span class="toc-current-parent" id="toc-current-parent"></span>
                     <span class="toc-current-heading" id="toc-current-label">Contents</span>
@@ -353,19 +429,19 @@ The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil g
   </div>
 
   <dl class="fpga-card-grid">
-    <div class="fpga-card-row">
+    <div class="fpga-card-row fpga-card-row--goal">
       <dt>Goal</dt>
       <dd data-fpga-role="goal">Orient yourself before changing any valves.</dd>
     </div>
-    <div class="fpga-card-row">
+    <div class="fpga-card-row fpga-card-row--set">
       <dt>Set</dt>
       <dd data-fpga-role="set">Know what valve 2, valve 4, and valve 6 will do before the run starts.</dd>
     </div>
-    <div class="fpga-card-row">
+    <div class="fpga-card-row fpga-card-row--pump">
       <dt>Pump</dt>
       <dd data-fpga-role="pump">Use only as needed for baseline or sample movement.</dd>
     </div>
-    <div class="fpga-card-row">
+    <div class="fpga-card-row fpga-card-row--record">
       <dt>Record</dt>
       <dd data-fpga-role="record">Record ambient checks and sample extrema once the path is correct.</dd>
     </div>
@@ -389,7 +465,7 @@ The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil g
 
         <article class="post-single">
             <header class="post-header">
-                <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+                <div class="breadcrumbs"><a href="https://docs.mor-gan.com/">Home</a>&nbsp;»&nbsp;<a href="https://docs.mor-gan.com/posts/">Posts</a></div>
                 <h1 class="post-title entry-hint-parent">
                     Using the Field Portable Gas Analyzer (FPGA)
                 </h1>
@@ -398,7 +474,7 @@ The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil g
 </span>
 
 </div>
-            </header> <details class="fpga-card-shell fpga-card-shell--inline" open>
+            </header> <details class="fpga-card-shell fpga-card-shell--inline">
   <summary class="fpga-card-shell-summary">
     <span class="fpga-card-shell-summary-title">Live FPGA guide</span>
     <span class="fpga-card-shell-summary-note">Updates as you scroll</span>
@@ -475,19 +551,19 @@ The Field Portable Gas Analyzer (FPGA) is a compact field rig for drawing soil g
   </div>
 
   <dl class="fpga-card-grid">
-    <div class="fpga-card-row">
+    <div class="fpga-card-row fpga-card-row--goal">
       <dt>Goal</dt>
       <dd data-fpga-role="goal">Orient yourself before changing any valves.</dd>
     </div>
-    <div class="fpga-card-row">
+    <div class="fpga-card-row fpga-card-row--set">
       <dt>Set</dt>
       <dd data-fpga-role="set">Know what valve 2, valve 4, and valve 6 will do before the run starts.</dd>
     </div>
-    <div class="fpga-card-row">
+    <div class="fpga-card-row fpga-card-row--pump">
       <dt>Pump</dt>
       <dd data-fpga-role="pump">Use only as needed for baseline or sample movement.</dd>
     </div>
-    <div class="fpga-card-row">
+    <div class="fpga-card-row fpga-card-row--record">
       <dt>Record</dt>
       <dd data-fpga-role="record">Record ambient checks and sample extrema once the path is correct.</dd>
     </div>
