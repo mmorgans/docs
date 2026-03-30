@@ -1,34 +1,23 @@
 {{- define "main" }}
 
-{{- $isFPGAArticle := and .File (eq .File.BaseFileName "using-the-field-portable-gas-analyzer") -}}
-{{- $fpgaHeadingStates := .Params.fpga_heading_states | default dict -}}
-
-<div class="post-wrapper{{ if $isFPGAArticle }} post-wrapper-fpga{{ end }}">
+<div class="post-wrapper">
     {{- if (.Param "ShowToc") }}
     {{- $headers := findRE "<h[1-6].*?>(.|\\n])+?</h[1-6]>" .Content -}}
         {{- $has_headers := ge (len $headers) 1 -}}
         {{- if $has_headers }}
-        <aside class="toc-sidebar" id="toc-sidebar" aria-label="On this page">
-            <button class="toc-sidebar-toggle" id="toc-sidebar-toggle" type="button" aria-expanded="false"
-                aria-controls="toc-nav" aria-label="Toggle table of contents">
-                <span class="toc-sidebar-kicker">TOC</span>
-                <span class="toc-current-label">
-                    <span class="toc-current-parent" id="toc-current-parent"></span>
-                    <span class="toc-current-heading" id="toc-current-label">Contents</span>
-                </span>
-            </button>
-            <div class="toc-progress" aria-hidden="true">
+        <aside class="toc-sidebar" id="toc-sidebar">
+            <div class="toc-progress">
                 {{- range $i, $header := $headers -}}
                 {{- $headerLevel := index (findRE "[1-6]" . 1) 0 -}}
                 {{- $id := index (findRE "(id=\"(.*?)\")" $header 9) 0 }}
                 {{- $cleanedID := replace (replace $id "id=\"" "") "\"" "" }}
                 {{- $headerText := replaceRE "<h[1-6].*?>((.|\\n])+?)</h[1-6]>" "$1" . -}}
-                {{- $stateKey := default "" (index $fpgaHeadingStates $cleanedID) -}}
-                    <span class="toc-marker" data-target="#{{- $cleanedID -}}" data-level="{{- $headerLevel -}}"
-                        data-state="{{- $stateKey -}}" data-title="{{- $headerText | plainify | safeHTML -}}"></span>
+                    <div class="toc-marker" data-target="#{{- $cleanedID -}}" data-level="{{- $headerLevel -}}"
+                        data-title="{{- $headerText | plainify | safeHTML -}}"></div>
                     {{- end -}}
             </div>
-            <nav class="toc-nav" id="toc-nav" aria-label="On this page navigation">
+            <div class="toc-current-label" id="toc-current-label"></div>
+            <nav class="toc-nav" id="toc-nav">
                 <div class="toc-title">Contents</div>
                 {{- if (.Param "UseHugoToc") }}
                 {{- .TableOfContents -}}
@@ -56,7 +45,6 @@
 
                         {{- $id := index (findRE "(id=\"(.*?)\")" $header 9) 0 }}
                         {{- $cleanedID := replace (replace $id "id=\"" "") "\"" "" }}
-                        {{- $stateKey := default "" (index $fpgaHeadingStates $cleanedID) -}}
                         {{- $header := replaceRE "<h[1-6].*?>((.|\\n])+?)</h[1-6]>" "$1" $header -}}
 
                             {{- if ne $i 0 -}}
@@ -89,11 +77,11 @@
                     {{- end -}}
                     {{- end }}
                     <li>
-                        <a href="#{{- $cleanedID -}}" data-state="{{- $stateKey -}}" aria-label="{{- $header | plainify | safeHTML -}}">{{- $header |
+                        <a href="#{{- $cleanedID -}}" aria-label="{{- $header | plainify | safeHTML -}}">{{- $header |
                             plainify | safeHTML -}}</a>
                         {{- else }}
                     <li>
-                        <a href="#{{- $cleanedID -}}" data-state="{{- $stateKey -}}" aria-label="{{- $header | plainify | safeHTML -}}">{{- $header |
+                        <a href="#{{- $cleanedID -}}" aria-label="{{- $header | plainify | safeHTML -}}">{{- $header |
                             plainify | safeHTML -}}</a>
                         {{- end -}}
                         {{- end -}}
@@ -116,8 +104,7 @@
 
         <!-- Mobile TOC Bar -->
         <div class="toc-mobile-bar" id="toc-mobile-bar">
-            <button class="toc-mobile-toggle" id="toc-mobile-toggle" type="button" aria-expanded="false"
-                aria-controls="toc-mobile-nav" aria-label="Toggle on-page contents">
+            <button class="toc-mobile-toggle" id="toc-mobile-toggle">
                 <span class="toc-mobile-label">
                     <span class="toc-mobile-parent" id="toc-mobile-parent"></span>
                     <span class="toc-mobile-current" id="toc-mobile-current">Contents</span>
@@ -126,7 +113,7 @@
                     <path d="M6 9l6 6 6-6" />
                 </svg>
             </button>
-            <nav class="toc-mobile-nav" id="toc-mobile-nav" aria-label="On this page navigation">
+            <nav class="toc-mobile-nav" id="toc-mobile-nav">
                 {{- if (.Param "UseHugoToc") }}
                 {{- .TableOfContents -}}
                 {{- else }}
@@ -135,10 +122,9 @@
                     {{- $headerLevel := index (findRE "[1-6]" . 1) 0 -}}
                     {{- $id := index (findRE "(id=\"(.*?)\")" $header 9) 0 }}
                     {{- $cleanedID := replace (replace $id "id=\"" "") "\"" "" }}
-                    {{- $stateKey := default "" (index $fpgaHeadingStates $cleanedID) -}}
                     {{- $header := replaceRE "<h[1-6].*?>((.|\\n])+?)</h[1-6]>" "$1" $header -}}
                         <li class="toc-mobile-item level-{{ $headerLevel }}" data-level="{{ $headerLevel }}">
-                            <a href="#{{ $cleanedID }}" data-state="{{- $stateKey -}}">{{ $header | safeHTML }}</a>
+                            <a href="#{{ $cleanedID }}">{{ $header | safeHTML }}</a>
                         </li>
                         {{- end -}}
                 </ul>
@@ -146,11 +132,6 @@
             </nav>
         </div>
         {{- end }}
-        {{- end }}
-
-        {{- if $isFPGAArticle }}
-        {{- partial "fpga_sidebar_card.html" (dict "variant" "sidebar") }}
-        {{- partial "fpga_sidebar_config.html" . }}
         {{- end }}
 
         <article class="post-single">
@@ -186,9 +167,6 @@
             {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
 
             {{- if .Content }}
-            {{- if $isFPGAArticle }}
-            {{- partial "fpga_sidebar_card.html" (dict "variant" "inline") }}
-            {{- end }}
             <div class="post-content">
                 {{- if not (.Param "disableAnchoredHeadings") }}
                 {{- partial "anchored_headings.html" .Content -}}
@@ -220,162 +198,48 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const sidebar = document.getElementById('toc-sidebar');
-        const tocSidebarToggle = document.getElementById('toc-sidebar-toggle');
-        const tocNav = document.getElementById('toc-nav');
-        const tocCurrentParent = document.getElementById('toc-current-parent');
-        const tocCurrentLabel = document.getElementById('toc-current-label');
         const mobileBar = document.getElementById('toc-mobile-bar');
         const mobileToggle = document.getElementById('toc-mobile-toggle');
         const mobileNav = document.getElementById('toc-mobile-nav');
         const mobileCurrent = document.getElementById('toc-mobile-current');
         const mobileParent = document.getElementById('toc-mobile-parent');
-        const fpgaCards = Array.from(document.querySelectorAll('[data-fpga-card]'));
-        const fpgaConfig = document.getElementById('fpga-sidebar-config');
 
-        if (!sidebar && !mobileBar && fpgaCards.length === 0) return;
+        if (!sidebar && !mobileBar) return;
 
         const markers = sidebar ? sidebar.querySelectorAll('.toc-marker') : [];
-        const tocLinks = tocNav ? tocNav.querySelectorAll('a') : [];
+        const tocLinks = sidebar ? sidebar.querySelectorAll('.toc-nav a') : [];
+        const currentLabel = document.getElementById('toc-current-label');
         const mobileLinks = mobileBar ? mobileBar.querySelectorAll('.toc-mobile-item a') : [];
         const headings = [];
-        let fpgaStates = null;
-        const warnedFpgaStates = new Set();
-        if (fpgaConfig) {
-            try {
-                const parsedConfig = JSON.parse(fpgaConfig.textContent);
-                fpgaStates = typeof parsedConfig === 'string' ? JSON.parse(parsedConfig) : parsedConfig;
-            } catch (error) {
-                console.error('Unable to parse FPGA sidebar config.', error);
-            }
-        }
 
-        markers.forEach((marker, i) => {
-            const id = marker.dataset.target.slice(1);
-            const heading = document.getElementById(id);
-            const desktopLink = tocLinks[i] || null;
-            const mobileLink = mobileBar ? mobileBar.querySelector(`a[href="#${id}"]`) : null;
-            const title = marker.dataset.title || (desktopLink ? desktopLink.textContent.trim() : id);
-            const level = parseInt(marker.dataset.level, 10);
-            const stateKey = marker.dataset.state || (desktopLink ? desktopLink.dataset.state : '') || (mobileLink ? mobileLink.dataset.state : '');
-
-            if (heading) {
-                headings.push({
-                    element: heading,
-                    marker: marker,
-                    desktopLink: desktopLink,
-                    mobileLink: mobileLink,
-                    title: title,
-                    level: Number.isNaN(level) ? 2 : level,
-                    stateKey: stateKey
-                });
-            }
-        });
-
-        if (headings.length === 0 && mobileLinks.length > 0) {
-            mobileLinks.forEach((link) => {
-                const id = link.getAttribute('href').slice(1);
+        // Build headings array from markers (desktop) or mobile items
+        if (markers.length > 0) {
+            markers.forEach((marker, i) => {
+                const id = marker.dataset.target.slice(1);
                 const heading = document.getElementById(id);
-                const level = parseInt(link.closest('.toc-mobile-item')?.dataset.level || '2', 10);
+                const title = marker.dataset.title;
+                const level = parseInt(marker.dataset.level);
                 if (heading) {
-                    headings.push({
-                        element: heading,
-                        marker: null,
-                        desktopLink: tocNav ? tocNav.querySelector(`a[href="#${id}"]`) : null,
-                        mobileLink: link,
-                        title: link.textContent.trim(),
-                        level: Number.isNaN(level) ? 2 : level,
-                        stateKey: link.dataset.state || ''
-                    });
+                    headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title, level: level });
+                }
+            });
+        } else if (mobileLinks.length > 0) {
+            mobileLinks.forEach((link, i) => {
+                const href = link.getAttribute('href');
+                const id = href.slice(1);
+                const heading = document.getElementById(id);
+                const title = link.textContent.trim();
+                const level = parseInt(link.closest('.toc-mobile-item').dataset.level);
+                if (heading) {
+                    headings.push({ element: heading, link: link, title: title, level: level });
                 }
             });
         }
 
-        if (fpgaStates) {
-            const missingStates = headings
-                .filter((heading) => !heading.stateKey)
-                .map((heading) => heading.element.id);
-            if (missingStates.length > 0) {
-                console.warn('FPGA sidebar headings missing state mappings:', missingStates);
-            }
-        }
-
-        function setDesktopTocOpen(isOpen, options = {}) {
-            if (!sidebar || !tocSidebarToggle) return;
-            sidebar.classList.toggle('is-open', isOpen);
-            tocSidebarToggle.setAttribute('aria-expanded', String(isOpen));
-            if (!isOpen && options.focusToggle) {
-                tocSidebarToggle.focus();
-            }
-        }
-
-        function setMobileTocOpen(isOpen, options = {}) {
-            if (!mobileBar || !mobileToggle) return;
-            mobileBar.classList.toggle('open', isOpen);
-            mobileToggle.setAttribute('aria-expanded', String(isOpen));
-            if (!isOpen && options.focusToggle) {
-                mobileToggle.focus();
-            }
-        }
-
-        function updateFPGACards(stateKey) {
-            if (!fpgaStates || fpgaCards.length === 0) return;
-
-            if (stateKey && !fpgaStates[stateKey] && !warnedFpgaStates.has(stateKey)) {
-                console.warn('Unknown FPGA sidebar state:', stateKey);
-                warnedFpgaStates.add(stateKey);
-            }
-
-            const resolvedKey = stateKey && fpgaStates[stateKey] ? stateKey : 'normalFlow';
-            const state = fpgaStates[resolvedKey];
-            if (!state) return;
-
-            fpgaCards.forEach((card) => {
-                card.dataset.mode = resolvedKey;
-                card.classList.toggle('is-reverse', !!state.reverse);
-                card.classList.toggle('is-sealed', !!state.sealed);
-
-                ['kicker', 'title', 'summary', 'flow', 'checkpointLabel', 'checkpoint', 'goal', 'set', 'pump', 'record', 'stop'].forEach((role) => {
-                    const target = card.querySelector(`[data-fpga-role="${role}"]`);
-                    if (target && state[role]) {
-                        target.textContent = state[role];
-                    }
-                });
-
-                card.querySelectorAll('[data-fpga-path]').forEach((path) => {
-                    path.classList.toggle('is-active', state.paths.includes(path.dataset.fpgaPath));
-                });
-
-                card.querySelectorAll('[data-fpga-node]').forEach((node) => {
-                    node.classList.toggle('is-active', state.nodes.includes(node.dataset.fpgaNode));
-                });
-            });
-        }
-
-        if (tocSidebarToggle) {
-            tocSidebarToggle.addEventListener('click', function () {
-                setDesktopTocOpen(!sidebar.classList.contains('is-open'));
-            });
-        }
-
-        if (sidebar) {
-            document.addEventListener('click', function (event) {
-                if (sidebar.classList.contains('is-open') && !sidebar.contains(event.target)) {
-                    setDesktopTocOpen(false);
-                }
-            });
-        }
-
-        if (tocNav) {
-            tocNav.addEventListener('click', function (event) {
-                if (event.target.tagName === 'A') {
-                    setDesktopTocOpen(false);
-                }
-            });
-        }
-
+        // Mobile toggle functionality
         if (mobileToggle) {
             mobileToggle.addEventListener('click', function () {
-                setMobileTocOpen(!mobileBar.classList.contains('open'));
+                mobileBar.classList.toggle('open');
             });
         }
 
@@ -383,13 +247,12 @@
         if (mobileNav) {
             mobileNav.addEventListener('click', function (e) {
                 if (e.target.tagName === 'A') {
-                    setMobileTocOpen(false);
+                    mobileBar.classList.remove('open');
                 }
             });
         }
 
         function updateActiveState() {
-            if (headings.length === 0) return;
             const scrollPos = window.scrollY + 150;
             let current = headings[0];
             let currentIndex = 0;
@@ -404,32 +267,40 @@
             // Desktop sidebar updates
             if (sidebar) {
                 markers.forEach(m => m.classList.remove('active'));
-                tocLinks.forEach((link) => {
-                    link.classList.remove('active');
-                    link.removeAttribute('aria-current');
-                });
+                tocLinks.forEach(l => l.classList.remove('active'));
 
                 if (current) {
                     if (current.marker) current.marker.classList.add('active');
-                    if (current.desktopLink) {
-                        current.desktopLink.classList.add('active');
-                        current.desktopLink.setAttribute('aria-current', 'location');
+                    if (current.link) current.link.classList.add('active');
+
+                    if (currentLabel) {
+                        // Build breadcrumb chain of all parent headings
+                        let breadcrumbs = [];
+                        let targetLevel = current.level;
+
+                        // Walk backwards collecting parent headings
+                        for (let j = currentIndex - 1; j >= 0; j--) {
+                            if (headings[j].level < targetLevel) {
+                                breadcrumbs.unshift(headings[j].title);
+                                targetLevel = headings[j].level;
+                            }
+                            if (targetLevel <= 2) break;
+                        }
+
+                        // Build the label HTML
+                        let html = '';
+                        if (breadcrumbs.length > 0) {
+                            html += `<span class="toc-parent-label">${breadcrumbs.join(' › ')}</span>`;
+                        }
+                        html += `<span class="toc-child-label">${current.title}</span>`;
+                        currentLabel.innerHTML = html;
+
+                        const markerRect = current.marker.getBoundingClientRect();
+                        const sidebarRect = sidebar.getBoundingClientRect();
+                        currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (breadcrumbs.length > 0 ? 18 : 10)) + 'px';
                     }
                 }
             }
-
-            let breadcrumbs = [];
-            let targetLevel = current.level;
-            for (let j = currentIndex - 1; j >= 0; j--) {
-                if (headings[j].level < targetLevel) {
-                    breadcrumbs.unshift(headings[j].title);
-                    targetLevel = headings[j].level;
-                }
-                if (targetLevel <= 2) break;
-            }
-
-            if (tocCurrentLabel) tocCurrentLabel.textContent = current.title;
-            if (tocCurrentParent) tocCurrentParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
 
             // Mobile bar updates
             if (mobileBar && current) {
@@ -438,42 +309,31 @@
                     mobileBar.classList.add('visible');
                 } else {
                     mobileBar.classList.remove('visible');
-                    setMobileTocOpen(false);
+                    mobileBar.classList.remove('open');
+                }
+
+                // Build breadcrumb chain for mobile
+                let breadcrumbs = [];
+                let targetLevel = current.level;
+                for (let j = currentIndex - 1; j >= 0; j--) {
+                    if (headings[j].level < targetLevel) {
+                        breadcrumbs.unshift(headings[j].title);
+                        targetLevel = headings[j].level;
+                    }
+                    if (targetLevel <= 2) break;
                 }
 
                 if (mobileCurrent) mobileCurrent.textContent = current.title;
                 if (mobileParent) mobileParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
 
                 // Update active state in mobile nav
-                mobileLinks.forEach((link) => {
-                    link.classList.remove('active');
-                    link.removeAttribute('aria-current');
-                });
-                if (current.mobileLink) {
-                    current.mobileLink.classList.add('active');
-                    current.mobileLink.setAttribute('aria-current', 'location');
-                }
-            }
-
-            if (current) {
-                updateFPGACards(current.stateKey);
+                mobileLinks.forEach(l => l.classList.remove('active'));
+                const activeLink = mobileBar.querySelector(`a[href="#${current.element.id}"]`);
+                if (activeLink) activeLink.classList.add('active');
             }
         }
 
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-                if (sidebar && sidebar.classList.contains('is-open')) {
-                    setDesktopTocOpen(false, { focusToggle: true });
-                }
-                if (mobileBar && mobileBar.classList.contains('open')) {
-                    setMobileTocOpen(false, { focusToggle: true });
-                }
-            }
-        });
-
-        window.addEventListener('scroll', updateActiveState, { passive: true });
-        window.addEventListener('resize', updateActiveState);
-        window.addEventListener('hashchange', updateActiveState);
+        window.addEventListener('scroll', updateActiveState);
         updateActiveState();
     });
 </script>

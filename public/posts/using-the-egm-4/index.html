@@ -18,9 +18,9 @@
 
 Introduction
 The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed for measuring soil CO₂ efflux. The device connects to various chamber types and soil probes, and stores measurements in its internal memory.">
-<meta name="author" content="Morgan Salisbury">
+<meta name="author" content="Morgan">
 <link rel="canonical" href="https://docs.mor-gan.com/posts/using-the-egm-4/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.dd7bf0b4e7de43872b52b2ed635556248f2eb0bdf0bf48519340a12bf5f3fae7.css" integrity="sha256-3XvwtOfeQ4crUrLtY1VWJI8usL3wv0hRk0ChK/Xz&#43;uc=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9f5245256819451949712af51a1635f3f0c506d23cd4ed718e8ca670466fab62.css" integrity="sha256-n1JFJWgZRRlJcSr1GhY18/DFBtI81O1xjoymcEZvq2I=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://docs.mor-gan.com/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://docs.mor-gan.com/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://docs.mor-gan.com/favicon-32x32.png">
@@ -126,7 +126,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
   "dateModified": "2026-02-01T15:25:00-06:00",
   "author":{
     "@type": "Person",
-    "name": "Morgan Salisbury"
+    "name": "Morgan"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
@@ -180,156 +180,151 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
         </ul>
     </nav>
 </header>
-<main class="main"><div class="post-wrapper">
-        <aside class="toc-sidebar" id="toc-sidebar" aria-label="On this page">
-            <button class="toc-sidebar-toggle" id="toc-sidebar-toggle" type="button" aria-expanded="false"
-                aria-controls="toc-nav" aria-label="Toggle table of contents">
-                <span class="toc-sidebar-kicker">TOC</span>
-                <span class="toc-current-label">
-                    <span class="toc-current-parent" id="toc-current-parent"></span>
-                    <span class="toc-current-heading" id="toc-current-label">Contents</span>
-                </span>
-            </button>
-            <div class="toc-progress" aria-hidden="true"><span class="toc-marker" data-target="#introduction" data-level="2"
-                        data-state="" data-title="Introduction"></span><span class="toc-marker" data-target="#installing-open-egm4" data-level="2"
-                        data-state="" data-title="Installing open-egm4"></span><span class="toc-marker" data-target="#one-line-installation" data-level="3"
-                        data-state="" data-title="One-Line Installation"></span><span class="toc-marker" data-target="#step-1-open-your-terminal" data-level="4"
-                        data-state="" data-title="Step 1: Open Your Terminal"></span><span class="toc-marker" data-target="#step-2-copy-and-paste-the-installation-command" data-level="4"
-                        data-state="" data-title="Step 2: Copy and Paste the Installation Command"></span><span class="toc-marker" data-target="#step-3-what-you-ll-see-during-installation" data-level="4"
-                        data-state="" data-title="Step 3: What You&rsquo;ll See During Installation"></span><span class="toc-marker" data-target="#pip-installation" data-level="3"
-                        data-state="" data-title="Pip Installation"></span><span class="toc-marker" data-target="#initial-connection-to-the-egm-4" data-level="3"
-                        data-state="" data-title="Initial Connection to the EGM-4"></span><span class="toc-marker" data-target="#egm-4-hardware" data-level="2"
-                        data-state="" data-title="EGM-4 hardware"></span><span class="toc-marker" data-target="#physical-interface-and-controls" data-level="3"
-                        data-state="" data-title="Physical Interface &amp; Controls"></span><span class="toc-marker" data-target="#power-and-battery" data-level="3"
-                        data-state="" data-title="Power &amp; Battery"></span><span class="toc-marker" data-target="#src-1-soil-respiration-chamber" data-level="3"
-                        data-state="" data-title="SRC-1 Soil Respiration Chamber"></span><span class="toc-marker" data-target="#open-egm4-software" data-level="2"
-                        data-state="" data-title="open-egm4 software"></span><span class="toc-marker" data-target="#connection-screen" data-level="3"
-                        data-state="" data-title="Connection screen"></span><span class="toc-marker" data-target="#main-interface" data-level="3"
-                        data-state="" data-title="Main interface"></span><span class="toc-marker" data-target="#keyboard-commands" data-level="4"
-                        data-state="" data-title="Keyboard Commands"></span><span class="toc-marker" data-target="#exporting-data" data-level="4"
-                        data-state="" data-title="Exporting data"></span><span class="toc-marker" data-target="#pausing--p" data-level="4"
-                        data-state="" data-title="Pausing (p)"></span><span class="toc-marker" data-target="#adding-notes--n" data-level="4"
-                        data-state="" data-title="Adding notes (n)"></span><span class="toc-marker" data-target="#static-sampling-mode--m-n-x" data-level="4"
-                        data-state="" data-title="Static sampling mode (m, n, x)"></span><span class="toc-marker" data-target="#clearing-data--c" data-level="4"
-                        data-state="" data-title="Clearing data (c)"></span><span class="toc-marker" data-target="#quitting--q" data-level="3"
-                        data-state="" data-title="Quitting (q)"></span><span class="toc-marker" data-target="#workflows" data-level="2"
-                        data-state="" data-title="Workflows"></span><span class="toc-marker" data-target="#workflow-1-soil-respiration-with-src-1-chamber" data-level="3"
-                        data-state="" data-title="Workflow 1: Soil Respiration with SRC-1 Chamber"></span><span class="toc-marker" data-target="#workflow-2-static-sampling-via-syringe-injection" data-level="3"
-                        data-state="" data-title="Workflow 2: Static Sampling via Syringe Injection"></span><span class="toc-marker" data-target="#troubleshooting-and-maintenance" data-level="2"
-                        data-state="" data-title="Troubleshooting &amp; Maintenance"></span><span class="toc-marker" data-target="#replacing-the-soda-lime-co-scrubber" data-level="3"
-                        data-state="" data-title="Replacing the Soda Lime CO₂ Scrubber"></span><span class="toc-marker" data-target="#replacing-the-internal-battery" data-level="3"
-                        data-state="" data-title="Replacing the Internal Battery"></span><span class="toc-marker" data-target="#replacing-internal-tubing" data-level="3"
-                        data-state="" data-title="Replacing internal tubing"></span><span class="toc-marker" data-target="#egm-4-error-codes" data-level="3"
-                        data-state="" data-title="EGM-4 error codes"></span><span class="toc-marker" data-target="#software-connection-issues" data-level="3"
-                        data-state="" data-title="Software Connection Issues"></span><span class="toc-marker" data-target="#technical-appendix" data-level="2"
-                        data-state="" data-title="Technical Appendix"></span><span class="toc-marker" data-target="#a-serial-protocol-specification" data-level="3"
-                        data-state="" data-title="A: Serial Protocol Specification"></span><span class="toc-marker" data-target="#b-flux-calculation-methods" data-level="3"
-                        data-state="" data-title="B: Flux Calculation Methods"></span><span class="toc-marker" data-target="#linear-vs-dot-quadratic" data-level="4"
-                        data-state="" data-title="Linear vs. Quadratic"></span><span class="toc-marker" data-target="#chamber-corrections" data-level="4"
-                        data-state="" data-title="Chamber Corrections"></span><span class="toc-marker" data-target="#worked-example" data-level="4"
-                        data-state="" data-title="Worked Example"></span><span class="toc-marker" data-target="#c-probe-types-reference--0-11" data-level="3"
-                        data-state="" data-title="C: Probe Types Reference (0-11)"></span><span class="toc-marker" data-target="#d-water-vapor-and-temperature-corrections" data-level="3"
-                        data-state="" data-title="D: Water Vapor &amp; Temperature Corrections"></span><span class="toc-marker" data-target="#e-chamber-volume-calculations" data-level="3"
-                        data-state="" data-title="E: Chamber Volume Calculations"></span><span class="toc-marker" data-target="#f-open-egm4-software-design-philosophy" data-level="3"
-                        data-state="" data-title="F: open-egm4 Software Design Philosophy"></span><span class="toc-marker" data-target="#why-a-terminal-interface" data-level="4"
-                        data-state="" data-title="Why a Terminal Interface?"></span><span class="toc-marker" data-target="#advantages-over-legacy-windows-software" data-level="4"
-                        data-state="" data-title="Advantages Over Legacy Windows Software"></span></div>
-            <nav class="toc-nav" id="toc-nav" aria-label="On this page navigation">
+<main class="main">
+
+<div class="post-wrapper">
+        <aside class="toc-sidebar" id="toc-sidebar">
+            <div class="toc-progress"><div class="toc-marker" data-target="#introduction" data-level="2"
+                        data-title="Introduction"></div><div class="toc-marker" data-target="#installing-open-egm4" data-level="2"
+                        data-title="Installing open-egm4"></div><div class="toc-marker" data-target="#one-line-installation" data-level="3"
+                        data-title="One-Line Installation"></div><div class="toc-marker" data-target="#step-1-open-your-terminal" data-level="4"
+                        data-title="Step 1: Open Your Terminal"></div><div class="toc-marker" data-target="#step-2-copy-and-paste-the-installation-command" data-level="4"
+                        data-title="Step 2: Copy and Paste the Installation Command"></div><div class="toc-marker" data-target="#step-3-what-you-ll-see-during-installation" data-level="4"
+                        data-title="Step 3: What You&rsquo;ll See During Installation"></div><div class="toc-marker" data-target="#pip-installation" data-level="3"
+                        data-title="Pip Installation"></div><div class="toc-marker" data-target="#initial-connection-to-the-egm-4" data-level="3"
+                        data-title="Initial Connection to the EGM-4"></div><div class="toc-marker" data-target="#egm-4-hardware" data-level="2"
+                        data-title="EGM-4 hardware"></div><div class="toc-marker" data-target="#physical-interface-and-controls" data-level="3"
+                        data-title="Physical Interface &amp; Controls"></div><div class="toc-marker" data-target="#power-and-battery" data-level="3"
+                        data-title="Power &amp; Battery"></div><div class="toc-marker" data-target="#src-1-soil-respiration-chamber" data-level="3"
+                        data-title="SRC-1 Soil Respiration Chamber"></div><div class="toc-marker" data-target="#open-egm4-software" data-level="2"
+                        data-title="open-egm4 software"></div><div class="toc-marker" data-target="#connection-screen" data-level="3"
+                        data-title="Connection screen"></div><div class="toc-marker" data-target="#main-interface" data-level="3"
+                        data-title="Main interface"></div><div class="toc-marker" data-target="#keyboard-commands" data-level="4"
+                        data-title="Keyboard Commands"></div><div class="toc-marker" data-target="#exporting-data" data-level="4"
+                        data-title="Exporting data"></div><div class="toc-marker" data-target="#pausing--p" data-level="4"
+                        data-title="Pausing (p)"></div><div class="toc-marker" data-target="#adding-notes--n" data-level="4"
+                        data-title="Adding notes (n)"></div><div class="toc-marker" data-target="#static-sampling-mode--m-n-x" data-level="4"
+                        data-title="Static sampling mode (m, n, x)"></div><div class="toc-marker" data-target="#clearing-data--c" data-level="4"
+                        data-title="Clearing data (c)"></div><div class="toc-marker" data-target="#quitting--q" data-level="3"
+                        data-title="Quitting (q)"></div><div class="toc-marker" data-target="#workflows" data-level="2"
+                        data-title="Workflows"></div><div class="toc-marker" data-target="#workflow-1-soil-respiration-with-src-1-chamber" data-level="3"
+                        data-title="Workflow 1: Soil Respiration with SRC-1 Chamber"></div><div class="toc-marker" data-target="#workflow-2-static-sampling-via-syringe-injection" data-level="3"
+                        data-title="Workflow 2: Static Sampling via Syringe Injection"></div><div class="toc-marker" data-target="#troubleshooting-and-maintenance" data-level="2"
+                        data-title="Troubleshooting &amp; Maintenance"></div><div class="toc-marker" data-target="#replacing-the-soda-lime-co-scrubber" data-level="3"
+                        data-title="Replacing the Soda Lime CO₂ Scrubber"></div><div class="toc-marker" data-target="#replacing-the-internal-battery" data-level="3"
+                        data-title="Replacing the Internal Battery"></div><div class="toc-marker" data-target="#replacing-internal-tubing" data-level="3"
+                        data-title="Replacing internal tubing"></div><div class="toc-marker" data-target="#egm-4-error-codes" data-level="3"
+                        data-title="EGM-4 error codes"></div><div class="toc-marker" data-target="#software-connection-issues" data-level="3"
+                        data-title="Software Connection Issues"></div><div class="toc-marker" data-target="#technical-appendix" data-level="2"
+                        data-title="Technical Appendix"></div><div class="toc-marker" data-target="#a-serial-protocol-specification" data-level="3"
+                        data-title="A: Serial Protocol Specification"></div><div class="toc-marker" data-target="#b-flux-calculation-methods" data-level="3"
+                        data-title="B: Flux Calculation Methods"></div><div class="toc-marker" data-target="#linear-vs-dot-quadratic" data-level="4"
+                        data-title="Linear vs. Quadratic"></div><div class="toc-marker" data-target="#chamber-corrections" data-level="4"
+                        data-title="Chamber Corrections"></div><div class="toc-marker" data-target="#worked-example" data-level="4"
+                        data-title="Worked Example"></div><div class="toc-marker" data-target="#c-probe-types-reference--0-11" data-level="3"
+                        data-title="C: Probe Types Reference (0-11)"></div><div class="toc-marker" data-target="#d-water-vapor-and-temperature-corrections" data-level="3"
+                        data-title="D: Water Vapor &amp; Temperature Corrections"></div><div class="toc-marker" data-target="#e-chamber-volume-calculations" data-level="3"
+                        data-title="E: Chamber Volume Calculations"></div><div class="toc-marker" data-target="#f-open-egm4-software-design-philosophy" data-level="3"
+                        data-title="F: open-egm4 Software Design Philosophy"></div><div class="toc-marker" data-target="#why-a-terminal-interface" data-level="4"
+                        data-title="Why a Terminal Interface?"></div><div class="toc-marker" data-target="#advantages-over-legacy-windows-software" data-level="4"
+                        data-title="Advantages Over Legacy Windows Software"></div></div>
+            <div class="toc-current-label" id="toc-current-label"></div>
+            <nav class="toc-nav" id="toc-nav">
                 <div class="toc-title">Contents</div><ul>
                     <li>
-                        <a href="#introduction" data-state="" aria-label="Introduction">Introduction</a></li>
+                        <a href="#introduction" aria-label="Introduction">Introduction</a></li>
                     <li>
-                        <a href="#installing-open-egm4" data-state="" aria-label="Installing open-egm4">Installing open-egm4</a><ul>
+                        <a href="#installing-open-egm4" aria-label="Installing open-egm4">Installing open-egm4</a><ul>
                     <li>
-                        <a href="#one-line-installation" data-state="" aria-label="One-Line Installation">One-Line Installation</a><ul>
+                        <a href="#one-line-installation" aria-label="One-Line Installation">One-Line Installation</a><ul>
                     <li>
-                        <a href="#step-1-open-your-terminal" data-state="" aria-label="Step 1: Open Your Terminal">Step 1: Open Your Terminal</a></li>
+                        <a href="#step-1-open-your-terminal" aria-label="Step 1: Open Your Terminal">Step 1: Open Your Terminal</a></li>
                     <li>
-                        <a href="#step-2-copy-and-paste-the-installation-command" data-state="" aria-label="Step 2: Copy and Paste the Installation Command">Step 2: Copy and Paste the Installation Command</a></li>
+                        <a href="#step-2-copy-and-paste-the-installation-command" aria-label="Step 2: Copy and Paste the Installation Command">Step 2: Copy and Paste the Installation Command</a></li>
                     <li>
-                        <a href="#step-3-what-you-ll-see-during-installation" data-state="" aria-label="Step 3: What You&rsquo;ll See During Installation">Step 3: What You&rsquo;ll See During Installation</a></li></ul>
+                        <a href="#step-3-what-you-ll-see-during-installation" aria-label="Step 3: What You&rsquo;ll See During Installation">Step 3: What You&rsquo;ll See During Installation</a></li></ul>
                     </li>
                     <li>
-                        <a href="#pip-installation" data-state="" aria-label="Pip Installation">Pip Installation</a></li>
+                        <a href="#pip-installation" aria-label="Pip Installation">Pip Installation</a></li>
                     <li>
-                        <a href="#initial-connection-to-the-egm-4" data-state="" aria-label="Initial Connection to the EGM-4">Initial Connection to the EGM-4</a></li></ul>
+                        <a href="#initial-connection-to-the-egm-4" aria-label="Initial Connection to the EGM-4">Initial Connection to the EGM-4</a></li></ul>
                     </li>
                     <li>
-                        <a href="#egm-4-hardware" data-state="" aria-label="EGM-4 hardware">EGM-4 hardware</a><ul>
+                        <a href="#egm-4-hardware" aria-label="EGM-4 hardware">EGM-4 hardware</a><ul>
                     <li>
-                        <a href="#physical-interface-and-controls" data-state="" aria-label="Physical Interface &amp; Controls">Physical Interface &amp; Controls</a></li>
+                        <a href="#physical-interface-and-controls" aria-label="Physical Interface &amp; Controls">Physical Interface &amp; Controls</a></li>
                     <li>
-                        <a href="#power-and-battery" data-state="" aria-label="Power &amp; Battery">Power &amp; Battery</a></li>
+                        <a href="#power-and-battery" aria-label="Power &amp; Battery">Power &amp; Battery</a></li>
                     <li>
-                        <a href="#src-1-soil-respiration-chamber" data-state="" aria-label="SRC-1 Soil Respiration Chamber">SRC-1 Soil Respiration Chamber</a></li></ul>
+                        <a href="#src-1-soil-respiration-chamber" aria-label="SRC-1 Soil Respiration Chamber">SRC-1 Soil Respiration Chamber</a></li></ul>
                     </li>
                     <li>
-                        <a href="#open-egm4-software" data-state="" aria-label="open-egm4 software">open-egm4 software</a><ul>
+                        <a href="#open-egm4-software" aria-label="open-egm4 software">open-egm4 software</a><ul>
                     <li>
-                        <a href="#connection-screen" data-state="" aria-label="Connection screen">Connection screen</a></li>
+                        <a href="#connection-screen" aria-label="Connection screen">Connection screen</a></li>
                     <li>
-                        <a href="#main-interface" data-state="" aria-label="Main interface">Main interface</a><ul>
+                        <a href="#main-interface" aria-label="Main interface">Main interface</a><ul>
                     <li>
-                        <a href="#keyboard-commands" data-state="" aria-label="Keyboard Commands">Keyboard Commands</a></li>
+                        <a href="#keyboard-commands" aria-label="Keyboard Commands">Keyboard Commands</a></li>
                     <li>
-                        <a href="#exporting-data" data-state="" aria-label="Exporting data">Exporting data</a></li>
+                        <a href="#exporting-data" aria-label="Exporting data">Exporting data</a></li>
                     <li>
-                        <a href="#pausing--p" data-state="" aria-label="Pausing (p)">Pausing (p)</a></li>
+                        <a href="#pausing--p" aria-label="Pausing (p)">Pausing (p)</a></li>
                     <li>
-                        <a href="#adding-notes--n" data-state="" aria-label="Adding notes (n)">Adding notes (n)</a></li>
+                        <a href="#adding-notes--n" aria-label="Adding notes (n)">Adding notes (n)</a></li>
                     <li>
-                        <a href="#static-sampling-mode--m-n-x" data-state="" aria-label="Static sampling mode (m, n, x)">Static sampling mode (m, n, x)</a></li>
+                        <a href="#static-sampling-mode--m-n-x" aria-label="Static sampling mode (m, n, x)">Static sampling mode (m, n, x)</a></li>
                     <li>
-                        <a href="#clearing-data--c" data-state="" aria-label="Clearing data (c)">Clearing data (c)</a></li></ul>
+                        <a href="#clearing-data--c" aria-label="Clearing data (c)">Clearing data (c)</a></li></ul>
                     </li>
                     <li>
-                        <a href="#quitting--q" data-state="" aria-label="Quitting (q)">Quitting (q)</a></li></ul>
+                        <a href="#quitting--q" aria-label="Quitting (q)">Quitting (q)</a></li></ul>
                     </li>
                     <li>
-                        <a href="#workflows" data-state="" aria-label="Workflows">Workflows</a><ul>
+                        <a href="#workflows" aria-label="Workflows">Workflows</a><ul>
                     <li>
-                        <a href="#workflow-1-soil-respiration-with-src-1-chamber" data-state="" aria-label="Workflow 1: Soil Respiration with SRC-1 Chamber">Workflow 1: Soil Respiration with SRC-1 Chamber</a></li>
+                        <a href="#workflow-1-soil-respiration-with-src-1-chamber" aria-label="Workflow 1: Soil Respiration with SRC-1 Chamber">Workflow 1: Soil Respiration with SRC-1 Chamber</a></li>
                     <li>
-                        <a href="#workflow-2-static-sampling-via-syringe-injection" data-state="" aria-label="Workflow 2: Static Sampling via Syringe Injection">Workflow 2: Static Sampling via Syringe Injection</a></li></ul>
+                        <a href="#workflow-2-static-sampling-via-syringe-injection" aria-label="Workflow 2: Static Sampling via Syringe Injection">Workflow 2: Static Sampling via Syringe Injection</a></li></ul>
                     </li>
                     <li>
-                        <a href="#troubleshooting-and-maintenance" data-state="" aria-label="Troubleshooting &amp; Maintenance">Troubleshooting &amp; Maintenance</a><ul>
+                        <a href="#troubleshooting-and-maintenance" aria-label="Troubleshooting &amp; Maintenance">Troubleshooting &amp; Maintenance</a><ul>
                     <li>
-                        <a href="#replacing-the-soda-lime-co-scrubber" data-state="" aria-label="Replacing the Soda Lime CO₂ Scrubber">Replacing the Soda Lime CO₂ Scrubber</a></li>
+                        <a href="#replacing-the-soda-lime-co-scrubber" aria-label="Replacing the Soda Lime CO₂ Scrubber">Replacing the Soda Lime CO₂ Scrubber</a></li>
                     <li>
-                        <a href="#replacing-the-internal-battery" data-state="" aria-label="Replacing the Internal Battery">Replacing the Internal Battery</a></li>
+                        <a href="#replacing-the-internal-battery" aria-label="Replacing the Internal Battery">Replacing the Internal Battery</a></li>
                     <li>
-                        <a href="#replacing-internal-tubing" data-state="" aria-label="Replacing internal tubing">Replacing internal tubing</a></li>
+                        <a href="#replacing-internal-tubing" aria-label="Replacing internal tubing">Replacing internal tubing</a></li>
                     <li>
-                        <a href="#egm-4-error-codes" data-state="" aria-label="EGM-4 error codes">EGM-4 error codes</a></li>
+                        <a href="#egm-4-error-codes" aria-label="EGM-4 error codes">EGM-4 error codes</a></li>
                     <li>
-                        <a href="#software-connection-issues" data-state="" aria-label="Software Connection Issues">Software Connection Issues</a></li></ul>
+                        <a href="#software-connection-issues" aria-label="Software Connection Issues">Software Connection Issues</a></li></ul>
                     </li>
                     <li>
-                        <a href="#technical-appendix" data-state="" aria-label="Technical Appendix">Technical Appendix</a><ul>
+                        <a href="#technical-appendix" aria-label="Technical Appendix">Technical Appendix</a><ul>
                     <li>
-                        <a href="#a-serial-protocol-specification" data-state="" aria-label="A: Serial Protocol Specification">A: Serial Protocol Specification</a></li>
+                        <a href="#a-serial-protocol-specification" aria-label="A: Serial Protocol Specification">A: Serial Protocol Specification</a></li>
                     <li>
-                        <a href="#b-flux-calculation-methods" data-state="" aria-label="B: Flux Calculation Methods">B: Flux Calculation Methods</a><ul>
+                        <a href="#b-flux-calculation-methods" aria-label="B: Flux Calculation Methods">B: Flux Calculation Methods</a><ul>
                     <li>
-                        <a href="#linear-vs-dot-quadratic" data-state="" aria-label="Linear vs. Quadratic">Linear vs. Quadratic</a></li>
+                        <a href="#linear-vs-dot-quadratic" aria-label="Linear vs. Quadratic">Linear vs. Quadratic</a></li>
                     <li>
-                        <a href="#chamber-corrections" data-state="" aria-label="Chamber Corrections">Chamber Corrections</a></li>
+                        <a href="#chamber-corrections" aria-label="Chamber Corrections">Chamber Corrections</a></li>
                     <li>
-                        <a href="#worked-example" data-state="" aria-label="Worked Example">Worked Example</a></li></ul>
+                        <a href="#worked-example" aria-label="Worked Example">Worked Example</a></li></ul>
                     </li>
                     <li>
-                        <a href="#c-probe-types-reference--0-11" data-state="" aria-label="C: Probe Types Reference (0-11)">C: Probe Types Reference (0-11)</a></li>
+                        <a href="#c-probe-types-reference--0-11" aria-label="C: Probe Types Reference (0-11)">C: Probe Types Reference (0-11)</a></li>
                     <li>
-                        <a href="#d-water-vapor-and-temperature-corrections" data-state="" aria-label="D: Water Vapor &amp; Temperature Corrections">D: Water Vapor &amp; Temperature Corrections</a></li>
+                        <a href="#d-water-vapor-and-temperature-corrections" aria-label="D: Water Vapor &amp; Temperature Corrections">D: Water Vapor &amp; Temperature Corrections</a></li>
                     <li>
-                        <a href="#e-chamber-volume-calculations" data-state="" aria-label="E: Chamber Volume Calculations">E: Chamber Volume Calculations</a></li>
+                        <a href="#e-chamber-volume-calculations" aria-label="E: Chamber Volume Calculations">E: Chamber Volume Calculations</a></li>
                     <li>
-                        <a href="#f-open-egm4-software-design-philosophy" data-state="" aria-label="F: open-egm4 Software Design Philosophy">F: open-egm4 Software Design Philosophy</a><ul>
+                        <a href="#f-open-egm4-software-design-philosophy" aria-label="F: open-egm4 Software Design Philosophy">F: open-egm4 Software Design Philosophy</a><ul>
                     <li>
-                        <a href="#why-a-terminal-interface" data-state="" aria-label="Why a Terminal Interface?">Why a Terminal Interface?</a></li>
+                        <a href="#why-a-terminal-interface" aria-label="Why a Terminal Interface?">Why a Terminal Interface?</a></li>
                     <li>
-                        <a href="#advantages-over-legacy-windows-software" data-state="" aria-label="Advantages Over Legacy Windows Software">Advantages Over Legacy Windows Software</a>
+                        <a href="#advantages-over-legacy-windows-software" aria-label="Advantages Over Legacy Windows Software">Advantages Over Legacy Windows Software</a>
                     </li>
                 </ul>
                 </li>
@@ -341,8 +336,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
 
         
         <div class="toc-mobile-bar" id="toc-mobile-bar">
-            <button class="toc-mobile-toggle" id="toc-mobile-toggle" type="button" aria-expanded="false"
-                aria-controls="toc-mobile-nav" aria-label="Toggle on-page contents">
+            <button class="toc-mobile-toggle" id="toc-mobile-toggle">
                 <span class="toc-mobile-label">
                     <span class="toc-mobile-parent" id="toc-mobile-parent"></span>
                     <span class="toc-mobile-current" id="toc-mobile-current">Contents</span>
@@ -351,93 +345,93 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                     <path d="M6 9l6 6 6-6" />
                 </svg>
             </button>
-            <nav class="toc-mobile-nav" id="toc-mobile-nav" aria-label="On this page navigation">
+            <nav class="toc-mobile-nav" id="toc-mobile-nav">
                 <ul><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#introduction" data-state="">Introduction</a>
+                            <a href="#introduction">Introduction</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#installing-open-egm4" data-state="">Installing open-egm4</a>
+                            <a href="#installing-open-egm4">Installing open-egm4</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#one-line-installation" data-state="">One-Line Installation</a>
+                            <a href="#one-line-installation">One-Line Installation</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#step-1-open-your-terminal" data-state="">Step 1: Open Your Terminal</a>
+                            <a href="#step-1-open-your-terminal">Step 1: Open Your Terminal</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#step-2-copy-and-paste-the-installation-command" data-state="">Step 2: Copy and Paste the Installation Command</a>
+                            <a href="#step-2-copy-and-paste-the-installation-command">Step 2: Copy and Paste the Installation Command</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#step-3-what-you-ll-see-during-installation" data-state="">Step 3: What You&rsquo;ll See During Installation</a>
+                            <a href="#step-3-what-you-ll-see-during-installation">Step 3: What You&rsquo;ll See During Installation</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#pip-installation" data-state="">Pip Installation</a>
+                            <a href="#pip-installation">Pip Installation</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#initial-connection-to-the-egm-4" data-state="">Initial Connection to the EGM-4</a>
+                            <a href="#initial-connection-to-the-egm-4">Initial Connection to the EGM-4</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#egm-4-hardware" data-state="">EGM-4 hardware</a>
+                            <a href="#egm-4-hardware">EGM-4 hardware</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#physical-interface-and-controls" data-state="">Physical Interface &amp; Controls</a>
+                            <a href="#physical-interface-and-controls">Physical Interface &amp; Controls</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#power-and-battery" data-state="">Power &amp; Battery</a>
+                            <a href="#power-and-battery">Power &amp; Battery</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#src-1-soil-respiration-chamber" data-state="">SRC-1 Soil Respiration Chamber</a>
+                            <a href="#src-1-soil-respiration-chamber">SRC-1 Soil Respiration Chamber</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#open-egm4-software" data-state="">open-egm4 software</a>
+                            <a href="#open-egm4-software">open-egm4 software</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#connection-screen" data-state="">Connection screen</a>
+                            <a href="#connection-screen">Connection screen</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#main-interface" data-state="">Main interface</a>
+                            <a href="#main-interface">Main interface</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#keyboard-commands" data-state="">Keyboard Commands</a>
+                            <a href="#keyboard-commands">Keyboard Commands</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#exporting-data" data-state="">Exporting data</a>
+                            <a href="#exporting-data">Exporting data</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#pausing--p" data-state="">Pausing (<code>p</code>)</a>
+                            <a href="#pausing--p">Pausing (<code>p</code>)</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#adding-notes--n" data-state="">Adding notes (<code>n</code>)</a>
+                            <a href="#adding-notes--n">Adding notes (<code>n</code>)</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#static-sampling-mode--m-n-x" data-state="">Static sampling mode (<code>m</code>, <code>n</code>, <code>x</code>)</a>
+                            <a href="#static-sampling-mode--m-n-x">Static sampling mode (<code>m</code>, <code>n</code>, <code>x</code>)</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#clearing-data--c" data-state="">Clearing data (<code>c</code>)</a>
+                            <a href="#clearing-data--c">Clearing data (<code>c</code>)</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#quitting--q" data-state="">Quitting (<code>q</code>)</a>
+                            <a href="#quitting--q">Quitting (<code>q</code>)</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#workflows" data-state="">Workflows</a>
+                            <a href="#workflows">Workflows</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#workflow-1-soil-respiration-with-src-1-chamber" data-state="">Workflow 1: Soil Respiration with SRC-1 Chamber</a>
+                            <a href="#workflow-1-soil-respiration-with-src-1-chamber">Workflow 1: Soil Respiration with SRC-1 Chamber</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#workflow-2-static-sampling-via-syringe-injection" data-state="">Workflow 2: Static Sampling via Syringe Injection</a>
+                            <a href="#workflow-2-static-sampling-via-syringe-injection">Workflow 2: Static Sampling via Syringe Injection</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#troubleshooting-and-maintenance" data-state="">Troubleshooting &amp; Maintenance</a>
+                            <a href="#troubleshooting-and-maintenance">Troubleshooting &amp; Maintenance</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#replacing-the-soda-lime-co-scrubber" data-state="">Replacing the Soda Lime CO₂ Scrubber</a>
+                            <a href="#replacing-the-soda-lime-co-scrubber">Replacing the Soda Lime CO₂ Scrubber</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#replacing-the-internal-battery" data-state="">Replacing the Internal Battery</a>
+                            <a href="#replacing-the-internal-battery">Replacing the Internal Battery</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#replacing-internal-tubing" data-state="">Replacing internal tubing</a>
+                            <a href="#replacing-internal-tubing">Replacing internal tubing</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#egm-4-error-codes" data-state="">EGM-4 error codes</a>
+                            <a href="#egm-4-error-codes">EGM-4 error codes</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#software-connection-issues" data-state="">Software Connection Issues</a>
+                            <a href="#software-connection-issues">Software Connection Issues</a>
                         </li><li class="toc-mobile-item level-2" data-level="2">
-                            <a href="#technical-appendix" data-state="">Technical Appendix</a>
+                            <a href="#technical-appendix">Technical Appendix</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#a-serial-protocol-specification" data-state="">A: Serial Protocol Specification</a>
+                            <a href="#a-serial-protocol-specification">A: Serial Protocol Specification</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#b-flux-calculation-methods" data-state="">B: Flux Calculation Methods</a>
+                            <a href="#b-flux-calculation-methods">B: Flux Calculation Methods</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#linear-vs-dot-quadratic" data-state="">Linear vs. Quadratic</a>
+                            <a href="#linear-vs-dot-quadratic">Linear vs. Quadratic</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#chamber-corrections" data-state="">Chamber Corrections</a>
+                            <a href="#chamber-corrections">Chamber Corrections</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#worked-example" data-state="">Worked Example</a>
+                            <a href="#worked-example">Worked Example</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#c-probe-types-reference--0-11" data-state="">C: Probe Types Reference (0-11)</a>
+                            <a href="#c-probe-types-reference--0-11">C: Probe Types Reference (0-11)</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#d-water-vapor-and-temperature-corrections" data-state="">D: Water Vapor &amp; Temperature Corrections</a>
+                            <a href="#d-water-vapor-and-temperature-corrections">D: Water Vapor &amp; Temperature Corrections</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#e-chamber-volume-calculations" data-state="">E: Chamber Volume Calculations</a>
+                            <a href="#e-chamber-volume-calculations">E: Chamber Volume Calculations</a>
                         </li><li class="toc-mobile-item level-3" data-level="3">
-                            <a href="#f-open-egm4-software-design-philosophy" data-state="">F: open-egm4 Software Design Philosophy</a>
+                            <a href="#f-open-egm4-software-design-philosophy">F: open-egm4 Software Design Philosophy</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#why-a-terminal-interface" data-state="">Why a Terminal Interface?</a>
+                            <a href="#why-a-terminal-interface">Why a Terminal Interface?</a>
                         </li><li class="toc-mobile-item level-4" data-level="4">
-                            <a href="#advantages-over-legacy-windows-software" data-state="">Advantages Over Legacy Windows Software</a>
+                            <a href="#advantages-over-legacy-windows-software">Advantages Over Legacy Windows Software</a>
                         </li></ul>
             </nav>
         </div>
@@ -448,7 +442,7 @@ The PP Systems EGM-4 (EGM) is a portable infrared gas analyzer (IRGA) designed f
                 <h1 class="post-title entry-hint-parent">
                     Using the EGM-4 &amp; open-egm4 software
                 </h1>
-                <div class="post-meta"><span title='2026-02-01 15:25:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>41 min</span>&nbsp;·&nbsp;<span>Morgan Salisbury</span>&nbsp;|&nbsp;<span>
+                <div class="post-meta"><span title='2026-02-01 15:25:00 -0600 CST'>February 1, 2026</span>&nbsp;·&nbsp;<span>41 min</span>&nbsp;·&nbsp;<span>Morgan</span>&nbsp;|&nbsp;<span>
     <a href="https://github.com/mmorgans/docs/tree/main/content/posts/using-the-egm-4.md" rel="noopener noreferrer edit" target="_blank">suggest changes</a>
 </span>
 
@@ -1757,162 +1751,48 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const sidebar = document.getElementById('toc-sidebar');
-        const tocSidebarToggle = document.getElementById('toc-sidebar-toggle');
-        const tocNav = document.getElementById('toc-nav');
-        const tocCurrentParent = document.getElementById('toc-current-parent');
-        const tocCurrentLabel = document.getElementById('toc-current-label');
         const mobileBar = document.getElementById('toc-mobile-bar');
         const mobileToggle = document.getElementById('toc-mobile-toggle');
         const mobileNav = document.getElementById('toc-mobile-nav');
         const mobileCurrent = document.getElementById('toc-mobile-current');
         const mobileParent = document.getElementById('toc-mobile-parent');
-        const fpgaCards = Array.from(document.querySelectorAll('[data-fpga-card]'));
-        const fpgaConfig = document.getElementById('fpga-sidebar-config');
 
-        if (!sidebar && !mobileBar && fpgaCards.length === 0) return;
+        if (!sidebar && !mobileBar) return;
 
         const markers = sidebar ? sidebar.querySelectorAll('.toc-marker') : [];
-        const tocLinks = tocNav ? tocNav.querySelectorAll('a') : [];
+        const tocLinks = sidebar ? sidebar.querySelectorAll('.toc-nav a') : [];
+        const currentLabel = document.getElementById('toc-current-label');
         const mobileLinks = mobileBar ? mobileBar.querySelectorAll('.toc-mobile-item a') : [];
         const headings = [];
-        let fpgaStates = null;
-        const warnedFpgaStates = new Set();
-        if (fpgaConfig) {
-            try {
-                const parsedConfig = JSON.parse(fpgaConfig.textContent);
-                fpgaStates = typeof parsedConfig === 'string' ? JSON.parse(parsedConfig) : parsedConfig;
-            } catch (error) {
-                console.error('Unable to parse FPGA sidebar config.', error);
-            }
-        }
 
-        markers.forEach((marker, i) => {
-            const id = marker.dataset.target.slice(1);
-            const heading = document.getElementById(id);
-            const desktopLink = tocLinks[i] || null;
-            const mobileLink = mobileBar ? mobileBar.querySelector(`a[href="#${id}"]`) : null;
-            const title = marker.dataset.title || (desktopLink ? desktopLink.textContent.trim() : id);
-            const level = parseInt(marker.dataset.level, 10);
-            const stateKey = marker.dataset.state || (desktopLink ? desktopLink.dataset.state : '') || (mobileLink ? mobileLink.dataset.state : '');
-
-            if (heading) {
-                headings.push({
-                    element: heading,
-                    marker: marker,
-                    desktopLink: desktopLink,
-                    mobileLink: mobileLink,
-                    title: title,
-                    level: Number.isNaN(level) ? 2 : level,
-                    stateKey: stateKey
-                });
-            }
-        });
-
-        if (headings.length === 0 && mobileLinks.length > 0) {
-            mobileLinks.forEach((link) => {
-                const id = link.getAttribute('href').slice(1);
+        
+        if (markers.length > 0) {
+            markers.forEach((marker, i) => {
+                const id = marker.dataset.target.slice(1);
                 const heading = document.getElementById(id);
-                const level = parseInt(link.closest('.toc-mobile-item')?.dataset.level || '2', 10);
+                const title = marker.dataset.title;
+                const level = parseInt(marker.dataset.level);
                 if (heading) {
-                    headings.push({
-                        element: heading,
-                        marker: null,
-                        desktopLink: tocNav ? tocNav.querySelector(`a[href="#${id}"]`) : null,
-                        mobileLink: link,
-                        title: link.textContent.trim(),
-                        level: Number.isNaN(level) ? 2 : level,
-                        stateKey: link.dataset.state || ''
-                    });
+                    headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title, level: level });
+                }
+            });
+        } else if (mobileLinks.length > 0) {
+            mobileLinks.forEach((link, i) => {
+                const href = link.getAttribute('href');
+                const id = href.slice(1);
+                const heading = document.getElementById(id);
+                const title = link.textContent.trim();
+                const level = parseInt(link.closest('.toc-mobile-item').dataset.level);
+                if (heading) {
+                    headings.push({ element: heading, link: link, title: title, level: level });
                 }
             });
         }
 
-        if (fpgaStates) {
-            const missingStates = headings
-                .filter((heading) => !heading.stateKey)
-                .map((heading) => heading.element.id);
-            if (missingStates.length > 0) {
-                console.warn('FPGA sidebar headings missing state mappings:', missingStates);
-            }
-        }
-
-        function setDesktopTocOpen(isOpen, options = {}) {
-            if (!sidebar || !tocSidebarToggle) return;
-            sidebar.classList.toggle('is-open', isOpen);
-            tocSidebarToggle.setAttribute('aria-expanded', String(isOpen));
-            if (!isOpen && options.focusToggle) {
-                tocSidebarToggle.focus();
-            }
-        }
-
-        function setMobileTocOpen(isOpen, options = {}) {
-            if (!mobileBar || !mobileToggle) return;
-            mobileBar.classList.toggle('open', isOpen);
-            mobileToggle.setAttribute('aria-expanded', String(isOpen));
-            if (!isOpen && options.focusToggle) {
-                mobileToggle.focus();
-            }
-        }
-
-        function updateFPGACards(stateKey) {
-            if (!fpgaStates || fpgaCards.length === 0) return;
-
-            if (stateKey && !fpgaStates[stateKey] && !warnedFpgaStates.has(stateKey)) {
-                console.warn('Unknown FPGA sidebar state:', stateKey);
-                warnedFpgaStates.add(stateKey);
-            }
-
-            const resolvedKey = stateKey && fpgaStates[stateKey] ? stateKey : 'normalFlow';
-            const state = fpgaStates[resolvedKey];
-            if (!state) return;
-
-            fpgaCards.forEach((card) => {
-                card.dataset.mode = resolvedKey;
-                card.classList.toggle('is-reverse', !!state.reverse);
-                card.classList.toggle('is-sealed', !!state.sealed);
-
-                ['kicker', 'title', 'summary', 'flow', 'checkpointLabel', 'checkpoint', 'goal', 'set', 'pump', 'record', 'stop'].forEach((role) => {
-                    const target = card.querySelector(`[data-fpga-role="${role}"]`);
-                    if (target && state[role]) {
-                        target.textContent = state[role];
-                    }
-                });
-
-                card.querySelectorAll('[data-fpga-path]').forEach((path) => {
-                    path.classList.toggle('is-active', state.paths.includes(path.dataset.fpgaPath));
-                });
-
-                card.querySelectorAll('[data-fpga-node]').forEach((node) => {
-                    node.classList.toggle('is-active', state.nodes.includes(node.dataset.fpgaNode));
-                });
-            });
-        }
-
-        if (tocSidebarToggle) {
-            tocSidebarToggle.addEventListener('click', function () {
-                setDesktopTocOpen(!sidebar.classList.contains('is-open'));
-            });
-        }
-
-        if (sidebar) {
-            document.addEventListener('click', function (event) {
-                if (sidebar.classList.contains('is-open') && !sidebar.contains(event.target)) {
-                    setDesktopTocOpen(false);
-                }
-            });
-        }
-
-        if (tocNav) {
-            tocNav.addEventListener('click', function (event) {
-                if (event.target.tagName === 'A') {
-                    setDesktopTocOpen(false);
-                }
-            });
-        }
-
+        
         if (mobileToggle) {
             mobileToggle.addEventListener('click', function () {
-                setMobileTocOpen(!mobileBar.classList.contains('open'));
+                mobileBar.classList.toggle('open');
             });
         }
 
@@ -1920,13 +1800,12 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
         if (mobileNav) {
             mobileNav.addEventListener('click', function (e) {
                 if (e.target.tagName === 'A') {
-                    setMobileTocOpen(false);
+                    mobileBar.classList.remove('open');
                 }
             });
         }
 
         function updateActiveState() {
-            if (headings.length === 0) return;
             const scrollPos = window.scrollY + 150;
             let current = headings[0];
             let currentIndex = 0;
@@ -1941,32 +1820,40 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
             
             if (sidebar) {
                 markers.forEach(m => m.classList.remove('active'));
-                tocLinks.forEach((link) => {
-                    link.classList.remove('active');
-                    link.removeAttribute('aria-current');
-                });
+                tocLinks.forEach(l => l.classList.remove('active'));
 
                 if (current) {
                     if (current.marker) current.marker.classList.add('active');
-                    if (current.desktopLink) {
-                        current.desktopLink.classList.add('active');
-                        current.desktopLink.setAttribute('aria-current', 'location');
+                    if (current.link) current.link.classList.add('active');
+
+                    if (currentLabel) {
+                        
+                        let breadcrumbs = [];
+                        let targetLevel = current.level;
+
+                        
+                        for (let j = currentIndex - 1; j >= 0; j--) {
+                            if (headings[j].level < targetLevel) {
+                                breadcrumbs.unshift(headings[j].title);
+                                targetLevel = headings[j].level;
+                            }
+                            if (targetLevel <= 2) break;
+                        }
+
+                        
+                        let html = '';
+                        if (breadcrumbs.length > 0) {
+                            html += `<span class="toc-parent-label">${breadcrumbs.join(' › ')}</span>`;
+                        }
+                        html += `<span class="toc-child-label">${current.title}</span>`;
+                        currentLabel.innerHTML = html;
+
+                        const markerRect = current.marker.getBoundingClientRect();
+                        const sidebarRect = sidebar.getBoundingClientRect();
+                        currentLabel.style.top = (markerRect.top - sidebarRect.top + markerRect.height / 2 - (breadcrumbs.length > 0 ? 18 : 10)) + 'px';
                     }
                 }
             }
-
-            let breadcrumbs = [];
-            let targetLevel = current.level;
-            for (let j = currentIndex - 1; j >= 0; j--) {
-                if (headings[j].level < targetLevel) {
-                    breadcrumbs.unshift(headings[j].title);
-                    targetLevel = headings[j].level;
-                }
-                if (targetLevel <= 2) break;
-            }
-
-            if (tocCurrentLabel) tocCurrentLabel.textContent = current.title;
-            if (tocCurrentParent) tocCurrentParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
 
             
             if (mobileBar && current) {
@@ -1975,42 +1862,31 @@ The EGM-4 will still perform automatic zeros even with pump off. You&rsquo;ll se
                     mobileBar.classList.add('visible');
                 } else {
                     mobileBar.classList.remove('visible');
-                    setMobileTocOpen(false);
+                    mobileBar.classList.remove('open');
+                }
+
+                
+                let breadcrumbs = [];
+                let targetLevel = current.level;
+                for (let j = currentIndex - 1; j >= 0; j--) {
+                    if (headings[j].level < targetLevel) {
+                        breadcrumbs.unshift(headings[j].title);
+                        targetLevel = headings[j].level;
+                    }
+                    if (targetLevel <= 2) break;
                 }
 
                 if (mobileCurrent) mobileCurrent.textContent = current.title;
                 if (mobileParent) mobileParent.textContent = breadcrumbs.length > 0 ? breadcrumbs.join(' › ') : '';
 
                 
-                mobileLinks.forEach((link) => {
-                    link.classList.remove('active');
-                    link.removeAttribute('aria-current');
-                });
-                if (current.mobileLink) {
-                    current.mobileLink.classList.add('active');
-                    current.mobileLink.setAttribute('aria-current', 'location');
-                }
-            }
-
-            if (current) {
-                updateFPGACards(current.stateKey);
+                mobileLinks.forEach(l => l.classList.remove('active'));
+                const activeLink = mobileBar.querySelector(`a[href="#${current.element.id}"]`);
+                if (activeLink) activeLink.classList.add('active');
             }
         }
 
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-                if (sidebar && sidebar.classList.contains('is-open')) {
-                    setDesktopTocOpen(false, { focusToggle: true });
-                }
-                if (mobileBar && mobileBar.classList.contains('open')) {
-                    setMobileTocOpen(false, { focusToggle: true });
-                }
-            }
-        });
-
-        window.addEventListener('scroll', updateActiveState, { passive: true });
-        window.addEventListener('resize', updateActiveState);
-        window.addEventListener('hashchange', updateActiveState);
+        window.addEventListener('scroll', updateActiveState);
         updateActiveState();
     });
 </script>
