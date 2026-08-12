@@ -299,7 +299,7 @@ Each of those stages corresponds to a `ValveMask` value in the logs. You general
 
 ## Configuring a measurement {#configuring-a-measurement}
 
-Configuration happens in two layers. `Picarro Mode Switcher` configures the **analyzer** — which absorption features it scans. `SSIM Coordinator` configures the **sample** — how it's loaded, repeated, diluted, and summarized. You'll likely not need to adjust the analyzer mode frequently.
+Configuration happens in two layers. `Picarro Mode Switcher` configures the **analyzer** — which absorption features it scans. `SSIM Coordinator` configures the **sample** — how it's loaded, repeated, diluted, and summarized. You'll likely not need to adjust the analyzer mode frequently. This section describes how to configure a measurement; details on running measurements are provided in [your first measurement](#your-first-measurement).
 
 
 ### Selecting the analyzer mode {#selecting-the-analyzer-mode}
