@@ -5,7 +5,7 @@
     {{- $headers := findRE "<h[1-6].*?>(.|\\n])+?</h[1-6]>" .Content -}}
         {{- $has_headers := ge (len $headers) 1 -}}
         {{- if $has_headers }}
-        <aside class="toc-sidebar" id="toc-sidebar">
+        <aside class="toc-sidebar" id="toc-sidebar" style="--toc-count: {{ len $headers }}">
             <div class="toc-progress">
                 {{- range $i, $header := $headers -}}
                 {{- $headerLevel := index (findRE "[1-6]" . 1) 0 -}}
@@ -158,11 +158,24 @@
                 <div class="post-meta">
                     {{- partial "post_meta.html" . -}}
                     {{- partial "translation_list.html" . -}}
-                    {{- partial "edit_post.html" . -}}
+                    <span class="screen-edit-link">{{- partial "edit_post.html" . -}}</span>
                     {{- partial "post_canonical.html" . -}}
                 </div>
                 {{- end }}
             </header>
+            {{- if and (.Param "ShowToc") (gt .WordCount 1000) }}
+            <section class="print-toc" aria-label="Printed table of contents">
+                <div class="print-document-label">Field notes from docs.mor-gan.com</div>
+                <div class="print-document-source">{{ .Permalink }}</div>
+                <h2>Contents</h2>
+                {{ .TableOfContents }}
+            </section>
+            {{- else }}
+            <div class="print-document-meta" aria-hidden="true">
+                <span>Field notes from docs.mor-gan.com</span>
+                <span>{{ .Permalink }}</span>
+            </div>
+            {{- end }}
             {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
             {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
 
@@ -221,6 +234,23 @@
                 const level = parseInt(marker.dataset.level);
                 if (heading) {
                     headings.push({ element: heading, marker: marker, link: tocLinks[i], title: title, level: level });
+                    // The markers carry cursor:pointer and hover states, so make
+                    // them actually navigate rather than just look like they do.
+                    marker.setAttribute('role', 'link');
+                    marker.setAttribute('tabindex', '0');
+                    marker.setAttribute('aria-label', title);
+                    const goToHeading = () => {
+                        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                        heading.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+                        history.replaceState(null, '', '#' + id);
+                    };
+                    marker.addEventListener('click', goToHeading);
+                    marker.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            goToHeading();
+                        }
+                    });
                 }
             });
         } else if (mobileLinks.length > 0) {

@@ -1,0 +1,19 @@
+{{- /*
+  Link render hook. External links open in a new tab; internal links and
+  in-page anchors behave normally.
+
+  "External" means the URL has a host that isn't this site's. That covers
+  https://picarro.com and https://cdn.mor-gan.com (a different host, so
+  manual PDFs open alongside the article rather than navigating away from
+  it), while leaving relative links, "#anchor" fragments, and "mailto:"
+  alone — mailto has no host, so it keeps the default behaviour and hands
+  off to the mail client.
+*/ -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $siteHost := (urls.Parse site.BaseURL).Host -}}
+{{- $external := and $u.Host (ne $u.Host $siteHost) -}}
+<a href="{{ .Destination | safeURL }}"
+  {{- with .Title }} title="{{ . }}"{{ end }}
+  {{- if $external }} target="_blank" rel="noopener noreferrer"{{ end -}}
+>{{ .Text }}</a>
+{{- /**/ -}}

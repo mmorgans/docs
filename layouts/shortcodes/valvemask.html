@@ -1,0 +1,245 @@
+{{/* Interactive A0314 SSIM2 valve-mask decoder. Self-contained: no external deps. */}}
+<div class="vm-widget" id="vm-{{ .Ordinal }}">
+  <div class="vm-controls">
+    <label class="vm-label" for="vm-in-{{ .Ordinal }}">Valve mask</label>
+    <input class="vm-input" id="vm-in-{{ .Ordinal }}" type="number" min="0" max="31" step="1" value="4" inputmode="numeric">
+    <div class="vm-presets">
+      <button type="button" data-m="8">8</button>
+      <button type="button" data-m="5">5</button>
+      <button type="button" data-m="6">6</button>
+      <button type="button" data-m="4">4</button>
+      <button type="button" data-m="22">22</button>
+      <button type="button" data-m="1">1</button>
+    </div>
+  </div>
+
+  <div class="vm-readout">
+    <div class="vm-state"><span class="vm-state-name"></span><span class="vm-state-sub"></span></div>
+    <div class="vm-desc"></div>
+    <div class="vm-math"></div>
+  </div>
+
+  <div class="vm-chips"></div>
+
+  <div class="vm-figwrap">
+  <svg class="vm-svg" viewBox="0 0 780 430" role="img" aria-labelledby="vm-t-{{ .Ordinal }}">
+    <title id="vm-t-{{ .Ordinal }}">A0314 SSIM2 flow schematic with current valve states</title>
+
+    <!-- SSIM body -->
+    <rect x="168" y="34" width="404" height="352" rx="6" class="vm-body"/>
+    <text x="180" y="54" class="vm-bodylabel">A0314 SSIM2</text>
+
+    <!-- external boxes -->
+    <g class="vm-ext">
+      <rect x="16" y="52" width="104" height="34" rx="3"/>
+      <text x="68" y="74" class="vm-c">Sample</text>
+      <text x="68" y="104" class="vm-small">external valve</text>
+
+      <rect x="34" y="196" width="66" height="150" rx="4" class="vm-cyl"/>
+      <text x="67" y="271" class="vm-c" transform="rotate(-90 67 271)">Cal gas</text>
+
+      <rect x="640" y="188" width="124" height="42" rx="4" class="vm-cyl"/>
+      <text x="702" y="214" class="vm-c">Zero air</text>
+
+      <rect x="626" y="70" width="138" height="52" rx="3"/>
+      <text x="695" y="92" class="vm-c">External</text>
+      <text x="695" y="110" class="vm-c">vacuum pump</text>
+
+      <rect x="626" y="315" width="138" height="46" rx="3"/>
+      <text x="695" y="336" class="vm-c">Picarro</text>
+      <text x="695" y="352" class="vm-small">analyzer inlet</text>
+    </g>
+
+    <!-- static plumbing -->
+    <g class="vm-pipe">
+      <path d="M120 69 H210 V88"/>
+      <path d="M100 271 H150 V110 H188"/>
+      <path d="M210 132 V249"/>
+      <path d="M232 271 H300"/>
+      <path d="M420 271 H460"/>
+      <path d="M460 271 H498"/>
+      <path d="M460 271 V316"/>
+      <path d="M520 249 V162"/>
+      <path d="M520 118 V96 H626"/>
+      <path d="M542 271 H590 V209 H640"/>
+      <path d="M482 338 H626"/>
+    </g>
+    <circle cx="460" cy="271" r="4" class="vm-junction"/>
+
+    <!-- chamber -->
+    <g>
+      <rect x="300" y="238" width="120" height="66" rx="8" class="vm-chamber"/>
+      <text x="360" y="268" class="vm-c vm-chamtext">20 mL</text>
+      <text x="360" y="286" class="vm-c vm-chamtext">chamber</text>
+      <circle cx="360" cy="200" r="15" class="vm-sensor"/>
+      <text x="360" y="206" class="vm-c vm-sensortext">P</text>
+      <path d="M360 215 V238" class="vm-pipe"/>
+    </g>
+
+    <!-- valves: NO = normally open (solid), NC = normally closed (dotted) -->
+    <g class="vm-valve" data-v="5" transform="translate(210,110)">
+      <circle r="23"/>
+      <path class="vm-com" d="M0 0 V22"/>
+      <path class="vm-no"  d="M0 0 V-22"/>
+      <path class="vm-nc"  d="M0 0 H-22"/>
+      <text y="5">V5</text>
+    </g>
+    <g class="vm-valve" data-v="2" transform="translate(210,271)">
+      <circle r="23"/>
+      <path class="vm-com" d="M0 0 H22"/>
+      <path class="vm-nc"  d="M0 0 V-22"/>
+      <path class="vm-no"  d="M0 0 H-22"/>
+      <path class="vm-stub" d="M-22 -7 V7"/>
+      <text y="5">V2</text>
+    </g>
+    <g class="vm-valve" data-v="1" transform="translate(520,271)">
+      <circle r="23"/>
+      <path class="vm-com" d="M0 0 H-22"/>
+      <path class="vm-no"  d="M0 0 V-22"/>
+      <path class="vm-nc"  d="M0 0 H22"/>
+      <text y="5">V1</text>
+    </g>
+    <g class="vm-valve" data-v="4" transform="translate(520,140)">
+      <circle r="23"/>
+      <path class="vm-com" d="M0 0 V22"/>
+      <path class="vm-nc"  d="M0 0 V-22"/>
+      <path class="vm-no"  d="M0 0 H22"/>
+      <path class="vm-stub" d="M22 -7 V7"/>
+      <text y="5">V4</text>
+    </g>
+    <g class="vm-valve" data-v="3" transform="translate(460,338)">
+      <circle r="23"/>
+      <path class="vm-com" d="M0 0 H22"/>
+      <path class="vm-nc"  d="M0 0 V-22"/>
+      <path class="vm-no"  d="M0 0 H-22"/>
+      <path class="vm-stub" d="M-22 -7 V7"/>
+      <text y="5">V3</text>
+    </g>
+
+    <!-- legend -->
+    <g class="vm-legend" transform="translate(178,410)">
+      <path class="lg-no" d="M0 0 H24"/><text x="30" y="4">normally open</text>
+      <path class="lg-nc" d="M136 0 H160"/><text x="166" y="4">normally closed</text>
+      <path class="lg-on" d="M282 0 H306"/><text x="312" y="4">carrying flow now</text>
+    </g>
+  </svg>
+  </div>
+</div>
+
+<style>
+.vm-widget{--vm-line:#8a8a8a;--vm-hot:#1a7f37;--vm-no:#2f6fd0;--vm-nc:#b04a3d;
+  border:1px solid rgba(128,128,128,.35);border-radius:8px;padding:1rem;margin:1.5rem 0;}
+.vm-controls{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-bottom:.8rem;}
+.vm-label{font-weight:700;font-size:.95rem;}
+.vm-input{width:5.5rem;padding:.35rem .5rem;font-size:1.05rem;font-variant-numeric:tabular-nums;
+  border:1px solid rgba(128,128,128,.5);border-radius:5px;background:transparent;color:inherit;}
+.vm-presets{display:flex;flex-wrap:wrap;gap:.3rem;margin-left:auto;}
+.vm-presets button{padding:.3rem .6rem;font:inherit;font-size:.85rem;cursor:pointer;
+  border:1px solid rgba(128,128,128,.5);border-radius:5px;background:transparent;color:inherit;}
+.vm-presets button:hover{border-color:var(--vm-hot);}
+.vm-presets button[aria-pressed="true"]{background:var(--vm-hot);border-color:var(--vm-hot);color:#fff;}
+.vm-state{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem;}
+.vm-state-name{font-size:1.15rem;font-weight:700;}
+.vm-state-sub{font-size:.85rem;opacity:.7;}
+.vm-desc{margin-top:.3rem;font-size:.95rem;}
+.vm-math{margin-top:.3rem;font-size:.85rem;opacity:.7;font-variant-numeric:tabular-nums;}
+.vm-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:.8rem 0;}
+.vm-chip{font-size:.8rem;padding:.25rem .55rem;border-radius:999px;border:1px solid rgba(128,128,128,.45);
+  font-variant-numeric:tabular-nums;}
+.vm-chip.on{background:var(--vm-hot);border-color:var(--vm-hot);color:#fff;font-weight:600;}
+.vm-figwrap{overflow-x:auto;}
+.vm-svg{width:100%;min-width:520px;height:auto;display:block;}
+.vm-body{fill:rgba(26,127,55,.10);stroke:rgba(26,127,55,.55);stroke-width:1.5;}
+.vm-bodylabel{font-size:12px;fill:currentColor;opacity:.55;}
+.vm-ext rect{fill:none;stroke:var(--vm-line);stroke-width:1.5;}
+.vm-ext rect.vm-cyl{fill:rgba(26,127,55,.16);stroke:rgba(26,127,55,.6);}
+.vm-c{font-size:12px;fill:currentColor;text-anchor:middle;}
+.vm-small{font-size:10px;fill:currentColor;opacity:.6;text-anchor:middle;}
+.vm-pipe{fill:none;stroke:var(--vm-line);stroke-width:2;}
+.vm-junction{fill:var(--vm-line);}
+.vm-chamber{fill:rgba(128,128,128,.13);stroke:var(--vm-line);stroke-width:1.5;}
+.vm-chamtext{font-size:11px;opacity:.8;}
+.vm-sensor{fill:none;stroke:var(--vm-line);stroke-width:1.5;}
+.vm-sensortext{font-size:12px;font-weight:700;}
+.vm-valve circle{fill:rgba(128,128,128,.10);stroke:var(--vm-line);stroke-width:1.5;}
+.vm-valve text{font-size:11px;font-weight:700;fill:currentColor;text-anchor:middle;}
+.vm-valve path{fill:none;stroke-width:2.5;}
+.vm-valve .vm-no{stroke:var(--vm-no);opacity:.55;}
+.vm-valve .vm-nc{stroke:var(--vm-nc);opacity:.55;stroke-dasharray:3 3;}
+.vm-valve .vm-com{stroke:var(--vm-line);opacity:.6;}
+.vm-valve .vm-stub{stroke:var(--vm-line);opacity:.5;stroke-width:2;}
+.vm-valve path.vm-on{stroke:var(--vm-hot);opacity:1;stroke-width:4.5;stroke-dasharray:none;stroke-linecap:round;}
+.vm-valve.energised circle{stroke:var(--vm-hot);stroke-width:3;fill:rgba(26,127,55,.18);}
+.vm-legend text{font-size:11px;fill:currentColor;opacity:.75;}
+.vm-legend path{fill:none;stroke-width:3;}
+.vm-legend .lg-no{stroke:var(--vm-no);opacity:.75;}
+.vm-legend .lg-nc{stroke:var(--vm-nc);opacity:.75;stroke-dasharray:3 3;}
+.vm-legend .lg-on{stroke:var(--vm-hot);stroke-width:4.5;stroke-linecap:round;}
+@media (prefers-color-scheme: dark){.vm-widget{--vm-line:#9aa0a6;--vm-hot:#3fb950;--vm-no:#6ea8fe;--vm-nc:#e0736a;}}
+.dark .vm-widget{--vm-line:#9aa0a6;--vm-hot:#3fb950;--vm-no:#6ea8fe;--vm-nc:#e0736a;}
+</style>
+
+<script>
+(function(){
+  var root = document.getElementById('vm-{{ .Ordinal }}');
+  if(!root) return;
+  var STATES = {
+    8:  {n:'Evacuation', s:'20 s', d:'The external vacuum pump draws the chamber down through V2 up to V3. SSIMPressure falls toward about 20 Torr. The analyzer is still on zero air.'},
+    5:  {n:'Zero-air purge', s:'20 s, then 60 s', d:'Zero air flows through the chamber and on to the analyzer, flushing the previous sample out. SSIMPressure sits near ambient.'},
+    6:  {n:'Sample loading', s:'8 s', d:'V2 opens so the sample flows into the chamber, while the analyzer holds a vacuum up to V2. The sample fills the SSIM but does not reach the analyzer — the analyzer is still reading zero air.'},
+    4:  {n:'Transfer and measurement', s:'420 s Fast / 720 s Standard', d:'The analyzer pulls on the sample held in the chamber. This is the long stabilisation and measurement state, and the only one whose numbers you care about. SSIMPressure falls quickly, then flattens.'},
+    22: {n:'Calibration injection', s:'', d:'Substituted for mask 6 when a standard is scheduled. Gas comes from the front CAL port instead of the SAMPLE port.'},
+    1:  {n:'Dilution', s:'about 3 s', d:'Zero air is admitted into the chamber volume left over after sample loading. Inserted immediately before mask 4 when dilution is enabled.'},
+    0:  {n:'All valves de-energised', s:'', d:'Every valve resting on its normally-open path. This is where the Coordinator parks things between runs.'}
+  };
+  var NAMES={1:'V1',2:'V2',4:'V3',8:'V4',16:'V5'};
+  var inp=root.querySelector('.vm-input'),
+      chips=root.querySelector('.vm-chips'),
+      nameEl=root.querySelector('.vm-state-name'),
+      subEl=root.querySelector('.vm-state-sub'),
+      descEl=root.querySelector('.vm-desc'),
+      mathEl=root.querySelector('.vm-math'),
+      valves=root.querySelectorAll('.vm-valve'),
+      presets=root.querySelectorAll('.vm-presets button');
+
+  function render(m){
+    m = Math.max(0, Math.min(31, m|0));
+    var bits=[1,2,4,8,16], on=[], parts=[];
+    bits.forEach(function(b){ if(m & b){ on.push(NAMES[b]); parts.push(String(b)); } });
+
+    chips.innerHTML='';
+    bits.forEach(function(b){
+      var d=document.createElement('span');
+      d.className='vm-chip'+((m&b)?' on':'');
+      d.textContent=NAMES[b]+' ('+b+') '+((m&b)?'energised':'idle');
+      chips.appendChild(d);
+    });
+
+    var st=STATES[m];
+    nameEl.textContent = st ? st.n : 'Undocumented combination';
+    subEl.textContent  = st && st.s ? st.s : '';
+    descEl.textContent = st ? st.d
+      : 'This mask is not one of the states the ordinary sample or calibration sequence uses. The valve positions above are still correct; check the Coordinator TXT log for what produced it.';
+    mathEl.textContent = on.length
+      ? 'mask ' + m + '  =  ' + parts.join(' + ') + '  →  ' + on.join(', ') + ' energised'
+      : 'mask 0  =  no valves energised';
+
+    valves.forEach(function(g){
+      var bit = {1:1,2:2,3:4,4:8,5:16}[+g.dataset.v],
+          hot = !!(m & bit);
+      g.classList.toggle('energised', hot);
+      g.querySelector('.vm-no').classList.toggle('vm-on', !hot);
+      g.querySelector('.vm-nc').classList.toggle('vm-on', hot);
+      g.querySelector('.vm-com').classList.add('vm-on');
+    });
+
+    presets.forEach(function(b){ b.setAttribute('aria-pressed', (+b.dataset.m===m)?'true':'false'); });
+  }
+
+  inp.addEventListener('input', function(){ render(parseInt(inp.value,10)||0); });
+  presets.forEach(function(b){
+    b.addEventListener('click', function(){ inp.value=b.dataset.m; render(+b.dataset.m); });
+  });
+  render(parseInt(inp.value,10)||0);
+})();
+</script>

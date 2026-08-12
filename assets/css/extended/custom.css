@@ -49,31 +49,81 @@
     transform: translateY(-50%);
     z-index: 100;
     padding: 1rem 3rem 1rem 0.5rem;
+
+    /* Height budget for the marker rail. --toc-count is stamped on the element
+       by the template, so the rail can size itself to the article and never
+       outgrow the viewport. --toc-slot is the vertical space one heading gets. */
+    --toc-rail-max: min(70vh, 820px);
+    --toc-slot: calc(var(--toc-rail-max) / var(--toc-count, 20));
 }
 
 .toc-progress {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    /* Caps at the original 6px, so short articles are unchanged. */
+    gap: clamp(2px, calc(var(--toc-slot) * 0.34), 6px);
+
+    /* Safety net: the marker/gap floors mean an article with roughly 100+
+       headings could still outgrow a short viewport. Scrolling is ugly but
+       strictly better than markers clipped off-screen and unreachable. */
+    max-height: 78vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.toc-progress::-webkit-scrollbar {
+    display: none;
 }
 
 .toc-marker {
+    position: relative;
     width: 4px;
-    height: 12px;
+    /* Caps at the original 12px; shrinks only once the article is long enough
+       that the rail would otherwise overflow. */
+    height: clamp(3px, calc(var(--toc-slot) * 0.66), 12px);
     background: var(--border);
     border-radius: 2px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease, width 0.2s ease;
+}
+
+/* Subheadings read as subordinate rather than as 55 identical ticks. */
+.toc-marker[data-level="3"] {
+    width: 3px;
+    margin-left: 4px;
+    opacity: 0.75;
+}
+
+.toc-marker[data-level="4"],
+.toc-marker[data-level="5"],
+.toc-marker[data-level="6"] {
+    width: 2px;
+    margin-left: 7px;
+    opacity: 0.6;
+}
+
+/* Long articles compress the rail, so widen the hit target without
+   changing the drawn size. */
+.toc-marker::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 2rem;
+    height: max(var(--toc-slot), 10px);
+    transform: translateY(-50%);
 }
 
 .toc-marker:hover {
     background: var(--secondary);
-    width: 5px;
+    width: 6px;
+    opacity: 1;
 }
 
 .toc-marker.active {
     background: var(--primary);
-    width: 6px;
+    width: 8px;
+    opacity: 1;
 }
 
 .toc-nav {
@@ -108,6 +158,17 @@
     transition: top 0.1s ease, opacity 0.2s ease;
     pointer-events: none;
     opacity: 0.7;
+    /* Never wider than the gutter between the rail and the content column,
+       or long headings run underneath the article text. */
+    max-width: calc((100vw - var(--main-width, 720px)) / 2 - 5.5rem);
+}
+
+.toc-parent-label,
+.toc-child-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .toc-parent-label {
@@ -116,7 +177,6 @@
     color: var(--secondary);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    white-space: nowrap;
     opacity: 0.7;
 }
 
@@ -124,7 +184,6 @@
     font-size: 0.75rem;
     font-weight: 400;
     color: var(--primary);
-    white-space: nowrap;
 }
 
 .toc-sidebar:hover .toc-current-label {
@@ -566,4 +625,400 @@ pre code {
     text-align: center;
     color: var(--secondary);
     font-size: 0.9rem;
+}
+
+/* --------------------------------------------------------------------------
+   Print edition
+   -------------------------------------------------------------------------- */
+.print-toc,
+.print-document-meta {
+    display: none;
+}
+
+@media print {
+    @page {
+        size: auto;
+        margin: 18mm 17mm 20mm;
+    }
+
+    :root,
+    :root[data-theme="dark"] {
+        --theme: #fff;
+        --entry: #fff;
+        --primary: #18251a;
+        --secondary: #465048;
+        --tertiary: #e7e9e5;
+        --accent: #415c43;
+        --content: #1d211e;
+        --border: #aeb5ae;
+        --code-block-bg: #f2f3f0;
+        --code-bg: #eceeea;
+    }
+
+    html {
+        font-size: 10.5pt;
+        background: #fff !important;
+    }
+
+    body {
+        background: #fff !important;
+        color: #1d211e !important;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 10.5pt;
+        line-height: 1.48;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .header,
+    .footer,
+    .breadcrumbs,
+    .toc-sidebar,
+    .toc-mobile-bar,
+    .top-link,
+    .post-footer,
+    .share-buttons,
+    .screen-edit-link,
+    .copy-code,
+    .footnote-popover,
+    .footnote-backdrop {
+        display: none !important;
+    }
+
+    .main,
+    .post-wrapper,
+    .post-single,
+    .post-content {
+        width: auto !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .post-header {
+        margin: 0 0 9mm;
+        padding: 0 0 6mm;
+        border-bottom: 1.5pt solid #263b29;
+    }
+
+    .post-title {
+        max-width: 42rem;
+        margin: 0;
+        color: #18251a !important;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 27pt;
+        font-weight: 600;
+        line-height: 1.08;
+        letter-spacing: -.025em;
+    }
+
+    .entry-hint {
+        display: none;
+    }
+
+    .post-description {
+        max-width: 38rem;
+        margin-top: 4mm;
+        color: #465048 !important;
+        font-size: 12pt;
+        line-height: 1.35;
+    }
+
+    .post-meta {
+        margin-top: 4mm;
+        color: #465048 !important;
+        font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 7.8pt;
+        letter-spacing: .02em;
+    }
+
+    .post-meta a,
+    .post-meta svg {
+        color: inherit !important;
+        fill: currentColor !important;
+    }
+
+    .print-toc,
+    .print-document-meta {
+        display: block;
+        color: #465048;
+        font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 8pt;
+    }
+
+    .print-document-label {
+        color: #263b29;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+    }
+
+    .print-document-source,
+    .print-document-meta span:last-child {
+        margin-top: 1mm;
+        overflow-wrap: anywhere;
+    }
+
+    .print-document-meta span {
+        display: block;
+    }
+
+    .print-toc {
+        padding-top: 1mm;
+        break-after: page;
+    }
+
+    .print-toc h2 {
+        margin: 8mm 0 4mm;
+        padding: 0;
+        border: 0;
+        color: #18251a;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 16pt;
+        text-transform: none;
+        letter-spacing: 0;
+    }
+
+    .print-toc nav > ul {
+        margin: 0;
+        padding: 0;
+        columns: 2;
+        column-gap: 12mm;
+        list-style: none;
+    }
+
+    .print-toc li {
+        margin: 0 0 1.4mm;
+        break-inside: avoid;
+    }
+
+    .print-toc ul ul {
+        margin: 1mm 0 2mm;
+        padding-left: 4mm;
+        list-style: none;
+    }
+
+    .print-toc ul ul ul {
+        display: none;
+    }
+
+    .print-toc a {
+        color: #263b29 !important;
+        text-decoration: none !important;
+    }
+
+    .post-content {
+        color: #1d211e;
+        font-size: 10.5pt;
+    }
+
+    .post-content p,
+    .post-content li {
+        orphans: 3;
+        widows: 3;
+    }
+
+    .post-content p {
+        margin: 0 0 3.2mm;
+    }
+
+    .post-content h2 + p,
+    .post-content h3 + p,
+    .post-content h4 + p {
+        break-inside: avoid-page;
+        page-break-inside: avoid;
+    }
+
+    .post-content h1,
+    .post-content h2,
+    .post-content h3,
+    .post-content h4,
+    .post-content h5,
+    .post-content h6 {
+        break-after: avoid-page;
+        break-inside: avoid-page;
+        color: #18251a !important;
+        font-family: Georgia, "Times New Roman", serif;
+        page-break-after: avoid;
+    }
+
+    .post-content h2 {
+        margin: 9mm 0 3.5mm;
+        padding-top: 2.5mm;
+        border-top: .75pt solid #aeb5ae;
+        font-size: 17pt;
+        line-height: 1.15;
+    }
+
+    .post-content h3 {
+        margin: 6mm 0 2.5mm;
+        font-size: 13pt;
+        line-height: 1.2;
+    }
+
+    .post-content h4,
+    .post-content h5,
+    .post-content h6 {
+        margin: 4.5mm 0 2mm;
+        font-size: 10.5pt;
+        line-height: 1.25;
+        letter-spacing: .035em;
+        text-transform: uppercase;
+    }
+
+    .post-content h2:first-child,
+    .post-content h3:first-child {
+        margin-top: 0;
+    }
+
+    .post-content a,
+    .post-content a:visited {
+        color: #1d4224 !important;
+        text-decoration: underline;
+        text-decoration-thickness: .5pt;
+        text-underline-offset: 1.5pt;
+    }
+
+    .post-content a::after {
+        display: none !important;
+        content: none !important;
+    }
+
+    .post-content ul,
+    .post-content ol {
+        margin: 2.5mm 0 4mm;
+        padding-left: 6mm;
+    }
+
+    .post-content li {
+        margin: 0 0 1.5mm;
+        padding-left: 1mm;
+    }
+
+    .post-content blockquote,
+    .alert {
+        margin: 4mm 0;
+        padding: 3.5mm 4mm;
+        border: 0;
+        border-left: 2.5pt solid #526b54;
+        border-radius: 0;
+        background: #f2f3f0 !important;
+        color: #1d211e !important;
+        break-inside: avoid-page;
+    }
+
+    .post-content blockquote p:last-child,
+    .alert p:last-child {
+        margin-bottom: 0;
+    }
+
+    .post-content table {
+        width: 100%;
+        margin: 4mm 0 5mm;
+        border-collapse: collapse;
+        color: #1d211e !important;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 8.25pt;
+        line-height: 1.28;
+    }
+
+    .post-content thead {
+        display: table-header-group;
+    }
+
+    .post-content tr,
+    .post-content td,
+    .post-content th {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .post-content th {
+        background: #e7e9e5 !important;
+        color: #18251a !important;
+        font-weight: 700;
+        text-align: left;
+    }
+
+    .post-content th,
+    .post-content td {
+        padding: 1.7mm 2mm;
+        border: .5pt solid #9ea69f;
+        vertical-align: top;
+    }
+
+    .highlight,
+    .post-content pre {
+        margin: 4mm 0;
+        border: .5pt solid #b8beb8;
+        border-radius: 0;
+        background: #f2f3f0 !important;
+        break-inside: avoid-page;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+
+    .highlight pre,
+    .post-content pre code {
+        color: #202420 !important;
+        background: transparent !important;
+        font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 8pt;
+        line-height: 1.35;
+    }
+
+    .post-content :not(pre) > code {
+        padding: .1em .25em;
+        border: .5pt solid #d2d6d1;
+        background: #eceeea !important;
+        color: #202420 !important;
+        font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: .88em;
+    }
+
+    .post-content figure,
+    .post-content picture,
+    .post-content img,
+    .doc-screenshot {
+        break-inside: avoid-page;
+        page-break-inside: avoid;
+    }
+
+    .post-content img,
+    .doc-screenshot img {
+        max-width: 100% !important;
+        max-height: 215mm;
+        border: .5pt solid #b8beb8;
+        border-radius: 0;
+        object-fit: contain;
+    }
+
+    .post-content figcaption,
+    .doc-screenshot figcaption {
+        margin-top: 1.5mm;
+        color: #465048 !important;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 7.5pt;
+        line-height: 1.3;
+    }
+
+    .footnotes,
+    .footnotes-hidden {
+        display: block !important;
+        margin-top: 10mm;
+        padding-top: 4mm;
+        border-top: .75pt solid #aeb5ae;
+        font-size: 8.5pt;
+    }
+
+    .footnotes hr {
+        display: none;
+    }
+
+    .footnote-backref {
+        display: none;
+    }
 }
