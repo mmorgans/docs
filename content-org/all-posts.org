@@ -2576,7 +2576,7 @@ For construction details, performance validation, and the original design logic,
 
 The Picarro G2201-i is a benchtop cavity ring-down spectrometer that measures CO_{2}, CH_{4}, δ^{13}C-CO_{2}, and δ^{13}C-CH_{4} in a stream of gas.
 
-The instrument in this guide belongs to the [[https://billingslab.ku.edu][Billings Lab]], a Picarro G2201-i, named Luke. On its own, the analyzer needs a continuous supply of gas, which allows you to measure large gas samples from cylinders or otherwise. With the paired A0314 Small Sample Introduction Module (SSIM2), it allows the analyzer to hold and measure a discrete sample and give you an average over a defined measurement window.
+The instrument in this guide, a Picarro G2201-i named Luke, belongs to the [[https://billingslab.ku.edu][Billings Lab]]. On its own, the analyzer needs a continuous supply of gas, which allows you to measure large gas samples from cylinders or otherwise. With the paired A0314 Small Sample Introduction Module (SSIM2), it allows the analyzer to hold and measure a discrete sample and give you an average over a defined measurement window.
 
 The lab also owns a G2101-i named Leia, paired with an older model A0312 SSIM. The two machines are generally similar, and most of the guidance below will also apply to Leia, but she is still under repair and none of the below has been validated against her.
 
@@ -2600,7 +2600,7 @@ It is worth keeping in mind that the analyzer measures /continuously/, forever, 
 
 Concentration comes out as a mole fraction. For gases, ppmv means parts per million by volume; the software and the rest of this guide shorten that to ppm.
 
-δ^{13}C — pronounced "delta thirteen C" — describes the ¹³C/¹²C ratio of your sample relative to a reference. Carbon isotope values are reported in per mil (‰) against VPDB, the [[https://en.wikipedia.org/wiki/Reference_materials_for_stable_isotope_analysis#Carbon][Vienna Pee Dee Belemnite scale]]. A negative value means the sample has less ¹³C relative to ¹²C than the reference does. Because VPDB is a ¹³C-rich marine carbonate and photosynthesis discriminates against ¹³C, essentially everything biological reads negative:
+δ^{13}C — pronounced "delta C thirteen" — describes the ¹³C/¹²C ratio of your sample relative to a reference. Carbon isotope values are reported in per mil (‰) against VPDB, the [[https://en.wikipedia.org/wiki/Reference_materials_for_stable_isotope_analysis#Carbon][Vienna Pee Dee Belemnite scale]]. A negative value means the sample has less ¹³C relative to ¹²C than the reference does. Because VPDB is a ¹³C-rich marine carbonate and photosynthesis discriminates against ¹³C, essentially everything biological reads negative:
 
 | Source | Typical δ^{13}C |
 |--------+-----------------|
@@ -2632,9 +2632,9 @@ Picarro documentation alludes to the ideal sample volume being 20ml, due to that
 
 Luke is a spectrometer stacked on top of a Windows 7 desktop. The top half of the chassis contains the optical cavity and associated support hardware, and the bottom half is a meek and aging desktop computer. Accordingly, you'll need a monitor, keyboard, and mouse, and the usual computer troubleshooting instincts apply here.
 
-Although Luke boots to a bootloader offering both Windows 7 and Windows XP, use of Windows 7 is required. Windows XP does not contain the correct version of the Picarro driver and Coordinator and will result in incorrect data.
+Although Luke boots to a bootloader offering both Windows 7 and Windows XP, use of Windows 7 is required. Windows XP does not contain the correct version of the Picarro driver or Coordinator and will result in incorrect data.
 
-On the front of Luke is one USB-A port for an accessory, and the power button. On the back left is the standard array of motherboard I/O, the power supply unit switch, and on the back right are the plumbing connections for the analyzer.
+On the front of Luke is one USB-A port for an accessory, and the power button. On the back left is the standard array of motherboard I/O and the power supply unit switch, and on the back right are the plumbing connections for the analyzer.
 
 *** SSIM2
 
@@ -2665,7 +2665,11 @@ For Luke plus the SSIM2:
 #+begin_alert2
 *Zero air:* Multiple pieces of Picarro documentation state that zero air is always required, and go as far as indicating that the analyzer will be damaged if not supplied with zero air at all times.
 
-The opposite is true: zero air is only needed when the SSIM is actively being run, and *it is /bad/ for the analyzer to be fed zero air for extended periods*. When not using the SSIM, disconnect the Swagelok tubing connecting the SSIM to the analyzer, and leave the analyzer inlet open to ambient air.
+The opposite is true: zero air is only needed while the SSIM is actively running a sample, and *it is /bad/ for the analyzer to be fed zero air for extended periods*. The rest of the time — the whole warmup included — the analyzer should be breathing ordinary lab air.
+
+The tidy way to manage this is to plumb everything as though zero air flowed constantly (cylinder, regulator, and the ~ZERO AIR~ line all connected and set), then park it in a resting state whenever you're not sampling: close the zero-air outlet valve at the regulator, and undo the stainless-steel tube at the *analyzer inlet* end only — leave it attached at the SSIM outlet — swinging it slightly aside so the inlet breathes room air. In that state the analyzer reads lab air, commonly 400–500 ppm CO_{2}.
+
+To run an SSIM sample, reverse exactly those two moves: reseat the tube at the analyzer inlet, and open the zero-air outlet valve. One fitting, one valve.
 #+end_alert2
 ** Physical setup
 
@@ -2700,9 +2704,13 @@ Connect a USB keyboard and mouse to 2 open USB ports on the back of the analyzer
 #+begin_alert2
 You can also use the PS/2 ports (the purple and green pair) to connect a compatible keyboard and mouse if you have an old soul.
 #+end_alert2
+*** Powering everything
+Use UPS cables to connect the analyzer, the analyzer vaccum pump, and the SSIM vacuum pump to power. UPS cables are interchangeable!
 *** SSIM outlet to analyzer inlet
 
 Use the short C-shaped stainless-steel tube bundled with all the equipment. The 1/8-inch end goes to the SSIM2 sample outlet; the 1/4-inch adapter end goes to the analyzer inlet. You'll need to take a few moments to wrestle the tube into position around the beige ~VALVES~ cable.
+
+This 1/4-inch inlet fitting is the one you break and remake every session: connect it and the analyzer draws from the SSIM; disconnect it and swing it aside and the analyzer breathes lab air. Leave the 1/8-inch SSIM-outlet end connected and cycle only this one — which also means this is the ferrule that slowly wears with use.
 
 #+attr_shortcode: Note
 #+begin_alert2
@@ -2710,9 +2718,9 @@ Use the short C-shaped stainless-steel tube bundled with all the equipment. The 
 #+end_alert2
 #+attr_shortcode: Note
 #+begin_alert2
-In a moment of desperation, I became convinced that the length of stainless-steel tubing was causing issues with the outputted data. I commissioned a replacement from Swagelok, which is the currently used part; the lab now has two pieces of identical tubing. Leia, the G2101-i, /also/ has an associated run of stainless-steel tubing for her SSIM, although it's a different length.
+In a moment of desperation, I became convinced that the piece of stainless-steel tubing was causing issues with the outputted data. I commissioned a replacement from Swagelok, which is the currently used part; the lab now has two pieces of identical tubing. Leia, the G2101-i, /also/ has an associated run of stainless-steel tubing for her SSIM, although it's a different length.
 
-I don't believe that the new length of tubing helped the issue. However, it is worth noting that each connection and disconnection of the tubing wears down the ferrule, so the old length of tubing is likely somewhat degraded.
+I don't believe that the new piece of tubing helped the issue. However, it is worth noting that each connection and disconnection of the tubing wears down the ferrule, so the old piece of tubing is likely somewhat degraded.
 #+end_alert2
 
 
@@ -2767,8 +2775,8 @@ Turn the pumps on first and off last. Don't power the analyzer without vacuum.
 1. Confirm the analyzer vacuum hose is connected.
 2. Turn on the analyzer vacuum pump.
 3. Turn on the SSIM vacuum pump, if you're using the SSIM.
-4. Confirm the analyzer-SSIM tubing is connected, if you're using the SSIM.
-5. Open the zero-air cylinder slowly and set delivery to 2–3 psig, if you're using the SSIM.
+4. Leave the SSIM tube disconnected at the analyzer inlet for now, so the analyzer warms up breathing lab air.
+5. Keep the zero-air outlet closed for now. You open it, and reconnect the tube, only when you're actually about to run a sample — not for the whole warmup.
 6. Turn on the analyzer's rear power switch.
 7. Press the front power button. It should light up green.
 
@@ -2931,12 +2939,12 @@ This walkthrough teaches the sequence with an expendable syringe of lab air. It 
 The Coordinator pauses more than once, and only one of those pauses wants your stopcock open: the one that explicitly asks for the sample valve to be opened. Open it at an earlier pause and the SSIM pumps your sample into the vacuum line during purge and then promptly exhausts it into the room.
 #+end_alert2
 
-1. Start with Luke off. Confirm the analyzer vacuum hose is connected, then start the Picarro Analyzer pump and the SSIM pump. Open the tank of zero air, set the regulator to 2–3 psig, ensure it's connected to the SSIM and open the outlet valve. Turn on Luke's rear switch and press the front power button.
+1. Start with Luke off, and with the analyzer inlet open to lab air — SSIM tube off at the inlet, zero-air outlet closed. Confirm the analyzer vacuum hose is connected, then start the Picarro Analyzer pump and the SSIM pump. Turn on Luke's rear switch and press the front power button.
 2. Watch the monitor through bootloader → Windows 7 → automatic login → Picarro software.
 3. Wait until the analyzer is warmed up. Early cavity pressure near atmospheric and a red ~Pressure unlocked~ alarm are normal. Continue only when both temperatures lock at 45 °C and the Data Viewer is actually Viewing Data.
 4. Open ~Read SSIM Pressure~. It should find the external sensor, often on ~COM8~, and stay open. Minimize it to get it out of the way.
 5. In Data Viewer, put up ~SSIMPressure~, ~12CO2~ or ~12CO2_dry~, your delta field, and either ~CavityPressure~ or ~H2O~. If ~SSIMPressure~ isn't available, switch Data Viewer to Service mode.
-6. Fill a Luer-lock syringe with lab air and close its stopcock. Keep the unused ~CAL~ port on the SSIM capped.
+6. Now that Luke is warm, bring the SSIM into the path: reseat the stainless-steel tube at the analyzer inlet and open the zero-air outlet valve at 2–3 psig. ~12CO2~ should fall from lab air toward zero as zero air flushes the line — that's your confirmation the connection is good and gas is flowing. Then fill a Luer-lock syringe with lab air and close its stopcock, and keep the unused ~CAL~ port on the SSIM capped.
 7. Open ~SSIM Coordinator~, select ~SSIM G2201-i~, enter ~2 1 0 0 2 1 2 3 1~. Leave the existing reference-gas entry selected.
 8. Follow the prompts on the SSIM Coordinator window, using the menu bar to select ~Control > Resume~ as needed.
 9. Watch purge and evacuation. ~SSIMPressure~ should alternate between near-atmospheric during zero-air purge and about 20 Torr during evacuation.
