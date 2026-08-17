@@ -2752,6 +2752,8 @@ On the regulator, the high-pressure gauge shows cylinder pressure and the low-pr
 *** Syringe connection
 
 Picarro's documented arrangement is a 50 or 60 mL Luer-lock syringe, a manual stopcock or integral twist valve, a 21-gauge or larger-bore side-port needle, and a septum adapter on the SSIM sample port. In reality, the current setup is a set of plastic tubing and luer-locks that are almost certainly the cause of sample leakage.
+
+If you're using that system of plastic tubing, make sure that it's *screwed all the way* onto the sample port on the SSIM. Additionally, make sure when you are running a measurement that you are holding the apparatus in a way so that the tubes aren't needlessly kinked.
 #+attr_shortcode: Note
 #+begin_alert2
 Feel free to move the Field of Science Forward by fabricating a more elegant way of getting samples into the SSIM. There are septa in drawer L1-17 and L1-18 of the South Lab to get you started. The official septum adapter is three parts: a Swagelok ~SS-400-R-2~ 1/4-to-1/8-inch straight tube adapter, an ~SS-200-NFSET~ 1/8-inch nut/ferrule set, and Picarro ~C0352~ septa.
@@ -2803,11 +2805,11 @@ With zero air flowing through the connected SSIM, CO_{2} and CH_{4} should head 
 
 Plots scroll and rescale on their own, which is the continuous-record idea showing up on screen: they keep going regardless of what the Coordinator is doing. ~Reset Buffers~ clears the visible graph history and does not erase your logged data. Drag a box over a graph to zoom into that interval; double-click to go back to auto-scaling. Note that the graphs occasionally get accidentally zoomed in, and will appear to be frozen. Double-clicking to go back to auto-scaling typically fixes this.
 
-I typically have the following streams on screen:
+I typically have the following streams on screen, in order:
 
+- ~Delta_Raw_iCO2~
 - ~12CO2~
 - ~13CO2~
-- ~Delta_Raw_iCO2~
 - ~SSIMPressure~
 
 Picarro uses the ~i~ in ~iCO2~ and ~iCH4~ to mark its isotopic-analysis outputs.
@@ -2943,9 +2945,9 @@ The Coordinator pauses more than once, and only one of those pauses wants your s
 2. Watch the monitor through bootloader → Windows 7 → automatic login → Picarro software.
 3. Wait until the analyzer is warmed up. Early cavity pressure near atmospheric and a red ~Pressure unlocked~ alarm are normal. Continue only when both temperatures lock at 45 °C and the Data Viewer is actually Viewing Data.
 4. Open ~Read SSIM Pressure~. It should find the external sensor, often on ~COM8~, and stay open. Minimize it to get it out of the way.
-5. In Data Viewer, put up ~SSIMPressure~, ~12CO2~ or ~12CO2_dry~, your delta field, and either ~CavityPressure~ or ~H2O~. If ~SSIMPressure~ isn't available, switch Data Viewer to Service mode.
+5. In Data Viewer, put up ~SSIMPressure~, ~12CO2~, your delta field, and ~SSIMPressure~. If ~SSIMPressure~ isn't available, switch Data Viewer to Service mode.
 6. Now that Luke is warm, bring the SSIM into the path: reseat the stainless-steel tube at the analyzer inlet and open the zero-air outlet valve at 2–3 psig. ~12CO2~ should fall from lab air toward zero as zero air flushes the line — that's your confirmation the connection is good and gas is flowing. Then fill a Luer-lock syringe with lab air and close its stopcock, and keep the unused ~CAL~ port on the SSIM capped.
-7. Open ~SSIM Coordinator~, select ~SSIM G2201-i~, enter ~2 1 0 0 2 1 2 3 1~. Leave the existing reference-gas entry selected.
+7. Open ~SSIM Coordinator~, select ~SSIM G2201-i~, hit ~Launch~, and then enter ~2 1 0 0 2 1 2 3 1~. Leave the existing reference-gas entry selected, and hit ~OK~.
 8. Follow the prompts on the SSIM Coordinator window, using the menu bar to select ~Control > Resume~ as needed.
 9. Watch purge and evacuation. ~SSIMPressure~ should alternate between near-atmospheric during zero-air purge and about 20 Torr during evacuation.
 10. Confirm ~SSIMPressure~ rises when the sample enters the chamber.
@@ -2970,7 +2972,7 @@ Two effects from the A0314 manual get confused with each other:
 
 Also note that generally, the reported concentration value can be off by up to 20%. The isotopic ratio data should be more accurate.
 
-** Where data is saved
+** Where data are saved
 
 | File                       | Typical location                           | Contents                                                                                                        |
 |----------------------------+--------------------------------------------+-----------------------------------------------------------------------------------------------------------------|
@@ -3232,11 +3234,11 @@ Luke runs Windows 7, if you haven't noticed already. Microsoft stopped shipping 
 
 If possible, use the USB port on the front and a thumb drive. You also could use a patch cable to connect the analyzer to your laptop (or whatever) and ~ftp~ stuff across the LAN or ~croc~ or whatever the kids are using these days. You could /also/ do the above and then use remote desktop which I did for quite some time and moderately enjoyed.
 
-Under ideal circumstances I would get on a IT-sponsored soapbox about how you really should don PPE and visit your IT department and prod them to setup a VLAN or a lab-only subnet or something similar but honestly: I tried to do that, correctly, and it took *literal* months of tickets being created and other bureaucratic shit and it never ended up working.
+Under ideal circumstances I would get on a IT-sponsored soapbox about how you really should don PPE and visit your IT department and prod them to setup a VLAN or a lab-only subnet or something similar but honestly: I tried to do that, correctly, and it took *literal* months of tickets being created and other bureaucratic garbage and it never ended up working.
 
 Do not, under any circumstance, interact with your IT department about /any/ of the above or ask for their help in *any* way! Lesson learned. For the 50,000th time.
 
-If you do end up connecting it to the WAN, the typical sanguine advice about Surfing the Net applies. Use Chrome, it's more up to date on Windows 7 than Firefox, and don't be dumb.
+If you do end up connecting it to the WAN, the typical sanguine advice about Surfing the Net applies. Use Chrome, it's more up to date on Windows 7 than Firefox, and use your best judgment.
 
 ** Manuals and further reading
 

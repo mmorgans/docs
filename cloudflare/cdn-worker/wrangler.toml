@@ -1,0 +1,12 @@
+name = "mor-gan-cdn"
+main = "src/index.js"
+compatibility_date = "2026-08-05"
+workers_dev = false
+
+routes = [
+  { pattern = "cdn.mor-gan.com/*", zone_name = "mor-gan.com" }
+]
+
+[[r2_buckets]]
+binding = "FILES"
+bucket_name = "files"
