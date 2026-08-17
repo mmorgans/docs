@@ -1,7 +1,7 @@
 +++
 title = "Using the Field Portable Gas Analyzer (FPGA)"
 date = 2026-03-29T10:30:00-05:00
-draft = false
+draft = true
 +++
 
 {{< alert2 Warning >}}

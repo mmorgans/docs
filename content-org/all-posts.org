@@ -892,8 +892,12 @@ Core Git Terms:
 CLOSED: [2024-10-21 Mon 08:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: analyzing-soil-with-xrf
+:EXPORT_HUGO_PAIRED_SHORTCODES: alert2
 :END:
-*Warning*: The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.
+#+attr_shortcode: Warning
+#+begin_alert2
+*Warning:* The XRF emits X-rays up to 50kV. Improper use can and will cause serious, long term harm to your health. Follow all safety protocols including those beyond this article.
+#+end_alert2
 ** Introduction
 This article assumes you already are in possession of pucks of finely ground soil.
 ** Procedure
@@ -2120,7 +2124,7 @@ Export functionality converts session data to CSV format, allowing users to filt
 /Written in January 2026, largely in Anschutz Library and Higuchi Hall./
 
 Created by Morgan Salisbury 🏔️
-* DONE Using the Field Portable Gas Analyzer (FPGA)
+* TODO Using the Field Portable Gas Analyzer (FPGA)
 CLOSED: [2026-03-29 Sun 10:30]
 :PROPERTIES:
 :EXPORT_FILE_NAME: using-the-field-portable-gas-analyzer
