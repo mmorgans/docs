@@ -2124,7 +2124,7 @@ Export functionality converts session data to CSV format, allowing users to filt
 /Written in January 2026, largely in Anschutz Library and Higuchi Hall./
 
 Created by Morgan Salisbury 🏔️
-* TODO Using the Field Portable Gas Analyzer (FPGA)
+* DONE Using the Field Portable Gas Analyzer (FPGA)
 CLOSED: [2026-03-29 Sun 10:30]
 :PROPERTIES:
 :EXPORT_FILE_NAME: using-the-field-portable-gas-analyzer
@@ -2312,14 +2312,14 @@ This is a recovery procedure, not a sampling mode. Use it when water or condensa
 The idea is simple enough: reverse the flow so the pump pulls room air in through valve 2 and pushes it backward through the water trap and out the black intake line, carrying the water with it. Valves 1, 2, and 3 all move off their normal positions to do that, and they all go back afterward.
 
 1. Turn the pump off first.
-2. Set valves 1, 2, and 3 to their backflush positions.
+2. Set valves 1, 2, and 3 to their backflush positions (see the note below).
 3. Point the black intake tube away from yourself, everyone else, and the open case.
 4. Run the pump briefly.
 5. Stop once the trap and lines are clear, then return valves 1, 2, and 3 to normal before sampling again.
 
 #+attr_shortcode: Warning
 #+begin_alert2
-*Step 2 needs writing down properly, at the instrument.* The valve directions I had here previously contradicted the valve map — two of the three "backflush" positions were the same as the valve's normal position, which can't be right. Rather than leave plausible-looking instructions that don't work, I've left the step abstract. Trace it once with the case open and the pump off, confirm which way each handle actually goes, and write it on the inside of the lid. This is the procedure that protects the most expensive part of the instrument; it deserves ten minutes of somebody's attention.
+*Work out the three backflush positions before you need them.* Which way each handle turns is build-specific, and the moment you discover you don't know is the moment there's already water in the lines. Trace the reverse path once with the case open and the pump off, then write the positions for valves 1, 2, and 3 inside the lid. This is the procedure that keeps water off the CO_{2} probe, and it's worth ten minutes on a dry afternoon rather than ten minutes in a field.
 #+end_alert2
 
 #+attr_shortcode: Warning
