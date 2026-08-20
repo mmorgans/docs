@@ -3,6 +3,16 @@
    Simple color overrides for PaperMod
    ========================================================================== */
 
+/* In-page anchor navigation uses native (instant) browser scrolling, which is
+   reliable at any distance. Smooth scrolling is deliberately NOT used: on pages
+   with late-rendering MathJax the layout shifts after load, and a smooth scroll
+   to a far target gets interrupted and lands short. scroll-margin-top keeps the
+   target heading off the very top edge. */
+:target,
+h1[id], h2[id], h3[id], h4[id], h5[id], h6[id] {
+    scroll-margin-top: 1rem;
+}
+
 /* --------------------------------------------------------------------------
    Color Scheme - Light Mode
    -------------------------------------------------------------------------- */

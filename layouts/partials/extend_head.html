@@ -17,6 +17,19 @@
         },
         options: {
             skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        },
+        startup: {
+            // Typesetting math changes the height of everything above the
+            // target, so a page opened directly at "#some-heading" has already
+            // jumped to the wrong place by the time the math renders. Re-jump
+            // once typesetting is done.
+            pageReady: function () {
+                return MathJax.startup.defaultPageReady().then(function () {
+                    if (!location.hash) return;
+                    var el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+                    if (el) el.scrollIntoView();
+                });
+            }
         }
     };
 </script>

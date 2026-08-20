@@ -39,24 +39,23 @@
         }
     }
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
+    // In-page anchor links use native browser navigation, which reliably jumps
+    // to the target at any distance. The previous JS handler called
+    // scrollIntoView({behavior:"smooth"}), which silently failed to scroll for
+    // far-away targets (e.g. a link near the top pointing to an appendix near
+    // the bottom). Footnote links are handled separately by the popover code below.
+    //
+    // Opening a URL that already contains "#some-heading" is a different case:
+    // the browser jumps immediately, then late-loading images (and MathJax, see
+    // extend_head.html) change the height of everything above the target and
+    // leave you somewhere else. Re-jump once the page has actually finished
+    // loading. Only runs when the URL arrived with a hash.
+    if (location.hash) {
+        window.addEventListener("load", function () {
+            var el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+            if (el) el.scrollIntoView();
         });
-    });
+    }
 
 </script>
 
