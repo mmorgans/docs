@@ -1,0 +1,201 @@
+{{/* Interactive FPGA workflow-to-valve guide. Self-contained and article-specific. */}}
+<section class="fvg-widget" id="fvg-{{ .Ordinal }}" aria-labelledby="fvg-title-{{ .Ordinal }}">
+  <header class="fvg-header">
+    <p class="fvg-kicker">Interactive valve guide</p>
+    <!-- Not a real <h*> on purpose: the TOC in single.html is built by regex-matching
+       headings in .Content, so a real heading here would show up in the article's
+       sidebar as though it were a section. role/aria-level still expose it as a
+       level-3 heading to assistive tech. -->
+    <p class="fvg-title" id="fvg-title-{{ .Ordinal }}" role="heading" aria-level="3">Set the valves by operating phase</p>
+    <p>Choose the step you are about to perform. The guide shows the gas path, pump state, and position of all six valves.</p>
+  </header>
+
+  <p class="fvg-build-note"><strong>Position means flow path, not handle direction.</strong> Handles and plumbing can differ between builds. Confirm which physical direction produces each named state on your unit. A valve marked “outside active path” does not control the selected flow.</p>
+
+  <div class="fvg-controls">
+    <label for="fvg-mode-{{ .Ordinal }}">Operating phase</label>
+    <select id="fvg-mode-{{ .Ordinal }}">
+      <option value="ambient">Ambient check</option>
+      <optgroup label="Two-port well">
+        <option value="twoFlush">Flush to free air</option>
+        <option value="twoCirculate">Route to white return</option>
+        <option value="twoRead">Stop pump and read</option>
+        <option value="collect">Collect a sample at V4</option>
+      </optgroup>
+      <optgroup label="One-port well">
+        <option value="oneDraw">Draw sample</option>
+        <option value="oneRead">Seal and read</option>
+      </optgroup>
+      <option value="inject">Inject at V2</option>
+      <optgroup label="Backflush">
+        <option value="backflushSet">Set valves with pump off</option>
+        <option value="backflushRun">Run briefly</option>
+      </optgroup>
+    </select>
+    <button type="button" class="fvg-reset">Reset to ambient</button>
+  </div>
+
+  <div class="fvg-summary">
+    <p class="fvg-state-name" data-role="name">Ambient check</p>
+    <p class="fvg-state-sentence" data-role="sentence">Pump ON. V1 through V5 use their ordinary paths; V6 sends gas to free air.</p>
+  </div>
+
+  <dl class="fvg-facts">
+    <div><dt>Pump</dt><dd data-role="pump">On</dd></div>
+    <div><dt>Inlet</dt><dd data-role="inlet">Black intake / room air</dd></div>
+    <div><dt>Outlet</dt><dd data-role="outlet">Free air</dd></div>
+  </dl>
+
+  <p class="fvg-caution"><strong>Watch:</strong> <span data-role="caution">Do not attach a well yet; wait for both sensors to settle.</span></p>
+  <p class="fvg-sr-status" role="status" aria-live="polite" aria-atomic="true"></p>
+
+  <ul class="fvg-valves" aria-label="Valve positions for the selected operating phase">
+    <li data-valve="v1"><span class="fvg-valve-number">V1</span><span data-role="valve-state">Normal: intake through trap</span></li>
+    <li data-valve="v2"><span class="fvg-valve-number">V2</span><span data-role="valve-state">Normal: gauge to pump</span></li>
+    <li data-valve="v3"><span class="fvg-valve-number">V3</span><span data-role="valve-state">Normal: pump to sensors</span></li>
+    <li data-valve="v4"><span class="fvg-valve-number">V4</span><span data-role="valve-state">Normal: toward CO₂ sensor</span></li>
+    <li data-valve="v5"><span class="fvg-valve-number">V5</span><span data-role="valve-state">Normal: sensor to outlet</span></li>
+    <li data-valve="v6"><span class="fvg-valve-number">V6</span><span data-role="valve-state">Set to free-air outlet</span></li>
+  </ul>
+
+  <details class="fvg-diagram" open>
+    <summary>View gas-path schematic</summary>
+    <div class="fvg-figure-wrap">
+    <svg class="fvg-svg" viewBox="0 0 1080 390" aria-hidden="true" focusable="false">
+      <defs>
+        <marker id="fvg-arrow-{{ .Ordinal }}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M0 0L10 5L0 10Z" class="fvg-arrowhead" />
+        </marker>
+      </defs>
+
+      <rect x="14" y="118" width="1052" height="166" rx="14" class="fvg-case" />
+      <text x="30" y="142" class="fvg-case-label">Conceptual FPGA gas path</text>
+
+      <g class="fvg-pipes">
+        <path d="M54 200H102"/><path d="M138 200H190"/><path d="M230 200H272"/>
+        <path d="M308 200H360"/><path d="M400 200H446"/><path d="M494 200H540"/>
+        <path d="M580 200H630"/><path d="M670 200H722"/><path d="M758 200H802"/>
+        <path d="M838 200H880"/><path d="M920 200H960"/><path d="M1000 200H1050"/>
+        <path d="M380 220V326"/><path d="M650 180V76"/><path d="M980 180V76H1050"/>
+        <path d="M980 220V326H1050"/><path d="M560 220V300H210V220" class="fvg-pipe-alt"/>
+      </g>
+
+      <g class="fvg-active-paths" marker-end="url(#fvg-arrow-{{ .Ordinal }})">
+        <path data-segment="black-trap" d="M54 200H102"/><path data-segment="trap-v1" d="M138 200H190"/>
+        <path data-segment="v1-gauge" d="M230 200H272"/><path data-segment="gauge-v2" d="M308 200H360"/>
+        <path data-segment="v2-pump" d="M400 200H446"/><path data-segment="pump-v3" d="M494 200H540"/>
+        <path data-segment="v3-v4" d="M580 200H630"/><path data-segment="v4-co2" d="M670 200H722"/>
+        <path data-segment="co2-o2" d="M758 200H802"/><path data-segment="o2-v5" d="M838 200H880"/>
+        <path data-segment="v5-v6" d="M920 200H960"/><path data-segment="v6-free" d="M1000 200H1050"/>
+        <path data-segment="v6-return" d="M980 180V76H1050"/><path data-segment="v6-sealed" d="M980 220V326H1050"/>
+        <path data-segment="inject-v2" d="M380 326V220"/><path data-segment="v4-collect" d="M650 180V76"/>
+        <path data-segment="v3-backflush" d="M560 220V300H210V220"/>
+        <path data-segment="v1-trap-reverse" d="M190 200H138"/><path data-segment="trap-black-reverse" d="M102 200H54"/>
+      </g>
+
+      <g class="fvg-component"><rect x="102" y="178" width="36" height="44" rx="5"/><text x="120" y="196">Water</text><text x="120" y="210">trap</text></g>
+      <g class="fvg-component"><circle cx="290" cy="200" r="18"/><text x="290" y="204">P</text><text x="290" y="238">Gauge</text></g>
+      <g class="fvg-component" data-pump><rect x="446" y="176" width="48" height="48" rx="8"/><text x="470" y="204">Pump</text></g>
+      <text x="470" y="252" class="fvg-pump-off">PUMP OFF</text>
+      <g class="fvg-component"><rect x="722" y="180" width="36" height="40" rx="5"/><text x="740" y="204">CO<tspan dy="5" font-size="0.7em">2</tspan></text></g>
+      <g class="fvg-component"><rect x="802" y="180" width="36" height="40" rx="5"/><text x="820" y="204">O<tspan dy="5" font-size="0.7em">2</tspan></text></g>
+
+      <g class="fvg-valve-node" data-node="v1" transform="translate(210 200)"><circle r="20"/><text y="5">V1</text></g>
+      <g class="fvg-valve-node" data-node="v2" transform="translate(380 200)"><circle r="20"/><text y="5">V2</text></g>
+      <g class="fvg-valve-node" data-node="v3" transform="translate(560 200)"><circle r="20"/><text y="5">V3</text></g>
+      <g class="fvg-valve-node" data-node="v4" transform="translate(650 200)"><circle r="20"/><text y="5">V4</text></g>
+      <g class="fvg-valve-node" data-node="v5" transform="translate(900 200)"><circle r="20"/><text y="5">V5</text></g>
+      <g class="fvg-valve-node" data-node="v6" transform="translate(980 200)"><circle r="20"/><text y="5">V6</text></g>
+      <g class="fvg-check"><path class="fvg-check-tri" d="M930 189L949 200L930 211Z"/><path class="fvg-check-bar" d="M951 189V211"/><text x="940" y="232">check</text></g>
+
+      <g class="fvg-port"><rect x="14" y="181" width="40" height="38" rx="5"/><text x="34" y="196">Black</text><text x="34" y="210">intake</text></g>
+      <g class="fvg-port"><rect x="348" y="326" width="64" height="38" rx="5"/><text x="380" y="349">V2 luer</text></g>
+      <g class="fvg-port"><rect x="618" y="38" width="64" height="38" rx="5"/><text x="650" y="61">V4 luer</text></g>
+      <g class="fvg-port"><rect x="1018" y="181" width="48" height="38" rx="5"/><text x="1042" y="196">Free</text><text x="1042" y="210">air</text></g>
+      <g class="fvg-port"><rect x="1018" y="38" width="48" height="38" rx="5"/><text x="1042" y="54">White</text><text x="1042" y="68">return</text></g>
+      <g class="fvg-port"><rect x="1018" y="326" width="48" height="38" rx="5"/><text x="1042" y="349">Sealed</text></g>
+      <text x="510" y="322" class="fvg-alt-label">backflush route</text>
+    </svg>
+    </div>
+  </details>
+
+  <details class="fvg-matrix" open>
+    <summary>Show all operating phases as a table</summary>
+    <div class="fvg-table-wrap">
+      <table>
+        <thead><tr><th scope="col">Phase</th><th scope="col">Pump</th><th scope="col">Required routing</th><th scope="col">Result</th></tr></thead>
+        <tbody>
+          <tr><td>Ambient check</td><td>On</td><td>V1–V5 normal; V6 → free air</td><td>Room air through sensors</td></tr>
+          <tr><td>Two-port flush</td><td>On</td><td>V1–V5 normal; V6 → free air</td><td>Well gas exhausts to air</td></tr>
+          <tr><td>Two-port return</td><td>On briefly</td><td>V1–V5 normal; V6 → white return</td><td>Loop closes through well</td></tr>
+          <tr><td>Two-port reading</td><td>Off</td><td>V6 stays at white return</td><td>No driven flow</td></tr>
+          <tr><td>Collect at V4</td><td>On while filling</td><td>V4 → collection; downstream outside active path</td><td>Gas fills bag or syringe</td></tr>
+          <tr><td>One-port draw</td><td>On, timed</td><td>V1–V5 normal; V6 → free air</td><td>Sample enters analyzer</td></tr>
+          <tr><td>One-port reading</td><td>Off first</td><td>V1–V5 normal; then V6 → sealed</td><td>Sample held for reading</td></tr>
+          <tr><td>Inject at V2</td><td>On</td><td>V2 → luer; V3–V5 normal; V6 → free air</td><td>Discrete sample feeds pump</td></tr>
+          <tr><td>Backflush setup</td><td>Off</td><td>V1–V3 → backflush; V4–V6 outside active path</td><td>Reverse route prepared</td></tr>
+          <tr><td>Backflush run</td><td>On briefly</td><td>Keep V1–V3 at backflush</td><td>Air and water exit black intake</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+</section>
+
+<style>
+.fvg-widget{--fvg-flow:#287a4b;--fvg-alert:#9a4c2b;--fvg-muted:#89948a;margin:1.75rem 0;padding:1.05rem;border:1px solid var(--border);border-radius:12px;background:var(--entry);}
+.fvg-header p{margin:.25rem 0}.fvg-header .fvg-title{margin:.1rem 0 .35rem;font-size:1.25rem;font-weight:700;line-height:1.4}.fvg-kicker{font-size:.7rem;font-weight:750;letter-spacing:.1em;text-transform:uppercase;color:var(--secondary)}
+.fvg-controls{display:none;grid-template-columns:auto minmax(12rem,1fr) auto;align-items:center;gap:.55rem;margin:1rem 0}.fvg-ready .fvg-controls{display:grid}.fvg-controls label{font-size:.82rem;font-weight:750}.fvg-controls select,.fvg-reset{min-height:44px;border:1px solid var(--border);border-radius:7px;background:var(--theme);color:var(--primary);font:inherit}.fvg-controls select{width:100%;padding:.45rem 2rem .45rem .65rem}.fvg-reset{padding:.45rem .75rem;cursor:pointer}.fvg-controls :is(select,.fvg-reset):focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.fvg-summary{padding:.72rem .8rem;border-left:4px solid var(--fvg-flow);background:var(--theme)}.fvg-state-name{margin:0;font-size:1.08rem;font-weight:750}.fvg-state-sentence{margin:.18rem 0 0;font-size:.9rem}.fvg-widget .fvg-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem;margin:.65rem 0}.fvg-facts div{padding:.45rem .55rem;border:1px solid var(--border);border-radius:7px;background:var(--theme)}.fvg-facts dt{font-size:.63rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--secondary)}.fvg-facts dd{margin:.08rem 0 0;font-size:.82rem;font-weight:650}.fvg-caution{margin:.65rem 0;padding:.55rem .65rem;border-left:3px solid var(--fvg-alert);background:rgba(154,76,43,.08);font-size:.84rem}.fvg-caution strong{color:var(--fvg-alert)}
+.fvg-valves{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem;margin:.75rem 0;padding:0;list-style:none}.fvg-valves li{display:grid;grid-template-columns:2.2rem 1fr;align-items:center;min-height:48px;border:1px solid var(--border);border-radius:7px;overflow:hidden;background:var(--theme)}.fvg-valve-number{display:grid;place-items:center;align-self:stretch;background:var(--tertiary);font-size:.82rem;font-weight:800}.fvg-valves [data-role="valve-state"]{padding:.42rem .5rem;font-size:.78rem;line-height:1.25}.fvg-valves li.is-set{border:2px solid var(--fvg-alert)}.fvg-valves li.is-set .fvg-valve-number{background:rgba(154,76,43,.14);color:var(--fvg-alert)}
+.fvg-diagram{margin:.45rem 0}.fvg-diagram>summary{display:flex;align-items:center;min-height:44px;font-size:.82rem;font-weight:700;cursor:pointer;color:var(--secondary)}.fvg-figure-wrap{max-width:100%;overflow-x:auto;padding:.2rem 0 .35rem}.fvg-svg{display:block;width:100%;height:auto;color:var(--primary)}.fvg-case{fill:rgba(125,154,127,.06);stroke:var(--border);stroke-width:1.5}.fvg-case-label{font-size:17px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;fill:var(--secondary)}.fvg-pipes path{fill:none;stroke:var(--fvg-muted);stroke-width:3;stroke-linecap:round}.fvg-pipes .fvg-pipe-alt{stroke-dasharray:5 6;opacity:.6}.fvg-active-paths path{display:none;fill:none;stroke:var(--fvg-flow);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.fvg-active-paths path.is-active{display:block}.fvg-no-flow .fvg-active-paths path{stroke-dasharray:8 7;marker-end:none}.fvg-arrowhead{fill:var(--fvg-flow)}.fvg-component :is(rect,circle){fill:var(--entry);stroke:var(--secondary);stroke-width:1.5}.fvg-component text,.fvg-port text,.fvg-valve-node text{fill:currentColor;text-anchor:middle;font-size:18px;font-weight:700}.fvg-component text+text{font-size:15px}.fvg-port rect{fill:var(--theme);stroke:var(--secondary);stroke-width:1.4}.fvg-port text{font-size:15px}.fvg-valve-node circle{fill:var(--entry);stroke:var(--secondary);stroke-width:2}.fvg-valve-node.is-set circle{fill:rgba(154,76,43,.12);stroke:var(--fvg-alert);stroke-width:4}.fvg-check .fvg-check-tri{fill:var(--entry);stroke:var(--secondary);stroke-width:1.5}.fvg-check .fvg-check-bar{fill:none;stroke:var(--secondary);stroke-width:2;stroke-linecap:round}.fvg-check text{fill:var(--secondary);text-anchor:middle;font-size:14px;font-weight:650}.fvg-alt-label{fill:var(--secondary);text-anchor:middle;font-size:15px;font-weight:650}.fvg-pump-off{display:none;fill:var(--fvg-alert);text-anchor:middle;font-size:15px;font-weight:800}.fvg-no-flow [data-pump]{opacity:.42}.fvg-no-flow .fvg-pump-off{display:block}.fvg-build-note{margin:.65rem 0;font-size:.8rem;color:var(--secondary)}
+.fvg-matrix{margin-top:.75rem;border-top:1px solid var(--border);padding-top:.65rem}.fvg-matrix summary{min-height:44px;display:flex;align-items:center;font-size:.82rem;font-weight:700;cursor:pointer}.fvg-matrix summary:focus-visible,.fvg-diagram summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.fvg-table-wrap{overflow-x:auto}.fvg-matrix table{font-size:.76rem;min-width:620px}.fvg-matrix :is(th,td){padding:.4rem .45rem}.fvg-sr-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+:root[data-theme="dark"] .fvg-widget{--fvg-flow:#63bf80;--fvg-alert:#e59a73;--fvg-muted:#7f8c81}.dark .fvg-widget{--fvg-flow:#63bf80;--fvg-alert:#e59a73;--fvg-muted:#7f8c81}
+@media(max-width:720px){.fvg-widget{padding:.82rem}.fvg-controls{grid-template-columns:1fr}.fvg-controls label{margin-bottom:-.25rem}.fvg-valves{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.fvg-svg{min-width:600px}}@media(max-width:430px){.fvg-widget .fvg-facts,.fvg-valves{grid-template-columns:1fr}}
+@media print{.fvg-controls,.fvg-diagram>summary{display:none}.fvg-figure-wrap{overflow:visible}.fvg-svg{min-width:0}.fvg-matrix table{min-width:0}}
+</style>
+
+<script>
+(function(){
+  var root=document.getElementById('fvg-{{ .Ordinal }}');
+  if(!root)return;
+  var normal={v1:'Normal: intake through trap',v2:'Normal: gauge to pump',v3:'Normal: pump to sensors',v4:'Normal: toward CO₂ sensor',v5:'Normal: sensor to outlet'};
+  var forward=['black-trap','trap-v1','v1-gauge','gauge-v2','v2-pump','pump-v3','v3-v4','v4-co2','co2-o2','o2-v5','v5-v6'];
+  var states={
+    ambient:{name:'Ambient check',sentence:'Pump ON. V1 through V5 use their ordinary paths; set V6 to free air.',pump:'On',inlet:'Black intake / room air',outlet:'Free air',caution:'Do not attach a well yet; wait for both sensors to settle.',valves:Object.assign({},normal,{v6:'Free-air outlet'}),paths:forward.concat('v6-free'),set:['v6'],flow:true},
+    twoFlush:{name:'Two-port well: flush',sentence:'Pump ON. Flush soil gas through both sensors with V6 set to free air.',pump:'On',inlet:'Black intake / well line A',outlet:'Free air',caution:'Keep the white return connected, but do not route to it until the analyzer is flushed.',valves:Object.assign({},normal,{v6:'Free-air outlet'}),paths:forward.concat('v6-free'),set:['v6'],flow:true},
+    twoCirculate:{name:'Two-port well: route to return',sentence:'Pump ON briefly. Set V6 to the white return to close the path through the well.',pump:'On briefly',inlet:'Black intake / well line A',outlet:'White return / well line B',caution:'Keep this circulation interval as short as possible to limit dilution.',valves:Object.assign({},normal,{v6:'White return port'}),paths:forward.concat('v6-return'),set:['v6'],flow:true},
+    twoRead:{name:'Two-port well: reading',sentence:'Pump OFF. V6 remains routed to the white return while you capture the peak.',pump:'Off',inlet:'Black intake / well line A',outlet:'White return / well line B',caution:'There is no driven flow now; record the peak rather than a later, calmer value.',valves:Object.assign({},normal,{v6:'White return port'}),paths:forward.concat('v6-return'),set:['v6'],flow:false},
+    collect:{name:'Collect a sample at V4',sentence:'Pump ON while filling. Set V4 to divert gas into the bag or syringe.',pump:'On while filling',inlet:'Black intake / filled loop',outlet:'V4 luer collection port',caution:'V6 is downstream of this diversion. If you cannot verify the path, set V6 to free air before running the pump. Return V4 before disconnecting.',valves:Object.assign({},normal,{v4:'Collection luer port',v5:'Outside active collection path',v6:'Outside active collection path'}),paths:['black-trap','trap-v1','v1-gauge','gauge-v2','v2-pump','pump-v3','v3-v4','v4-collect'],set:['v4'],flow:true},
+    oneDraw:{name:'One-port well: draw',sentence:'Pump ON for the calculated time. Set V6 to free air.',pump:'On, timed',inlet:'Black intake / one-port well',outlet:'Free air',caution:'Stop after the tubing plus instrument volume has been displaced.',valves:Object.assign({},normal,{v6:'Free-air outlet'}),paths:forward.concat('v6-free'),set:['v6'],flow:true},
+    oneRead:{name:'One-port well: seal and read',sentence:'Pump OFF first. Then set V6 to sealed and capture the peak.',pump:'Off first',inlet:'Black intake / one-port well',outlet:'Sealed at V6',caution:'STOP: pump off first, then seal V6. Never reverse that order.',valves:Object.assign({},normal,{v6:'Sealed position'}),paths:forward.concat('v6-sealed'),set:['v6'],flow:false},
+    inject:{name:'Inject at V2',sentence:'Pump ON. Set V2 to the luer port and V6 to free air.',pump:'On',inlet:'V2 luer port',outlet:'Free air',caution:'Return V2 to through-flow before disconnecting the syringe or bag.',valves:Object.assign({},normal,{v1:'Outside active injection path',v2:'Injection luer port',v6:'Free-air outlet'}),paths:['inject-v2','v2-pump','pump-v3','v3-v4','v4-co2','co2-o2','o2-v5','v5-v6','v6-free'],set:['v2','v6'],flow:true},
+    backflushSet:{name:'Backflush: set valves',sentence:'Pump OFF. Set V1, V2, and V3 to their verified backflush positions.',pump:'Off',inlet:'V2 luer / room air',outlet:'Black intake, reversed',caution:'V4 through V6 are outside the active reverse route. Point the black intake away from people, electronics, and the open case before starting.',valves:Object.assign({},normal,{v1:'Backflush route',v2:'Free-air intake',v3:'Backflush route',v4:'Outside active backflush path',v5:'Outside active backflush path',v6:'Outside active backflush path'}),paths:['inject-v2','v2-pump','pump-v3','v3-backflush','v1-trap-reverse','trap-black-reverse'],set:['v1','v2','v3'],flow:false},
+    backflushRun:{name:'Backflush: run',sentence:'Pump ON briefly. Keep V1, V2, and V3 on the reverse route.',pump:'On briefly',inlet:'V2 luer / room air',outlet:'Black intake, reversed',caution:'Stop when the trap and lines are clear, then return V1, V2, and V3 to normal.',valves:Object.assign({},normal,{v1:'Backflush route',v2:'Free-air intake',v3:'Backflush route',v4:'Outside active backflush path',v5:'Outside active backflush path',v6:'Outside active backflush path'}),paths:['inject-v2','v2-pump','pump-v3','v3-backflush','v1-trap-reverse','trap-black-reverse'],set:['v1','v2','v3'],flow:true}
+  };
+  var select=root.querySelector('select'),reset=root.querySelector('.fvg-reset'),paths=root.querySelectorAll('[data-segment]'),nodes=root.querySelectorAll('[data-node]'),valves=root.querySelectorAll('[data-valve]'),status=root.querySelector('.fvg-sr-status'),diagram=root.querySelector('.fvg-diagram'),matrix=root.querySelector('.fvg-matrix');
+  function render(key,announce){
+    var state=states[key]||states.ambient;
+    root.querySelector('[data-role="name"]').textContent=state.name;
+    root.querySelector('[data-role="sentence"]').textContent=state.sentence;
+    root.querySelector('[data-role="pump"]').textContent=state.pump;
+    root.querySelector('[data-role="inlet"]').textContent=state.inlet;
+    root.querySelector('[data-role="outlet"]').textContent=state.outlet;
+    root.querySelector('[data-role="caution"]').textContent=state.caution;
+    root.classList.toggle('fvg-no-flow',!state.flow);
+    paths.forEach(function(path){path.classList.toggle('is-active',state.paths.indexOf(path.dataset.segment)>-1)});
+    nodes.forEach(function(node){node.classList.toggle('is-set',state.set.indexOf(node.dataset.node)>-1)});
+    valves.forEach(function(item){var keyName=item.dataset.valve,isSet=state.set.indexOf(keyName)>-1;item.classList.toggle('is-set',isSet);item.querySelector('[data-role="valve-state"]').textContent=(isSet?'Set to ':'')+state.valves[keyName]});
+    if(announce)status.textContent=state.name+'. '+state.sentence+' Warning: '+state.caution;
+  }
+  select.addEventListener('change',function(){render(select.value,true)});
+  reset.addEventListener('click',function(){select.value='ambient';render('ambient',true);select.focus()});
+  matrix.removeAttribute('open');
+  if(window.innerWidth>0&&window.innerWidth<=430)diagram.removeAttribute('open');
+  var matrixWasOpen=false;
+  window.addEventListener('beforeprint',function(){matrixWasOpen=matrix.open;matrix.open=true});
+  window.addEventListener('afterprint',function(){matrix.open=matrixWasOpen});
+  root.classList.add('fvg-ready');
+  render(select.value,false);
+})();
+</script>
