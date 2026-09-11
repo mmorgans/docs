@@ -2124,7 +2124,7 @@ Export functionality converts session data to CSV format, allowing users to filt
 /Written in January 2026, largely in Anschutz Library and Higuchi Hall./
 
 Created by Morgan Salisbury 🏔️
-* DONE Using the Field Portable Gas Analyzer (FPGA)
+* TODO Using the Field Portable Gas Analyzer (FPGA)
 CLOSED: [2026-03-29 Sun 10:30]
 :PROPERTIES:
 :EXPORT_FILE_NAME: using-the-field-portable-gas-analyzer
@@ -2205,6 +2205,10 @@ Gas otherwise travels one direction: black intake, water trap, pressure gauge, p
 #+end_alert2
 
 Two other things you'll be connecting to: the white external port on the side of the case, which is the return line for two-port wells, and the luer ports on valves 2 and 4.
+
+The diagram below translates each workflow into valve states. It names the gas path rather than the direction a physical handle points, because that part can differ between builds.
+
+{{< fpgavalves >}}
 
 *** Four numbers to measure once and write on the case
 

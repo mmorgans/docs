@@ -1,7 +1,7 @@
 +++
 title = "Using the Field Portable Gas Analyzer (FPGA)"
-date = 2026-03-29T10:30:00-05:00
-draft = false
+date = 2026-03-29T10:30:00+08:00
+draft = true
 +++
 
 {{< alert2 Warning >}}
@@ -73,6 +73,10 @@ Gas otherwise travels one direction: black intake, water trap, pressure gauge, p
 {{< /alert2 >}}
 
 Two other things you'll be connecting to: the white external port on the side of the case, which is the return line for two-port wells, and the luer ports on valves 2 and 4.
+
+The diagram below translates each workflow into valve states. It names the gas path rather than the direction a physical handle points, because that part can differ between builds.
+
+{{&lt; fpgavalves &gt;}}
 
 
 ### Four numbers to measure once and write on the case {#four-numbers-to-measure-once-and-write-on-the-case}
