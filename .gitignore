@@ -2,3 +2,8 @@
 **/.DS_Store
 .hugo_build.lock
 claude resources/
+
+# Built site — Cloudflare Pages and CI build this from source.
+# Committing it caused unpublished drafts to keep shipping, because Hugo
+# does not delete output it no longer generates.
+public/
