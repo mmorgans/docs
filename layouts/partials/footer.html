@@ -157,7 +157,7 @@
         }
 
         document.addEventListener('pointerenter', function (e) {
-            const anchor = e.target.closest('.post-content a[href]');
+            const anchor = e.target.closest && e.target.closest('.post-content a[href]');
             if (!anchor) return;
             const href = anchor.getAttribute('href');
             // Skip anchors, javascript:, and mailto:
