@@ -4,7 +4,7 @@
   <header>
     {{/* Keep this out of the site's heading-derived article TOC. */}}
     <p class="fvg-title" id="fvg-title-{{ .Ordinal }}" role="heading" aria-level="3">Set the handles, follow the gas</p>
-    <p class="fvg-note"><strong>The amber OFF handle points toward the blocked port.</strong> Match the named tube or component on your unit, rather than copying the drawing's up/down direction. This is a plumbing schematic, not a photograph of the case.</p>
+    <p class="fvg-note"><strong>The amber OFF handle points at the blocked port.</strong> Go by the named tubes and parts. The layout won't match your case.</p>
   </header>
 
   <div class="fvg-controls">
@@ -27,8 +27,8 @@
 
   <div class="fvg-live fvg-summary">
     <p class="fvg-state-name" data-role="name">Ambient check</p>
-    <p data-role="sentence">Pump ON. V1–V5 normal; V6 to free air.</p>
-    <p class="fvg-caution"><strong>Check:</strong> <span data-role="caution">Leave the well disconnected; wait for both sensors to settle.</span></p>
+    <p data-role="sentence">Pump ON. V1–V6 normal, exhaust to free air.</p>
+    <p class="fvg-caution"><strong>Check:</strong> <span data-role="caution">Leave the well disconnected until both readings settle.</span></p>
     <a class="fvg-procedure" data-role="procedure" href="#startup-and-ambient-check">Read the full procedure</a>
   </div>
   <p class="fvg-sr-only" role="status" aria-atomic="true"></p>
@@ -97,7 +97,7 @@
         <text x="170" y="391" class="fvg-label">Sensor route</text>
         <text x="14" y="272" class="fvg-label" transform="rotate(-90 14 272)">Backflush</text>
       </svg>
-      <figcaption><span class="fvg-handle-legend"><svg viewBox="0 0 36 18" aria-hidden="true" focusable="false"><use href="#fvg-handle-{{ .Ordinal }}" transform="translate(8 9)"/></svg> OFF handle: blocked port</span><span data-role="legend">Handles shown in starting positions; see the settings below.</span></figcaption>
+      <figcaption><span class="fvg-handle-legend"><svg viewBox="0 0 36 18" aria-hidden="true" focusable="false"><use href="#fvg-handle-{{ .Ordinal }}" transform="translate(8 9)"/></svg> OFF handle: blocked port</span><span data-role="legend">Handles are in their starting positions.</span></figcaption>
       <label class="fvg-live fvg-animation"><input type="checkbox" data-control="animation"> Animate flow <span class="fvg-note">(direction only)</span></label>
     </figure>
 
@@ -111,34 +111,34 @@
         <div data-valve="v5"><dt>V5</dt><dd>O₂ → check valve</dd></div>
         <div data-valve="v6"><dt>V6</dt><dd>Free air</dd></div>
       </dl>
-      <p class="fvg-note">Underlined valves need attention in this step. V5 stays in its starting position; its handle is not drawn because the unused port's orientation is undocumented.</p>
+      <p class="fvg-note">Underlined valves change in this step. V5 never moves, so its handle isn't drawn.</p>
     </div>
   </div>
 
   <details class="fvg-matrix" open>
     <summary>All valve settings <span class="fvg-note">· print reference</span></summary>
-    <p class="fvg-note">Normal: V1 trap top → gauge; V2 gauge → pump; V3 pump → V4; V4 → CO₂; V5 O₂ → check valve; V6 → free air. Diverting closes the other branch. Sealing V6 closes both outlets.</p>
-    <p class="fvg-note"><strong>Starting OFF-handle directions:</strong> V1 toward the V3 backflush line; V2 toward its luer; V3 toward the V1 backflush line; V4 toward its collection luer; V6 toward the white return. Leave V5 in its marked starting position. During backflush, point V1 and V2 toward the gauge and V3 toward V4. For injection, point V2 toward the gauge. For collection, point V4 toward CO₂. To use the white return, point V6 toward free air; to seal, stop the pump first, then point V6 toward the check valve/V5.</p>
+    <p class="fvg-note">Normal: V1 trap top → gauge · V2 gauge → pump · V3 pump → V4 · V4 → CO₂ · V5 O₂ → check valve · V6 → free air. Diverting closes the other branch. Sealing V6 closes both outlets.</p>
+    <p class="fvg-note"><strong>Starting OFF-handle directions:</strong> V1 toward the V3 backflush line. V2 toward its luer. V3 toward the V1 backflush line. V4 toward its collection luer. V6 toward the white return. Leave V5 in its marked starting position. During backflush, point V1 and V2 toward the gauge and V3 toward V4. For injection, point V2 toward the gauge. For collection, point V4 toward CO₂. To use the white return, point V6 toward free air. To seal, stop the pump, then point V6 toward the check valve.</p>
     <div class="fvg-table-wrap" role="region" aria-label="All workflow valve settings" tabindex="0">
       <table>
-        <caption>Kirk lab build: routing by phase. Confirm connections on your unit.</caption>
-        <thead><tr><th scope="col">Phase / pump</th><th scope="col">Required routing and action</th></tr></thead>
+        <caption>Kirk lab build: routing by phase.</caption>
+        <thead><tr><th scope="col">Phase / pump</th><th scope="col">Settings</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Ambient check<br>ON</th><td>V1–V6 normal. Leave the well disconnected; let both sensors settle.</td></tr>
-          <tr><th scope="row">Two-port: flush<br>ON</th><td>V1–V6 normal. Black intake on well line A; white return on line B. Exhaust to free air.</td></tr>
-          <tr><th scope="row">Two-port: return<br>ON briefly</th><td>V1–V5 normal; V6 → white return, free-air branch closed. Keep circulation brief.</td></tr>
-          <tr><th scope="row">Two-port: read<br>OFF</th><td>V1–V5 normal; V6 stays at white return. Observe sample readings; see the <a href="#two-port-wells">full procedure</a>.</td></tr>
-          <tr><th scope="row">Collection: setup<br>OFF</th><td>Flush with sample first. Attach the container, then route V4 to its collection luer, closing the CO₂ branch. V1–V3 and V5–V6 normal.</td></tr>
-          <tr><th scope="row">Collection: fill<br>ON while filling</th><td>Keep V4 on collection. Stop before the container is full or blocks the outlet.</td></tr>
-          <tr><th scope="row">Collection: finish<br>OFF first</th><td>Stop the pump, restore V4 to the sensor route, then seal and disconnect the container. All valves normal.</td></tr>
-          <tr><th scope="row">One-port: draw<br>ON, timed</th><td>V1–V6 normal. Use the draw volume and timing established for the intended sample.</td></tr>
-          <tr><th scope="row">One-port: read<br>OFF first</th><td>Stop the pump, then close both V6 outlets; V1–V5 normal. Observe sample readings; see the <a href="#one-port-wells-and-tubes">full procedure</a>. Never pump against closed V6.</td></tr>
-          <tr><th scope="row">Injection: connect<br>OFF</th><td>Connect syringe or bag; V2 luer → pump, gauge branch closed. V1 and V3–V6 normal.</td></tr>
-          <tr><th scope="row">Injection: draw<br>ON</th><td>Keep V2 on the luer; V3–V6 normal. Stop the pump as the sample empties.</td></tr>
-          <tr><th scope="row">Injection: finish<br>OFF first</th><td>Stop the pump, restore V2 to gauge → pump, then disconnect. V1–V6 normal. Observe sample readings; see the <a href="#syringe-or-gas-bag-injection">full procedure</a>.</td></tr>
-          <tr><th scope="row">Backflush: setup<br>OFF</th><td>Disconnect the well. V2 luer → pump → V3 → V1 → trap top → black intake. V1 gauge, V2 gauge and V3 sensor branches closed. Leave V4–V6 normal. Direct the black intake into a waste container, away from the case.</td></tr>
-          <tr><th scope="row">Backflush: run<br>ON briefly</th><td>Keep that reverse route. Leave V4–V6 normal. Stop when the trap and lines are clear.</td></tr>
-          <tr><th scope="row">Backflush: restore<br>OFF first</th><td>Stop the pump before restoring V1–V3. All six valves return to normal before sampling.</td></tr>
+          <tr><th scope="row">Ambient check<br>ON</th><td>V1–V6 normal. Leave the well disconnected until both readings settle.</td></tr>
+          <tr><th scope="row">Two-port: flush<br>ON</th><td>V1–V6 normal. Black intake on well line A, white return on line B. Exhaust to free air.</td></tr>
+          <tr><th scope="row">Two-port: return<br>ON briefly</th><td>V6 → white return. Everything else normal. Keep it short.</td></tr>
+          <tr><th scope="row">Two-port: read<br>OFF</th><td>V6 stays on the white return. Read the sample. See the <a href="#two-port-wells">full procedure</a>.</td></tr>
+          <tr><th scope="row">Collection: setup<br>OFF</th><td>Flush with sample first. Attach the container, then turn V4 to its collection luer. Everything else normal.</td></tr>
+          <tr><th scope="row">Collection: fill<br>ON while filling</th><td>Stop when the container is full.</td></tr>
+          <tr><th scope="row">Collection: finish<br>OFF first</th><td>Stop the pump, return V4 to the sensors, then seal and disconnect the container.</td></tr>
+          <tr><th scope="row">One-port: draw<br>ON, timed</th><td>V1–V6 normal. Run for your calculated draw time.</td></tr>
+          <tr><th scope="row">One-port: read<br>OFF first</th><td>Stop the pump, then close both V6 outlets. Read the sample. See the <a href="#one-port-wells-and-tubes">full procedure</a>.</td></tr>
+          <tr><th scope="row">Injection: connect<br>OFF</th><td>Connect the syringe or bag, then turn V2 to its luer. Everything else normal.</td></tr>
+          <tr><th scope="row">Injection: draw<br>ON</th><td>Run until the syringe or bag is empty.</td></tr>
+          <tr><th scope="row">Injection: finish<br>OFF first</th><td>Stop the pump, return V2 to normal, then disconnect. Read the sample. See the <a href="#syringe-or-gas-bag-injection">full procedure</a>.</td></tr>
+          <tr><th scope="row">Backflush: setup<br>OFF</th><td>Disconnect the well and point the black intake into a waste container. Turn V1 and V2 toward the gauge and V3 toward V4. Air runs V2 luer → pump → V3 → V1 → trap → black intake.</td></tr>
+          <tr><th scope="row">Backflush: run<br>ON briefly</th><td>Run until the trap and lines are clear.</td></tr>
+          <tr><th scope="row">Backflush: restore<br>OFF first</th><td>Stop the pump, then return V1–V3 to normal.</td></tr>
         </tbody>
       </table>
     </div>
@@ -247,24 +247,24 @@
     one:[['oneDraw','1. Draw sample'],['oneRead','2. Stop, seal and read']],
     collect:[['collectSet','1. Connect, pump off'],['collect','2. Fill container'],['collectEnd','3. Stop and restore']],
     inject:[['injectSet','1. Connect, pump off'],['inject','2. Draw sample'],['injectEnd','3. Stop and restore']],
-    backflush:[['backflushSet','1. Set with pump off'],['backflushRun','2. Run briefly'],['backflushEnd','3. Stop and restore']]
+    backflush:[['backflushSet','1. Set with pump off'],['backflushRun','2. Run'],['backflushEnd','3. Stop and restore']]
   };
   var states={
-    ambient:{name:'Ambient check',sentence:'Pump ON. V1–V6 normal; exhaust to free air.',caution:'Leave the well disconnected; wait for both sensors to settle.',paths:forward.concat('v6-free'),set:[],flow:true},
-    twoFlush:{name:'Flush the analyzer',sentence:'Pump ON. V1–V6 normal; exhaust to free air.',caution:'Black intake on well line A; white return on line B. Flush before routing to the return.',paths:forward.concat('v6-free'),set:['v6'],flow:true},
-    twoCirculate:{name:'Close the return loop',sentence:'Pump ON briefly. Route V6 to the white return.',caution:'Keep circulation as short as possible to limit dilution.',valves:{v6:'White return → well line B'},paths:forward.concat('v6-return'),set:['v6'],flow:true},
-    twoRead:{name:'Observe sample readings',sentence:'Pump OFF. Leave V6 on the white return.',caution:'Observe for about a minute; use the CO₂ peak and the validated O₂ reading window described below.',valves:{v6:'White return → well line B'},paths:forward.concat('v6-return'),set:['v6'],flow:false},
-    collectSet:{name:'Connect the collection container',sentence:'Pump OFF. Attach the container, then divert V4 to collection.',caution:'Flush with sample first. Leave V5–V6 normal.',valves:{v4:'V3 → collection luer',v5:'Normal · outside route',v6:'Free air · outside route'},paths:forward.slice(0,7).concat('v4-collect'),set:['v4'],flow:false},
-    collect:{name:'Collect at V4',sentence:'Pump ON while filling. V4 diverts to collection, bypassing the sensors.',caution:'Stop before the container is full or blocks the outlet. The sensors are bypassed during collection.',valves:{v4:'V3 → collection luer',v5:'Normal · outside route',v6:'Free air · outside route'},paths:forward.slice(0,7).concat('v4-collect'),set:['v4'],flow:true},
-    collectEnd:{name:'Stop, restore, disconnect',sentence:'Pump OFF first. Return V4 to the sensors, then seal and disconnect the container.',caution:'The diagram shows the restored route. Label the collected sample immediately.',paths:forward.concat('v6-free'),set:['v4'],flow:false},
-    oneDraw:{name:'Draw a timed sample',sentence:'Pump ON for the established draw time. V1–V6 normal; exhaust to free air.',caution:'Use the draw volume and timing established for the intended sample.',paths:forward.concat('v6-free'),set:['v6'],flow:true},
-    oneRead:{name:'Stop, then close the outlets',sentence:'Pump OFF first. Then close both V6 outlets. Observe sample readings.',caution:'Never pump against closed V6. Reopen it before the next draw.',valves:{v6:'Closed: both outlets shut'},paths:forward,set:['v6'],flow:false,sealed:true},
-    injectSet:{name:'Connect with the pump off',sentence:'Pump OFF. Connect the syringe or bag, then route the V2 luer to the pump.',caution:'Use a dry sample: this inlet bypasses the water trap. Keep V6 open to free air.',valves:injection,paths:['inject-v2'].concat(forward.slice(4),'v6-free'),set:['v2'],flow:false},
-    inject:{name:'Draw from V2',sentence:'Pump ON. Draw the sample through the V2 luer; exhaust to free air.',caution:'Stop the pump as the sample empties.',valves:injection,paths:['inject-v2'].concat(forward.slice(4),'v6-free'),set:['v2'],flow:true},
-    injectEnd:{name:'Stop, restore, disconnect',sentence:'Pump OFF first. Restore V2 to gauge → pump, then disconnect.',caution:'Observe the sample response using your established reading window. The diagram shows the restored route.',paths:forward.concat('v6-free'),set:['v2'],flow:false},
-    backflushSet:{name:'Prepare the reverse route',sentence:'Pump OFF. Disconnect the well, then set V1, V2 and V3 for backflush.',caution:'Direct the black intake into a waste container, away from the open case. Leave V4–V6 normal.',valves:backflush,paths:reverse,set:['v1','v2','v3'],flow:false},
-    backflushRun:{name:'Clear the trap and lines',sentence:'Pump ON briefly. Room air enters V2 and exits the black intake through the trap.',caution:'Stop when clear. Keep V4–V6 normal and outside the reverse route.',valves:backflush,paths:reverse,set:['v1','v2','v3'],flow:true},
-    backflushEnd:{name:'Stop before restoring',sentence:'Pump OFF first. Restore V1, V2 and V3 to normal.',caution:'The diagram shows the restored route. Confirm all six valves are normal before sampling.',paths:forward.concat('v6-free'),set:['v1','v2','v3'],flow:false}
+    ambient:{name:'Ambient check',sentence:'Pump ON. V1–V6 normal, exhaust to free air.',caution:'Leave the well disconnected until both readings settle.',paths:forward.concat('v6-free'),set:[],flow:true},
+    twoFlush:{name:'Flush the analyzer',sentence:'Pump ON. V1–V6 normal, exhaust to free air.',caution:'Black intake on well line A, white return on line B.',paths:forward.concat('v6-free'),set:['v6'],flow:true},
+    twoCirculate:{name:'Close the return loop',sentence:'Pump ON briefly. Turn V6 to the white return.',caution:'Keep it short to limit dilution.',valves:{v6:'White return → well line B'},paths:forward.concat('v6-return'),set:['v6'],flow:true},
+    twoRead:{name:'Observe sample readings',sentence:'Pump OFF. Leave V6 on the white return.',caution:'Record the CO₂ peak, then O₂ once it settles.',valves:{v6:'White return → well line B'},paths:forward.concat('v6-return'),set:['v6'],flow:false},
+    collectSet:{name:'Connect the collection container',sentence:'Pump OFF. Attach the container, then turn V4 to collection.',caution:'Flush with sample first.',valves:{v4:'V3 → collection luer',v5:'Normal · outside route',v6:'Free air · outside route'},paths:forward.slice(0,7).concat('v4-collect'),set:['v4'],flow:false},
+    collect:{name:'Collect at V4',sentence:'Pump ON. V4 sends the sample to the container, bypassing the sensors.',caution:'Stop when the container is full.',valves:{v4:'V3 → collection luer',v5:'Normal · outside route',v6:'Free air · outside route'},paths:forward.slice(0,7).concat('v4-collect'),set:['v4'],flow:true},
+    collectEnd:{name:'Stop, restore, disconnect',sentence:'Pump OFF first. Return V4 to the sensors, then seal and disconnect the container.',caution:'The diagram shows the restored route.',paths:forward.concat('v6-free'),set:['v4'],flow:false},
+    oneDraw:{name:'Draw a timed sample',sentence:'Pump ON for your draw time. V1–V6 normal.',caution:'Draw time is tube volume ÷ pump flow rate.',paths:forward.concat('v6-free'),set:['v6'],flow:true},
+    oneRead:{name:'Stop, then close the outlets',sentence:'Pump OFF first, then close both V6 outlets. Read the sample.',caution:'Reopen V6 before the next draw.',valves:{v6:'Closed: both outlets shut'},paths:forward,set:['v6'],flow:false,sealed:true},
+    injectSet:{name:'Connect with the pump off',sentence:'Pump OFF. Connect the syringe or bag, then turn V2 to its luer.',caution:'This inlet skips the water trap, so keep the sample dry.',valves:injection,paths:['inject-v2'].concat(forward.slice(4),'v6-free'),set:['v2'],flow:false},
+    inject:{name:'Draw from V2',sentence:'Pump ON. The sample comes in through the V2 luer.',caution:'Stop when the syringe or bag is empty.',valves:injection,paths:['inject-v2'].concat(forward.slice(4),'v6-free'),set:['v2'],flow:true},
+    injectEnd:{name:'Stop, restore, disconnect',sentence:'Pump OFF first. Return V2 to normal, then disconnect.',caution:'Read the sample. The diagram shows the restored route.',paths:forward.concat('v6-free'),set:['v2'],flow:false},
+    backflushSet:{name:'Prepare the reverse route',sentence:'Pump OFF. Disconnect the well, then set V1, V2 and V3 for backflush.',caution:'Point the black intake into a waste container.',valves:backflush,paths:reverse,set:['v1','v2','v3'],flow:false},
+    backflushRun:{name:'Clear the trap and lines',sentence:'Pump ON. Room air enters at V2 and leaves through the trap and black intake.',caution:'Stop when the lines are clear.',valves:backflush,paths:reverse,set:['v1','v2','v3'],flow:true},
+    backflushEnd:{name:'Stop before restoring',sentence:'Pump OFF first. Return V1, V2 and V3 to normal.',caution:'The diagram shows the restored route.',paths:forward.concat('v6-free'),set:['v1','v2','v3'],flow:false}
   };
   var workflow=root.querySelector('[data-control="workflow"]');
   var step=root.querySelector('[data-control="step"]');
