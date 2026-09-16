@@ -259,6 +259,6 @@ The valve numbering and workflows come from the Kirk lab's working protocol, _Fi
 
 _Created in Doom Emacs with Org Mode._
 
-_Written from March to September 2026. Completed in Lui Che Woo Library, at the University of Hong Kong._
+_Written from March to September 2026. Completed in Lui Che Woo Law Library, at the University of Hong Kong._
 
 _Thanks to Louna, who brought me tea as I was writing this._
