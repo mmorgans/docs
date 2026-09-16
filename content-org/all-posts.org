@@ -2124,7 +2124,7 @@ Export functionality converts session data to CSV format, allowing users to filt
 /Written in January 2026, largely in Anschutz Library and Higuchi Hall./
 
 Created by Morgan Salisbury 🏔️
-* TODO Using the Field Portable Gas Analyzer (FPGA)
+* DONE Using the Field Portable Gas Analyzer (FPGA)
 CLOSED: [2026-03-29 Sun 10:30]
 :PROPERTIES:
 :EXPORT_FILE_NAME: using-the-field-portable-gas-analyzer
