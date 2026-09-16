@@ -2285,7 +2285,7 @@ Backflushing sends room air in through valve 2, through the pump, across from va
 
 #+attr_shortcode: Warning
 #+begin_alert2
-*If water may have reached a sensor, stop.* Backflushing only clears the intake plumbing. Get the instrument looked at.
+*If water may have reached a sensor, stop.* Backflushing only clears the intake plumbing. Get the instrument looked at by someone with a degree in a hard science of your choosing.
 #+end_alert2
 
 ** Between samples and recording results
@@ -2381,7 +2381,9 @@ The valve numbering and workflows come from the Kirk lab's working protocol, /Fi
 
 /Created in Doom Emacs with Org Mode./
 
-/Written from March to September 2026./
+/Written from March to September 2026. Completed in Lui Che Woo Library, at the University of Hong Kong./
+
+/Thanks to Louna, who brought me tea as I was writing this./
 
 * DONE Using the Picarro G2201-i Analyzer with an A0314 SSIM2
 :PROPERTIES:

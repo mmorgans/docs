@@ -157,7 +157,7 @@ Backflushing sends room air in through valve 2, through the pump, across from va
 6.  Turn the pump off, return valves 1–3 to their starting routes, check the trap and lines, and redo the ambient check.
 
 {{< alert2 Warning >}}
-**If water may have reached a sensor, stop.** Backflushing only clears the intake plumbing. Get the instrument looked at.
+**If water may have reached a sensor, stop.** Backflushing only clears the intake plumbing. Get the instrument looked at by someone with a degree in a hard science of your choosing.
 {{< /alert2 >}}
 
 
@@ -259,4 +259,6 @@ The valve numbering and workflows come from the Kirk lab's working protocol, _Fi
 
 _Created in Doom Emacs with Org Mode._
 
-_Written from March to September 2026._
+_Written from March to September 2026. Completed in Lui Che Woo Library, at the University of Hong Kong._
+
+_Thanks to Louna, who brought me tea as I was writing this._
