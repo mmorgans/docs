@@ -2148,12 +2148,12 @@ Inside the Pelican case are a Vaisala ~GMP221~ CO_{2} probe and ~GMM220~ transmi
 
 #+attr_shortcode: Note
 #+begin_alert2
-*YMMV.* Moreso in this article than in others. You should confirm the specifics of your situation as they may differ from those described below. As usual, I'll do my best to help if you [[mailto:fpga@mor-gan.com][send me an email]].
+*YMMV*, more so here than in my other articles. Every FPGA is assembled by hand from the paper's parts, so yours may be plumbed differently from the one described below. As usual, I'll do my best to help if you [[mailto:fpga@mor-gan.com][send me an email]].
 #+end_alert2
 
 ** What the FPGA measures
 
-The Apogee meter displays O_{2} concentration directly as a percentage. The Vaisala measures CO_{2} by infrared absorption, but this build presents its output as a voltage on the multimeter. You'll need to convert that voltage to concentration.
+The Apogee meter shows O_{2} as a percentage, so you can read it straight off the display. The Vaisala measures CO_{2} by infrared absorption, but its reading comes out as a voltage on the multimeter, which you'll need to convert.
 
 Respiration consumes O_{2} and produces CO_{2}, so soil gas commonly contains less O_{2} and more CO_{2} than the air above it. Measuring both helps distinguish changes in respiration from the effects of gas transport and other sources or sinks. The [[Appendix: ARQ][apparent respiratory quotient (ARQ)]] relates the two measurements, with a correction for their different diffusivities.
 
@@ -2163,7 +2163,7 @@ The [[https://www.vaisala.com/sites/default/files/documents/GMM220%20User%20Guid
 
 $$C = \frac{V}{V_{\mathrm{full\ scale}}}\,C_{\mathrm{full\ scale}}$$
 
-Use the same voltage units in the numerator and denominator. The lab protocol uses the scaling *1 V = 1% CO_{2}*, which gives:
+Use the same voltage units on top and bottom. The lab protocol uses *1 V = 1% CO_{2}*, which gives:
 
 | Voltage | CO_{2} |
 |---------+---------------|
@@ -2172,9 +2172,9 @@ Use the same voltage units in the numerator and denominator. The lab protocol us
 | 100 mV | 0.10% (1,000 ppm) |
 | 1,000 mV | 1.00% (10,000 ppm) |
 
-It's prudent to record the raw millivolts alongside the converted concentration and the scaling used. That leaves enough information to correct a conversion error later without having to repeat the fieldwork.
+The protocol's own notes mark that scaling as unresolved, so record the raw millivolts and the scaling you used. If it turns out to be wrong, you can redo the conversion without redoing the fieldwork.
 
-Temperature and pressure also affect the Vaisala response. For Maximum Prudency, you should record the measurement conditions and use the compensation procedure documented for your unit, especially if you're working at a different elevation or temperature from the conditions it was calibrated in.
+Temperature and pressure also shift the Vaisala's reading. For Maximum Prudency, record both, and apply your unit's compensation procedure if you're working far from the elevation or temperature it was calibrated at.
 
 ** The valve map
 
@@ -2186,12 +2186,12 @@ In the starting configuration, gas enters through the black intake, passes throu
 | 2 | Gauge → pump inlet | Luer port → pump inlet, for injection or backflushing |
 | 3 | Pump outlet → valve 4 | Pump outlet → valve 1, for backflushing |
 | 4 | Valve 3 → CO_{2} sensor | Valve 3 → collection luer port |
-| 5 | O_{2} sensor → check valve | Leave in this position during these procedures |
+| 5 | O_{2} sensor → check valve | None. Leave it alone. |
 | 6 | Check valve → free-air outlet | Check valve → white return port, or both outlets closed |
 
 The check valve sits between valves 5 and 6 and prevents reverse flow from the outlet. Valve 6 selects one of two outlets. On the lab's stopcocks, the OFF handle points toward the blocked port.
 
-Choose a procedure in the diagram to see the handle positions, gas routes, and pump state. The amber arm represents the OFF end of the handle: point it toward the named tube or component on your instrument.
+Pick a workflow in the diagram to see the handle positions, gas route, and pump state for each step.
 
 #+begin_export md
 {{< fpgavalves id="fpga-valves" >}}
@@ -2201,7 +2201,7 @@ Choose a procedure in the diagram to see the handle positions, gas routes, and p
 
 1. Set valves 1–5 to their starting routes and valve 6 to *free air*.
 2. Power on the CO_{2} sensor and Apogee meter. Set the multimeter to read the CO_{2} voltage, then start the pump to draw ambient air through the instrument.
-3. Allow the sensors to warm up and the readings to stabilize. The lab protocol uses about one minute for the initial check. The Vaisala manual gives a 30-second warmup, but *15 minutes to meet its full specifications*. I don't really think it can take that long.
+3. Let the readings settle. The lab protocol uses about one minute for the initial check. The Vaisala manual gives a 30-second warmup, but *15 minutes to meet its full specifications*. I don't really think it can take that long.
 4. Check that O_{2} is close to ambient, approximately 20.95% last time I checked.
 5. Record ambient CO_{2} in mV and converted concentration, O_{2} in percent, and temperature. Be sure to direct your breath away from the FPGA.
 
@@ -2212,22 +2212,20 @@ Choose a procedure in the diagram to see the handle positions, gas routes, and p
 Use this procedure when the well has separate intake and return lines. First, soil gas displaces the air in the analyzer and exhausts to free air. Valve 6 then redirects the outlet back to the well.
 
 1. With the pump off, connect one well line to the black intake and the other to the white return port. Leave valves 1–5 on their starting routes and valve 6 open to free air.
-2. Flush the analyzer with well gas. The lab protocol uses approximately 1 L over 30–45 seconds as a starting point.
-3. Turn valve 6 from free air to the white return (OFF handle toward free air), briefly establishing circulation through the well.
-4. Turn the pump off. Leave valve 6 at the white return and observe both gas readings for about a minute. Record the CO_{2} peak and the O_{2} sample reading, following the measurement-window note below.
+2. Flush the analyzer with well gas. The lab protocol starts with about 1 L over 30–45 seconds.
+3. Turn valve 6 from free air to the white return (OFF handle toward free air) so the gas loops back into the well. Keep this short.
+4. Turn the pump off. Leave valve 6 at the white return and watch both readings for about a minute. Record the CO_{2} peak and the O_{2} reading once it settles.
 
 Brecheisen et al. note that CO_{2} keeps climbing for a bit after the pump stops, because the probe's protective sleeve slows it down. Record the peak.
 
 #+attr_shortcode: Note
 #+begin_alert2
-*Keep recirculation brief.* The paper saw CO_{2} drop by up to 0.1–0.2 percentage points when gas circulated, and prefers the non-circulating method when there's enough sample.
+*Why keep it short?* The paper saw CO_{2} drop by up to 0.1–0.2 percentage points when gas circulated, and prefers the non-circulating method when there's enough sample.
 #+end_alert2
-
-Sample from low to high expected CO_{2} where you can, usually shallow to deep.
 
 #+attr_shortcode: Note
 #+begin_alert2
-*Which O_{2} reading?* The paper says to record the maximum of both gases within a minute. That works for CO_{2}, but in an oxygen-depleted sample the O_{2} maximum is often just the ambient reading the meter started at. Take O_{2} once the number has settled.
+*Which O_{2} reading?* The paper says to record the maximum of both gases within a minute. That works for CO_{2}. For O_{2} it's backwards: in a depleted sample, the maximum is often just the room air the meter started at. Take O_{2} once the number has settled.
 #+end_alert2
 
 **** Taking a sample for the lab
@@ -2256,7 +2254,7 @@ With only one connection, you pull a sample up into the analyzer, stop the pump,
 *Pump off first, then close valve 6.* Pumping against a closed valve 6 can overpressurize the system.
 #+end_alert2
 
-Overdrawing pushes the gas that was sitting in the tube out the other end. The lab protocol calls for a sampling tube that holds at least the analyzer's internal volume.
+Draw too long and the gas you wanted goes straight through the analyzer and out the exhaust. The lab protocol calls for a sampling tube that holds at least the analyzer's internal volume.
 
 *** Syringe or gas-bag injection
 
@@ -2268,7 +2266,7 @@ Valve 2 takes samples from a syringe or bag. It skips the water trap, so keep th
 4. Switch valve 2 back to the gauge before disconnecting.
 5. Record the CO_{2} peak and the settled O_{2} reading.
 
-Near ambient, CO_{2} may not show a clear peak.
+Near ambient, don't expect a clear CO_{2} peak.
 
 ** Backflushing water out of the lines
 
@@ -2280,8 +2278,8 @@ Backflushing sends room air in through valve 2, through the pump, across from va
 2. Set valve 1 to connect the backflush line to the top of the trap (OFF handle toward the gauge).
 3. Set valve 2 to draw room air through its luer port (OFF handle toward the gauge).
 4. Set valve 3 to send the pump's output to the backflush line (OFF handle toward valve 4). Leave valves 4–6 alone.
-5. Run the pump briefly.
-6. Turn the pump off, return valves 1–3 to their starting routes, check the trap and lines, and redo the ambient check.
+5. Run the pump until the trap and lines are clear.
+6. Turn the pump off, return valves 1–3 to their starting routes, and redo the ambient check.
 
 #+attr_shortcode: Warning
 #+begin_alert2
@@ -2290,7 +2288,7 @@ Backflushing sends room air in through valve 2, through the pump, across from va
 
 ** Between samples and recording results
 
-Stop the pump before disconnecting a well. Put the valves back to their starting routes and draw room air through the black intake until both readings return to ambient.
+Stop the pump before disconnecting a well. Put the valves back to their starting routes and draw room air through the black intake until both readings return to ambient. Where you can, go from low to high expected CO_{2}, usually shallow to deep.
 
 For each measurement, record:
 
@@ -2323,7 +2321,7 @@ Check the meter's battery and give it more time. If it's still off, calibrate it
 
 *** The CO_{2} baseline never settles
 
-Give it longer to warm up, and check the battery, voltage connections, and scaling. If a standard reads consistently off, recalibrate.
+This is where the manual's 15-minute warmup might actually matter. Give it longer, and check the battery, voltage connections, and scaling. If a standard reads consistently off, recalibrate.
 
 *** Samples come out looking flat or diluted
 
@@ -2366,7 +2364,7 @@ The 0.76 factor is for soil gas moving by diffusion, so leave it off for closed 
 
 Brecheisen et al. compared 1,639 field CO_{2} measurements against gas chromatography across roughly 0.25–7.75% CO_{2}, with a slope of 1.017, an intercept of −0.033, and R^{2} = 0.956. That's good agreement for enriched soil gas.
 
-The paper gives a precision of at least 0.1% for both gases, meaning 0.1 percentage points (1,000 ppm).
+The paper gives a precision of at least 0.1% for both gases, meaning 0.1 percentage points (1,000 ppm). That's coarse near ambient, where 1,000 ppm is more than twice the CO_{2} in room air.
 
 ** Further reading
 
