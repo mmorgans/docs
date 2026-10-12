@@ -1,6 +1,6 @@
 +++
 title = "Using the EGM-4 & open-egm4 software"
-date = 2026-02-01T15:25:00-06:00
+date = 2026-02-01T15:25:00+08:00
 draft = false
 +++
 
@@ -35,18 +35,22 @@ This guide covers operation of the EGM itself, the SRC-1 chamber, how to use the
 -   Works on any modern operating system
 -   Can run over SSH for remote field work (if anyone thinks of a genuine use case for this [please tell me](mailto:egm4@mor-gan.com))
 
-**What is a Terminal?**
-A terminal (also called "command line" or "shell") is a text-based interface for your computer. Think of it as typing commands directly to your computer instead of clicking on icons. Using a computer through the terminal (or, pedantically, _it's_ terminal) typically gives you much greater control and choice over its operation. In this case, open-egm4 was developed as a TUI (_terminal user interface_: an app that runs inside of the terminal) because it allows the app to be significantly smaller, more portable, and more lightweight to run on underpowered computers.
+{{< alert2 Note >}}
+**What is a terminal?** A terminal (also called "command line" or "shell") is a text-based interface for your computer. Think of it as typing commands directly to your computer instead of clicking on icons. Using a computer through the terminal (or, pedantically, _its_ terminal) typically gives you much greater control and choice over its operation. In this case, open-egm4 was developed as a TUI (_terminal user interface_: an app that runs inside of the terminal) because it allows the app to be significantly smaller, more portable, and more lightweight to run on underpowered computers.
 
 For more information on my debatable decision to develop the app for the terminal, see [the appendix](#why-a-terminal-interface).
+{{< /alert2 >}}
 
 **System Requirements:**
 
 -   macOS 10.14+, Windows 10+, or any modern Linux
 -   Python 3.8+ (the installer handles this automatically)
 -   USB serial port or USB-to-serial adapter
-    -   _Note_ If you are buying a USB-serial adapter, make sure to get one that uses a FTDI chipset. Cheap adapters often use "Prolific" chips which have notoriously bad drivers. FTDI chips are easier and require zero thought to use.
 -   Internet connection (for installation only)
+
+{{< alert2 Note >}}
+If you are buying a USB-serial adapter, make sure to get one that uses a FTDI chipset. Cheap adapters often use "Prolific" chips which have notoriously bad drivers. FTDI chips are easier and require zero thought to use.
+{{< /alert2 >}}
 
 
 ### One-Line Installation {#one-line-installation}
@@ -68,7 +72,11 @@ This is the easiest method. A script handles everything: installing Python depen
 1.  Click the Start Menu (Windows logo)
 2.  Type "PowerShell"
 3.  Press Enter
-4.  A window appears with text—this is your terminal (command prompt is also a terminal, but it is exclusive to Windows; it has also been around since the 80s: PowerShell is Microsoft's attempt at an updated terminal for Windows.)
+4.  A window appears with text—this is your terminal.
+
+{{< alert2 Note >}}
+Command Prompt is also a terminal, but it's exclusive to Windows and has been around since the 80s. PowerShell is Microsoft's attempt at an updated terminal for Windows.
+{{< /alert2 >}}
 
 **Linux:**
 You already know how to open a terminal.
@@ -166,7 +174,7 @@ When the EGM-4 boots, pay attention to the startup screen values. For example:
 This is useful because it tells you how that specific instrument is calibrated. In this example, `C 2000` indicates the analyzer is calibrated to a 2000 ppm range.
 {{< /alert2 >}}
 
-1.  **Launch the Software:**
+2.  **Launch the Software:**
 
 On your computer, in the terminal, run
 
@@ -174,7 +182,7 @@ On your computer, in the terminal, run
 open-egm4
 ```
 
-1.  **Select Serial Port:**
+3.  **Select Serial Port:**
     -   The software will list available serial ports (e.g., `/dev/tty.usbserial`, `COM3`)
     -   It will also attempt to guess at which one the EGM is connected to and automatically connect to it
     -   If it doesn't, select the port manually using the arrow keys, and hit Enter to confirm your choice. If you don't see your port listed, check the cable connection and hit `r` on your keyboard to refresh the list of ports.
@@ -185,13 +193,16 @@ open-egm4
 Windows lacks default braille support, so `open-egm4` automatically uses lower-detail symbols if running on Windows. If you install a compatible font, launch open-egm4 with the  `--force-unicode` flag to enable high-detail braille graphs. You can see which platform and graphics mode open-egm4 is using on the splash screen.
 {{< /alert2 >}}
 
-1.  **Verify Connection:**
-    -   The EGM screams out data over the serial connection, but it's incapable of receiving any data back. Therefore, you'll have no way of knowing if you're actually connected to the EGM unless you dump some data to your computer.
+4.  **Verify Connection:**
     -   Details on how to collect data are [in the workflow section](#exporting-data), but for now you can verify that the software was installed correctly by dumping existing data from the EGM to your computer, assuming that there is pre-existing data on the EGM.
     -   To send data from the EGM to a computer, press `4DMP` on the EGM, then `2 DATA DUMP`, then press any key to begin the transfer.
     -   If you see the data streaming in on your computer, celebrate. If you don't, then check out [the troubleshooting section](#troubleshooting-and-maintenance).
 
-2.  **Press `q` to quit** (or `Ctl + c`, which should quit most running terminal commands) when you're done exploring.
+{{< alert2 Note >}}
+The EGM screams out data over the serial connection, but it's incapable of receiving any data back. Therefore, you'll have no way of knowing if you're actually connected to the EGM unless you dump some data to your computer.
+{{< /alert2 >}}
+
+5.  **Press `q` to quit** (or `Ctl + c`, which should quit most running terminal commands) when you're done exploring.
 
 
 ## EGM-4 hardware {#egm-4-hardware}
@@ -231,7 +242,9 @@ The EGM-4 uses a 12V 2.0Ah sealed lead-acid battery. It should last around 4 hou
 At low temperatures, you should hold the EGM inside your jacket, maintaining skin-to-skin contact. This will increase the battery life by a few minutes, and will psychologically bond you with the device.
 {{< /alert2 >}}
 
-**Charging:** The manual indicates that the battery takes 12 hours to charge fully. _I_ think that's a made up number, and in my testing it's ready for action after around 2 hours. Your mileage may vary.
+{{< alert2 Note >}}
+The manual indicates that the battery takes 12 hours to charge fully. _I_ think that's a made up number, and in my testing it's ready for action after around 2 hours. Your mileage may vary.
+{{< /alert2 >}}
 
 If you are planning on storing the EGM long term, charge the battery beforehand to avoid damaging it.
 
@@ -431,7 +444,7 @@ You should think carefully about the DT value that you set for a given measureme
 You should also think carefully about the DC value. If you are working with an especially warm, moist, C-rich soil, the default value of 50 ppm may be too low. Trial and error and examining your CO₂ increases over time can guide your decisions about this.
 {{< /alert2 >}}
 
-1.  **Set Plot Number:**
+5.  **Set Plot Number:**
     -   The EGM will display "PLOT NO = X"
     -   Press `Y` to keep the current plot number
     -   Or enter a new plot number (e.g., "01" for plot 1) and press `Y`
@@ -440,25 +453,25 @@ You should also think carefully about the DC value. If you are working with an e
 If you use a plot number that has already been used, the EGM will overwrite the previous measurement, causing irreversible data loss.
 {{< /alert2 >}}
 
-1.  **Chamber Flush:**
+6.  **Chamber Flush:**
     -   This happens automatically. The EGM will display "CHAMBER FLUSHING - HOLD IN AIR"
     -   Hold the chamber in the air for ~15 seconds at arms length
 
-2.  **Deployment:**
+7.  **Deployment:**
     -   The EGM will display "PLACE ON SOIL - PRESS Y TO START"
     -   Place the chamber on the soil collar, using Blu Tack on the rim of the chamber to ensure a good seal
     -   Press `Y` to start measurement
 
-3.  **Equilibration:**
+8.  **Equilibration:**
     -   The EGM will display "EQUILIBRATION - PLEASE WAIT"
     -   The system will equilibrate for ~5 seconds
     -   Then measurement begins automatically
 
-4.  **Measurement:**
+9.  **Measurement:**
     -   The EGM will display:
         ```text
-                  C 420 H14.7 T22
-                  A02.11 Q0000 110
+        C 420 H14.7 T22
+        A02.11 Q0000 110
         ```
     -   `C`: Current CO₂ (ppm)
     -   `H`: Humidity (mb, if sensor connected)
@@ -470,7 +483,7 @@ If you use a plot number that has already been used, the EGM will overwrite the 
     -   Press `Y` to save the measurement
     -   Press `N` to discard and retry
 
-5.  **Remove Chamber &amp; Continue:**
+10. **Remove Chamber &amp; Continue:**
     -   The EGM will display "REMOVE FROM SOIL THEN PRESS Y KEY"
     -   Lift chamber from soil collar
     -   Press `Y` to prepare for the next measurement
@@ -480,7 +493,10 @@ The plot number will **not** auto-increment. You must manually enter the plot nu
 {{< /alert2 >}}
 
 **Data Viewing &amp; Storage:**
-  Though not necessary, you can have your computer connected to the EGM while you are taking soil respiration measurements. This allows you to view the incoming the data in real time, using open-egm4, and see it graphed. This can be helpful for understanding how long it takes your soil system to produce enough CO₂ to lessen the diffusion gradient driving respiration fluxes into the chamber.
+
+{{< alert2 Note >}}
+Though not necessary, you can have your computer connected to the EGM while you are taking soil respiration measurements. This allows you to view the incoming the data in real time, using open-egm4, and see it graphed. This can be helpful for understanding how long it takes your soil system to produce enough CO₂ to lessen the diffusion gradient driving respiration fluxes into the chamber.
+{{< /alert2 >}}
 
 Regardless, because you designated a plot number before you started the measurement, the EGM will store the data in its internal memory. The EGM stores up to 1,500 records, and will start overwriting old records if full. See  [instructions on how to export data from the EGM](#exporting-data).
 
@@ -571,11 +587,11 @@ Ensure that water does not enter the EGM when injecting a sample. If water enter
 Note that the dead-air volume inside the luer lock and the EGM-4's tubing can alter the data. Note also that the pressure with which you inject the sample matters; that pressure forces the volume to the IRGA and generates a high peak because of the density of the air volume you have injected (therefore, keeping the pressure of injection constant is ideal). The subsequent 'settled' concentration reflects the value more accurately than the higher, initial peak. We rely on repeatedly injected standards throughout your set of syringe samples to ensure accurate measurements.
 {{< /alert2 >}}
 
-1.  **Flush and reset (Step 3):**
+7.  **Flush and reset (Step 3):**
     -   Inject ambient air into the EGM to flush the cell between samples
     -   Press `n` to confirm flush and automatically return to Step 1 for the next sample
 
-2.  **Data downloading and sample metadata:**
+8.  **Data downloading and sample metadata:**
     -   Static sample events are stored _only_ in the open-egm4 session on your computer
     -   Export with `e` (open export screen), then `e` again to write CSV
     -   CSV exports now include `type=SAMPLE` rows with:
@@ -585,17 +601,18 @@ Note that the dead-air volume inside the luer lock and the EGM-4's tubing can al
         -   `sample_peak_ppm` (post-injection peak)
     -   The CSV will still include normal second-by-second measurement rows for the full session
 
-3.  **Inject Standards Regularly:**
+9.  **Inject Standards Regularly:**
     -   You should inject standards of known CO₂ concentration throughout your sampling run.
     -   This allows you to relate the relationship between known standard values and IRGA-estimated values to the user's sample values, correcting for any drift or offset in the instrument.
 
-**Auto-Zero Warnings in Static Mode:**
-The EGM-4 will still perform automatic zeros even with pump off. You'll see warnings:
+{{< alert2 Note >}}
+**Auto-zero warnings in static mode.** The EGM-4 will still perform automatic zeros even with pump off. You'll see warnings:
 
 -   "AUTO ZERO IN 2 MINUTES"
 -   "AUTO ZERO IN 1 MINUTE"
 
 When zero begins, the pump turns on for ~15 seconds, then turns off again. This ensures an accurate baseline by passing air scrubbed of CO₂ by the soda lime to the IRGA, and setting its CO₂ concentration to 0 ppm.
+{{< /alert2 >}}
 
 {{< alert2 Warning >}}
 Don't forget to re-enable the pump after you have run all of your samples. This is **critical** for subsequent users and the health of the instrument.
@@ -659,7 +676,11 @@ The internal battery will need to be replaced after a few years of use. If you a
 
 ### Replacing internal tubing {#replacing-internal-tubing}
 
-Over time, the internal gas tubing will become aged and leak. You'll need to replace it with 1/8" tubing, being careful not to create kinks or bends in the tubing. If you need 90 degree bends, some are available at McMaster-Carr (item number 5463K42).
+Over time, the internal gas tubing will become aged and leak. You'll need to replace it with 1/8" tubing, being careful not to create kinks or bends in the tubing.
+
+{{< alert2 Note >}}
+If you need 90 degree bends, some are available at McMaster-Carr (item number 5463K42).
+{{< /alert2 >}}
 
 
 ### EGM-4 error codes {#egm-4-error-codes}
